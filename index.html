@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portfolio of Krishna Sahoo, 2nd Year Artificial Intelligence & Data Science student and Creative Sketch Artist.">
+  <title>Krishna Sahoo | Art & Tech Portfolio</title>
+  
+  <!-- Fonts: Outfit for Tech text, Playfair Display for Artistic text -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,600&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons for social media and indicators -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Custom modular stylesheet link -->
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+
+  <!-- Navigation Header (Modular for future expansion) -->
+  <header class="header">
+    <div class="header-container">
+      <a href="#" class="logo" id="header-logo">
+        <span class="brackets">{</span> K.S <span class="brackets">}</span><span class="dot"></span>
+      </a>
+      
+      <nav class="nav" id="main-nav" aria-label="Main Navigation">
+        <a href="#" class="nav-link active" id="nav-home">Home</a>
+        <!-- Placeholders styled to easily activate when files/sections are added -->
+        <a href="#" class="nav-link future-feature" id="nav-about">About</a>
+        <a href="#" class="nav-link future-feature" id="nav-gallery">Gallery</a>
+        <a href="#" class="nav-link future-feature" id="nav-skills">Skills</a>
+        <a href="#" class="nav-link future-feature" id="nav-contact">Contact</a>
+      </nav>
+      
+      <button class="mobile-nav-toggle" aria-label="Toggle navigation menu" id="menu-toggle">
+        <i class="fa-solid fa-bars-staggered"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main>
+    <section class="hero" id="hero-section">
+      <div class="hero-container">
+        
+        <!-- Left Side: Content / Typography -->
+        <div class="hero-content">
+          <div class="hero-badge" id="hero-badge">
+            <span class="hero-badge-dot"></span>
+            <span>AI & DS Student // Year II</span>
+          </div>
+          
+          <h1 class="hero-name" id="hero-title">
+            Krishna <br>
+            <span class="artist-font">Sahoo</span><span class="tech-font">.</span>
+          </h1>
+          
+          <p class="hero-tagline" id="hero-tagline">
+            Bridging logic & emotion with <br>
+            <span class="typewriter-text" data-words='["Neural Networks.", "Graphite Strokes.", "Predictive Models.", "Fine-art Sketches."]'></span>
+          </p>
+          
+          <p class="hero-description" id="hero-desc">
+            Currently pursuing <span class="highlight">Artificial Intelligence and Data Science</span>. 
+            I design mathematical systems to parse structured data while using fine-point graphite pencils 
+            to bring empty pages to life. This space represents the intersection of code and canvas.
+          </p>
+          
+          <!-- Scalable Code Decoration (AI aspect representation) -->
+          <div class="hero-code-snippet" id="hero-code">
+            <div class="hero-code-line"><span class="hero-code-keyword">import</span> numpy <span class="hero-code-keyword">as</span> np</div>
+            <div class="hero-code-line"><span class="hero-code-keyword">class</span> <span class="hero-code-func">KrishnaSahoo</span>:</div>
+            <div class="hero-code-line">&nbsp;&nbsp;&nbsp;&nbsp;focus = <span class="hero-code-string">"Artificial Intelligence"</span></div>
+            <div class="hero-code-line">&nbsp;&nbsp;&nbsp;&nbsp;medium = <span class="hero-code-string">"Graphite & Code"</span></div>
+            <div class="hero-code-line">&nbsp;&nbsp;&nbsp;&nbsp;status = <span class="hero-code-func">sum</span>([logic, creativity])</div>
+          </div>
+          
+          <div class="hero-actions" id="hero-cta">
+            <a href="mailto:krishna@example.com" class="btn btn-primary" id="btn-connect">
+              Let's Connect <i class="fa-solid fa-paper-plane"></i>
+            </a>
+            <a href="#" class="btn btn-secondary" id="btn-resume">
+              View Work <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Right Side: Profile Image (Sketch Frame) -->
+        <div class="hero-image-wrapper">
+          <span class="annotation annotation-top">[Sketch Grid v1.0]</span>
+          
+          <div class="art-frame-container" id="profile-container">
+            <div class="art-frame">
+              <!-- Profile image from the user's workspace -->
+              <img src="assets/images/profile.png" alt="Krishna Sahoo Profile Portrait" class="profile-img" id="profile-image">
+              <div class="sketch-grid-overlay"></div>
+            </div>
+          </div>
+          
+          <span class="annotation annotation-bottom">[Medium: 2B Graphite]</span>
+        </div>
+        
+      </div>
+    </section>
+  </main>
+
+  <!-- Custom main script -->
+  <script src="assets/js/main.js" defer></script>
+</body>
+</html>

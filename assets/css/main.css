@@ -1,0 +1,6 @@
+/* Core Stylesheet - Bundles Design Variables, Resets, and Modular Components */
+
+@import url('variables.css');
+@import url('base.css');
+@import url('header.css');
+@import url('hero.css');

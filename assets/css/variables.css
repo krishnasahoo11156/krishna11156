@@ -1,0 +1,44 @@
+/* Design variables for the Art & AI Portfolio */
+
+:root {
+  /* Color Palette - Sleek Grey / Charcoal base with Art & Tech highlights */
+  --bg-darker: #0d0d0f;
+  --bg-primary: #141416;
+  --bg-secondary: #1a1a1f;
+  --bg-tertiary: #25252b;
+  
+  /* Text colors */
+  --text-primary: #f5f5f7;
+  --text-secondary: #a0a0a5;
+  --text-muted: #6e6e73;
+  
+  /* Tech Glow Accents (AI, Data Science, Math) */
+  --tech-accent: #00f2fe;
+  --tech-accent-rgb: 0, 242, 254;
+  --tech-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --tech-glow: 0 0 20px rgba(0, 242, 254, 0.45);
+  
+  /* Art Accents (Pencil, Sketch, Graphite) */
+  --art-accent: #e5e5e7;
+  --art-accent-rgb: 229, 229, 231;
+  --art-gradient: linear-gradient(135deg, #ffffff 0%, #a2a2a6 100%);
+  --art-pencil: #2d2d30;
+  
+  /* Card Styling & Glassmorphic variables */
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-light: rgba(255, 255, 255, 0.15);
+  --glass-bg: rgba(20, 20, 22, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.06);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+  
+  /* Typography */
+  --font-tech: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-art: 'Playfair Display', 'Didot', 'Georgia', serif;
+  --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  
+  /* Layout details */
+  --header-height: 80px;
+  --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: all 0.25s ease;
+  --max-width: 1280px;
+}
