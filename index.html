@@ -14,16 +14,33 @@
 </head>
 <body>
 
+  <canvas id="doodle-canvas"></canvas>
+
   <main>
     <section class="hero" id="hero-section">
       <div class="hero-container">
         
-
-        
-        <!-- Right Side: Profile Image -->
+        <!-- Center Profile Image & Overlapping Stencil Text -->
         <div class="hero-image-wrapper">
           <div class="profile-container" id="profile-container">
+            
+            <!-- Background Text (Grey, sits behind the image) -->
+            <div class="overlapping-text background-text">
+              <div>KRISHNA</div>
+              <div>SAHOO</div>
+            </div>
+
+            <!-- Profile Image -->
             <img src="assets/images/profile1_transparent.png" alt="Krishna Sahoo" class="profile-img" id="profile-image">
+            
+            <!-- Foreground Text Mask (Clipped to the image, matching color of body background) -->
+            <div class="foreground-text-mask-wrapper">
+              <div class="overlapping-text foreground-text">
+                <div>KRISHNA</div>
+                <div>SAHOO</div>
+              </div>
+            </div>
+
           </div>
         </div>
         
@@ -31,5 +48,6 @@
     </section>
   </main>
 
+  <script src="assets/js/doodles.js" defer></script>
 </body>
 </html>
