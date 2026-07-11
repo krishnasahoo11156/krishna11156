@@ -13,10 +13,44 @@ const mouse = {
   y: null
 };
 
-// Handle window sizing
+// Handle window sizing and CSS variables
+let centerXPercent = 0.5;
+let slantPercent = 0.05;
+
+function updateImageCenter() {
+  const bodyStyle = getComputedStyle(document.body);
+  
+  // Read --image-center-x
+  const centerXStr = bodyStyle.getPropertyValue('--image-center-x').trim() || '50vw';
+  if (centerXStr.endsWith('vw')) {
+    centerXPercent = parseFloat(centerXStr) / 100;
+  } else if (centerXStr.endsWith('%')) {
+    centerXPercent = parseFloat(centerXStr) / 100;
+  } else if (centerXStr.endsWith('px')) {
+    centerXPercent = parseFloat(centerXStr) / window.innerWidth;
+  } else {
+    const val = parseFloat(centerXStr);
+    centerXPercent = val > 1 ? val / 100 : val || 0.5;
+  }
+
+  // Read --slant-offset
+  const slantStr = bodyStyle.getPropertyValue('--slant-offset').trim() || '5vw';
+  if (slantStr.endsWith('vw')) {
+    slantPercent = parseFloat(slantStr) / 100;
+  } else if (slantStr.endsWith('%')) {
+    slantPercent = parseFloat(slantStr) / 100;
+  } else if (slantStr.endsWith('px')) {
+    slantPercent = parseFloat(slantStr) / window.innerWidth;
+  } else {
+    const val = parseFloat(slantStr);
+    slantPercent = val > 1 ? val / 100 : val || 0.05;
+  }
+}
+
 function resizeCanvas() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
+  updateImageCenter();
 }
 window.addEventListener('resize', resizeCanvas);
 resizeCanvas();
@@ -111,8 +145,16 @@ class DoodleParticle {
     ctx.translate(this.x, this.y);
     ctx.rotate(this.angle);
     
+    // Calculate if particle is to the right of the slanted division line
+    const lineX = canvas.width * (centerXPercent + slantPercent - (2 * slantPercent) * (this.y / canvas.height));
+    const isRightSide = this.x > lineX;
+    
+    // Light bg (left) -> dark doodles; Dark bg (right) -> light doodles
+    const strokeStyleColor = isRightSide ? `rgba(240, 240, 240, ${this.opacity})` : `rgba(51, 51, 51, ${this.opacity})`;
+    const fillStyleColor = isRightSide ? `rgba(200, 200, 200, ${this.opacity})` : `rgba(115, 115, 115, ${this.opacity})`;
+    
     // Set style: thin lines and subtle opacity
-    ctx.strokeStyle = `rgba(51, 51, 51, ${this.opacity})`;
+    ctx.strokeStyle = strokeStyleColor;
     ctx.lineWidth = 1.5;
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
@@ -174,7 +216,7 @@ class DoodleParticle {
         ctx.arc(-13, -9, 1, 0, Math.PI * 2);
         ctx.arc(-9, -9, 1, 0, Math.PI * 2);
         ctx.arc(-5, -9, 1, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(115, 115, 115, ${this.opacity})`;
+        ctx.fillStyle = fillStyleColor;
         ctx.fill();
         break;
 
@@ -229,7 +271,7 @@ class DoodleParticle {
 
       case 9: // Code keywords (Outline style)
         ctx.font = 'bold 13px "Outfit", sans-serif';
-        ctx.strokeStyle = `rgba(51, 51, 51, ${this.opacity})`;
+        ctx.strokeStyle = strokeStyleColor;
         ctx.lineWidth = 0.8;
         const words = ['const', 'function', 'return', 'import', 'await', '=>', 'null', 'true', 'if', 'class'];
         const word = words[this.wordIndex];
