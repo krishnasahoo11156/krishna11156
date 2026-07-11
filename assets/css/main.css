@@ -1,6 +1,91 @@
-/* Core Stylesheet - Bundles Design Variables, Resets, and Modular Components */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-@import url('variables.css');
-@import url('base.css');
-@import url('header.css');
-@import url('hero.css');
+body {
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: lab(79.52% 0 -0.01); /* Grey background */
+  color: #ffffff; /* Clean white text for contrast on grey */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+main {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end; /* Align main's content to the very bottom */
+}
+
+.hero {
+  width: 100%;
+  max-width: none;
+  padding: 0;
+  margin: 0;
+}
+
+.hero-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: flex-end; /* Align contents to the bottom */
+  gap: 0;
+}
+
+.hero-content {
+  flex: 1;
+  padding-left: 8vw;
+  padding-bottom: 8vh; /* Keep name floating off the bottom */
+}
+
+.hero-name {
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -2px;
+}
+
+.hero-image-wrapper {
+  width: 50%;
+  flex: 0 0 50%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.profile-container {
+  width: 100%;
+  max-width: none;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.profile-img {
+  width: 100%;
+  height: auto;
+  max-height: 85vh;
+  object-fit: contain;
+  display: block;
+  opacity: 0.7;
+}
+
+/* Responsive design */
+@media (max-width: 900px) {
+  .hero-content {
+    padding-left: 6vw;
+    padding-bottom: 6vh;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-content {
+    padding-left: 5vw;
+    padding-bottom: 4vh;
+  }
+}
