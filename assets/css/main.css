@@ -77,13 +77,13 @@ main {
   line-height: 0.85;
   letter-spacing: -4px;
   position: absolute;
-  top: 6vh; /* Slightly below the top level of the image */
+  top: 8vh; /* Slightly below the top level of the image */
   left: -20vw; /* Shipped left by 20vw to align with screen left edge */
   width: 100vw;
   white-space: nowrap;
   pointer-events: none;
   text-transform: uppercase;
-  transform: scale(0.85, 2); /* Compress widthwise and stretch vertically */
+  transform: scale(0.85, 1.85); /* Compress widthwise and stretch vertically */
   transform-origin: top left; /* Keep top and left edges fixed */
 }
 
@@ -119,11 +119,11 @@ main {
   pointer-events: none;
   
   /* Mask foreground text to the silhouette of the profile image */
-  -webkit-mask-image: url('../images/profile1_transparent.png');
+  -webkit-mask-image: url('../images/image-removebg-preview.png');
   -webkit-mask-size: contain;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: bottom center;
-  mask-image: url('../images/profile1_transparent.png');
+  mask-image: url('../images/image-removebg-preview.png');
   mask-size: contain;
   mask-repeat: no-repeat;
   mask-position: bottom center;
