@@ -19,7 +19,7 @@ let slantPercent = 0.05;
 
 function updateImageCenter() {
   const bodyStyle = getComputedStyle(document.body);
-  
+
   // Read --image-center-x
   const centerXStr = bodyStyle.getPropertyValue('--image-center-x').trim() || '50vw';
   if (centerXStr.endsWith('vw')) {
@@ -81,17 +81,17 @@ class DoodleParticle {
     this.x = Math.random() * canvas.width;
     // Start initial particles randomly in height, new ones start off screen
     this.y = initial ? Math.random() * canvas.height : -30;
-    
+
     this.vx = (Math.random() - 0.5) * maxSpeed;
     this.vy = (Math.random() - 0.5) * maxSpeed;
     this.size = Math.random() * 20 + 35; // Size scale
-    
+
     // Type of doodle
     this.type = Math.floor(Math.random() * 10);
     this.angle = Math.random() * Math.PI * 2;
     this.wobbleSpeed = (Math.random() - 0.5) * 0.02;
     this.opacity = Math.random() * 0.15 + 0.22; // Darker opacity (22% to 37%)
-    
+
     // Random word index if type is text
     this.wordIndex = Math.floor(Math.random() * 10);
   }
@@ -122,11 +122,11 @@ class DoodleParticle {
         // Stronger repulsion the closer the cursor is
         const force = (repelRadius - dist) / repelRadius;
         const pushAngle = Math.atan2(dy, dx);
-        
+
         // Displace particle away from cursor smoothly
         const targetX = this.x + Math.cos(pushAngle) * force * 45;
         const targetY = this.y + Math.sin(pushAngle) * force * 45;
-        
+
         this.x = lerp(this.x, targetX, 0.12);
         this.y = lerp(this.y, targetY, 0.12);
       }
@@ -144,15 +144,15 @@ class DoodleParticle {
     ctx.save();
     ctx.translate(this.x, this.y);
     ctx.rotate(this.angle);
-    
+
     // Calculate if particle is to the right of the slanted division line
     const lineX = canvas.width * (centerXPercent + slantPercent - (2 * slantPercent) * (this.y / canvas.height));
     const isRightSide = this.x > lineX;
-    
+
     // Light bg (left) -> dark doodles; Dark bg (right) -> light doodles
     const strokeStyleColor = isRightSide ? `rgba(240, 240, 240, ${this.opacity})` : `rgba(51, 51, 51, ${this.opacity})`;
     const fillStyleColor = isRightSide ? `rgba(200, 200, 200, ${this.opacity})` : `rgba(115, 115, 115, ${this.opacity})`;
-    
+
     // Set style: thin lines and subtle opacity
     ctx.strokeStyle = strokeStyleColor;
     ctx.lineWidth = 1.5;
@@ -211,7 +211,7 @@ class DoodleParticle {
         ctx.lineTo(18, -6);
         // Dots
         ctx.stroke();
-        
+
         ctx.beginPath();
         ctx.arc(-13, -9, 1, 0, Math.PI * 2);
         ctx.arc(-9, -9, 1, 0, Math.PI * 2);
@@ -295,14 +295,73 @@ function init() {
 // Animation loop
 function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  
+
   particles.forEach(p => {
     p.update();
     p.draw();
   });
-  
+
   requestAnimationFrame(animate);
 }
 
 init();
 animate();
+
+// Handle scroll percentage for creative animations
+window.addEventListener('scroll', () => {
+  const scrollHeight = window.innerHeight; // Height of first viewport
+  const scrollPercent = window.scrollY / scrollHeight;
+  const clampedPercent = Math.min(Math.max(scrollPercent, 0), 1);
+  document.documentElement.style.setProperty('--scroll-percent', clampedPercent);
+
+  // Update canvas boundaries to track moving split line
+  updateImageCenter();
+});
+
+// Custom smooth scroll with ease-in-out-cubic easing (starts slow, accelerates, tapers off)
+function smoothScrollTo(targetPosition, duration) {
+  const startPosition = window.scrollY;
+  const distance = targetPosition - startPosition;
+  let startTime = null;
+
+  function easeInOutCubic(t) {
+    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  }
+
+  function animation(currentTime) {
+    if (startTime === null) startTime = currentTime;
+    const timeElapsed = currentTime - startTime;
+    const progress = Math.min(timeElapsed / duration, 1);
+
+    window.scrollTo(0, startPosition + distance * easeInOutCubic(progress));
+
+    if (timeElapsed < duration) {
+      requestAnimationFrame(animation);
+    }
+  }
+
+  requestAnimationFrame(animation);
+}
+
+// Hook all anchor clicks for smooth scrolling
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    const targetId = this.getAttribute('href');
+    const targetElement = document.querySelector(targetId);
+
+    if (targetElement) {
+      const navbarHeader = document.querySelector('.navbar-header');
+      const offset = navbarHeader ? navbarHeader.offsetHeight : 80;
+      const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY - offset;
+
+      // 1300ms duration for a premium, slow-start custom acceleration scroll
+      smoothScrollTo(targetPosition, 1300);
+
+      // Update browser URL hash quietly
+      history.pushState(null, null, targetId);
+    }
+  });
+});
+
+
