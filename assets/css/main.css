@@ -10,7 +10,7 @@
 }
 
 body {
-  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   background-color: lab(99.38% 0.15 1.65); /* Grey background */
   color: #737373;
   min-height: 100vh;
@@ -94,19 +94,19 @@ main {
 
 /* Overlapping Stencil Typography */
 .overlapping-text {
-  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Lato', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: clamp(3.5rem, 11vw, 8.5rem);
   font-weight: 900;
   line-height: 0.85;
   letter-spacing: -4px;
   position: absolute;
-  top: 8vh; /* Slightly below the top level of the image */
-  left: calc(25vw - var(--image-center-x)); /* Aligns text start exactly with viewport left edge */
+  top: -2vh; /* Lifted above the top level of the image */
+  left: calc(25vw - var(--image-center-x) + 1.5vw); /* Aligns text start exactly with 1.5vw padding from viewport left edge */
   width: 100vw;
   white-space: nowrap;
   pointer-events: none;
   text-transform: uppercase;
-  transform: scale(0.72, 1.85); /* Shrink widthwise to pull right side towards the left, keeping left fixed */
+  transform: scale(0.72, 2.1); /* Shrink widthwise to pull right side towards the left, keeping left fixed */
   transform-origin: top left; /* Keep top and left edges fixed */
 }
 
@@ -142,11 +142,11 @@ main {
   pointer-events: none;
   
   /* Mask foreground text to the silhouette of the profile image */
-  -webkit-mask-image: url('../images/image-removebg-preview.png');
+  -webkit-mask-image: url('../images/krishna-removebg-preview.png');
   -webkit-mask-size: contain;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: bottom center;
-  mask-image: url('../images/image-removebg-preview.png');
+  mask-image: url('../images/krishna-removebg-preview.png');
   mask-size: contain;
   mask-repeat: no-repeat;
   mask-position: bottom center;
@@ -154,4 +154,248 @@ main {
 
 .foreground-text {
   color: lab(96.69% 0.14 4.91); /* Matches global background color */
+}
+
+/* Navbar Styles */
+.navbar-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  padding: 1.75rem 1.5vw;
+  background: transparent;
+  pointer-events: none;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  pointer-events: auto;
+}
+
+.navbar-logo-area {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.navbar-logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.navbar-logo {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.navbar-logo:hover {
+  transform: scale(1.08);
+}
+
+.navbar-menu {
+  display: flex;
+  list-style: none;
+  gap: 2.2rem;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-menu a {
+  text-decoration: none;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #4e4e4e; /* High-contrast white base color */
+  mix-blend-mode: difference; /* Inverts color relative to split background dynamically */
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  display: inline-block;
+}
+
+.navbar-menu a:hover {
+  opacity: 0.65;
+  transform: translateY(-2px);
+}
+
+.navbar-actions {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-resume {
+  text-decoration: none;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 0.65rem 1.6rem;
+  border-radius: 50px;
+  border: 1.5px solid #fff;
+  color: #fff;
+  mix-blend-mode: difference; /* Inverts color relative to split background dynamically */
+  transition: all 0.3s ease;
+}
+
+.btn-resume:hover {
+  background-color: #fff;
+  color: #000;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+}
+
+/* Hero Content Right (Action Buttons) */
+.hero-content-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end; /* right-align the buttons below the right tagline */
+  padding-left: 5vw;
+  padding-right: 18.5vw; /* shifted 17vw towards left from the 1.5vw default right margin */
+  margin-bottom: 15vh; /* Position it nicely above the bottom edge */
+  z-index: 10;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1.2rem;
+}
+
+.btn-hero {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 2.2rem;
+  border-radius: 50px;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  mix-blend-mode: difference;
+}
+
+/* Blogs Button - Glassmorphic */
+.btn-hero-primary {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.btn-hero-primary:hover {
+  background: #fff;
+  color: #2c2c2c;
+  border-color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.25);
+}
+
+/* Sketches Button - Outlined */
+.btn-hero-secondary {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+}
+
+.btn-hero-secondary:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.8);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.1);
+}
+
+/* Overlapping Stencil Tagline */
+.overlapping-text-right {
+  font-family: 'Lato', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(1.8rem, 4.5vw, 5.5rem);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -1px;
+  position: absolute;
+  top: 18vh; /* aligns exactly with the name KRISHNA SAHOO */
+  right: calc(var(--image-center-x) - 73.5vw); /* positions right edge of text 1.5vw away from the viewport right edge */
+  width: 100vw;
+  white-space: nowrap;
+  pointer-events: none;
+  text-transform: none;
+  text-align: right; /* right-align the text */
+  transform: scale(1, 2); /* expanded width wise to cover the right side */
+  transform-origin: top right; /* anchor scale to the right */
+}
+
+.background-text-right {
+  color: #696969; /* Matches KRISHNA SAHOO text color */
+  z-index: 1; /* sits behind image, above background-text */
+  opacity: 0.80;
+}
+
+.foreground-text-right {
+  color: #2c2c2c; /* matches background-color of body dark side */
+  z-index: 3; /* sits above profile image */
+}
+
+/* Responsive Media Queries */
+@media (max-width: 768px) {
+  .hero-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding-top: 100px; /* Space for navbar */
+    padding-bottom: 2rem;
+    min-height: 100vh;
+  }
+  
+  .hero-image-wrapper {
+    width: 90%;
+    max-width: 420px;
+    margin-left: 0;
+    flex: 0 0 auto;
+  }
+  
+  .hero-content-right {
+    width: 100%;
+    align-items: center;
+    text-align: center;
+    padding: 2rem 1.5rem 0;
+    margin-bottom: 2rem;
+  }
+  
+  .hero-buttons {
+    justify-content: center;
+    width: 100%;
+    gap: 1rem;
+  }
+  
+  .btn-hero {
+    padding: 0.75rem 1.8rem;
+    font-size: 0.8rem;
+  }
+  
+  .overlapping-text-right {
+    left: 0;
+    right: auto;
+    width: 100vw;
+    text-align: center;
+    font-size: clamp(1.1rem, 5vw, 2.2rem);
+    letter-spacing: -1px;
+    transform: scale(0.85, 1.4);
+    transform-origin: top center;
+  }
 }

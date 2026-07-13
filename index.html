@@ -8,13 +8,40 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
   
+  <link rel="icon" type="image/png" href="assets/images/logo-removebg-preview.png">
   <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
 
   <canvas id="doodle-canvas"></canvas>
+
+  <header class="navbar-header">
+    <nav class="navbar">
+      <!-- Left side: Logo -->
+      <div class="navbar-logo-area">
+        <a href="#hero-section" class="navbar-logo-link">
+          <img src="assets/images/logo-removebg-preview.png" alt="Krishna Sahoo Logo" class="navbar-logo">
+        </a>
+      </div>
+      
+      <!-- Middle: Menu Sections -->
+      <ul class="navbar-menu">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#works">Works</a></li>
+        <li><a href="#achievements">Achievements</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="#connect">Connect</a></li>
+      </ul>
+      
+      <!-- Right side: Resume button -->
+      <div class="navbar-actions">
+        <a href="#resume" class="btn-resume">Resume</a>
+      </div>
+    </nav>
+  </header>
 
   <main>
     <section class="hero" id="hero-section">
@@ -30,8 +57,14 @@
               <div>SAHOO</div>
             </div>
 
+            <!-- Right Side Background Tagline (sits behind the image) -->
+            <div class="overlapping-text-right background-text-right">
+              <div>I draw what I can't say</div>
+              <div>I code what I can't draw</div>
+            </div>
+
             <!-- Profile Image -->
-            <img src="assets/images/image-removebg-preview.png" alt="Krishna Sahoo" class="profile-img" id="profile-image">
+            <img src="assets/images/krishna-removebg-preview.png" alt="Krishna Sahoo" class="profile-img" id="profile-image">
             
             <!-- Foreground Text Mask (Clipped to the image, matching color of body background) -->
             <div class="foreground-text-mask-wrapper">
@@ -39,8 +72,22 @@
                 <div>KRISHNA</div>
                 <div>SAHOO</div>
               </div>
+              
+              <!-- Right Side Foreground Tagline (Masked to the image) -->
+              <div class="overlapping-text-right foreground-text-right">
+                <div>I draw what I can't say</div>
+                <div>I code what I can't draw</div>
+              </div>
             </div>
 
+          </div>
+        </div>
+
+        <!-- Right Side: Action Buttons -->
+        <div class="hero-content-right">
+          <div class="hero-buttons">
+            <a href="#blogs" class="btn-hero btn-hero-primary">Blogs</a>
+            <a href="#sketches" class="btn-hero btn-hero-secondary">Sketches</a>
           </div>
         </div>
         
