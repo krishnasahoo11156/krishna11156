@@ -306,3 +306,15 @@ function animate() {
 
 init();
 animate();
+
+// Handle scroll percentage for creative animations
+window.addEventListener('scroll', () => {
+  const scrollHeight = window.innerHeight; // Height of first viewport
+  const scrollPercent = window.scrollY / scrollHeight;
+  const clampedPercent = Math.min(Math.max(scrollPercent, 0), 1);
+  document.documentElement.style.setProperty('--scroll-percent', clampedPercent);
+  
+  // Update canvas boundaries to track moving split line
+  updateImageCenter();
+});
+
