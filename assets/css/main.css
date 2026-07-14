@@ -1,5 +1,6 @@
 :root {
   --scroll-percent: 0;
+  --scroll-percent-skills: 0;
   --image-center-x: calc(40vw + var(--scroll-percent) * 80vw);
   --slant-offset: calc(8vw - var(--scroll-percent) * 8vw);
 }
@@ -11,6 +12,11 @@
 }
 
 
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
 body {
   font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   background-color: lab(99.38% 0.15 1.65); /* Grey background */
@@ -18,7 +24,6 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow-x: hidden;
   position: relative;
 }
 
@@ -80,11 +85,12 @@ main {
 .hero-image-wrapper {
   width: 50%;
   flex: 0 0 50%;
-  margin-left: calc(var(--image-center-x) - 25vw);
+  transform: translateX(calc(var(--image-center-x) - 25vw));
   display: flex;
   justify-content: center;
   align-items: flex-end;
   position: relative;
+  will-change: transform;
 }
 
 .profile-container {
@@ -433,6 +439,7 @@ main {
     width: 90%;
     max-width: 420px;
     margin-left: 0;
+    transform: none;
     flex: 0 0 auto;
   }
   
@@ -555,15 +562,504 @@ main {
     opacity: 1 !important;
   }
   
-  .about-title {
-    font-size: 2.2rem;
-    margin-bottom: 1.75rem;
-  }
+}
+
+/* ==========================================================================
+   Skills Section (Sketch-to-Code Workbench)
+   ========================================================================== */
+
+.skills-section {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: lab(99.38% 0.15 1.65); /* Matches whitish background of About */
+  position: relative;
+  z-index: 10;
+  padding: 6rem 2rem; /* Reduced vertical padding */
+  overflow: hidden;
+}
+
+/* Glowing Top Border Divider */
+.skills-scanline {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(111, 66, 193, 0.05) 15%, 
+    rgba(0, 92, 197, 0.2) 50%, 
+    rgba(111, 66, 193, 0.05) 85%, 
+    transparent 100%
+  );
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-shadow: 0 1px 8px rgba(0, 92, 197, 0.05);
+}
+
+.skills-container {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.05fr 1.35fr;
+  gap: 3.5rem;
+  align-items: stretch;
+}
+
+/* Left Column: Sketchpad */
+.sketchpad-panel {
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  height: 100%;
+  min-width: 0; /* Prevents button text width from overflowing grid columns */
+  overflow: hidden; /* Prevent children from expanding container */
+}
+
+.skills-title {
+  font-family: 'Lato', sans-serif;
+  font-size: 2.75rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 0.6rem;
+  color: #2c2c2c;
+  position: relative;
+  display: inline-block;
+}
+
+.skills-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 65px;
+  height: 4px;
+  background: linear-gradient(90deg, #2c2c2c 0%, rgba(44, 44, 44, 0.1) 100%);
+  border-radius: 2px;
+}
+
+.skills-subtitle {
+  font-size: 1.05rem;
+  line-height: 1.5;
+  color: #7a7a7a;
+  font-weight: 300;
+  margin-top: 0.8rem;
+  margin-bottom: 1.2rem; /* Reduced spacing */
+}
+
+/* Category Navigation Button Grid (2 Columns) */
+.skills-categories-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.65rem;
+}
+
+.skills-categories-nav .category-btn:last-child {
+  grid-column: span 2;
+}
+
+.category-btn {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  text-align: left;
+  padding: 1rem 1.4rem;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  font-family: 'Lato', sans-serif;
+  white-space: normal; /* Allows button text to wrap on narrow viewports */
+  word-wrap: break-word;
+  min-width: 0; /* Allows button container to shrink */
+}
+
+.category-btn .btn-num {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #a8a8a8;
+  margin-right: 1.1rem;
+  font-family: monospace;
+  transition: color 0.3s ease;
+}
+
+.category-btn .btn-text {
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: #555555;
+  letter-spacing: 0.3px;
+  transition: all 0.3s ease;
+}
+
+/* Active Category button state */
+.category-btn.active {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03), inset 0 1px 0 #fff;
+  transform: translateX(4px);
+}
+
+.category-btn.active .btn-num {
+  color: #6f42c1; /* Theme link color */
+}
+
+.category-btn.active .btn-text {
+  color: #000;
+  font-weight: 800;
+}
+
+/* Hover Category state */
+.category-btn:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.6);
+  border-color: rgba(0, 0, 0, 0.06);
+  transform: translateX(2px);
+}
+
+.category-btn:hover:not(.active) .btn-text {
+  color: #1a1a1a;
+}
+
+/* Drawing Area */
+.sketchpad-canvas-wrapper {
+  position: relative;
+  flex: 1; /* Automatically matches the height axis of the code editor */
+  min-height: 200px; /* Reduced from 290px to match content height */
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px dashed rgba(0, 0, 0, 0.08);
+  border-radius: 18px;
+  overflow: hidden;
+  margin-top: 1.2rem;
+  transition: border-color 0.3s ease;
+}
+
+.sketchpad-canvas-wrapper:hover {
+  border-color: rgba(111, 66, 193, 0.25);
+}
+
+.sketchpad-grid-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: 20px 20px;
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.015) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.015) 1px, transparent 1px);
+  pointer-events: none;
+}
+
+.sketchpad-canvas {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.sketchpad-canvas svg {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+}
+
+/* Right Column: Code Editor Panel (Frosted Glassmorphic) */
+.code-editor-panel {
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  overflow: hidden;
+  height: 100%;
+  min-height: 400px; /* Reduced to match content and eliminate empty bottom space */
+  min-width: 0; /* Prevents long code blocks from stretching grid width */
   
-  .about-text {
-    font-size: 1.05rem;
-    line-height: 1.75;
-    margin-bottom: 1.4rem;
+  /* Premium Frosted Glassmorphism Overlay */
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.45) 0%, rgba(243, 243, 243, 0.25) 100%);
+  backdrop-filter: blur(20px) saturate(135%);
+  -webkit-backdrop-filter: blur(20px) saturate(135%);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: 
+    0 25px 55px rgba(0, 0, 0, 0.035), 
+    0 4px 12px rgba(0, 0, 0, 0.015),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  
+  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s ease;
+}
+
+.code-editor-panel:hover {
+  transform: translateY(-4px);
+  box-shadow: 
+    0 35px 75px rgba(0, 0, 0, 0.05), 
+    0 6px 18px rgba(0, 0, 0, 0.02),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+/* Editor Header Frame */
+.editor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.85rem 1.4rem;
+  background: rgba(255, 255, 255, 0.4);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.editor-dots {
+  display: flex;
+  gap: 0.45rem;
+}
+
+.editor-dots .dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.editor-dots .dot-red { background-color: rgba(255, 95, 86, 0.85); }
+.editor-dots .dot-yellow { background-color: rgba(255, 189, 46, 0.85); }
+.editor-dots .dot-green { background-color: rgba(39, 201, 63, 0.85); }
+
+.editor-title-tab {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  padding: 0.45rem 1.2rem;
+  border-radius: 8px 8px 0 0;
+  margin-bottom: -0.9rem; /* overlaps bottom border slightly */
+  margin-top: -0.2rem;
+  box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.01);
+}
+
+.editor-title-tab .file-icon {
+  font-size: 0.9rem;
+}
+
+.editor-title-tab .file-name {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #2c2c2c;
+  letter-spacing: 0.5px;
+}
+
+.editor-window-actions {
+  display: flex;
+  gap: 0.65rem;
+  color: #9c9c9c;
+  font-size: 0.85rem;
+  cursor: default;
+}
+
+.editor-action-btn {
+  display: inline-block;
+  transition: color 0.2s ease;
+}
+
+.editor-action-btn:hover {
+  color: #444;
+}
+
+/* Editor Workspace layout */
+.editor-workspace {
+  display: flex;
+  flex: 1;
+  padding: 1.6rem 1.4rem;
+  overflow: hidden;
+  align-items: stretch;
+}
+
+.editor-workspace .line-numbers {
+  font-family: 'Consolas', 'Fira Code', 'Courier New', monospace;
+  font-size: 0.88rem;
+  text-align: right;
+  color: #a8a8a8;
+  padding-right: 1.2rem;
+  border-right: 1px solid rgba(0, 0, 0, 0.05);
+  user-select: none;
+  line-height: 1.65;
+  display: flex;
+  flex-direction: column;
+}
+
+.editor-workspace .editor-code-container {
+  flex: 1;
+  margin: 0;
+  padding-left: 1.4rem;
+  font-family: 'Consolas', 'Fira Code', 'Courier New', monospace;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  white-space: pre-wrap; /* Wrap long code lines to fit screen dynamically */
+  overflow-x: auto;
+  overflow-y: auto;
+  color: #24292e;
+}
+
+.editor-code-container code {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* Light Theme Code Syntax Highlighting */
+.code-keyword {
+  color: #005cc5; /* Blue */
+  font-weight: 700;
+}
+
+.code-string {
+  color: #22863a; /* Green */
+}
+
+.code-function {
+  color: #6f42c1; /* Purple */
+}
+
+.code-tag {
+  color: #d73a49; /* Coral Red */
+}
+
+.code-comment {
+  color: #6a737d; /* Muted Grey */
+  font-style: italic;
+}
+
+.code-number {
+  color: #005cc5; /* Blue */
+}
+
+.code-property {
+  color: #e36209; /* Orange */
+}
+
+.code-punctuation {
+  color: #24292e; /* Charcoal */
+}
+
+.code-type {
+  color: #6f42c1; /* Purple */
+  font-weight: 600;
+}
+
+/* SVG Line Drawing Path Styling */
+.sketch-path {
+  fill: none;
+  stroke: #2c2c2c;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.02));
+  opacity: 1;
+}
+
+/* Secondary stroke paths for logo accents */
+.sketch-accent {
+  fill: none;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Animate background transparency fills after line completes drawing */
+.sketch-fill {
+  transition: fill-opacity 0.6s ease-in-out 1.2s, opacity 0.6s ease-in-out 1.2s;
+  fill-opacity: 0;
+  opacity: 0;
+}
+
+.sketch-fill.drawn {
+  fill-opacity: 0.08;
+  opacity: 1;
+}
+
+/* Scroll-Driven Entrance Effect for Skills Section */
+.skills-section .sketchpad-panel {
+  transform: translateY(calc(100px * (1 - var(--scroll-percent-skills)))) scale(calc(0.94 + var(--scroll-percent-skills) * 0.06));
+  opacity: var(--scroll-percent-skills);
+  will-change: transform, opacity;
+}
+
+.skills-section .code-editor-panel {
+  transform: translateY(calc(150px * (1 - var(--scroll-percent-skills)))) scale(calc(0.92 + var(--scroll-percent-skills) * 0.08));
+  opacity: var(--scroll-percent-skills);
+  will-change: transform, opacity;
+}
+
+/* ==========================================================================
+   Responsive Adaptations for Skills
+   ========================================================================== */
+
+@media (max-width: 1200px) {
+  .category-btn {
+    padding: 0.85rem 1rem; /* Slightly smaller button padding on medium desktops */
+  }
+  .category-btn .btn-num {
+    margin-right: 0.65rem;
   }
 }
+
+@media (max-width: 992px) {
+  .skills-section .sketchpad-panel,
+  .skills-section .code-editor-panel {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .skills-container {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  
+  .sketchpad-canvas-wrapper {
+    height: 250px;
+  }
+  
+  .code-editor-panel {
+    min-height: 480px;
+  }
+}
+
+@media (max-width: 768px) {
+  .skills-section {
+    padding: 6rem 1.25rem;
+  }
+  
+  .skills-title {
+    font-size: 2.2rem;
+  }
+  
+  .category-btn {
+    padding: 0.85rem 1.1rem;
+  }
+  
+  .category-btn .btn-text {
+    font-size: 0.95rem;
+  }
+  
+  .editor-header {
+    padding: 0.75rem 1rem;
+  }
+  
+  .editor-workspace {
+    padding: 1.2rem 0.9rem;
+  }
+  
+  .editor-workspace .line-numbers {
+    padding-right: 0.8rem;
+  }
+  
+  .editor-workspace .editor-code-container {
+    padding-left: 0.8rem;
+    font-size: 0.8rem;
+  }
+}
+
 
