@@ -309,10 +309,17 @@ animate();
 
 // Handle scroll percentage for creative animations
 window.addEventListener('scroll', () => {
-  const scrollHeight = window.innerHeight; // Height of first viewport
+  const scrollHeight = window.innerHeight; // Height of one viewport
+  
+  // Hero to About scroll percentage (0 to 1 viewport)
   const scrollPercent = window.scrollY / scrollHeight;
   const clampedPercent = Math.min(Math.max(scrollPercent, 0), 1);
   document.documentElement.style.setProperty('--scroll-percent', clampedPercent);
+
+  // About to Skills scroll percentage (1 to 2 viewports)
+  const scrollPercentSkills = (window.scrollY - scrollHeight) / scrollHeight;
+  const clampedPercentSkills = Math.min(Math.max(scrollPercentSkills, 0), 1);
+  document.documentElement.style.setProperty('--scroll-percent-skills', clampedPercentSkills);
 
   // Update canvas boundaries to track moving split line
   updateImageCenter();

@@ -114,9 +114,90 @@
         </div>
       </div>
     </section>
+
+    <!-- Skills Section (Sketch-to-Code Workbench) -->
+    <section class="skills-section" id="skills">
+      <div class="skills-scanline"></div>
+      <div class="skills-container">
+        <!-- Left Panel: The Sketchpad -->
+        <div class="sketchpad-panel">
+          <div class="sketchpad-header">
+            <h2 class="skills-title">Skills & Toolchain</h2>
+            <p class="skills-subtitle">Click a category to trace my skillset blueprint in real-time.</p>
+          </div>
+          
+          <div class="skills-categories-nav">
+            <button class="category-btn active" data-category="languages">
+              <span class="btn-num">01</span>
+              <span class="btn-text">Languages</span>
+            </button>
+            <button class="category-btn" data-category="backend">
+              <span class="btn-num">02</span>
+              <span class="btn-text">Java & Backend</span>
+            </button>
+            <button class="category-btn" data-category="frontend">
+              <span class="btn-num">03</span>
+              <span class="btn-text">Frontend</span>
+            </button>
+            <button class="category-btn" data-category="databases">
+              <span class="btn-num">04</span>
+              <span class="btn-text">Databases</span>
+            </button>
+            <button class="category-btn" data-category="cloud">
+              <span class="btn-num">05</span>
+              <span class="btn-text">Cloud & DevOps</span>
+            </button>
+            <button class="category-btn" data-category="apis">
+              <span class="btn-num">06</span>
+              <span class="btn-text">APIs</span>
+            </button>
+            <button class="category-btn" data-category="tools">
+              <span class="btn-num">07</span>
+              <span class="btn-text">Tools</span>
+            </button>
+          </div>
+          
+          <!-- Drawing Area -->
+          <div class="sketchpad-canvas-wrapper">
+            <div class="sketchpad-grid-lines"></div>
+            <div class="sketchpad-canvas" id="sketchpad-canvas">
+              <!-- SVG drawings will be dynamically generated and animated here -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Panel: Code Editor -->
+        <div class="code-editor-panel">
+          <!-- Editor Window Frame -->
+          <div class="editor-header">
+            <div class="editor-dots">
+              <span class="dot dot-red"></span>
+              <span class="dot dot-yellow"></span>
+              <span class="dot dot-green"></span>
+            </div>
+            <div class="editor-title-tab">
+              <span class="file-icon">&#x1F4CC;</span>
+              <span class="file-name" id="editor-file-name">languages.json</span>
+            </div>
+            <div class="editor-window-actions">
+              <span class="editor-action-btn">&#x2212;</span>
+              <span class="editor-action-btn">&#x25A2;</span>
+              <span class="editor-action-btn">&#x2715;</span>
+            </div>
+          </div>
+          
+          <div class="editor-workspace">
+            <div class="line-numbers" id="editor-line-numbers">
+              <!-- Dynamically populated line numbers -->
+            </div>
+            <pre class="editor-code-container"><code id="editor-code"><!-- Typed code will appear here --></code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
-
   <script src="assets/js/doodles.js" defer></script>
+  <script src="assets/js/skills.js" defer></script>
 </body>
 </html>
