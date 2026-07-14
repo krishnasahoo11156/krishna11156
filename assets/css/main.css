@@ -581,22 +581,7 @@ main {
   overflow: hidden;
 }
 
-/* Glowing Top Border Divider */
-.skills-scanline {
-  width: 100%;
-  height: 1px;
-  background: linear-gradient(90deg, 
-    transparent 0%, 
-    rgba(111, 66, 193, 0.05) 15%, 
-    rgba(0, 92, 197, 0.2) 50%, 
-    rgba(111, 66, 193, 0.05) 85%, 
-    transparent 100%
-  );
-  position: absolute;
-  top: 0;
-  left: 0;
-  box-shadow: 0 1px 8px rgba(0, 92, 197, 0.05);
-}
+
 
 .skills-container {
   width: 100%;
