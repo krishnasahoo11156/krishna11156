@@ -466,18 +466,18 @@ function openDraftingDesk(project) {
   const pptLink = project.ppt ? `<a href="${project.ppt}" target="_blank" class="desk-btn btn-ppt">📊 PPT Presentation</a>` : '';
   const guideLink = project.guide ? `<a href="${project.guide}" target="_blank" class="desk-btn btn-guide">📖 Contribution Guide</a>` : '';
 
-  // Setup overlay markup with transparent overlay header and split light/dark contents
+  // Setup overlay markup with transparent overlay header and split dark/light contents (Dark on Left, Light on Right)
   overlay.innerHTML = `
     <div class="drafting-container" style="--project-accent: ${project.accent}">
       
-      <!-- Overlay transparent header running over both halves -->
+      <!-- Overlay transparent header running over both halves (Dark on Left, Light on Right) -->
       <div class="drafting-header-overlay">
-        <!-- Falls over the left light column: dark text -->
+        <!-- Falls over the left dark column: light text -->
         <div class="modal-left-header-title">
           <span class="category-indicator">${project.status}</span>
           <h2 class="project-title">${project.title}</h2>
         </div>
-        <!-- Falls over the right dark column: light text close button -->
+        <!-- Falls over the right light column: dark text close button -->
         <button class="drafting-close-btn" id="close-drafting-desk">&times;</button>
       </div>
 
@@ -485,18 +485,18 @@ function openDraftingDesk(project) {
       <div class="drafting-workspace">
         <div class="system-content-area-split">
           
-          <!-- LEFT SIDE: Visual Gallery (Light Theme) -->
-          <div class="system-visuals-light">
+          <!-- LEFT SIDE: Visual Gallery (Dark Theme - matching hero right side) -->
+          <div class="system-visuals-dark">
             <div class="visuals-content-wrapper">
               ${carouselHtml}
-              <div class="system-tech-badges-light">
+              <div class="system-tech-badges-dark">
                 ${techBadges}
               </div>
             </div>
           </div>
           
-          <!-- RIGHT SIDE: Details & Actions (Dark Theme) -->
-          <div class="system-meta-details-dark">
+          <!-- RIGHT SIDE: Details & Actions (Light Theme - matching hero left side) -->
+          <div class="system-meta-details-light">
             <div class="details-content-wrapper">
               <div class="meta-section">
                 <h4>${project.guide ? 'CONTRIBUTION TARGET' : 'ARCHITECT ROLE'}</h4>
@@ -505,7 +505,7 @@ function openDraftingDesk(project) {
               
               <div class="meta-section">
                 <h4>SPECIFICATIONS & IMPACT</h4>
-                <ul class="system-specs-list-dark">
+                <ul class="system-specs-list-light">
                   ${detailsHtml}
                 </ul>
               </div>
