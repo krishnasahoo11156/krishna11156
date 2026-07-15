@@ -321,6 +321,11 @@ window.addEventListener('scroll', () => {
   const clampedPercentSkills = Math.min(Math.max(scrollPercentSkills, 0), 1);
   document.documentElement.style.setProperty('--scroll-percent-skills', clampedPercentSkills);
 
+  // Skills to Works scroll percentage (2 to 3 viewports)
+  const scrollPercentWorks = (window.scrollY - 2 * scrollHeight) / scrollHeight;
+  const clampedPercentWorks = Math.min(Math.max(scrollPercentWorks, 0), 1);
+  document.documentElement.style.setProperty('--scroll-percent-works', clampedPercentWorks);
+
   // Update canvas boundaries to track moving split line
   updateImageCenter();
 });
