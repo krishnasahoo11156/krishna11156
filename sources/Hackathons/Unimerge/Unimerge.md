@@ -45,3 +45,4 @@ StudySync is a unified React-based academic command center that integrates real-
 - **GitHub:** https://github.com/krishnasahoo11156/StudySync
 - **PPT:** 
 - **Demo Video:** https://drive.google.com/file/d/1EFEZ7JUcr8pwHhUq5ElBZvno3VPz67He/view?usp=sharing
+- **Live Link:** https://study-sync-eosin-seven.vercel.app/
