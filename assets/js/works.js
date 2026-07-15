@@ -1,6 +1,6 @@
 /**
  * Krishna Sahoo Portfolio - Works Section JavaScript
- * Implements the Clean, Professional Exhibition Grid & Details Modal.
+ * Implements the Clean, Professional Exhibition Grid & Split Modal.
  */
 
 // Comprehensive database of Projects, Hackathons, and Open-Source Contributions
@@ -205,7 +205,7 @@ const WORKS_DATA = {
       id: "syrus-onboarding",
       title: "Onboarding Suite",
       subtitle: "AI Employee Onboarding Platform",
-      tagline: "Conversational employee onboarding platform utilizing local agent monitoring to verify setups automatically.",
+      tagline: "Conversational employee onboarding platform utilizing local agent monitoring to verify developer setups automatically.",
       status: "Syrus Hackathon (Team Project)",
       role: "Solo Frontend & Integrations Architect",
       tech: ["Next.js 16 (App Router)", "TypeScript", "Tailwind CSS 4", "Gemini AI", "NextAuth", "Chart.js"],
@@ -376,15 +376,18 @@ function initWorksSection() {
     items.forEach((item, index) => {
       const card = document.createElement('div');
       card.className = 'work-card';
-      // Store dynamic properties
       card.style.setProperty('--project-accent', item.accent);
-      card.style.setProperty('--card-index', index); // Used for staggered CSS entry delay
+      card.style.setProperty('--card-index', index);
       card.setAttribute('data-id', item.id);
       card.setAttribute('data-category', category);
       
-      const techBadges = item.tech.slice(0, 3).map(t => `<span class="work-card-tech">${t}</span>`).join('');
-      const imageMarkup = item.images && item.images.length > 0 
-        ? `<div class="work-card-image" style="background-image: url('${item.images[0]}')"></div>`
+      // Escape spaces in image filename URL to prevent loading issues in CSS background
+      const escapedImageUrl = item.images && item.images.length > 0 
+        ? item.images[0].replace(/ /g, '%20')
+        : '';
+        
+      const imageMarkup = escapedImageUrl 
+        ? `<div class="work-card-image" style="background-image: url('${escapedImageUrl}')"></div>`
         : `<div class="work-card-image placeholder-sketch"><div class="sketch-lines"></div></div>`;
       
       // Select meta badge to show at the top of the card
@@ -400,10 +403,10 @@ function initWorksSection() {
           <h3 class="work-card-title">${item.title}</h3>
           <p class="work-card-tagline">${item.tagline}</p>
           <div class="work-card-tech-list">
-            ${techBadges}
+            ${item.tech.slice(0, 3).map(t => `<span class="work-card-tech">${t}</span>`).join('')}
             ${item.tech.length > 3 ? `<span class="work-card-tech-more">+${item.tech.length - 3}</span>` : ''}
           </div>
-          <button class="work-card-action" style="border-color: rgba(255, 255, 255, 0.15)">View System <span class="arrow">&rarr;</span></button>
+          <button class="work-card-action">View Details <span class="arrow">&rarr;</span></button>
         </div>
       `;
       
@@ -439,7 +442,7 @@ function openDraftingDesk(project) {
   const carouselHtml = screenshots.length > 0
     ? `<div class="system-carousel">
          <div class="carousel-inner" id="system-carousel-inner">
-           ${screenshots.map((src, index) => `<img src="${src}" alt="Screenshot ${index + 1}" class="carousel-img ${index === 0 ? 'active' : ''}">`).join('')}
+           ${screenshots.map((src, index) => `<img src="${src.replace(/ /g, '%20')}" alt="Screenshot ${index + 1}" class="carousel-img ${index === 0 ? 'active' : ''}">`).join('')}
          </div>
          ${screenshots.length > 1 ? `
            <button class="carousel-nav prev" id="carousel-prev">&#x276E;</button>
@@ -463,50 +466,57 @@ function openDraftingDesk(project) {
   const pptLink = project.ppt ? `<a href="${project.ppt}" target="_blank" class="desk-btn btn-ppt">📊 PPT Presentation</a>` : '';
   const guideLink = project.guide ? `<a href="${project.guide}" target="_blank" class="desk-btn btn-guide">📖 Contribution Guide</a>` : '';
 
-  // Setup overlay markup
+  // Setup overlay markup with transparent overlay header and split light/dark contents
   overlay.innerHTML = `
     <div class="drafting-container" style="--project-accent: ${project.accent}">
-      <!-- Header Controls -->
-      <div class="drafting-header">
-        <div class="header-project-info">
+      
+      <!-- Overlay transparent header running over both halves -->
+      <div class="drafting-header-overlay">
+        <!-- Falls over the left light column: dark text -->
+        <div class="modal-left-header-title">
           <span class="category-indicator">${project.status}</span>
           <h2 class="project-title">${project.title}</h2>
         </div>
+        <!-- Falls over the right dark column: light text close button -->
         <button class="drafting-close-btn" id="close-drafting-desk">&times;</button>
       </div>
 
       <!-- Main Exhibition Area (Technical ledger layout) -->
       <div class="drafting-workspace">
-        <div class="system-content-area">
+        <div class="system-content-area-split">
           
-          <!-- Left side of system: Carousel and badges -->
-          <div class="system-visuals">
-            ${carouselHtml}
-            <div class="system-tech-badges">
-              ${techBadges}
+          <!-- LEFT SIDE: Visual Gallery (Light Theme) -->
+          <div class="system-visuals-light">
+            <div class="visuals-content-wrapper">
+              ${carouselHtml}
+              <div class="system-tech-badges-light">
+                ${techBadges}
+              </div>
             </div>
           </div>
           
-          <!-- Right side of system: Tech details & links -->
-          <div class="system-meta-details">
-            <div class="meta-section">
-              <h4>${project.guide ? 'CONTRIBUTION TARGET' : 'ARCHITECT ROLE'}</h4>
-              <p>${project.role}</p>
-            </div>
-            
-            <div class="meta-section">
-              <h4>SPECIFICATIONS & IMPACT</h4>
-              <ul class="system-specs-list">
-                ${detailsHtml}
-              </ul>
-            </div>
-            
-            <div class="meta-actions">
-              ${repoLink}
-              ${demoLink}
-              ${videoLink}
-              ${pptLink}
-              ${guideLink}
+          <!-- RIGHT SIDE: Details & Actions (Dark Theme) -->
+          <div class="system-meta-details-dark">
+            <div class="details-content-wrapper">
+              <div class="meta-section">
+                <h4>${project.guide ? 'CONTRIBUTION TARGET' : 'ARCHITECT ROLE'}</h4>
+                <p class="role-text-desc">${project.role}</p>
+              </div>
+              
+              <div class="meta-section">
+                <h4>SPECIFICATIONS & IMPACT</h4>
+                <ul class="system-specs-list-dark">
+                  ${detailsHtml}
+                </ul>
+              </div>
+              
+              <div class="meta-actions">
+                ${repoLink}
+                ${demoLink}
+                ${videoLink}
+                ${pptLink}
+                ${guideLink}
+              </div>
             </div>
           </div>
           
