@@ -73,6 +73,8 @@
 <tr>
 <td width="60%">
 
+***More than 3000 people participated***
+
 **CrisisSync** is a real-time crisis response and emergency coordination platform purpose-built for hospitality venues. It combines **AI-powered incident classification**, **real-time multi-channel synchronization**, and **role-based command interfaces** to transform how hotels, resorts, and event venues respond to emergencies.
 
 Built with the **"Aegis Protocol"** design system — a dark, atmospheric UI combining rigid technical precision with fluid depth — every pixel is engineered for **high-pressure decision-making** where seconds matter.
