@@ -389,8 +389,8 @@ function encodeAssetPath(path) {
 
 /** Set CSS custom properties for project accent colors */
 function applyAccent(el, project) {
-  el.style.setProperty('--project-accent', project.accent);
-  el.style.setProperty('--project-accent-rgb', project.accentRgb || '0,242,254');
+  el.style.setProperty('--project-accent', '#e5e5e7');
+  el.style.setProperty('--project-accent-rgb', '229,229,231');
 }
 
 // ============================================================
@@ -681,12 +681,7 @@ function openProjectSheet(project) {
     <div class="sheet-drag-handle"></div>
 
     <div class="sheet-header">
-      <div class="sheet-header-meta">
-        <div class="sheet-header-category">${project.status}</div>
-        <h2 class="sheet-header-title">${project.title}</h2>
-        <div class="sheet-header-subtitle">${project.subtitle}</div>
-        ${metaTagsHtml ? `<div class="sheet-meta-tags">${metaTagsHtml}</div>` : ''}
-      </div>
+      <h2 class="sheet-header-title">${project.title}</h2>
       <button class="sheet-close-btn" id="sheet-close-btn" aria-label="Close">&#x2715;</button>
     </div>
 
@@ -707,6 +702,12 @@ function openProjectSheet(project) {
 
       <!-- Right: Details -->
       <div class="sheet-details">
+        <div class="sheet-meta-section">
+          <div class="sheet-header-category">${project.status}</div>
+          <div class="sheet-header-subtitle">${project.subtitle}</div>
+          ${metaTagsHtml ? `<div class="sheet-meta-tags">${metaTagsHtml}</div>` : ''}
+        </div>
+
         <div>
           <div class="sheet-section-label">${project.guide ? 'Contribution Target' : 'My Role'}</div>
           <p class="sheet-role-text">${project.role}</p>
