@@ -1,9 +1,12 @@
 /**
- * Krishna Sahoo Portfolio - Works Section JavaScript
- * Implements the Clean, Professional Exhibition Grid & Split Modal.
+ * Krishna Sahoo Portfolio — Works Section JavaScript
+ * Bento-grid cards, animated tab switching, immersive slide-up sheet modal.
  */
 
-// Comprehensive database of Projects, Hackathons, and Open-Source Contributions
+// ============================================================
+//  DATA
+// ============================================================
+
 const WORKS_DATA = {
   projects: [
     {
@@ -11,12 +14,13 @@ const WORKS_DATA = {
       title: "HireMind",
       subtitle: "AI-Powered Explainable Hiring Intelligence",
       tagline: "Transform hiring from black-box resume screening to explainable, multi-source talent intelligence.",
-      status: "Completed (Summer Hackathon 2026)",
+      status: "Completed · Summer Hackathon 2026",
       role: "Full-Stack Developer & AI Integrator",
       tech: ["React", "TypeScript", "Tailwind CSS", "Express.js", "Firebase", "Socket.io", "Featherless.ai (LLM)"],
       repo: "https://github.com/krishnasahoo11156/HireMind",
       demo: "https://hire-mind-client.vercel.app/",
       accent: "#8e75b2",
+      accentRgb: "142,117,178",
       images: [
         "assets/images/projects/hiremind/HireMindLogo.png",
         "assets/images/projects/hiremind/hm2.png",
@@ -38,11 +42,12 @@ const WORKS_DATA = {
       title: "Code2Git",
       subtitle: "Chrome Extension for Coding Portfolios",
       tagline: "Effortlessly sync your coding platform solutions to GitHub and build your developer portfolio in real-time.",
-      status: "Completed (Used by 5+ Active Users)",
+      status: "Completed · Used by 5+ Active Users",
       role: "Creator & Solo Developer",
       tech: ["JavaScript (ES6)", "HTML5", "CSS3", "Chrome Extension API", "GitHub API", "Firebase DB"],
       repo: "https://github.com/krishnasahoo11156/Code2Git",
       accent: "#f1c40f",
+      accentRgb: "241,196,15",
       images: [
         "assets/images/projects/code2git/code2GitLogo2.png",
         "assets/images/projects/code2git/Code2GitLogo1.png",
@@ -64,10 +69,11 @@ const WORKS_DATA = {
       title: "The Green Room",
       subtitle: "Relational AI Chat Ecosystem",
       tagline: "Evolving from a single-purpose 'roasting' agent into a next-generation Relational AI Chat Ecosystem.",
-      status: "Upcoming (Concept & Design Stage)",
+      status: "Upcoming · Concept & Design Stage",
       role: "Solo Architect",
       tech: ["Next.js 14", "TypeScript", "Tailwind CSS", "Web Audio API", "Stable Diffusion", "Firebase"],
       accent: "#00b894",
+      accentRgb: "0,184,148",
       images: [
         "assets/images/projects/thegreenroom/image.png"
       ],
@@ -86,12 +92,13 @@ const WORKS_DATA = {
       title: "ForeSee",
       subtitle: "Predictive Deadline Rescue Engine",
       tagline: "AI-powered predictive deadline rescue platform simulating alternative calendar paths using Monte Carlo trials.",
-      status: "Vibe2Ship Hackathon (Solo Project)",
+      status: "Vibe2Ship Hackathon · Solo Project",
       role: "Solo Architect & Developer",
       tech: ["Next.js 14", "Tailwind CSS", "TypeScript", "Node.js", "Express", "Docker", "Google Cloud Run", "Gemini API", "Pub/Sub"],
       repo: "https://github.com/krishnasahoo11156/foresee-app-2026",
       demo: "https://foresee-app-827856108785.us-central1.run.app/",
       accent: "#00f2fe",
+      accentRgb: "0,242,254",
       images: [
         "assets/images/projects/foresee/image.png",
         "assets/images/projects/foresee/image copy.png",
@@ -119,13 +126,14 @@ const WORKS_DATA = {
       title: "StudySync",
       subtitle: "Unified Academic Command Center",
       tagline: "A unified React-based academic command center integrating task planners, library vaults, and Pomodoro trackers.",
-      status: "🏆 Winner - UniMerge 1.0",
+      status: "🏆 Winner — UniMerge 1.0",
       role: "Solo Project (parth.builds community)",
       tech: ["React.js (Vite)", "Tailwind CSS", "React Router", "Web Audio API", "Firebase DB & Auth"],
       repo: "https://github.com/krishnasahoo11156/StudySync",
       demo: "https://study-sync-eosin-seven.vercel.app/",
       video: "https://drive.google.com/file/d/1EFEZ7JUcr8pwHhUq5ElBZvno3VPz67He/view?usp=sharing",
       accent: "#2ecc71",
+      accentRgb: "46,204,113",
       images: [
         "assets/images/projects/studysync/Screenshot 2026-04-21 221244.png",
         "assets/images/projects/studysync/Screenshot 2026-04-21 221344.png",
@@ -148,11 +156,12 @@ const WORKS_DATA = {
       title: "CrisisSync",
       subtitle: "High-Pressure Emergency Coordination",
       tagline: "Emergency incident coordination and real-time triage platform engineered for hospitality venues.",
-      status: "Google Solution Challenge (Team Project)",
+      status: "Google Solution Challenge · Team Project",
       role: "Core Developer (Team of 4)",
       tech: ["Flutter", "Dart", "Firebase", "Gemini AI", "Google Maps API", "Docker", "Nginx"],
       repo: "https://github.com/krishnasahoo11156/crisissync",
       accent: "#e74c3c",
+      accentRgb: "231,76,60",
       images: [
         "assets/images/projects/crisissync/Screenshot 2026-05-04 101355.png",
         "assets/images/projects/crisissync/Screenshot 2026-05-04 101431.png",
@@ -188,6 +197,7 @@ const WORKS_DATA = {
       repo: "https://github.com/parthnarkar/OrbitalWatch",
       demo: "https://orbital-watch-bay.vercel.app/",
       accent: "#0984e3",
+      accentRgb: "9,132,227",
       images: [
         "assets/images/projects/orbitalwatch/image.png",
         "assets/images/projects/orbitalwatch/image copy.png",
@@ -206,13 +216,14 @@ const WORKS_DATA = {
       title: "Onboarding Suite",
       subtitle: "AI Employee Onboarding Platform",
       tagline: "Conversational employee onboarding platform utilizing local agent monitoring to verify developer setups automatically.",
-      status: "Syrus Hackathon (Team Project)",
+      status: "Syrus Hackathon · Team Project",
       role: "Solo Frontend & Integrations Architect",
       tech: ["Next.js 16 (App Router)", "TypeScript", "Tailwind CSS 4", "Gemini AI", "NextAuth", "Chart.js"],
       repo: "https://github.com/krishnasahoo11156/crisissync",
       video: "https://drive.google.com/drive/folders/1f5uDXGoUeDgz4zbZQjtp_dPNcljTUiS-?usp=drive_link",
       ppt: "https://drive.google.com/drive/folders/1f5uDXGoUeDgz4zbZQjtp_dPNcljTUiS-?usp=drive_link",
       accent: "#a55eea",
+      accentRgb: "165,94,234",
       images: [
         "assets/images/projects/syrus/image.png",
         "assets/images/projects/syrus/image copy.png",
@@ -239,6 +250,7 @@ const WORKS_DATA = {
       tech: ["Node.js", "TypeScript", "React", "Prisma", "Docker Compose", "PostgreSQL", "Redis", "Jest"],
       repo: "https://github.com/krishnasahoo11156/InboxOS",
       accent: "#00d2d3",
+      accentRgb: "0,210,211",
       images: [
         "assets/images/projects/inboxos/inboxosLogo.jpeg"
       ],
@@ -262,6 +274,7 @@ const WORKS_DATA = {
       repo: "https://github.com/firstcontributions/first-contributions",
       demo: "https://github.com/firstcontributions/first-contributions/pull/119971",
       accent: "#1abc9c",
+      accentRgb: "26,188,156",
       images: [
         "assets/images/projects/firstcontrib/image.png"
       ],
@@ -282,6 +295,7 @@ const WORKS_DATA = {
       repo: "https://github.com/apache",
       guide: "https://community.apache.org/contributors/",
       accent: "#e67e22",
+      accentRgb: "230,126,34",
       images: [
         "assets/images/projects/apache/image.png",
         "assets/images/projects/apache/image copy.png"
@@ -305,6 +319,7 @@ const WORKS_DATA = {
       repo: "https://github.com/eclipse",
       guide: "https://eclipse.github.io/eclipse-projects/",
       accent: "#9b59b6",
+      accentRgb: "155,89,182",
       images: [
         "assets/images/projects/eclipse/image.png"
       ],
@@ -327,6 +342,7 @@ const WORKS_DATA = {
       repo: "https://github.com/jenkinsci",
       guide: "https://www.jenkins.io/participate/",
       accent: "#d63031",
+      accentRgb: "214,48,49",
       images: [
         "assets/images/projects/jenkins/image.png"
       ],
@@ -348,6 +364,7 @@ const WORKS_DATA = {
       repo: "https://github.com/openmrs",
       guide: "https://openmrs.atlassian.net/wiki/spaces/RES",
       accent: "#0984e3",
+      accentRgb: "9,132,227",
       images: [
         "assets/images/projects/openmrs/image.png"
       ],
@@ -361,224 +378,446 @@ const WORKS_DATA = {
   ]
 };
 
-function initWorksSection() {
-  const worksSection = document.getElementById('works');
-  if (!worksSection) return;
+// ============================================================
+//  HELPERS
+// ============================================================
 
-  const tabBtns = document.querySelectorAll('.works-tab-btn');
-  const gridContainer = document.getElementById('works-grid');
-  
-  // Render cards for the active category
-  function renderCategory(category) {
-    gridContainer.innerHTML = '';
-    const items = WORKS_DATA[category] || [];
-    
-    items.forEach((item, index) => {
-      const card = document.createElement('div');
-      card.className = 'work-card';
-      card.style.setProperty('--project-accent', item.accent);
-      card.style.setProperty('--card-index', index);
-      card.setAttribute('data-id', item.id);
-      card.setAttribute('data-category', category);
-      
-      // Escape spaces in image filename URL to prevent loading issues in CSS background
-      const escapedImageUrl = item.images && item.images.length > 0 
-        ? item.images[0].replace(/ /g, '%20')
-        : '';
-        
-      const imageMarkup = escapedImageUrl 
-        ? `<div class="work-card-image" style="background-image: url('${escapedImageUrl}')"></div>`
-        : `<div class="work-card-image placeholder-sketch"><div class="sketch-lines"></div></div>`;
-      
-      // Select meta badge to show at the top of the card
-      const topBadge = item.metaTags && item.metaTags.length > 0 ? item.metaTags[0] : item.status;
-
-      card.innerHTML = `
-        ${imageMarkup}
-        <div class="work-card-content">
-          <div class="work-card-meta">
-            <span class="work-card-status">${item.status}</span>
-            <span class="work-card-badge-highlight" style="border-color: ${item.accent}; color: ${item.accent};">${topBadge}</span>
-          </div>
-          <h3 class="work-card-title">${item.title}</h3>
-          <p class="work-card-tagline">${item.tagline}</p>
-          <div class="work-card-tech-list">
-            ${item.tech.slice(0, 3).map(t => `<span class="work-card-tech">${t}</span>`).join('')}
-            ${item.tech.length > 3 ? `<span class="work-card-tech-more">+${item.tech.length - 3}</span>` : ''}
-          </div>
-          <button class="work-card-action">View Details <span class="arrow">&rarr;</span></button>
-        </div>
-      `;
-      
-      card.addEventListener('click', () => openDraftingDesk(item));
-      gridContainer.appendChild(card);
-    });
-  }
-
-  // Set up tab events
-  tabBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      tabBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const category = btn.getAttribute('data-tab');
-      renderCategory(category);
-    });
-  });
-
-  // Render initial tab (projects)
-  renderCategory('projects');
+/** Escape spaces in a file path for CSS/src usage */
+function encodeAssetPath(path) {
+  return path ? path.replace(/ /g, '%20') : '';
 }
 
-function openDraftingDesk(project) {
-  // Create overlay modal
-  const overlay = document.createElement('div');
-  overlay.className = 'drafting-overlay';
-  overlay.id = 'drafting-desk-modal';
-  
-  // Carousel images list
-  const screenshots = project.images || [];
-  let carouselIndex = 0;
-  
-  const carouselHtml = screenshots.length > 0
-    ? `<div class="system-carousel">
-         <div class="carousel-inner" id="system-carousel-inner">
-           ${screenshots.map((src, index) => `<img src="${src.replace(/ /g, '%20')}" alt="Screenshot ${index + 1}" class="carousel-img ${index === 0 ? 'active' : ''}">`).join('')}
-         </div>
-         ${screenshots.length > 1 ? `
-           <button class="carousel-nav prev" id="carousel-prev">&#x276E;</button>
-           <button class="carousel-nav next" id="carousel-next">&#x276F;</button>
-           <div class="carousel-dots">
-             ${screenshots.map((_, i) => `<span class="carousel-dot ${i === 0 ? 'active' : ''}" data-idx="${i}"></span>`).join('')}
-           </div>
-         ` : ''}
-       </div>`
-    : `<div class="system-carousel placeholder-system">
-         <div class="matrix-code">SYSTEM ASSET RECORD SECURE</div>
-       </div>`;
+/** Set CSS custom properties for project accent colors */
+function applyAccent(el, project) {
+  el.style.setProperty('--project-accent', project.accent);
+  el.style.setProperty('--project-accent-rgb', project.accentRgb || '0,242,254');
+}
 
-  const techBadges = project.tech.map(t => `<span class="badge">${t}</span>`).join('');
-  const detailsHtml = project.details.map(detail => `<li>${detail}</li>`).join('');
-  
-  // Build professional links action cockpit
-  const repoLink = project.repo ? `<a href="${project.repo}" target="_blank" class="desk-btn btn-github">📦 GitHub Repository</a>` : '';
-  const demoLink = project.demo ? `<a href="${project.demo}" target="_blank" class="desk-btn btn-demo">⚡ Live Simulation</a>` : '';
-  const videoLink = project.video ? `<a href="${project.video}" target="_blank" class="desk-btn btn-video">🎬 Demo Video</a>` : '';
-  const pptLink = project.ppt ? `<a href="${project.ppt}" target="_blank" class="desk-btn btn-ppt">📊 PPT Presentation</a>` : '';
-  const guideLink = project.guide ? `<a href="${project.guide}" target="_blank" class="desk-btn btn-guide">📖 Contribution Guide</a>` : '';
+// ============================================================
+//  CARD BUILDERS
+// ============================================================
 
-  // Setup overlay markup with transparent overlay header and split dark/light contents (Dark on Left, Light on Right)
-  overlay.innerHTML = `
-    <div class="drafting-container" style="--project-accent: ${project.accent}">
-      
-      <!-- Overlay transparent header running over both halves (Dark on Left, Light on Right) -->
-      <div class="drafting-header-overlay">
-        <!-- Falls over the left dark column: light text -->
-        <div class="modal-left-header-title">
-          <span class="category-indicator">${project.status}</span>
-          <h2 class="project-title">${project.title}</h2>
-        </div>
-        <!-- Falls over the right light column: dark text close button -->
-        <button class="drafting-close-btn" id="close-drafting-desk">&times;</button>
-      </div>
+/**
+ * Builds the full-width FEATURED card (first item in a category).
+ */
+function buildFeaturedCard(item, index, typeClass = '') {
+  const card = document.createElement('div');
+  card.className = `work-card-featured ${typeClass} card-entering`;
+  card.setAttribute('data-id', item.id);
+  card.style.setProperty('--animation-delay', `${index * 60}ms`);
+  card.style.animationDelay = `${index * 60}ms`;
+  applyAccent(card, item);
 
-      <!-- Main Exhibition Area (Technical ledger layout) -->
-      <div class="drafting-workspace">
-        <div class="system-content-area-split">
-          
-          <!-- LEFT SIDE: Visual Gallery (Dark Theme - matching hero right side) -->
-          <div class="system-visuals-dark">
-            <div class="visuals-content-wrapper">
-              ${carouselHtml}
-              <div class="system-tech-badges-dark">
-                ${techBadges}
-              </div>
-            </div>
-          </div>
-          
-          <!-- RIGHT SIDE: Details & Actions (Light Theme - matching hero left side) -->
-          <div class="system-meta-details-light">
-            <div class="details-content-wrapper">
-              <div class="meta-section">
-                <h4>${project.guide ? 'CONTRIBUTION TARGET' : 'ARCHITECT ROLE'}</h4>
-                <p class="role-text-desc">${project.role}</p>
-              </div>
-              
-              <div class="meta-section">
-                <h4>SPECIFICATIONS & IMPACT</h4>
-                <ul class="system-specs-list-light">
-                  ${detailsHtml}
-                </ul>
-              </div>
-              
-              <div class="meta-actions">
-                ${repoLink}
-                ${demoLink}
-                ${videoLink}
-                ${pptLink}
-                ${guideLink}
-              </div>
-            </div>
-          </div>
-          
-        </div>
+  const imgUrl = item.images && item.images.length > 0
+    ? encodeAssetPath(item.images[0])
+    : '';
+
+  const techPills = item.tech.slice(0, 4)
+    .map(t => `<span class="featured-card-tech-pill">${t}</span>`).join('');
+  const moreTech = item.tech.length > 4
+    ? `<span class="featured-card-tech-pill">+${item.tech.length - 4} more</span>`
+    : '';
+
+  const pad = (index + 1).toString().padStart(2, '0');
+
+  card.innerHTML = `
+    ${imgUrl ? `<div class="featured-card-bg" style="background-image:url('${imgUrl}')"></div>` : ''}
+    <div class="featured-card-glass"></div>
+    <div class="featured-card-glow"></div>
+
+    <span class="featured-card-index">${pad} · Featured</span>
+    <button class="featured-card-explore" aria-label="Explore project">↗</button>
+
+    <div class="featured-card-content">
+      <span class="featured-card-status-badge">${item.status}</span>
+      <h3 class="featured-card-title">${item.title}</h3>
+      <p class="featured-card-tagline">${item.tagline}</p>
+      <div class="featured-card-tech-row">
+        ${techPills}${moreTech}
       </div>
     </div>
   `;
 
-  document.body.appendChild(overlay);
-  document.body.style.overflow = 'hidden'; // Lock background scroll
+  card.addEventListener('click', () => openProjectSheet(item));
+  return card;
+}
 
-  const btnClose = overlay.querySelector('#close-drafting-desk');
+/**
+ * Builds a compact dark-glass card for all items after the first.
+ */
+function buildCompactCard(item, index, typeClass = '') {
+  const card = document.createElement('div');
+  card.className = `work-card-compact ${typeClass} card-entering`;
+  card.setAttribute('data-id', item.id);
+  card.style.animationDelay = `${index * 70}ms`;
+  applyAccent(card, item);
 
-  // Carousel navigation (System layer)
+  const techPills = item.tech.slice(0, 2)
+    .map(t => `<span class="compact-card-tech-pill">${t}</span>`).join('');
+  const moreTech = item.tech.length > 2
+    ? `<span class="compact-card-tech-more">+${item.tech.length - 2}</span>`
+    : '';
+
+  const pad = (index + 1).toString().padStart(2, '0');
+
+  card.innerHTML = `
+    <div class="compact-card-header">
+      <span class="compact-card-index">${pad}</span>
+      <button class="compact-card-arrow-btn" aria-label="Open project">↗</button>
+    </div>
+    <h3 class="compact-card-title">${item.title}</h3>
+    <p class="compact-card-tagline">${item.tagline}</p>
+    <div class="compact-card-footer">
+      ${techPills}${moreTech}
+    </div>
+  `;
+
+  card.addEventListener('click', () => openProjectSheet(item));
+  return card;
+}
+
+// ============================================================
+//  RENDER LOGIC
+// ============================================================
+
+let _activeCategory = 'projects';
+let _isAnimating = false;
+
+/**
+ * Renders the bento grid for a category.
+ * Top section is a 50/50 split:
+ * - Left: 1 large card (Featured)
+ * - Right: Stack of maximum 2 compact cards.
+ * Any additional cards (index 3+) are added to a Bottom Grid below.
+ */
+function renderBento(bentoEl, category) {
+  const items = WORKS_DATA[category] || [];
+  bentoEl.innerHTML = '';
+
+  if (items.length === 0) {
+    bentoEl.innerHTML = `<p style="color:rgba(255,255,255,0.3);padding:2rem;">No items in this category yet.</p>`;
+    return;
+  }
+
+  const N = items.length;
+
+  // Case 1: Less than 3 items: Just render them side-by-side in Top Row
+  if (N <= 2) {
+    const topRow = document.createElement('div');
+    topRow.className = 'works-top-row';
+    items.forEach((item, i) => {
+      topRow.appendChild(buildCompactCard(item, i, ''));
+    });
+    bentoEl.appendChild(topRow);
+    return;
+  }
+
+  // Case 2: 3 or more items: Build Top Row with 1 large (left) + 2 stacked (right)
+  const topRow = document.createElement('div');
+  topRow.className = 'works-top-row';
+
+  // Left side: Large featured card (Index 0)
+  const leftCard = buildFeaturedCard(items[0], 0, 'work-card-large');
+  topRow.appendChild(leftCard);
+
+  // Right side: Flex stack of exactly 2 compact cards (Index 1 & 2)
+  const rightStack = document.createElement('div');
+  rightStack.className = 'works-right-stack';
+  rightStack.appendChild(buildCompactCard(items[1], 1, ''));
+  rightStack.appendChild(buildCompactCard(items[2], 2, ''));
+  topRow.appendChild(rightStack);
+
+  bentoEl.appendChild(topRow);
+
+  // Case 3: More than 3 items: Build Bottom Grid for remaining cards (Index 3+)
+  if (N > 3) {
+    const bottomGrid = document.createElement('div');
+    bottomGrid.className = 'works-bottom-grid';
+
+    const remainingItems = items.slice(3);
+    const R = remainingItems.length;
+
+    remainingItems.forEach((item, idx) => {
+      const globalIdx = idx + 3;
+      let cardClass = '';
+
+      // If it's the last odd item remaining, make it span full width
+      if (R % 2 !== 0 && idx === R - 1) {
+        cardClass = 'work-card-full-width';
+      }
+
+      bottomGrid.appendChild(buildCompactCard(item, globalIdx, cardClass));
+    });
+
+    bentoEl.appendChild(bottomGrid);
+  }
+}
+
+/**
+ * Switches to a new category with animated card exit → enter transition.
+ */
+async function switchCategory(bentoEl, category) {
+  if (_isAnimating || category === _activeCategory) return;
+  _isAnimating = true;
+  _activeCategory = category;
+
+  const currentCards = bentoEl.querySelectorAll(
+    '.work-card-featured, .work-card-compact'
+  );
+
+  // 1. Animate existing cards OUT
+  if (currentCards.length > 0) {
+    currentCards.forEach((card, i) => {
+      card.classList.remove('card-entering');
+      card.classList.add('card-exiting');
+      card.style.animationDelay = `${i * 35}ms`;
+    });
+    // Wait for exit animation to complete (longest card: ~220ms + stagger)
+    await new Promise(resolve =>
+      setTimeout(resolve, 220 + currentCards.length * 35)
+    );
+  }
+
+  // 2. Clear and render new cards
+  renderBento(bentoEl, category);
+
+  _isAnimating = false;
+}
+
+// ============================================================
+//  PROJECT SHEET MODAL
+// ============================================================
+
+let _sheetOpen = false;
+let _escHandler = null;
+
+/**
+ * Opens the immersive slide-up project sheet for a given project.
+ */
+function openProjectSheet(project) {
+  if (_sheetOpen) return;
+  _sheetOpen = true;
+
+  const screenshots = project.images || [];
+  let carouselIndex = 0;
+
+  // --- Build backdrop ---
+  const backdrop = document.createElement('div');
+  backdrop.className = 'project-sheet-backdrop';
+  backdrop.id = 'project-sheet-backdrop';
+
+  // --- Build carousel HTML ---
+  const carouselImagesHtml = screenshots.length > 0
+    ? screenshots.map((src, i) =>
+        `<img src="${encodeAssetPath(src)}" alt="Screenshot ${i + 1}" class="sheet-carousel-img${i === 0 ? ' active' : ''}">`
+      ).join('')
+    : `<div class="sheet-carousel-placeholder">NO PREVIEW AVAILABLE</div>`;
+
+  const carouselNavHtml = screenshots.length > 1
+    ? `<button class="sheet-carousel-nav prev" id="sheet-carousel-prev">&#x276E;</button>
+       <button class="sheet-carousel-nav next" id="sheet-carousel-next">&#x276F;</button>
+       <div class="sheet-carousel-dots">
+         ${screenshots.map((_, i) =>
+           `<span class="sheet-carousel-dot${i === 0 ? ' active' : ''}" data-idx="${i}"></span>`
+         ).join('')}
+       </div>`
+    : '';
+
+  // --- Build tech cloud ---
+  const techCloud = project.tech
+    .map(t => `<span class="sheet-tech-pill">${t}</span>`)
+    .join('');
+
+  // --- Build feature list ---
+  const featureList = project.details
+    .map(d => `<li>${d}</li>`)
+    .join('');
+
+  // --- Build action buttons ---
+  const actionButtons = [];
+  if (project.demo) {
+    actionButtons.push(
+      `<a href="${project.demo}" target="_blank" rel="noopener" class="sheet-action-btn sheet-btn-primary">⚡ Live Demo</a>`
+    );
+  }
+  if (project.repo) {
+    actionButtons.push(
+      `<a href="${project.repo}" target="_blank" rel="noopener" class="sheet-action-btn sheet-btn-github">📦 GitHub Repository</a>`
+    );
+  }
+  if (project.video) {
+    actionButtons.push(
+      `<a href="${project.video}" target="_blank" rel="noopener" class="sheet-action-btn sheet-btn-video">🎬 Demo Video</a>`
+    );
+  }
+  if (project.ppt) {
+    actionButtons.push(
+      `<a href="${project.ppt}" target="_blank" rel="noopener" class="sheet-action-btn sheet-btn-ppt">📊 PPT Presentation</a>`
+    );
+  }
+  if (project.guide) {
+    actionButtons.push(
+      `<a href="${project.guide}" target="_blank" rel="noopener" class="sheet-action-btn sheet-btn-guide">📖 Contribution Guide</a>`
+    );
+  }
+  // GitHub fallback if no other link
+  if (actionButtons.length === 0 && project.repo) {
+    actionButtons.push(
+      `<a href="${project.repo}" target="_blank" rel="noopener" class="sheet-action-btn sheet-btn-primary">📦 View Repository</a>`
+    );
+  }
+
+  // --- Meta tags ---
+  const metaTagsHtml = (project.metaTags || [])
+    .map(tag => `<span class="sheet-meta-tag">${tag}</span>`)
+    .join('');
+
+  // --- Build sheet ---
+  const sheet = document.createElement('div');
+  sheet.className = 'project-sheet';
+  sheet.id = 'project-sheet';
+  sheet.innerHTML = `
+    <div class="sheet-accent-stripe"></div>
+    <div class="sheet-drag-handle"></div>
+
+    <div class="sheet-header">
+      <div class="sheet-header-meta">
+        <div class="sheet-header-category">${project.status}</div>
+        <h2 class="sheet-header-title">${project.title}</h2>
+        <div class="sheet-header-subtitle">${project.subtitle}</div>
+        ${metaTagsHtml ? `<div class="sheet-meta-tags">${metaTagsHtml}</div>` : ''}
+      </div>
+      <button class="sheet-close-btn" id="sheet-close-btn" aria-label="Close">&#x2715;</button>
+    </div>
+
+    <div class="sheet-body">
+      <!-- Left: Visuals -->
+      <div class="sheet-visuals">
+        <div class="sheet-carousel">
+          <div class="sheet-carousel-inner" id="sheet-carousel-inner">
+            ${carouselImagesHtml}
+          </div>
+          ${carouselNavHtml}
+        </div>
+        <div>
+          <div class="sheet-tech-section-label">Tech Stack</div>
+          <div class="sheet-tech-cloud">${techCloud}</div>
+        </div>
+      </div>
+
+      <!-- Right: Details -->
+      <div class="sheet-details">
+        <div>
+          <div class="sheet-section-label">${project.guide ? 'Contribution Target' : 'My Role'}</div>
+          <p class="sheet-role-text">${project.role}</p>
+        </div>
+        <div>
+          <div class="sheet-section-label">Specifications & Impact</div>
+          <ul class="sheet-feature-list">${featureList}</ul>
+        </div>
+        ${actionButtons.length > 0 ? `
+        <div class="sheet-actions-section">
+          <div class="sheet-section-label">Links</div>
+          ${actionButtons.join('')}
+        </div>` : ''}
+      </div>
+    </div>
+  `;
+
+  // Apply accent variables to sheet
+  applyAccent(sheet, project);
+
+  // --- Mount to DOM ---
+  document.body.appendChild(backdrop);
+  document.body.appendChild(sheet);
+  document.body.style.overflow = 'hidden';
+
+  // --- Carousel interactivity ---
   if (screenshots.length > 1) {
-    const carInner = overlay.querySelector('#system-carousel-inner');
-    const imgs = overlay.querySelectorAll('.carousel-img');
-    const dots = overlay.querySelectorAll('.carousel-dot');
-    const btnPrev = overlay.querySelector('#carousel-prev');
-    const btnNext = overlay.querySelector('#carousel-next');
+    const imgs = sheet.querySelectorAll('.sheet-carousel-img');
+    const dots = sheet.querySelectorAll('.sheet-carousel-dot');
+    const btnPrev = sheet.querySelector('#sheet-carousel-prev');
+    const btnNext = sheet.querySelector('#sheet-carousel-next');
 
-    function showImage(idx) {
+    function showSlide(idx) {
       carouselIndex = (idx + screenshots.length) % screenshots.length;
       imgs.forEach((img, i) => img.classList.toggle('active', i === carouselIndex));
       dots.forEach((dot, i) => dot.classList.toggle('active', i === carouselIndex));
     }
 
-    btnPrev.addEventListener('click', (e) => {
-      e.stopPropagation();
-      showImage(carouselIndex - 1);
-    });
-
-    btnNext.addEventListener('click', (e) => {
-      e.stopPropagation();
-      showImage(carouselIndex + 1);
-    });
-
+    btnPrev.addEventListener('click', e => { e.stopPropagation(); showSlide(carouselIndex - 1); });
+    btnNext.addEventListener('click', e => { e.stopPropagation(); showSlide(carouselIndex + 1); });
     dots.forEach(dot => {
-      dot.addEventListener('click', (e) => {
+      dot.addEventListener('click', e => {
         e.stopPropagation();
-        const idx = parseInt(dot.getAttribute('data-idx'));
-        showImage(idx);
+        showSlide(parseInt(dot.getAttribute('data-idx'), 10));
       });
     });
   }
 
-  // Close overlay modal
-  function closeModal() {
-    overlay.classList.add('fade-out');
+  // --- Close logic ---
+  function closeSheet() {
+    if (!_sheetOpen) return;
+    backdrop.classList.add('closing');
+    sheet.classList.add('closing');
+
+    // Remove Escape listener
+    if (_escHandler) {
+      document.removeEventListener('keydown', _escHandler);
+      _escHandler = null;
+    }
+
     setTimeout(() => {
-      overlay.remove();
-      document.body.style.overflow = ''; // Unlock scroll
-    }, 300);
+      backdrop.remove();
+      sheet.remove();
+      document.body.style.overflow = '';
+      _sheetOpen = false;
+    }, 380);
   }
 
-  btnClose.addEventListener('click', closeModal);
-  overlay.addEventListener('click', (e) => {
-    if (e.target === overlay) closeModal();
+  // Close button
+  sheet.querySelector('#sheet-close-btn').addEventListener('click', closeSheet);
+
+  // Backdrop click
+  backdrop.addEventListener('click', closeSheet);
+
+  // Escape key
+  _escHandler = e => { if (e.key === 'Escape') closeSheet(); };
+  document.addEventListener('keydown', _escHandler);
+}
+
+// ============================================================
+//  INIT
+// ============================================================
+
+function initWorksSection() {
+  const worksSection = document.getElementById('works');
+  if (!worksSection) return;
+
+  const tabBtns = document.querySelectorAll('.works-tab-btn');
+  const bentoEl = document.getElementById('works-bento');
+  if (!bentoEl) return;
+
+  // Render initial category
+  renderBento(bentoEl, 'projects');
+  _activeCategory = 'projects';
+
+  // Tab click handlers — smooth crossfade transition
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const category = btn.getAttribute('data-tab');
+      if (category === _activeCategory || _isAnimating) return;
+
+      // Update active state on buttons
+      tabBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      // Animate switch
+      switchCategory(bentoEl, category);
+    });
   });
 }
 
-// Initialise on load
 document.addEventListener('DOMContentLoaded', () => {
   initWorksSection();
 });
