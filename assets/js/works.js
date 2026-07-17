@@ -609,8 +609,8 @@ function openProjectSheet(project) {
   // --- Build carousel HTML ---
   const carouselImagesHtml = screenshots.length > 0
     ? screenshots.map((src, i) =>
-        `<img src="${encodeAssetPath(src)}" alt="Screenshot ${i + 1}" class="sheet-carousel-img${i === 0 ? ' active' : ''}">`
-      ).join('')
+      `<img src="${encodeAssetPath(src)}" alt="Screenshot ${i + 1}" class="sheet-carousel-img${i === 0 ? ' active' : ''}">`
+    ).join('')
     : `<div class="sheet-carousel-placeholder">NO PREVIEW AVAILABLE</div>`;
 
   const carouselNavHtml = screenshots.length > 1
@@ -618,8 +618,8 @@ function openProjectSheet(project) {
        <button class="sheet-carousel-nav next" id="sheet-carousel-next">&#x276F;</button>
        <div class="sheet-carousel-dots">
          ${screenshots.map((_, i) =>
-           `<span class="sheet-carousel-dot${i === 0 ? ' active' : ''}" data-idx="${i}"></span>`
-         ).join('')}
+      `<span class="sheet-carousel-dot${i === 0 ? ' active' : ''}" data-idx="${i}"></span>`
+    ).join('')}
        </div>`
     : '';
 
