@@ -686,12 +686,16 @@ let _escHandler = null;
 /**
  * Opens the immersive slide-up project sheet for a given project.
  */
+/**
+ * Opens the immersive slide-up project sheet for a given project.
+ */
 function openProjectSheet(project) {
   if (_sheetOpen) return;
   _sheetOpen = true;
 
   const screenshots = project.images || [];
   let carouselIndex = 0;
+  let autoplayTimer = null;
 
   // --- Build backdrop ---
   const backdrop = document.createElement('div');
@@ -725,39 +729,39 @@ function openProjectSheet(project) {
     .map(d => `<li>${d}</li>`)
     .join('');
 
-  // --- Build action buttons ---
-  const actionButtons = [];
+  // --- Build header links ---
+  const headerLinks = [];
   if (project.demo) {
-    actionButtons.push(
-      `<a href="${project.demo}" target="_blank" rel="noopener" class="sheet-action-btn sheet-btn-primary">⚡ Live Demo</a>`
+    headerLinks.push(
+      `<a href="${project.demo}" target="_blank" rel="noopener" class="sheet-header-link-btn btn-primary">⚡ Live Demo</a>`
     );
   }
   if (project.repo) {
-    actionButtons.push(
-      `<a href="${project.repo}" target="_blank" rel="noopener" class="sheet-action-btn sheet-btn-github">📦 GitHub Repository</a>`
+    headerLinks.push(
+      `<a href="${project.repo}" target="_blank" rel="noopener" class="sheet-header-link-btn">📦 GitHub</a>`
     );
   }
   if (project.video) {
-    actionButtons.push(
-      `<a href="${project.video}" target="_blank" rel="noopener" class="sheet-action-btn sheet-btn-video">🎬 Demo Video</a>`
+    headerLinks.push(
+      `<a href="${project.video}" target="_blank" rel="noopener" class="sheet-header-link-btn">🎬 Video</a>`
     );
   }
   if (project.ppt) {
-    actionButtons.push(
-      `<a href="${project.ppt}" target="_blank" rel="noopener" class="sheet-action-btn sheet-btn-ppt">📊 PPT Presentation</a>`
+    headerLinks.push(
+      `<a href="${project.ppt}" target="_blank" rel="noopener" class="sheet-header-link-btn">📊 Slides</a>`
     );
   }
   if (project.guide) {
-    actionButtons.push(
-      `<a href="${project.guide}" target="_blank" rel="noopener" class="sheet-action-btn sheet-btn-guide">📖 Contribution Guide</a>`
+    headerLinks.push(
+      `<a href="${project.guide}" target="_blank" rel="noopener" class="sheet-header-link-btn">📖 Guide</a>`
     );
   }
-  // GitHub fallback if no other link
-  if (actionButtons.length === 0 && project.repo) {
-    actionButtons.push(
-      `<a href="${project.repo}" target="_blank" rel="noopener" class="sheet-action-btn sheet-btn-primary">📦 View Repository</a>`
+  if (headerLinks.length === 0 && project.repo) {
+    headerLinks.push(
+      `<a href="${project.repo}" target="_blank" rel="noopener" class="sheet-header-link-btn btn-primary">📦 Repo</a>`
     );
   }
+  const headerLinksHtml = headerLinks.join('');
 
   // --- Meta tags ---
   const metaTagsHtml = (project.metaTags || [])
@@ -773,12 +777,18 @@ function openProjectSheet(project) {
     <div class="sheet-drag-handle"></div>
 
     <div class="sheet-header">
-      <h2 class="sheet-header-title">${project.title}</h2>
-      <button class="sheet-close-btn" id="sheet-close-btn" aria-label="Close">&#x2715;</button>
+      <div class="sheet-header-title-area">
+        <h2 class="sheet-header-title">${project.title}</h2>
+        <div class="sheet-header-subtitle">${project.subtitle}</div>
+      </div>
+      <div class="sheet-header-actions-area">
+        <div class="sheet-header-links">${headerLinksHtml}</div>
+        <button class="sheet-close-btn" id="sheet-close-btn" aria-label="Close">&#x2715;</button>
+      </div>
     </div>
 
     <div class="sheet-body">
-      <!-- Left: Visuals -->
+      <!-- Left: Visuals & Metadata (Saves vertical scrolling in details column) -->
       <div class="sheet-visuals">
         <div class="sheet-carousel">
           <div class="sheet-carousel-inner" id="sheet-carousel-inner">
@@ -786,32 +796,31 @@ function openProjectSheet(project) {
           </div>
           ${carouselNavHtml}
         </div>
-        <div>
-          <div class="sheet-tech-section-label">Tech Stack</div>
-          <div class="sheet-tech-cloud">${techCloud}</div>
+        
+        <div class="sheet-left-meta">
+          <div class="sheet-meta-group">
+            <div class="sheet-section-label">Status</div>
+            <div class="sheet-status-badge">${project.status}</div>
+          </div>
+
+          <div class="sheet-meta-group">
+            <div class="sheet-tech-section-label">Tech Stack</div>
+            <div class="sheet-tech-cloud">${techCloud}</div>
+          </div>
         </div>
       </div>
 
-      <!-- Right: Details -->
+      <!-- Right: Detailed Specifications -->
       <div class="sheet-details">
-        <div class="sheet-meta-section">
-          <div class="sheet-header-category">${project.status}</div>
-          <div class="sheet-header-subtitle">${project.subtitle}</div>
-          ${metaTagsHtml ? `<div class="sheet-meta-tags">${metaTagsHtml}</div>` : ''}
-        </div>
-
-        <div>
-          <div class="sheet-section-label">${project.guide ? 'Contribution Target' : 'My Role'}</div>
-          <p class="sheet-role-text">${project.role}</p>
-        </div>
-        <div>
+        <div class="sheet-specs-section">
           <div class="sheet-section-label">Specifications & Impact</div>
           <ul class="sheet-feature-list">${featureList}</ul>
         </div>
-        ${actionButtons.length > 0 ? `
-        <div class="sheet-actions-section">
-          <div class="sheet-section-label">Links</div>
-          ${actionButtons.join('')}
+        
+        ${metaTagsHtml ? `
+        <div class="sheet-tags-section">
+          <div class="sheet-section-label">Focus Areas</div>
+          <div class="sheet-meta-tags">${metaTagsHtml}</div>
         </div>` : ''}
       </div>
     </div>
@@ -838,14 +847,42 @@ function openProjectSheet(project) {
       dots.forEach((dot, i) => dot.classList.toggle('active', i === carouselIndex));
     }
 
-    btnPrev.addEventListener('click', e => { e.stopPropagation(); showSlide(carouselIndex - 1); });
-    btnNext.addEventListener('click', e => { e.stopPropagation(); showSlide(carouselIndex + 1); });
+    function startAutoplay() {
+      stopAutoplay();
+      autoplayTimer = setInterval(() => {
+        showSlide(carouselIndex + 1);
+      }, 3000);
+    }
+
+    function stopAutoplay() {
+      if (autoplayTimer) {
+        clearInterval(autoplayTimer);
+        autoplayTimer = null;
+      }
+    }
+
+    btnPrev.addEventListener('click', e => {
+      e.stopPropagation();
+      showSlide(carouselIndex - 1);
+      startAutoplay();
+    });
+
+    btnNext.addEventListener('click', e => {
+      e.stopPropagation();
+      showSlide(carouselIndex + 1);
+      startAutoplay();
+    });
+
     dots.forEach(dot => {
       dot.addEventListener('click', e => {
         e.stopPropagation();
         showSlide(parseInt(dot.getAttribute('data-idx'), 10));
+        startAutoplay();
       });
     });
+
+    // Start autoplay slideshow
+    startAutoplay();
   }
 
   // --- Close logic ---
@@ -853,6 +890,12 @@ function openProjectSheet(project) {
     if (!_sheetOpen) return;
     backdrop.classList.add('closing');
     sheet.classList.add('closing');
+
+    // Stop autoplay timer
+    if (autoplayTimer) {
+      clearInterval(autoplayTimer);
+      autoplayTimer = null;
+    }
 
     // Remove Escape listener
     if (_escHandler) {
