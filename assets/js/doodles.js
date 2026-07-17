@@ -321,6 +321,38 @@ window.addEventListener('scroll', () => {
   const clampedPercentSkills = Math.min(Math.max(scrollPercentSkills, 0), 1);
   document.documentElement.style.setProperty('--scroll-percent-skills', clampedPercentSkills);
 
+  // Skills to Works scroll percentage based on viewport visibility
+  const worksSection = document.getElementById('works');
+  let clampedPercentWorks = 0;
+  if (worksSection) {
+    const rect = worksSection.getBoundingClientRect();
+    const viewHeight = window.innerHeight;
+    
+    const entryStart = viewHeight;
+    const entryEnd = viewHeight * 0.25; // Fully visible when top is 25% from top of viewport
+    const exitStart = viewHeight * 0.75; // Starts fading out when bottom is 75% from top of viewport
+    const exitEnd = 0;
+    
+    if (rect.top < entryStart && rect.bottom > exitEnd) {
+      if (rect.top > entryEnd) {
+        // Entering from bottom
+        clampedPercentWorks = (entryStart - rect.top) / (entryStart - entryEnd);
+      } else if (rect.bottom < exitStart) {
+        // Exiting to top
+        clampedPercentWorks = (rect.bottom - exitEnd) / (exitStart - exitEnd);
+      } else {
+        // Fully visible in viewport
+        clampedPercentWorks = 1;
+      }
+    }
+    clampedPercentWorks = Math.max(0, Math.min(1, clampedPercentWorks));
+  } else {
+    // Fallback if element not found
+    const scrollPercentWorks = (window.scrollY - 2 * scrollHeight) / scrollHeight;
+    clampedPercentWorks = Math.min(Math.max(scrollPercentWorks, 0), 1);
+  }
+  document.documentElement.style.setProperty('--scroll-percent-works', clampedPercentWorks);
+
   // Update canvas boundaries to track moving split line
   updateImageCenter();
 });

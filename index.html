@@ -8,10 +8,11 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
   
   <link rel="icon" type="image/png" href="assets/images/logoimage%20copy.png">
   <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/works.css">
 </head>
 <body>
 
@@ -194,9 +195,28 @@
         </div>
       </div>
     </section>
+
+    <!-- Works Section — Bento Grid + Immersive Sheet -->
+    <section class="works-section" id="works">
+      <div class="works-container">
+        <div class="works-header">
+          <h2 class="works-title">Projects & Footprints</h2>
+          <p class="works-subtitle">Explore my software applications, hackathon sprints, and open-source contributions.</p>
+          <div class="works-tabs">
+            <button class="works-tab-btn active" data-tab="projects">Projects</button>
+            <button class="works-tab-btn" data-tab="hackathons">Hackathons</button>
+            <button class="works-tab-btn" data-tab="opensource">Open-Source</button>
+          </div>
+        </div>
+
+        <!-- Bento grid: featured card + compact grid, populated by works.js -->
+        <div class="works-bento" id="works-bento"></div>
+      </div>
+    </section>
   </main>
 
   <script src="assets/js/doodles.js" defer></script>
   <script src="assets/js/skills.js" defer></script>
+  <script src="assets/js/works.js" defer></script>
 </body>
 </html>

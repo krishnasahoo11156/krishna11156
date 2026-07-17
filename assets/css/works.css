@@ -1,0 +1,1260 @@
+/**
+ * Krishna Sahoo Portfolio – Works Section CSS
+ * Redesigned: seamless background, bento-grid cards, immersive slide-up sheet modal.
+ */
+
+/* ==========================================================================
+   Works Section Shell
+   Background is identical to About & Skills — lab(99.38% 0.15 1.65)
+   so the doodle canvas bleeds through continuously.
+   ========================================================================== */
+
+.works-section {
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  z-index: 10;
+  background-color: lab(99.38% 0.15 1.65);
+  padding: 7rem 0 9rem;
+  overflow: hidden;
+}
+
+/* Scroll-driven entrance: header and grid come in as you scroll into section */
+.works-container {
+  width: 100%;
+  max-width: var(--max-width, 1280px);
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* ==========================================================================
+   Works Header & Tab Bar
+   ========================================================================== */
+
+.works-header {
+  text-align: left;
+  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* Entrance animation driven by --scroll-percent-works */
+  transform: translateY(calc(60px * (1 - var(--scroll-percent-works, 0))));
+  opacity: var(--scroll-percent-works, 0);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+.works-title {
+  font-family: 'Lato', sans-serif;
+  font-size: 2.75rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  background: linear-gradient(135deg, #2c2c2c 0%, #6e6e73 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+  display: inline-block;
+  margin-bottom: 0.6rem;
+}
+
+.works-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 65px;
+  height: 4px;
+  background: linear-gradient(90deg, #2c2c2c 0%, rgba(110, 110, 115, 0.1) 100%);
+  border-radius: 2px;
+}
+
+.works-subtitle {
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: #7a7a7a;
+  font-weight: 300;
+  margin-top: 0.9rem;
+  margin-bottom: 1.4rem;
+}
+
+/* Tab bar — frosted glass pill capsule */
+.works-tabs {
+  display: inline-flex;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 5px;
+  border-radius: 40px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.works-tab-btn {
+  position: relative;
+  background: none;
+  border: none;
+  color: #6e6e73;
+  font-family: var(--font-tech);
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 10px 24px;
+  border-radius: 30px;
+  cursor: pointer;
+  outline: none;
+  letter-spacing: 0.3px;
+  transition: color 0.25s ease, background 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.3s ease;
+  white-space: nowrap;
+}
+
+.works-tab-btn:hover {
+  color: #1d1d1f;
+}
+
+.works-tab-btn.active {
+  background: linear-gradient(135deg, rgba(55, 55, 55, 0.85) 0%, rgba(24, 24, 24, 0.95) 100%);
+  backdrop-filter: blur(16px) saturate(120%);
+  -webkit-backdrop-filter: blur(16px) saturate(120%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.2);
+}
+
+/* ==========================================================================
+   Bento Grid Layout
+   Modern dynamic grid layout: alternates between 1 tall card (left/right)
+   and 2 stacked compact cards.
+   ========================================================================== */
+
+.works-bento {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  /* Staggered entrance driven by --scroll-percent-works */
+  transform: translateY(calc(80px * (1 - var(--scroll-percent-works, 0))));
+  opacity: var(--scroll-percent-works, 0);
+  transition: transform 0.6s 0.1s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.6s 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+.works-top-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  width: 100%;
+}
+
+.works-right-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+}
+
+.works-right-stack>* {
+  flex: 1;
+  min-height: 0;
+}
+
+.works-bottom-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  width: 100%;
+}
+
+.work-card-large {
+  width: 100%;
+  height: 100%;
+  min-height: 480px;
+}
+
+.work-card-full-width {
+  grid-column: span 2;
+}
+
+/* ==========================================================================
+   Featured Card — Image Background, Glassmorphic Overlay
+   ========================================================================== */
+
+.work-card-featured {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 26px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.45s ease;
+  will-change: transform;
+  /* Accent line at very top */
+}
+
+.work-card-featured:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 32px 64px rgba(0, 0, 0, 0.22),
+    0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+/* Glowing accent stripe at top of featured card */
+.work-card-featured::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2.5px;
+  background: var(--project-accent, #00f2fe);
+  box-shadow: 0 0 24px var(--project-accent, #00f2fe),
+    0 0 48px rgba(var(--project-accent-rgb, 0, 242, 254), 0.3);
+  z-index: 4;
+}
+
+/* Background image layer */
+.featured-card-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.4) saturate(1.3);
+  transform: scale(1.02);
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.45s ease;
+  will-change: transform, filter;
+}
+
+.work-card-featured:hover .featured-card-bg {
+  transform: scale(1.06);
+  filter: brightness(0.48) saturate(1.4);
+}
+
+/* Multi-layer glassmorphic gradient overlay */
+.featured-card-glass {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(150deg,
+      rgba(40, 40, 40, 0.82) 0%,
+      rgba(30, 30, 30, 0.65) 45%,
+      rgba(18, 18, 18, 0.88) 100%);
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+}
+
+/* Radial accent glow on the left */
+.featured-card-glow {
+  position: absolute;
+  bottom: -80px;
+  left: -80px;
+  width: 350px;
+  height: 350px;
+  border-radius: 50%;
+  background: radial-gradient(circle,
+      rgba(var(--project-accent-rgb, 0, 242, 254), 0.12) 0%,
+      transparent 70%);
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.work-card-featured:hover .featured-card-glow {
+  opacity: 1.5;
+}
+
+/* Index badge — top left */
+.featured-card-index {
+  position: absolute;
+  top: 2rem;
+  left: 2.5rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--project-accent, #00f2fe);
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  opacity: 0.85;
+  z-index: 3;
+}
+
+/* Explore arrow — top right */
+.featured-card-explore {
+  position: absolute;
+  top: 1.8rem;
+  right: 2.2rem;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 3;
+  transition: background 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.work-card-featured:hover .featured-card-explore {
+  background: var(--project-accent, #00f2fe);
+  border-color: var(--project-accent, #00f2fe);
+  color: #0d0d0f;
+  transform: scale(1.12) rotate(-45deg);
+  box-shadow: 0 0 28px var(--project-accent, #00f2fe);
+}
+
+/* Content — bottom of featured card */
+.featured-card-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2.5rem;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.featured-card-status-badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 5px 14px;
+  border-radius: 20px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+  backdrop-filter: blur(8px);
+}
+
+.featured-card-title {
+  font-family: var(--font-tech);
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -1px;
+  line-height: 1.1;
+}
+
+.featured-card-tagline {
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.58);
+  line-height: 1.55;
+  max-width: 580px;
+  margin-bottom: 0.6rem;
+}
+
+.featured-card-tech-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  align-items: center;
+}
+
+.featured-card-tech-pill {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+/* ==========================================================================
+   Compact Dark Glass Cards
+   ========================================================================== */
+
+.work-card-compact {
+  position: relative;
+  border-radius: 22px;
+  overflow: hidden;
+  cursor: pointer;
+  background: linear-gradient(135deg, rgba(55, 55, 55, 0.75) 0%, rgba(24, 24, 24, 0.85) 100%);
+  backdrop-filter: blur(16px) saturate(120%);
+  -webkit-backdrop-filter: blur(16px) saturate(120%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-left: 3px solid var(--project-accent, #00f2fe);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.4s ease,
+    border-color 0.3s ease;
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 210px;
+  will-change: transform;
+}
+
+/* Subtle radial glow at top-left corner matching accent */
+.work-card-compact::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 220px;
+  height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at top left,
+      rgba(var(--project-accent-rgb, 0, 242, 254), 0.07) 0%,
+      transparent 70%);
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+
+.work-card-compact:hover {
+  transform: translateY(-7px) translateX(3px);
+  box-shadow:
+    0 24px 52px rgba(0, 0, 0, 0.22),
+    0 0 0 1px rgba(255, 255, 255, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.work-card-compact:hover::before {
+  opacity: 2.5;
+}
+
+.compact-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.compact-card-index {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--project-accent, #00f2fe);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  opacity: 0.82;
+}
+
+/* Small arrow button top right */
+.compact-card-arrow-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.work-card-compact:hover .compact-card-arrow-btn {
+  background: var(--project-accent, #00f2fe);
+  border-color: var(--project-accent, #00f2fe);
+  color: #0d0d0f;
+  transform: rotate(-45deg);
+  box-shadow: 0 0 16px var(--project-accent, #00f2fe);
+}
+
+.compact-card-title {
+  font-family: var(--font-tech);
+  font-size: 1.22rem;
+  font-weight: 700;
+  color: #f0f0f4;
+  letter-spacing: -0.3px;
+  margin-bottom: 0.4rem;
+  line-height: 1.2;
+}
+
+.compact-card-tagline {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.45);
+  line-height: 1.55;
+  flex-grow: 1;
+  margin-bottom: 1.2rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.compact-card-footer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: auto;
+}
+
+.compact-card-tech-pill {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.compact-card-tech-more {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.3);
+  padding: 3px 6px;
+}
+
+/* ==========================================================================
+   Card Entrance / Exit Animations (for tab switching)
+   ========================================================================== */
+
+@keyframes cardSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cardSlideOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-14px);
+  }
+}
+
+.work-card-featured.card-entering,
+.work-card-compact.card-entering {
+  animation: cardSlideIn 0.48s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.work-card-featured.card-exiting,
+.work-card-compact.card-exiting {
+  animation: cardSlideOut 0.22s ease forwards;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   Immersive Project Sheet — Slides up from bottom
+   ========================================================================== */
+
+/* Backdrop */
+.project-sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 4, 8, 0.78);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 1000;
+  opacity: 0;
+  animation: backdropFadeIn 0.38s ease forwards;
+  will-change: opacity;
+}
+
+.project-sheet-backdrop.closing {
+  animation: backdropFadeOut 0.32s ease forwards;
+}
+
+/* The sheet itself */
+.project-sheet {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 91vh;
+  z-index: 1001;
+  border-radius: 28px 28px 0 0;
+  overflow: hidden;
+  /* Matching the premium dark metallic gradient background from the hero right-side */
+  background: linear-gradient(135deg, rgba(58, 58, 58, 0.96) 0%, rgba(26, 26, 26, 0.98) 100%);
+  backdrop-filter: blur(16px) saturate(120%);
+  -webkit-backdrop-filter: blur(16px) saturate(120%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: none;
+  box-shadow: 0 -24px 80px rgba(0, 0, 0, 0.55), 0 -2px 0 rgba(255, 255, 255, 0.06);
+  display: flex;
+  flex-direction: column;
+  transform: translateY(100%);
+  animation: sheetSlideUp 0.48s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform;
+}
+
+.project-sheet.closing {
+  animation: sheetSlideDown 0.36s cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+/* Drag handle hint at top center */
+.sheet-drag-handle {
+  width: 38px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 2px;
+  margin: 12px auto 0;
+  flex-shrink: 0;
+}
+
+/* Glowing accent stripe */
+.sheet-accent-stripe {
+  width: 100%;
+  height: 2.5px;
+  background: linear-gradient(90deg,
+      transparent 0%,
+      var(--project-accent, #00f2fe) 25%,
+      var(--project-accent, #00f2fe) 75%,
+      transparent 100%);
+  box-shadow: 0 0 32px var(--project-accent, #00f2fe),
+    0 0 64px rgba(var(--project-accent-rgb, 0, 242, 254), 0.25);
+  flex-shrink: 0;
+}
+
+/* Sheet header */
+.sheet-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 2.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.055);
+  flex-shrink: 0;
+  gap: 1.5rem;
+}
+
+.sheet-header-title {
+  font-family: var(--font-tech);
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #f2f2f6;
+  letter-spacing: -0.7px;
+  line-height: 1.1;
+}
+
+/* Metadata Section in Right Column */
+.sheet-meta-section {
+  margin-bottom: 0.8rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.055);
+}
+
+.sheet-header-category {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--project-accent, #00f2fe);
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  opacity: 0.9;
+}
+
+.sheet-header-subtitle {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.5;
+}
+
+/* Meta tags row */
+.sheet-meta-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.sheet-meta-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(var(--project-accent-rgb, 0, 242, 254), 0.28);
+  color: var(--project-accent, #00f2fe);
+  background: rgba(var(--project-accent-rgb, 0, 242, 254), 0.06);
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+/* Close button */
+.sheet-close-btn {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  margin-top: 2px;
+}
+
+.sheet-close-btn:hover {
+  border-color: var(--project-accent, #00f2fe);
+  color: var(--project-accent, #00f2fe);
+  background: rgba(var(--project-accent-rgb, 0, 242, 254), 0.06);
+  box-shadow: 0 0 20px rgba(var(--project-accent-rgb, 0, 242, 254), 0.18);
+  transform: scale(1.08) rotate(90deg);
+}
+
+/* ==========================================================================
+   Sheet Body — Two-column layout
+   ========================================================================== */
+
+.sheet-body {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Scrollable columns */
+.sheet-visuals,
+.sheet-details {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.12) transparent;
+}
+
+.sheet-visuals::-webkit-scrollbar,
+.sheet-details::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sheet-visuals::-webkit-scrollbar-track,
+.sheet-details::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sheet-visuals::-webkit-scrollbar-thumb,
+.sheet-details::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.11);
+  border-radius: 2px;
+}
+
+/* Left column: Visuals */
+.sheet-visuals {
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 2rem 2.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Image Carousel */
+.sheet-carousel {
+  position: relative;
+  width: 100%;
+  border-radius: 18px;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  background: #09090e;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 10px 44px rgba(0, 0, 0, 0.55);
+  flex-shrink: 0;
+}
+
+.sheet-carousel-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.sheet-carousel-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.42s ease;
+  pointer-events: none;
+}
+
+.sheet-carousel-img.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sheet-carousel-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: rgba(255, 255, 255, 0.13);
+  font-family: var(--font-mono, monospace);
+  font-size: 0.78rem;
+  letter-spacing: 3px;
+}
+
+/* Carousel navigation arrows */
+.sheet-carousel-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(8, 8, 14, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  color: rgba(255, 255, 255, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 5;
+  font-size: 0.85rem;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(6px);
+}
+
+.sheet-carousel-nav:hover {
+  background: var(--project-accent, #00f2fe);
+  border-color: var(--project-accent, #00f2fe);
+  color: #0d0d0f;
+  box-shadow: 0 0 16px var(--project-accent, #00f2fe);
+}
+
+.sheet-carousel-nav.prev {
+  left: 12px;
+}
+
+.sheet-carousel-nav.next {
+  right: 12px;
+}
+
+/* Carousel dots */
+.sheet-carousel-dots {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  z-index: 5;
+}
+
+.sheet-carousel-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.28);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.sheet-carousel-dot.active {
+  background: var(--project-accent, #00f2fe);
+  transform: scale(1.45);
+  box-shadow: 0 0 8px var(--project-accent, #00f2fe);
+}
+
+/* Tech cloud in left column */
+.sheet-tech-section-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.28);
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin-bottom: 0.65rem;
+}
+
+.sheet-tech-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.sheet-tech-pill {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 5px 14px;
+  border-radius: 20px;
+  transition: all 0.22s ease;
+}
+
+.sheet-tech-pill:hover {
+  background: rgba(255, 255, 255, 0.09);
+  color: rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+/* ==========================================================================
+   Sheet Right Column: Details & Actions
+   ========================================================================== */
+
+.sheet-details {
+  padding: 2rem 2.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+/* Section label */
+.sheet-section-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.27);
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin-bottom: 0.7rem;
+}
+
+/* Role text */
+.sheet-role-text {
+  font-size: 0.93rem;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.65;
+}
+
+/* Feature list with glowing accent bullets */
+.sheet-feature-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.sheet-feature-list li {
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.62;
+  padding-left: 20px;
+  position: relative;
+}
+
+.sheet-feature-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--project-accent, #00f2fe);
+  box-shadow: 0 0 10px var(--project-accent, #00f2fe);
+}
+
+.sheet-feature-list li strong {
+  color: rgba(255, 255, 255, 0.88);
+  font-weight: 700;
+}
+
+/* Action links */
+.sheet-actions-section {
+  margin-top: auto;
+  padding-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.sheet-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 13px 20px;
+  border-radius: 13px;
+  font-family: var(--font-tech);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.78);
+  letter-spacing: 0.3px;
+  transition: background 0.25s ease, color 0.25s ease,
+    border-color 0.25s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.25s ease;
+}
+
+.sheet-action-btn:hover {
+  background: rgba(255, 255, 255, 0.09);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.14);
+  transform: translateX(5px);
+}
+
+/* Primary action (demo / first button) */
+.sheet-action-btn.sheet-btn-primary {
+  background: var(--project-accent, #00f2fe);
+  color: #0d0d0f;
+  border-color: transparent;
+  font-weight: 800;
+}
+
+.sheet-action-btn.sheet-btn-primary:hover {
+  background: transparent;
+  color: var(--project-accent, #00f2fe);
+  border-color: var(--project-accent, #00f2fe);
+  box-shadow: 0 0 28px rgba(var(--project-accent-rgb, 0, 242, 254), 0.2);
+}
+
+/* GitHub specific tint */
+.sheet-action-btn.sheet-btn-github:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Video specific tint - neutral grey */
+.sheet-action-btn.sheet-btn-video {
+  color: rgba(229, 229, 231, 0.85);
+  border-color: rgba(229, 229, 231, 0.12);
+  background: rgba(229, 229, 231, 0.04);
+}
+
+.sheet-action-btn.sheet-btn-video:hover {
+  background: rgba(229, 229, 231, 0.12);
+  color: #ffffff;
+  border-color: rgba(229, 229, 231, 0.2);
+}
+
+/* PPT specific tint - neutral grey */
+.sheet-action-btn.sheet-btn-ppt {
+  color: rgba(229, 229, 231, 0.85);
+  border-color: rgba(229, 229, 231, 0.12);
+  background: rgba(229, 229, 231, 0.04);
+}
+
+.sheet-action-btn.sheet-btn-ppt:hover {
+  background: rgba(229, 229, 231, 0.12);
+  color: #ffffff;
+  border-color: rgba(229, 229, 231, 0.2);
+}
+
+/* Guide specific tint - neutral grey */
+.sheet-action-btn.sheet-btn-guide {
+  color: rgba(229, 229, 231, 0.85);
+  border-color: rgba(229, 229, 231, 0.12);
+  background: rgba(229, 229, 231, 0.04);
+}
+
+.sheet-action-btn.sheet-btn-guide:hover {
+  background: rgba(229, 229, 231, 0.12);
+  color: #ffffff;
+  border-color: rgba(229, 229, 231, 0.2);
+}
+
+/* ==========================================================================
+   Sheet Animations
+   ========================================================================== */
+
+@keyframes backdropFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes backdropFadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes sheetSlideUp {
+  from {
+    transform: translateY(100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes sheetSlideDown {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(100%);
+  }
+}
+
+/* ==========================================================================
+   Responsive — Mobile & Tablet
+   ========================================================================== */
+
+@media (max-width: 992px) {
+  .works-header {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .works-bento {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .works-top-row {
+    grid-template-columns: 1fr;
+  }
+
+  .works-bottom-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .work-card-large {
+    min-height: 420px !important;
+    height: auto !important;
+  }
+
+  .work-card-full-width {
+    grid-column: span 1 !important;
+  }
+
+  .sheet-body {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+
+  .sheet-visuals {
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 1.5rem 1.5rem;
+    overflow-y: visible;
+    max-height: 55vw;
+  }
+
+  .sheet-details {
+    padding: 1.5rem;
+  }
+
+  .sheet-header {
+    padding: 1.2rem 1.5rem;
+  }
+
+  .sheet-header-title {
+    font-size: 1.4rem;
+  }
+
+  .project-sheet {
+    height: 94vh;
+    border-radius: 22px 22px 0 0;
+  }
+}
+
+@media (max-width: 680px) {
+  .work-card-featured {
+    height: 320px !important;
+    min-height: auto !important;
+  }
+
+  .featured-card-title {
+    font-size: 1.6rem;
+  }
+
+  .featured-card-tagline {
+    display: none;
+  }
+
+  .works-tabs {
+    flex-wrap: wrap;
+    border-radius: 18px;
+    gap: 4px;
+  }
+
+  .works-tab-btn {
+    font-size: 0.8rem;
+    padding: 8px 16px;
+  }
+
+  .sheet-header-title {
+    font-size: 1.25rem;
+  }
+
+  .sheet-header-subtitle {
+    display: none;
+  }
+
+  .sheet-meta-tags {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .works-title {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 680px) {
+  .work-card-featured {
+    height: 320px !important;
+    min-height: auto !important;
+  }
+
+  .featured-card-title {
+    font-size: 1.6rem;
+  }
+
+  .featured-card-tagline {
+    display: none;
+  }
+
+  .works-tabs {
+    flex-wrap: wrap;
+    border-radius: 18px;
+    gap: 4px;
+  }
+
+  .works-tab-btn {
+    font-size: 0.8rem;
+    padding: 8px 16px;
+  }
+
+  .sheet-header-title {
+    font-size: 1.25rem;
+  }
+
+  .sheet-header-subtitle {
+    display: none;
+  }
+
+  .sheet-meta-tags {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .works-title {
+    font-size: 2.2rem;
+  }
+}
