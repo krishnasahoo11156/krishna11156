@@ -1115,9 +1115,9 @@ main {
   inset: 0;
   z-index: 2000;
   /* Above navbar and achievements portal */
-  background: rgba(10, 10, 10, 0.65);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1132,12 +1132,11 @@ main {
 }
 
 .resume-modal-container {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.94) 0%, rgba(245, 245, 245, 0.97) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow:
-    0 35px 80px rgba(0, 0, 0, 0.25),
-    0 10px 30px rgba(0, 0, 0, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  background: lab(99.38% 0.15 1.65);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 
+    0 35px 80px rgba(0, 0, 0, 0.15),
+    0 10px 30px rgba(0, 0, 0, 0.05);
   width: 90vw;
   height: 85vh;
   max-width: 1000px;
@@ -1162,7 +1161,7 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(255, 255, 255, 0.4);
+  background: lab(99.38% 0.15 1.65);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   z-index: 10;
@@ -1172,14 +1171,10 @@ main {
   font-family: 'Outfit', sans-serif;
   font-size: 1.25rem;
   font-weight: 700;
-  color: #1a1a1a;
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-
-.resume-icon {
-  font-size: 1.35rem;
+  background: linear-gradient(135deg, #111111 0%, #555555 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
 }
 
 .resume-modal-actions {
@@ -1194,32 +1189,37 @@ main {
   font-family: 'Outfit', sans-serif;
   font-size: 0.82rem;
   font-weight: 600;
-  color: #555;
-  background: rgba(0, 0, 0, 0.04);
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  color: #4e4e4e;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.06) 0%, rgba(0, 0, 0, 0.02) 100%);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   padding: 0.5rem 1.1rem;
   border-radius: 30px;
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
   cursor: pointer;
 }
 
 .resume-action-btn:hover {
-  background: #111;
-  color: #fff;
-  border-color: #111;
-  transform: translateY(-1.5px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  background: linear-gradient(135deg, #7a7a7a 0%, #4e4e4e 100%);
+  color: #ffffff;
+  border-color: #7a7a7a;
+  transform: translateY(-1.5px) scale(1.02);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .resume-action-btn svg {
-  transition: stroke 0.25s ease;
+  stroke: currentColor;
+  transition: stroke 0.25s ease, transform 0.25s ease;
 }
 
 .resume-action-btn:hover svg {
-  stroke: #fff;
+  stroke: #ffffff;
+  transform: scale(1.05);
 }
 
 .resume-close-btn {
@@ -1234,18 +1234,18 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: color 0.2s ease, transform 0.2s ease;
+  transition: color 0.2s ease, transform 0.25s ease;
 }
 
 .resume-close-btn:hover {
-  color: #111;
-  transform: scale(1.15);
+  color: #111111;
+  transform: scale(1.1) rotate(90deg);
 }
 
 /* Modal Body / PDF container */
 .resume-modal-body {
   flex: 1;
-  background: #fdfdfd;
+  background: #eaeaea;
   position: relative;
   overflow: hidden;
 }
