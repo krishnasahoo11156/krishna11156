@@ -13,6 +13,7 @@
   <link rel="icon" type="image/png" href="assets/images/logoimage%20copy.png">
   <link rel="stylesheet" href="assets/css/main.css">
   <link rel="stylesheet" href="assets/css/works.css">
+  <link rel="stylesheet" href="assets/css/achievements.css">
 </head>
 <body>
 
@@ -213,10 +214,67 @@
         <div class="works-bento" id="works-bento"></div>
       </div>
     </section>
+
+    <!-- Achievements Section — Infinite Dual-Axis Conveyor -->
+    <section class="achievements-section" id="achievements">
+      <div class="achievements-header">
+        <h2 class="achievements-title">Achievements</h2>
+        <p class="achievements-subtitle">A dynamic ledger of credentials, hackathon victories, and academic milestones.</p>
+      </div>
+
+      <div class="conveyor-container">
+        <!-- Row 1: Sliding Left -->
+        <div class="conveyor-row row-left">
+          <div class="conveyor-track" id="row-left-track">
+            <!-- Generated dynamically by achievements.js -->
+          </div>
+        </div>
+
+        <!-- Row 2: Sliding Right -->
+        <div class="conveyor-row row-right">
+          <div class="conveyor-track" id="row-right-track">
+            <!-- Generated dynamically by achievements.js -->
+          </div>
+        </div>
+      </div>
+
+      <div class="conveyor-status-tip">
+        <span>← Scroll or hover cards to inspect →</span>
+      </div>
+    </section>
   </main>
+
+  <!-- Portal Zoom Details Overlay -->
+  <div class="portal-zoom-overlay" id="portal-zoom-overlay">
+    <div class="portal-content-wrapper">
+      <div class="portal-left">
+        <img src="" alt="Certificate" class="portal-cert-img" id="portal-cert-img">
+      </div>
+      <div class="portal-right">
+        <button class="portal-close-btn" id="portal-close-btn">&times;</button>
+        <div>
+          <span class="portal-category-badge" id="portal-category-badge">Category</span>
+          <h3 class="portal-title" id="portal-title">Achievement Title</h3>
+          <div class="portal-issuer" id="portal-issuer">Organization</div>
+          <div class="portal-date" id="portal-date">Date</div>
+          <p class="portal-desc" id="portal-desc">Description details...</p>
+          <div class="portal-tech-row" id="portal-tech-row">
+            <!-- Tech pills -->
+          </div>
+        </div>
+        <a href="" target="_blank" class="btn-portal-verify" id="btn-portal-verify">Verify Credential</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Portal Lightbox Zoom Overlay -->
+  <div class="portal-lightbox" id="portal-lightbox">
+    <img src="" alt="Certificate Zoom" class="portal-lightbox-img" id="portal-lightbox-img">
+  </div>
 
   <script src="assets/js/doodles.js" defer></script>
   <script src="assets/js/skills.js" defer></script>
   <script src="assets/js/works.js" defer></script>
+  <script src="assets/js/achievements.js" defer></script>
 </body>
 </html>

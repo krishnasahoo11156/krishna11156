@@ -35,7 +35,8 @@ const WORKS_DATA = {
         "<strong>Skill-Gap Heatmap:</strong> Generates an interactive, color-coded comparison grid (🟢 Match, 🟡 Partial, 🔴 Missing) highlighting skill alignments.",
         "<strong>Blind Screening Mode:</strong> Reduces unconscious bias by scrubbing identifying candidate details (names, emails, phone numbers, genders, university names)."
       ],
-      metaTags: ["Resume Screener", "Explainable AI", "Recruitment Suite"]
+      metaTags: ["Resume Screener", "Explainable AI", "Recruitment Suite"],
+      size: "large"
     },
     {
       id: "code2git",
@@ -62,7 +63,8 @@ const WORKS_DATA = {
         "<strong>Interactive Statistics Dashboard:</strong> Tracks solved problems, platform distributions, and submission history in a visually rich dashboard.",
         "<strong>Private Coding Leaderboards:</strong> Connects to a custom Firebase URL to share stats and compete on private leaderboards with friends."
       ],
-      metaTags: ["Chrome Extension", "GitHub Automation", "Competitive Coding"]
+      metaTags: ["Chrome Extension", "GitHub Automation", "Competitive Coding"],
+      size: "tall"
     },
     {
       id: "thegreenroom",
@@ -83,7 +85,8 @@ const WORKS_DATA = {
         "<strong>Vibe Tracker:</strong> Renders a subtle ambient glow behind the chat bubble that changes color based on the persona's current emotional state.",
         "<strong>Subscription Architecture:</strong> Restricts premium personas (Romantic, Fantasy, Roaster) using message quotas and paywalls."
       ],
-      metaTags: ["Upcoming", "AI Companion", "Multi-Modal LLM"]
+      metaTags: ["Upcoming", "AI Companion", "Multi-Modal LLM"],
+      size: "wide"
     }
   ],
   hackathons: [
@@ -119,7 +122,8 @@ const WORKS_DATA = {
         "<strong>Monte Carlo Simulator:</strong> Evaluates calendar slots and runs trials to calculate deadline risks before they occur.",
         "<strong>Gemini Calendar Sync:</strong> Parses natural language tasks, re-maps conflict slots, and updates Google Calendar in real-time."
       ],
-      metaTags: ["National Level 🇮🇳", "3,000+ Solo Competitors 👥", "Monte Carlo Simulation"]
+      metaTags: ["National Level 🇮🇳", "3,000+ Solo Competitors 👥", "Monte Carlo Simulation"],
+      size: "large"
     },
     {
       id: "studysync",
@@ -140,7 +144,6 @@ const WORKS_DATA = {
         "assets/images/projects/studysync/Screenshot 2026-04-21 221419.png",
         "assets/images/projects/studysync/Screenshot 2026-04-21 221456.png",
         "assets/images/projects/studysync/Screenshot 2026-04-21 221518.png",
-        "assets/images/projects/studysync/Screenshot 2026-04-21 221546.png",
         "assets/images/projects/studysync/Screenshot 2026-05-17 122518.png"
       ],
       details: [
@@ -149,7 +152,8 @@ const WORKS_DATA = {
         "<strong>Zero-CORS Vault:</strong> Custom Firestore schema encoding files into Base64 formats for zero-cost static cloud storage.",
         "<strong>Intelligent Calendar:</strong> Built-in conflict checker checking exam overlaps and course timelines."
       ],
-      metaTags: ["Winner 🏆", "Solo Project 👤", "Web Audio Engine"]
+      metaTags: ["Winner 🏆", "Solo Project 👤", "Web Audio Engine"],
+      size: "tall"
     },
     {
       id: "crisissync",
@@ -184,7 +188,8 @@ const WORKS_DATA = {
         "<strong>Gemini Triage Classifier:</strong> AI incident classification engine classifying reports, rating urgency, and making safety checklists under 3 seconds.",
         "<strong>Aegis Design System:</strong> Dark, tactical high-visibility interfaces separating Guest, Staff, and Admin portals."
       ],
-      metaTags: ["3,000+ Competitors 👥", "Gemini Triage", "Real-time Sync"]
+      metaTags: ["3,000+ Competitors 👥", "Gemini Triage", "Real-time Sync"],
+      size: "compact"
     },
     {
       id: "orbitalwatch",
@@ -209,7 +214,8 @@ const WORKS_DATA = {
         "<strong>SGP4 Coordinate Propagator:</strong> Evaluates satellite elements (TLE) dynamically and outputs geodetic paths.",
         "<strong>Conjunction Scans:</strong> Double-pass shell filter mapping close approaches within 1.0 km in a 72-hour forecast."
       ],
-      metaTags: ["11,000+ Groups 🛰️", "React Three Fiber", "Conjunction Forecast"]
+      metaTags: ["11,000+ Groups 🛰️", "React Three Fiber", "Conjunction Forecast"],
+      size: "compact"
     },
     {
       id: "syrus-onboarding",
@@ -236,7 +242,8 @@ const WORKS_DATA = {
         "<strong>Gemini Onboarding Copilot:</strong> Conversation bot answering workspace queries and loading setup guidelines.",
         "<strong>HR Analytics Dashboard:</strong> Tracking team checklists and analytics progress utilizing Chart.js grids."
       ],
-      metaTags: ["Team AlgoMinds 👥", "Auto Setup Checks", "Gemini Copilot"]
+      metaTags: ["Team AlgoMinds 👥", "Auto Setup Checks", "Gemini Copilot"],
+      size: "compact"
     }
   ],
   opensource: [
@@ -261,13 +268,14 @@ const WORKS_DATA = {
         "<strong>PR #65:</strong> Setup BullMQ background email parser running AI models to classify priority items.",
         "<strong>Auth & Tests:</strong> AuthContext Context API (PR #70), JWT Authentication middleware (PR #69), and Jest test suits (PR #50)."
       ],
-      metaTags: ["9 Merged PRs 🚀", "Docker Compose", "Prisma Schemas"]
+      metaTags: ["9 Merged PRs 🚀", "Docker Compose", "Prisma Schemas"],
+      size: "large"
     },
     {
       id: "firstcontrib",
       title: "First Contributions",
       subtitle: "Onboarding Bug Fix",
-      tagline: "Escaped translation characters in Lingala Markdown README to prevent directory rendering crashes.",
+      tagline: "Escaped translation characters in Lingala README to prevent directory crashes.",
       status: "Open Source Contributor",
       role: "Merged Translation Fix",
       tech: ["Git", "Markdown", "HTML", "Lingala Translation"],
@@ -282,7 +290,8 @@ const WORKS_DATA = {
         "<strong>PR #119971:</strong> Escaped angle brackets inside Lingala translation strings, resolving a layout parser issue.",
         "<strong>Git Flow:</strong> Learned the standard directory registration process to establish open source workflows."
       ],
-      metaTags: ["Merged PR 🐛", "Translation Fix", "Git Onboarding"]
+      metaTags: ["Merged PR 🐛", "Translation Fix", "Git Onboarding"],
+      size: "compact"
     },
     {
       id: "gsoc-apache",
@@ -306,7 +315,8 @@ const WORKS_DATA = {
         "<strong>Apache NetBeans:</strong> Under-the-hood Java compiler and code completion tools.",
         "<strong>Apache ShardingSphere & Fineract:</strong> Studying transaction servers and distributed SQL connectors."
       ],
-      metaTags: ["GSoC Target 🎯", "Enterprise Java ☕", "Community Driven"]
+      metaTags: ["GSoC Target 🎯", "Enterprise Java ☕", "Community Driven"],
+      size: "compact"
     },
     {
       id: "gsoc-eclipse",
@@ -329,7 +339,8 @@ const WORKS_DATA = {
         "<strong>Eclipse Collections:</strong> High-performance JDK compatibility collections API sheets.",
         "<strong>Eclipse Theia & Che:</strong> Next-generation cloud IDE containers written in TypeScript and Java."
       ],
-      metaTags: ["GSoC Target 🎯", "IDE Tooling ⚙️", "Jakarta EE"]
+      metaTags: ["GSoC Target 🎯", "IDE Tooling ⚙️", "Jakarta EE"],
+      size: "compact"
     },
     {
       id: "gsoc-jenkins",
@@ -351,7 +362,8 @@ const WORKS_DATA = {
         "<strong>Pipeline Plugin:</strong> Analyzing compiler rules for Groovy-based pipeline script parsers.",
         "<strong>Configuration as Code (JCasC):</strong> Writing YAML configuration setup pipelines for plugin dependencies."
       ],
-      metaTags: ["GSoC Target 🎯", "DevOps & CI/CD ⚙️", "Plugin Infrastructure"]
+      metaTags: ["GSoC Target 🎯", "DevOps & CI/CD ⚙️", "Plugin Infrastructure"],
+      size: "compact"
     },
     {
       id: "gsoc-openmrs",
@@ -373,7 +385,8 @@ const WORKS_DATA = {
         "<strong>REST Web Services:</strong> Engineering security interceptors and controllers for data operations.",
         "<strong>Reference Application:</strong> Custom theme configurations and client UI packages."
       ],
-      metaTags: ["GSoC Target 🎯", "Healthcare Systems 🏥", "Beginner Friendly"]
+      metaTags: ["GSoC Target 🎯", "Healthcare Systems 🏥", "Beginner Friendly"],
+      size: "compact"
     }
   ]
 };
@@ -387,10 +400,10 @@ function encodeAssetPath(path) {
   return path ? path.replace(/ /g, '%20') : '';
 }
 
-/** Set CSS custom properties for project accent colors */
+/** Set CSS custom properties for project accent colors dynamically */
 function applyAccent(el, project) {
-  el.style.setProperty('--project-accent', '#e5e5e7');
-  el.style.setProperty('--project-accent-rgb', '229,229,231');
+  el.style.setProperty('--project-accent', project.accent || '#e5e5e7');
+  el.style.setProperty('--project-accent-rgb', project.accentRgb || '229,229,231');
 }
 
 // ============================================================
@@ -398,13 +411,13 @@ function applyAccent(el, project) {
 // ============================================================
 
 /**
- * Builds the full-width FEATURED card (first item in a category).
+ * Builds a LARGE (featured) card.
+ * Desktop: Spans 8 columns, 2 rows.
  */
-function buildFeaturedCard(item, index, typeClass = '') {
+function buildLargeCard(item, index) {
   const card = document.createElement('div');
-  card.className = `work-card-featured ${typeClass} card-entering`;
+  card.className = 'work-card-large card-entering';
   card.setAttribute('data-id', item.id);
-  card.style.setProperty('--animation-delay', `${index * 60}ms`);
   card.style.animationDelay = `${index * 60}ms`;
   applyAccent(card, item);
 
@@ -413,26 +426,26 @@ function buildFeaturedCard(item, index, typeClass = '') {
     : '';
 
   const techPills = item.tech.slice(0, 4)
-    .map(t => `<span class="featured-card-tech-pill">${t}</span>`).join('');
+    .map(t => `<span class="large-card-tech-pill">${t}</span>`).join('');
   const moreTech = item.tech.length > 4
-    ? `<span class="featured-card-tech-pill">+${item.tech.length - 4} more</span>`
+    ? `<span class="large-card-tech-pill">+${item.tech.length - 4} more</span>`
     : '';
 
   const pad = (index + 1).toString().padStart(2, '0');
 
   card.innerHTML = `
-    ${imgUrl ? `<div class="featured-card-bg" style="background-image:url('${imgUrl}')"></div>` : ''}
-    <div class="featured-card-glass"></div>
-    <div class="featured-card-glow"></div>
+    ${imgUrl ? `<div class="large-card-bg" style="background-image:url('${imgUrl}')"></div>` : ''}
+    <div class="large-card-glass"></div>
+    <div class="large-card-glow"></div>
 
-    <span class="featured-card-index">${pad} · Featured</span>
-    <button class="featured-card-explore" aria-label="Explore project">↗</button>
+    <span class="large-card-index">${pad} · Featured</span>
+    <button class="large-card-explore" aria-label="Explore project">↗</button>
 
-    <div class="featured-card-content">
-      <span class="featured-card-status-badge">${item.status}</span>
-      <h3 class="featured-card-title">${item.title}</h3>
-      <p class="featured-card-tagline">${item.tagline}</p>
-      <div class="featured-card-tech-row">
+    <div class="large-card-content">
+      <span class="large-card-status-badge">${item.status}</span>
+      <h3 class="large-card-title">${item.title}</h3>
+      <p class="large-card-tagline">${item.tagline}</p>
+      <div class="large-card-tech-row">
         ${techPills}${moreTech}
       </div>
     </div>
@@ -443,13 +456,111 @@ function buildFeaturedCard(item, index, typeClass = '') {
 }
 
 /**
- * Builds a compact dark-glass card for all items after the first.
+ * Builds a TALL card.
+ * Desktop: Spans 4 columns, 2 rows.
  */
-function buildCompactCard(item, index, typeClass = '') {
+function buildTallCard(item, index) {
   const card = document.createElement('div');
-  card.className = `work-card-compact ${typeClass} card-entering`;
+  card.className = 'work-card-tall card-entering';
   card.setAttribute('data-id', item.id);
   card.style.animationDelay = `${index * 70}ms`;
+  applyAccent(card, item);
+
+  const imgUrl = item.images && item.images.length > 0
+    ? encodeAssetPath(item.images[0])
+    : '';
+
+  const techPills = item.tech.slice(0, 3)
+    .map(t => `<span class="tall-card-tech-pill">${t}</span>`).join('');
+  const moreTech = item.tech.length > 3
+    ? `<span class="tall-card-tech-more">+${item.tech.length - 3}</span>`
+    : '';
+
+  const pad = (index + 1).toString().padStart(2, '0');
+
+  card.innerHTML = `
+    ${imgUrl ? `<div class="tall-card-bg" style="background-image:url('${imgUrl}')"></div>` : ''}
+    <div class="tall-card-glass"></div>
+    <div class="tall-card-glow"></div>
+    
+    <div class="tall-card-header">
+      <span class="tall-card-index">${pad}</span>
+      <button class="tall-card-arrow-btn" aria-label="Open project">↗</button>
+    </div>
+    
+    <div class="tall-card-body">
+      <span class="tall-card-status">${item.status}</span>
+      <h3 class="tall-card-title">${item.title}</h3>
+      <p class="tall-card-tagline">${item.tagline}</p>
+    </div>
+    
+    <div class="tall-card-footer">
+      <div class="tall-card-tech-row">
+        ${techPills}${moreTech}
+      </div>
+    </div>
+  `;
+
+  card.addEventListener('click', () => openProjectSheet(item));
+  return card;
+}
+
+/**
+ * Builds a WIDE card.
+ * Desktop: Spans 12 columns, 1 row.
+ */
+function buildWideCard(item, index) {
+  const card = document.createElement('div');
+  card.className = 'work-card-wide card-entering';
+  card.setAttribute('data-id', item.id);
+  card.style.animationDelay = `${index * 60}ms`;
+  applyAccent(card, item);
+
+  const imgUrl = item.images && item.images.length > 0
+    ? encodeAssetPath(item.images[0])
+    : '';
+
+  const techPills = item.tech.slice(0, 5)
+    .map(t => `<span class="wide-card-tech-pill">${t}</span>`).join('');
+  const moreTech = item.tech.length > 5
+    ? `<span class="wide-card-tech-pill">+${item.tech.length - 5} more</span>`
+    : '';
+
+  const pad = (index + 1).toString().padStart(2, '0');
+
+  card.innerHTML = `
+    ${imgUrl ? `<div class="wide-card-bg" style="background-image:url('${imgUrl}')"></div>` : ''}
+    <div class="wide-card-glass"></div>
+    <div class="wide-card-glow"></div>
+    
+    <div class="wide-card-layout">
+      <div class="wide-card-left">
+        <span class="wide-card-index">${pad} · ${item.status}</span>
+        <h3 class="wide-card-title">${item.title}</h3>
+        <p class="wide-card-tagline">${item.tagline}</p>
+      </div>
+      <div class="wide-card-right">
+        <div class="wide-card-tech-row">
+          ${techPills}${moreTech}
+        </div>
+        <button class="wide-card-explore" aria-label="Explore project">↗</button>
+      </div>
+    </div>
+  `;
+
+  card.addEventListener('click', () => openProjectSheet(item));
+  return card;
+}
+
+/**
+ * Builds a COMPACT card.
+ * Desktop: Spans 4 columns, 1 row.
+ */
+function buildCompactCard(item, index) {
+  const card = document.createElement('div');
+  card.className = 'work-card-compact card-entering';
+  card.setAttribute('data-id', item.id);
+  card.style.animationDelay = `${index * 75}ms`;
   applyAccent(card, item);
 
   const techPills = item.tech.slice(0, 2)
@@ -485,10 +596,7 @@ let _isAnimating = false;
 
 /**
  * Renders the bento grid for a category.
- * Top section is a 50/50 split:
- * - Left: 1 large card (Featured)
- * - Right: Stack of maximum 2 compact cards.
- * Any additional cards (index 3+) are added to a Bottom Grid below.
+ * Sizing layout is governed by item.size properties mapped to 12-column grid spans in CSS.
  */
 function renderBento(bentoEl, category) {
   const items = WORKS_DATA[category] || [];
@@ -499,62 +607,23 @@ function renderBento(bentoEl, category) {
     return;
   }
 
-  const N = items.length;
-
-  // Case 1: Less than 3 items: Just render them side-by-side in Top Row
-  if (N <= 2) {
-    const topRow = document.createElement('div');
-    topRow.className = 'works-top-row';
-    items.forEach((item, i) => {
-      topRow.appendChild(buildCompactCard(item, i, ''));
-    });
-    bentoEl.appendChild(topRow);
-    return;
-  }
-
-  // Case 2: 3 or more items: Build Top Row with 1 large (left) + 2 stacked (right)
-  const topRow = document.createElement('div');
-  topRow.className = 'works-top-row';
-
-  // Left side: Large featured card (Index 0)
-  const leftCard = buildFeaturedCard(items[0], 0, 'work-card-large');
-  topRow.appendChild(leftCard);
-
-  // Right side: Flex stack of exactly 2 compact cards (Index 1 & 2)
-  const rightStack = document.createElement('div');
-  rightStack.className = 'works-right-stack';
-  rightStack.appendChild(buildCompactCard(items[1], 1, ''));
-  rightStack.appendChild(buildCompactCard(items[2], 2, ''));
-  topRow.appendChild(rightStack);
-
-  bentoEl.appendChild(topRow);
-
-  // Case 3: More than 3 items: Build Bottom Grid for remaining cards (Index 3+)
-  if (N > 3) {
-    const bottomGrid = document.createElement('div');
-    bottomGrid.className = 'works-bottom-grid';
-
-    const remainingItems = items.slice(3);
-    const R = remainingItems.length;
-
-    remainingItems.forEach((item, idx) => {
-      const globalIdx = idx + 3;
-      let cardClass = '';
-
-      // If it's the last odd item remaining, make it span full width
-      if (R % 2 !== 0 && idx === R - 1) {
-        cardClass = 'work-card-full-width';
-      }
-
-      bottomGrid.appendChild(buildCompactCard(item, globalIdx, cardClass));
-    });
-
-    bentoEl.appendChild(bottomGrid);
-  }
+  items.forEach((item, idx) => {
+    let card;
+    if (item.size === 'large') {
+      card = buildLargeCard(item, idx);
+    } else if (item.size === 'tall') {
+      card = buildTallCard(item, idx);
+    } else if (item.size === 'wide') {
+      card = buildWideCard(item, idx);
+    } else {
+      card = buildCompactCard(item, idx);
+    }
+    bentoEl.appendChild(card);
+  });
 }
 
 /**
- * Switches to a new category with animated card exit → enter transition.
+ * Switches to a new category with animated card exit → height lock → render new → transition height → card enter.
  */
 async function switchCategory(bentoEl, category) {
   if (_isAnimating || category === _activeCategory) return;
@@ -562,26 +631,49 @@ async function switchCategory(bentoEl, category) {
   _activeCategory = category;
 
   const currentCards = bentoEl.querySelectorAll(
-    '.work-card-featured, .work-card-compact'
+    '.work-card-large, .work-card-tall, .work-card-wide, .work-card-compact'
   );
 
-  // 1. Animate existing cards OUT
+  // 1. Get current container height and lock it
+  const currentHeight = bentoEl.offsetHeight;
+  bentoEl.style.height = `${currentHeight}px`;
+  bentoEl.style.overflow = 'hidden';
+
+  // 2. Animate existing cards OUT
   if (currentCards.length > 0) {
     currentCards.forEach((card, i) => {
       card.classList.remove('card-entering');
       card.classList.add('card-exiting');
-      card.style.animationDelay = `${i * 35}ms`;
+      card.style.animationDelay = `${i * 30}ms`;
     });
-    // Wait for exit animation to complete (longest card: ~220ms + stagger)
+    // Wait for exit animations to complete
     await new Promise(resolve =>
-      setTimeout(resolve, 220 + currentCards.length * 35)
+      setTimeout(resolve, 220 + currentCards.length * 30)
     );
   }
 
-  // 2. Clear and render new cards
+  // 3. Render new cards
   renderBento(bentoEl, category);
 
-  _isAnimating = false;
+  // 4. Measure new height
+  bentoEl.style.height = 'auto';
+  const newHeight = bentoEl.offsetHeight;
+  
+  // Set back to old height temporarily for transition
+  bentoEl.style.height = `${currentHeight}px`;
+  bentoEl.offsetHeight; // Force reflow
+
+  // 5. Transition container height
+  bentoEl.style.transition = 'height 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
+  bentoEl.style.height = `${newHeight}px`;
+
+  // 6. Reset styles after animation completes
+  setTimeout(() => {
+    bentoEl.style.height = '';
+    bentoEl.style.overflow = '';
+    bentoEl.style.transition = '';
+    _isAnimating = false;
+  }, 450);
 }
 
 // ============================================================
@@ -594,12 +686,16 @@ let _escHandler = null;
 /**
  * Opens the immersive slide-up project sheet for a given project.
  */
+/**
+ * Opens the immersive slide-up project sheet for a given project.
+ */
 function openProjectSheet(project) {
   if (_sheetOpen) return;
   _sheetOpen = true;
 
   const screenshots = project.images || [];
   let carouselIndex = 0;
+  let autoplayTimer = null;
 
   // --- Build backdrop ---
   const backdrop = document.createElement('div');
@@ -633,39 +729,39 @@ function openProjectSheet(project) {
     .map(d => `<li>${d}</li>`)
     .join('');
 
-  // --- Build action buttons ---
-  const actionButtons = [];
+  // --- Build header links ---
+  const headerLinks = [];
   if (project.demo) {
-    actionButtons.push(
-      `<a href="${project.demo}" target="_blank" rel="noopener" class="sheet-action-btn sheet-btn-primary">⚡ Live Demo</a>`
+    headerLinks.push(
+      `<a href="${project.demo}" target="_blank" rel="noopener" class="sheet-header-link-btn btn-primary">⚡ Live Demo</a>`
     );
   }
   if (project.repo) {
-    actionButtons.push(
-      `<a href="${project.repo}" target="_blank" rel="noopener" class="sheet-action-btn sheet-btn-github">📦 GitHub Repository</a>`
+    headerLinks.push(
+      `<a href="${project.repo}" target="_blank" rel="noopener" class="sheet-header-link-btn">📦 GitHub</a>`
     );
   }
   if (project.video) {
-    actionButtons.push(
-      `<a href="${project.video}" target="_blank" rel="noopener" class="sheet-action-btn sheet-btn-video">🎬 Demo Video</a>`
+    headerLinks.push(
+      `<a href="${project.video}" target="_blank" rel="noopener" class="sheet-header-link-btn">🎬 Video</a>`
     );
   }
   if (project.ppt) {
-    actionButtons.push(
-      `<a href="${project.ppt}" target="_blank" rel="noopener" class="sheet-action-btn sheet-btn-ppt">📊 PPT Presentation</a>`
+    headerLinks.push(
+      `<a href="${project.ppt}" target="_blank" rel="noopener" class="sheet-header-link-btn">📊 Slides</a>`
     );
   }
   if (project.guide) {
-    actionButtons.push(
-      `<a href="${project.guide}" target="_blank" rel="noopener" class="sheet-action-btn sheet-btn-guide">📖 Contribution Guide</a>`
+    headerLinks.push(
+      `<a href="${project.guide}" target="_blank" rel="noopener" class="sheet-header-link-btn">📖 Guide</a>`
     );
   }
-  // GitHub fallback if no other link
-  if (actionButtons.length === 0 && project.repo) {
-    actionButtons.push(
-      `<a href="${project.repo}" target="_blank" rel="noopener" class="sheet-action-btn sheet-btn-primary">📦 View Repository</a>`
+  if (headerLinks.length === 0 && project.repo) {
+    headerLinks.push(
+      `<a href="${project.repo}" target="_blank" rel="noopener" class="sheet-header-link-btn btn-primary">📦 Repo</a>`
     );
   }
+  const headerLinksHtml = headerLinks.join('');
 
   // --- Meta tags ---
   const metaTagsHtml = (project.metaTags || [])
@@ -681,12 +777,18 @@ function openProjectSheet(project) {
     <div class="sheet-drag-handle"></div>
 
     <div class="sheet-header">
-      <h2 class="sheet-header-title">${project.title}</h2>
-      <button class="sheet-close-btn" id="sheet-close-btn" aria-label="Close">&#x2715;</button>
+      <div class="sheet-header-title-area">
+        <h2 class="sheet-header-title">${project.title}</h2>
+        <div class="sheet-header-subtitle">${project.subtitle}</div>
+      </div>
+      <div class="sheet-header-actions-area">
+        <div class="sheet-header-links">${headerLinksHtml}</div>
+        <button class="sheet-close-btn" id="sheet-close-btn" aria-label="Close">&#x2715;</button>
+      </div>
     </div>
 
     <div class="sheet-body">
-      <!-- Left: Visuals -->
+      <!-- Left: Visuals & Metadata (Saves vertical scrolling in details column) -->
       <div class="sheet-visuals">
         <div class="sheet-carousel">
           <div class="sheet-carousel-inner" id="sheet-carousel-inner">
@@ -694,32 +796,31 @@ function openProjectSheet(project) {
           </div>
           ${carouselNavHtml}
         </div>
-        <div>
-          <div class="sheet-tech-section-label">Tech Stack</div>
-          <div class="sheet-tech-cloud">${techCloud}</div>
+        
+        <div class="sheet-left-meta">
+          <div class="sheet-meta-group">
+            <div class="sheet-section-label">Status</div>
+            <div class="sheet-status-badge">${project.status}</div>
+          </div>
+
+          <div class="sheet-meta-group">
+            <div class="sheet-tech-section-label">Tech Stack</div>
+            <div class="sheet-tech-cloud">${techCloud}</div>
+          </div>
         </div>
       </div>
 
-      <!-- Right: Details -->
+      <!-- Right: Detailed Specifications -->
       <div class="sheet-details">
-        <div class="sheet-meta-section">
-          <div class="sheet-header-category">${project.status}</div>
-          <div class="sheet-header-subtitle">${project.subtitle}</div>
-          ${metaTagsHtml ? `<div class="sheet-meta-tags">${metaTagsHtml}</div>` : ''}
-        </div>
-
-        <div>
-          <div class="sheet-section-label">${project.guide ? 'Contribution Target' : 'My Role'}</div>
-          <p class="sheet-role-text">${project.role}</p>
-        </div>
-        <div>
+        <div class="sheet-specs-section">
           <div class="sheet-section-label">Specifications & Impact</div>
           <ul class="sheet-feature-list">${featureList}</ul>
         </div>
-        ${actionButtons.length > 0 ? `
-        <div class="sheet-actions-section">
-          <div class="sheet-section-label">Links</div>
-          ${actionButtons.join('')}
+        
+        ${metaTagsHtml ? `
+        <div class="sheet-tags-section">
+          <div class="sheet-section-label">Focus Areas</div>
+          <div class="sheet-meta-tags">${metaTagsHtml}</div>
         </div>` : ''}
       </div>
     </div>
@@ -746,14 +847,42 @@ function openProjectSheet(project) {
       dots.forEach((dot, i) => dot.classList.toggle('active', i === carouselIndex));
     }
 
-    btnPrev.addEventListener('click', e => { e.stopPropagation(); showSlide(carouselIndex - 1); });
-    btnNext.addEventListener('click', e => { e.stopPropagation(); showSlide(carouselIndex + 1); });
+    function startAutoplay() {
+      stopAutoplay();
+      autoplayTimer = setInterval(() => {
+        showSlide(carouselIndex + 1);
+      }, 3000);
+    }
+
+    function stopAutoplay() {
+      if (autoplayTimer) {
+        clearInterval(autoplayTimer);
+        autoplayTimer = null;
+      }
+    }
+
+    btnPrev.addEventListener('click', e => {
+      e.stopPropagation();
+      showSlide(carouselIndex - 1);
+      startAutoplay();
+    });
+
+    btnNext.addEventListener('click', e => {
+      e.stopPropagation();
+      showSlide(carouselIndex + 1);
+      startAutoplay();
+    });
+
     dots.forEach(dot => {
       dot.addEventListener('click', e => {
         e.stopPropagation();
         showSlide(parseInt(dot.getAttribute('data-idx'), 10));
+        startAutoplay();
       });
     });
+
+    // Start autoplay slideshow
+    startAutoplay();
   }
 
   // --- Close logic ---
@@ -761,6 +890,12 @@ function openProjectSheet(project) {
     if (!_sheetOpen) return;
     backdrop.classList.add('closing');
     sheet.classList.add('closing');
+
+    // Stop autoplay timer
+    if (autoplayTimer) {
+      clearInterval(autoplayTimer);
+      autoplayTimer = null;
+    }
 
     // Remove Escape listener
     if (_escHandler) {
@@ -791,17 +926,41 @@ function openProjectSheet(project) {
 //  INIT
 // ============================================================
 
+/** Positions the absolute-positioned sliding pill indicator behind the active tab button */
+function updateTabIndicator() {
+  const activeBtn = document.querySelector('.works-tab-btn.active');
+  const indicator = document.getElementById('works-tab-indicator');
+  if (!activeBtn || !indicator) return;
+
+  indicator.style.left = `${activeBtn.offsetLeft}px`;
+  indicator.style.top = `${activeBtn.offsetTop}px`;
+  indicator.style.width = `${activeBtn.offsetWidth}px`;
+  indicator.style.height = `${activeBtn.offsetHeight}px`;
+}
+
 function initWorksSection() {
   const worksSection = document.getElementById('works');
   if (!worksSection) return;
 
   const tabBtns = document.querySelectorAll('.works-tab-btn');
   const bentoEl = document.getElementById('works-bento');
+  const tabsContainer = document.querySelector('.works-tabs');
   if (!bentoEl) return;
 
   // Render initial category
   renderBento(bentoEl, 'projects');
   _activeCategory = 'projects';
+
+  // Inject tab indicator capsule dynamically
+  if (tabsContainer && !document.getElementById('works-tab-indicator')) {
+    const indicator = document.createElement('span');
+    indicator.className = 'works-tab-indicator';
+    indicator.id = 'works-tab-indicator';
+    tabsContainer.appendChild(indicator);
+  }
+
+  // Position indicator initially after a slight layout delay
+  setTimeout(updateTabIndicator, 80);
 
   // Tab click handlers — smooth crossfade transition
   tabBtns.forEach(btn => {
@@ -813,10 +972,16 @@ function initWorksSection() {
       tabBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
 
+      // Slide the background capsule indicator
+      updateTabIndicator();
+
       // Animate switch
       switchCategory(bentoEl, category);
     });
   });
+
+  // Re-align indicator on window resize
+  window.addEventListener('resize', updateTabIndicator);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
