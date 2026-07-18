@@ -231,9 +231,18 @@ function initConveyorSection() {
 
   // Measure single track set sizes after layout loads
   setTimeout(() => {
-    // Width of one full data set of cards (one-third of total track width)
-    track1Width = rowLeftTrack.scrollWidth / 3;
-    track2Width = rowRightTrack.scrollWidth / 3;
+    const row1Cards = rowLeftTrack.querySelectorAll(".conveyor-card");
+    const row2Cards = rowRightTrack.querySelectorAll(".conveyor-card");
+    const n1 = row1Data.length;
+    const n2 = row2Data.length;
+
+    if (row1Cards.length >= 2 * n1 && row2Cards.length >= 2 * n2) {
+      track1Width = row1Cards[n1].offsetLeft - row1Cards[0].offsetLeft;
+      track2Width = row2Cards[n2].offsetLeft - row2Cards[0].offsetLeft;
+    } else {
+      track1Width = rowLeftTrack.scrollWidth / 3;
+      track2Width = rowRightTrack.scrollWidth / 3;
+    }
     
     // Set initial position for row 2 to offset it backwards
     x2 = -track2Width;
@@ -266,14 +275,18 @@ function loopConveyors() {
     const dx1 = (baseDriftSpeed * row1Multiplier) + (scrollVelocity * 0.8);
     x1 -= dx1;
     if (x1 <= -track1Width) {
-      x1 += track1Width; // reset position seamlessly
+      x1 += track1Width; // reset position seamlessly when moving left
+    } else if (x1 > 0) {
+      x1 -= track1Width; // reset position seamlessly when moving right
     }
 
     // Row 2 (Moves right: add offset)
     const dx2 = (baseDriftSpeed * row2Multiplier) + (scrollVelocity * 0.8);
     x2 += dx2;
     if (x2 >= 0) {
-      x2 -= track2Width; // reset position seamlessly
+      x2 -= track2Width; // reset position seamlessly when moving right
+    } else if (x2 < -track2Width) {
+      x2 += track2Width; // reset position seamlessly when moving left
     }
 
     // 3. Apply CSS Translate
@@ -461,7 +474,19 @@ window.addEventListener("resize", () => {
   const rowLeftTrack = document.getElementById("row-left-track");
   const rowRightTrack = document.getElementById("row-right-track");
   if (rowLeftTrack && rowRightTrack) {
-    track1Width = rowLeftTrack.scrollWidth / 3;
-    track2Width = rowRightTrack.scrollWidth / 3;
+    const row1Cards = rowLeftTrack.querySelectorAll(".conveyor-card");
+    const row2Cards = rowRightTrack.querySelectorAll(".conveyor-card");
+    const row1Data = ACHIEVEMENTS_DATA.filter(ach => ach.row === 1);
+    const row2Data = ACHIEVEMENTS_DATA.filter(ach => ach.row === 2);
+    const n1 = row1Data.length;
+    const n2 = row2Data.length;
+
+    if (row1Cards.length >= 2 * n1 && row2Cards.length >= 2 * n2) {
+      track1Width = row1Cards[n1].offsetLeft - row1Cards[0].offsetLeft;
+      track2Width = row2Cards[n2].offsetLeft - row2Cards[0].offsetLeft;
+    } else {
+      track1Width = rowLeftTrack.scrollWidth / 3;
+      track2Width = rowRightTrack.scrollWidth / 3;
+    }
   }
 });
