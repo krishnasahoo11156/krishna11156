@@ -214,13 +214,20 @@ function initConveyorSection() {
   const createCardHtml = (ach) => `
     <div class="conveyor-card" data-id="${ach.id}" style="--accent-color: ${ach.accent}">
       <div class="card-inspect-hint">Inspect 🔍</div>
-      <div class="conveyor-card-top">
-        <span class="conveyor-card-category">${ach.category}</span>
-        <h3 class="conveyor-card-title">${ach.title}</h3>
-      </div>
-      <div class="conveyor-card-bottom">
-        <span class="conveyor-card-issuer">${ach.issuer}</span>
-        <span class="conveyor-card-date">${ach.date}</span>
+      <div class="conveyor-card-inner">
+        <div class="conveyor-card-content">
+          <div class="conveyor-card-top">
+            <span class="conveyor-card-category">${ach.category}</span>
+            <h3 class="conveyor-card-title">${ach.title}</h3>
+          </div>
+          <div class="conveyor-card-bottom">
+            <span class="conveyor-card-issuer">${ach.issuer}</span>
+            <span class="conveyor-card-date">${ach.date}</span>
+          </div>
+        </div>
+        <div class="conveyor-card-visual">
+          <img src="${ach.image}" alt="${ach.title}" class="conveyor-card-img" loading="lazy">
+        </div>
       </div>
     </div>
   `;
