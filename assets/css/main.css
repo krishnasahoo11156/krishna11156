@@ -12,14 +12,16 @@
 }
 
 
-html, body {
+html,
+body {
   overflow-x: hidden;
   width: 100%;
 }
 
 body {
   font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background-color: lab(99.38% 0.15 1.65); /* Grey background */
+  background-color: lab(99.38% 0.15 1.65);
+  /* Grey background */
   color: #737373;
   min-height: 100vh;
   display: flex;
@@ -34,13 +36,12 @@ body::after {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #3a3a3a 0%, #1a1a1a 100%); /* premium dark metallic gradient background */
-  clip-path: polygon(
-    calc(var(--image-center-x) + var(--slant-offset)) 0,
-    100% 0,
-    100% 100%,
-    calc(var(--image-center-x) - var(--slant-offset)) 100%
-  );
+  background: linear-gradient(135deg, #3a3a3a 0%, #1a1a1a 100%);
+  /* premium dark metallic gradient background */
+  clip-path: polygon(calc(var(--image-center-x) + var(--slant-offset)) 0,
+      100% 0,
+      100% 100%,
+      calc(var(--image-center-x) - var(--slant-offset)) 100%);
   z-index: -1;
   pointer-events: none;
 }
@@ -78,7 +79,8 @@ main {
   display: flex;
   width: 100%;
   justify-content: flex-start;
-  align-items: flex-end; /* Align contents to the bottom */
+  align-items: flex-end;
+  /* Align contents to the bottom */
   gap: 0;
 }
 
@@ -113,27 +115,34 @@ main {
   line-height: 0.85;
   letter-spacing: -4px;
   position: absolute;
-  top: -2vh; /* Lifted above the top level of the image */
-  left: calc(25vw - var(--image-center-x) + 1.5vw); /* Aligns text start exactly with 1.5vw padding from viewport left edge */
+  top: -2vh;
+  /* Lifted above the top level of the image */
+  left: calc(25vw - var(--image-center-x) + 1.5vw);
+  /* Aligns text start exactly with 1.5vw padding from viewport left edge */
   width: 100vw;
   white-space: nowrap;
   pointer-events: none;
   text-transform: uppercase;
   transform: scale(0.72, 2.1) translateX(calc(var(--scroll-percent) * -25vw));
-  transform-origin: top left; /* Keep top and left edges fixed */
+  transform-origin: top left;
+  /* Keep top and left edges fixed */
   will-change: transform;
 }
 
-.overlapping-text > div:last-child {
+.overlapping-text>div:last-child {
   display: inline-block;
-  transform: scaleX(0.82); /* Compress SAHOO widthwise further */
+  transform: scaleX(0.82);
+  /* Compress SAHOO widthwise further */
   transform-origin: left;
 }
 
 .background-text {
-  color: #2c2c2c; /* Significantly darker text */
-  z-index: 1; /* Below the image */
-  opacity: 0.75; /* Higher opacity to make it darker */
+  color: #2c2c2c;
+  /* Significantly darker text */
+  z-index: 1;
+  /* Below the image */
+  opacity: 0.75;
+  /* Higher opacity to make it darker */
 }
 
 .profile-img,
@@ -146,17 +155,16 @@ main {
 }
 
 .profile-img {
-  z-index: 2; /* Sits above background-text */
+  z-index: 2;
+  /* Sits above background-text */
   opacity: 1;
 }
 
 .profile-img-left {
-  clip-path: polygon(
-    0 0,
-    calc(var(--image-center-x) + var(--slant-offset)) 0,
-    calc(var(--image-center-x) - var(--slant-offset)) 100%,
-    0 100%
-  );
+  clip-path: polygon(0 0,
+      calc(var(--image-center-x) + var(--slant-offset)) 0,
+      calc(var(--image-center-x) - var(--slant-offset)) 100%,
+      0 100%);
 }
 
 .profile-glass-wrapper {
@@ -166,12 +174,10 @@ main {
   width: 100%;
   height: 100%;
   z-index: 2;
-  clip-path: polygon(
-    calc(var(--image-center-x) + var(--slant-offset)) 0,
-    100% 0,
-    100% 100%,
-    calc(var(--image-center-x) - var(--slant-offset)) 100%
-  );
+  clip-path: polygon(calc(var(--image-center-x) + var(--slant-offset)) 0,
+      100% 0,
+      100% 100%,
+      calc(var(--image-center-x) - var(--slant-offset)) 100%);
 }
 
 .profile-img-glass-bg {
@@ -188,7 +194,7 @@ main {
   background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(12px) saturate(130%);
   -webkit-backdrop-filter: blur(12px) saturate(130%);
-  
+
   /* Mask to silhouette so the blur is restricted to the body shape */
   -webkit-mask-image: url('../images/krishna-removebg-preview.png');
   -webkit-mask-size: contain;
@@ -206,9 +212,10 @@ main {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 3; /* Sits above profile image */
+  z-index: 3;
+  /* Sits above profile image */
   pointer-events: none;
-  
+
   /* Mask foreground text to the silhouette of the profile image */
   -webkit-mask-image: url('../images/krishna-removebg-preview.png');
   -webkit-mask-size: contain;
@@ -221,7 +228,8 @@ main {
 }
 
 .foreground-text {
-  color: lab(96.69% 0.14 4.91); /* Matches global background color */
+  color: lab(96.69% 0.14 4.91);
+  /* Matches global background color */
 }
 
 /* Navbar Styles */
@@ -285,9 +293,9 @@ main {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  color: #4e4e4e; /* High-contrast white base color */
-  mix-blend-mode: difference; /* Inverts color relative to split background dynamically */
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  color: #888888;
+  /* Medium gray visible on both light and dark backgrounds */
+  transition: opacity 0.3s ease, transform 0.3s ease, color 0.3s ease;
   display: inline-block;
 }
 
@@ -311,17 +319,17 @@ main {
   letter-spacing: 1.5px;
   padding: 0.65rem 1.6rem;
   border-radius: 50px;
-  border: 1.5px solid #fff;
-  color: #fff;
-  mix-blend-mode: difference; /* Inverts color relative to split background dynamically */
+  /* Dynamically interpolates between white (rgb 255,255,255) and dark charcoal (rgb 17,17,17) */
+  color: rgb(calc(255 - 238 * var(--scroll-percent)), calc(255 - 238 * var(--scroll-percent)), calc(255 - 238 * var(--scroll-percent)));
+  border: 1.5px solid rgb(calc(255 - 238 * var(--scroll-percent)), calc(255 - 238 * var(--scroll-percent)), calc(255 - 238 * var(--scroll-percent)));
   transition: all 0.3s ease;
 }
 
 .btn-resume:hover {
-  background-color: #fff;
-  color: #000;
+  background-color: rgb(calc(255 - 238 * var(--scroll-percent)), calc(255 - 238 * var(--scroll-percent)), calc(255 - 238 * var(--scroll-percent)));
+  color: rgb(calc(17 + 238 * var(--scroll-percent)), calc(17 + 238 * var(--scroll-percent)), calc(17 + 238 * var(--scroll-percent)));
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 15px rgba(calc(255 - 238 * var(--scroll-percent)), calc(255 - 238 * var(--scroll-percent)), calc(255 - 238 * var(--scroll-percent)), 0.2);
 }
 
 /* Hero Content Right (Action Buttons) */
@@ -330,10 +338,13 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  align-items: flex-end; /* right-align the buttons below the right tagline */
+  align-items: flex-end;
+  /* right-align the buttons below the right tagline */
   padding-left: 5vw;
-  padding-right: 18.5vw; /* shifted 17vw towards left from the 1.5vw default right margin */
-  margin-bottom: 15vh; /* Position it nicely above the bottom edge */
+  padding-right: 18.5vw;
+  /* shifted 17vw towards left from the 1.5vw default right margin */
+  margin-bottom: 15vh;
+  /* Position it nicely above the bottom edge */
   z-index: 10;
   transform: translateX(calc(var(--scroll-percent) * 15vw));
   opacity: calc(1 - var(--scroll-percent) * 2);
@@ -400,28 +411,36 @@ main {
   line-height: 0.95;
   letter-spacing: -1px;
   position: absolute;
-  top: 18vh; /* aligns exactly with the name KRISHNA SAHOO */
-  right: calc(var(--image-center-x) - 73.5vw); /* positions right edge of text 1.5vw away from the viewport right edge */
+  top: 18vh;
+  /* aligns exactly with the name KRISHNA SAHOO */
+  right: calc(var(--image-center-x) - 73.5vw);
+  /* positions right edge of text 1.5vw away from the viewport right edge */
   width: 100vw;
   white-space: nowrap;
   pointer-events: none;
   text-transform: none;
-  text-align: right; /* right-align the text */
+  text-align: right;
+  /* right-align the text */
   transform: scale(1, 2) translateX(calc(var(--scroll-percent) * 25vw));
   opacity: calc(1 - var(--scroll-percent) * 2);
-  transform-origin: top right; /* anchor scale to the right */
+  transform-origin: top right;
+  /* anchor scale to the right */
   will-change: transform, opacity;
 }
 
 .background-text-right {
-  color: #696969; /* Matches KRISHNA SAHOO text color */
-  z-index: 1; /* sits behind image, above background-text */
+  color: #696969;
+  /* Matches KRISHNA SAHOO text color */
+  z-index: 1;
+  /* sits behind image, above background-text */
   opacity: 0.80;
 }
 
 .foreground-text-right {
-  color: #2c2c2c; /* matches background-color of body dark side */
-  z-index: 3; /* sits above profile image */
+  color: #2c2c2c;
+  /* matches background-color of body dark side */
+  z-index: 3;
+  /* sits above profile image */
 }
 
 /* Responsive Media Queries */
@@ -430,11 +449,12 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
-    padding-top: 100px; /* Space for navbar */
+    padding-top: 100px;
+    /* Space for navbar */
     padding-bottom: 2rem;
     min-height: 100vh;
   }
-  
+
   .hero-image-wrapper {
     width: 90%;
     max-width: 420px;
@@ -442,7 +462,7 @@ main {
     transform: none;
     flex: 0 0 auto;
   }
-  
+
   .hero-content-right {
     width: 100%;
     align-items: center;
@@ -450,18 +470,18 @@ main {
     padding: 2rem 1.5rem 0;
     margin-bottom: 2rem;
   }
-  
+
   .hero-buttons {
     justify-content: center;
     width: 100%;
     gap: 1rem;
   }
-  
+
   .btn-hero {
     padding: 0.75rem 1.8rem;
     font-size: 0.8rem;
   }
-  
+
   .overlapping-text-right {
     left: 0;
     right: auto;
@@ -481,7 +501,8 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: lab(99.38% 0.15 1.65); /* Matches left background of hero */
+  background-color: lab(99.38% 0.15 1.65);
+  /* Matches left background of hero */
   position: relative;
   z-index: 10;
   padding: 6rem 2rem;
@@ -494,7 +515,8 @@ main {
 }
 
 .about-card {
-  background: linear-gradient(135deg, rgba(55, 55, 55, 0.75) 0%, rgba(24, 24, 24, 0.85) 100%); /* Premium gradient dark glass */
+  background: linear-gradient(135deg, rgba(55, 55, 55, 0.75) 0%, rgba(24, 24, 24, 0.85) 100%);
+  /* Premium gradient dark glass */
   backdrop-filter: blur(16px) saturate(120%);
   -webkit-backdrop-filter: blur(16px) saturate(120%);
   border-radius: 24px;
@@ -514,7 +536,8 @@ main {
   text-transform: uppercase;
   letter-spacing: 2px;
   margin-bottom: 2.2rem;
-  background: linear-gradient(135deg, #ffffff 0%, #a8a8a8 100%); /* Silver text gradient */
+  background: linear-gradient(135deg, #ffffff 0%, #a8a8a8 100%);
+  /* Silver text gradient */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   position: relative;
@@ -528,7 +551,8 @@ main {
   left: 0;
   width: 65px;
   height: 4px;
-  background: linear-gradient(90deg, #ffffff 0%, rgba(255, 255, 255, 0.1) 100%); /* Fading underline gradient */
+  background: linear-gradient(90deg, #ffffff 0%, rgba(255, 255, 255, 0.1) 100%);
+  /* Fading underline gradient */
   border-radius: 2px;
 }
 
@@ -555,13 +579,14 @@ main {
   .about-section {
     padding: 4rem 1.25rem;
   }
-  
+
   .about-card {
     padding: 2.5rem 1.75rem;
-    transform: none !important; /* Disable scroll-driven animations on mobile for smoother scroll */
+    transform: none !important;
+    /* Disable scroll-driven animations on mobile for smoother scroll */
     opacity: 1 !important;
   }
-  
+
 }
 
 /* ==========================================================================
@@ -574,10 +599,12 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: lab(99.38% 0.15 1.65); /* Matches whitish background of About */
+  background-color: lab(99.38% 0.15 1.65);
+  /* Matches whitish background of About */
   position: relative;
   z-index: 10;
-  padding: 6rem 2rem; /* Reduced vertical padding */
+  padding: 6rem 2rem;
+  /* Reduced vertical padding */
   overflow: hidden;
 }
 
@@ -599,8 +626,10 @@ main {
   flex-direction: column;
   background: transparent;
   height: 100%;
-  min-width: 0; /* Prevents button text width from overflowing grid columns */
-  overflow: hidden; /* Prevent children from expanding container */
+  min-width: 0;
+  /* Prevents button text width from overflowing grid columns */
+  overflow: hidden;
+  /* Prevent children from expanding container */
 }
 
 .skills-title {
@@ -632,7 +661,8 @@ main {
   color: #7a7a7a;
   font-weight: 300;
   margin-top: 0.8rem;
-  margin-bottom: 1.2rem; /* Reduced spacing */
+  margin-bottom: 1.2rem;
+  /* Reduced spacing */
 }
 
 /* Category Navigation Button Grid (2 Columns) */
@@ -658,9 +688,11 @@ main {
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   font-family: 'Lato', sans-serif;
-  white-space: normal; /* Allows button text to wrap on narrow viewports */
+  white-space: normal;
+  /* Allows button text to wrap on narrow viewports */
   word-wrap: break-word;
-  min-width: 0; /* Allows button container to shrink */
+  min-width: 0;
+  /* Allows button container to shrink */
 }
 
 .category-btn .btn-num {
@@ -689,7 +721,8 @@ main {
 }
 
 .category-btn.active .btn-num {
-  color: #6f42c1; /* Theme link color */
+  color: #6f42c1;
+  /* Theme link color */
 }
 
 .category-btn.active .btn-text {
@@ -711,8 +744,10 @@ main {
 /* Drawing Area */
 .sketchpad-canvas-wrapper {
   position: relative;
-  flex: 1; /* Automatically matches the height axis of the code editor */
-  min-height: 200px; /* Reduced from 290px to match content height */
+  flex: 1;
+  /* Automatically matches the height axis of the code editor */
+  min-height: 200px;
+  /* Reduced from 290px to match content height */
   background: rgba(255, 255, 255, 0.4);
   border: 1px dashed rgba(0, 0, 0, 0.08);
   border-radius: 18px;
@@ -732,7 +767,7 @@ main {
   width: 100%;
   height: 100%;
   background-size: 20px 20px;
-  background-image: 
+  background-image:
     linear-gradient(to right, rgba(0, 0, 0, 0.015) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(0, 0, 0, 0.015) 1px, transparent 1px);
   pointer-events: none;
@@ -762,26 +797,28 @@ main {
   border-radius: 20px;
   overflow: hidden;
   height: 100%;
-  min-height: 400px; /* Reduced to match content and eliminate empty bottom space */
-  min-width: 0; /* Prevents long code blocks from stretching grid width */
-  
+  min-height: 400px;
+  /* Reduced to match content and eliminate empty bottom space */
+  min-width: 0;
+  /* Prevents long code blocks from stretching grid width */
+
   /* Premium Frosted Glassmorphism Overlay */
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.45) 0%, rgba(243, 243, 243, 0.25) 100%);
   backdrop-filter: blur(20px) saturate(135%);
   -webkit-backdrop-filter: blur(20px) saturate(135%);
   border: 1px solid rgba(255, 255, 255, 0.55);
-  box-shadow: 
-    0 25px 55px rgba(0, 0, 0, 0.035), 
+  box-shadow:
+    0 25px 55px rgba(0, 0, 0, 0.035),
     0 4px 12px rgba(0, 0, 0, 0.015),
     inset 0 1px 0 rgba(255, 255, 255, 0.5);
-  
+
   transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s ease;
 }
 
 .code-editor-panel:hover {
   transform: translateY(-4px);
-  box-shadow: 
-    0 35px 75px rgba(0, 0, 0, 0.05), 
+  box-shadow:
+    0 35px 75px rgba(0, 0, 0, 0.05),
     0 6px 18px rgba(0, 0, 0, 0.02),
     inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
@@ -808,9 +845,17 @@ main {
   display: inline-block;
 }
 
-.editor-dots .dot-red { background-color: rgba(255, 95, 86, 0.85); }
-.editor-dots .dot-yellow { background-color: rgba(255, 189, 46, 0.85); }
-.editor-dots .dot-green { background-color: rgba(39, 201, 63, 0.85); }
+.editor-dots .dot-red {
+  background-color: rgba(255, 95, 86, 0.85);
+}
+
+.editor-dots .dot-yellow {
+  background-color: rgba(255, 189, 46, 0.85);
+}
+
+.editor-dots .dot-green {
+  background-color: rgba(39, 201, 63, 0.85);
+}
 
 .editor-title-tab {
   display: flex;
@@ -820,7 +865,8 @@ main {
   border: 1px solid rgba(0, 0, 0, 0.03);
   padding: 0.45rem 1.2rem;
   border-radius: 8px 8px 0 0;
-  margin-bottom: -0.9rem; /* overlaps bottom border slightly */
+  margin-bottom: -0.9rem;
+  /* overlaps bottom border slightly */
   margin-top: -0.2rem;
   box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.01);
 }
@@ -883,7 +929,8 @@ main {
   font-family: 'Consolas', 'Fira Code', 'Courier New', monospace;
   font-size: 0.88rem;
   line-height: 1.65;
-  white-space: pre-wrap; /* Wrap long code lines to fit screen dynamically */
+  white-space: pre-wrap;
+  /* Wrap long code lines to fit screen dynamically */
   overflow-x: auto;
   overflow-y: auto;
   color: #24292e;
@@ -896,41 +943,50 @@ main {
 
 /* Light Theme Code Syntax Highlighting */
 .code-keyword {
-  color: #005cc5; /* Blue */
+  color: #005cc5;
+  /* Blue */
   font-weight: 700;
 }
 
 .code-string {
-  color: #22863a; /* Green */
+  color: #22863a;
+  /* Green */
 }
 
 .code-function {
-  color: #6f42c1; /* Purple */
+  color: #6f42c1;
+  /* Purple */
 }
 
 .code-tag {
-  color: #d73a49; /* Coral Red */
+  color: #d73a49;
+  /* Coral Red */
 }
 
 .code-comment {
-  color: #6a737d; /* Muted Grey */
+  color: #6a737d;
+  /* Muted Grey */
   font-style: italic;
 }
 
 .code-number {
-  color: #005cc5; /* Blue */
+  color: #005cc5;
+  /* Blue */
 }
 
 .code-property {
-  color: #e36209; /* Orange */
+  color: #e36209;
+  /* Orange */
 }
 
 .code-punctuation {
-  color: #24292e; /* Charcoal */
+  color: #24292e;
+  /* Charcoal */
 }
 
 .code-type {
-  color: #6f42c1; /* Purple */
+  color: #6f42c1;
+  /* Purple */
   font-weight: 600;
 }
 
@@ -984,14 +1040,17 @@ main {
 
 @media (max-width: 1200px) {
   .category-btn {
-    padding: 0.85rem 1rem; /* Slightly smaller button padding on medium desktops */
+    padding: 0.85rem 1rem;
+    /* Slightly smaller button padding on medium desktops */
   }
+
   .category-btn .btn-num {
     margin-right: 0.65rem;
   }
 }
 
 @media (max-width: 992px) {
+
   .skills-section .sketchpad-panel,
   .skills-section .code-editor-panel {
     transform: none !important;
@@ -1002,11 +1061,11 @@ main {
     grid-template-columns: 1fr;
     gap: 2.5rem;
   }
-  
+
   .sketchpad-canvas-wrapper {
     height: 250px;
   }
-  
+
   .code-editor-panel {
     min-height: 480px;
   }
@@ -1016,35 +1075,209 @@ main {
   .skills-section {
     padding: 6rem 1.25rem;
   }
-  
+
   .skills-title {
     font-size: 2.2rem;
   }
-  
+
   .category-btn {
     padding: 0.85rem 1.1rem;
   }
-  
+
   .category-btn .btn-text {
     font-size: 0.95rem;
   }
-  
+
   .editor-header {
     padding: 0.75rem 1rem;
   }
-  
+
   .editor-workspace {
     padding: 1.2rem 0.9rem;
   }
-  
+
   .editor-workspace .line-numbers {
     padding-right: 0.8rem;
   }
-  
+
   .editor-workspace .editor-code-container {
     padding-left: 0.8rem;
     font-size: 0.8rem;
   }
 }
 
+/* ==========================================================================
+   Resume Modal (Glassmorphic Immersive Overlay)
+   ========================================================================== */
 
+.resume-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  /* Above navbar and achievements portal */
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.resume-modal.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.resume-modal-container {
+  background: lab(99.38% 0.15 1.65);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 
+    0 35px 80px rgba(0, 0, 0, 0.15),
+    0 10px 30px rgba(0, 0, 0, 0.05);
+  width: 90vw;
+  height: 85vh;
+  max-width: 1000px;
+  max-height: 850px;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transform: scale(0.92) translateY(30px);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+}
+
+.resume-modal.active .resume-modal-container {
+  transform: scale(1) translateY(0);
+}
+
+/* Modal Header styling */
+.resume-modal-header {
+  height: 70px;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: lab(99.38% 0.15 1.65);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  z-index: 10;
+}
+
+.resume-modal-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #111111 0%, #555555 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.resume-modal-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+/* Circular & pill styled Action buttons */
+.resume-action-btn {
+  text-decoration: none;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #4e4e4e;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.06) 0%, rgba(0, 0, 0, 0.02) 100%);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 0.5rem 1.1rem;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+}
+
+.resume-action-btn:hover {
+  background: linear-gradient(135deg, #7a7a7a 0%, #4e4e4e 100%);
+  color: #ffffff;
+  border-color: #7a7a7a;
+  transform: translateY(-1.5px) scale(1.02);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.resume-action-btn svg {
+  stroke: currentColor;
+  transition: stroke 0.25s ease, transform 0.25s ease;
+}
+
+.resume-action-btn:hover svg {
+  stroke: #ffffff;
+  transform: scale(1.05);
+}
+
+.resume-close-btn {
+  font-size: 2.2rem;
+  background: none;
+  border: none;
+  color: #888;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0.2rem;
+  margin-left: 0.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease, transform 0.25s ease;
+}
+
+.resume-close-btn:hover {
+  color: #111111;
+  transform: scale(1.1) rotate(90deg);
+}
+
+/* Modal Body / PDF container */
+.resume-modal-body {
+  flex: 1;
+  background: #eaeaea;
+  position: relative;
+  overflow: hidden;
+}
+
+.resume-modal-body iframe {
+  border: none;
+  display: block;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .resume-modal-container {
+    width: 95vw;
+    height: 90vh;
+  }
+
+  .resume-modal-header {
+    padding: 0 1.2rem;
+    height: 60px;
+  }
+
+  .resume-modal-title {
+    font-size: 1.05rem;
+  }
+
+  .resume-action-btn span {
+    display: none;
+    /* Hide text, keep icons on small viewports */
+  }
+
+  .resume-action-btn {
+    padding: 0.5rem;
+    border-radius: 50%;
+  }
+}

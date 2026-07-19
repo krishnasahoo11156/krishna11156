@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Portfolio of Krishna Sahoo">
   <title>Krishna Sahoo</title>
-  
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
-  
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Outfit:wght@300;400;600;700&display=swap"
+    rel="stylesheet">
+
   <link rel="icon" type="image/png" href="assets/images/logoimage%20copy.png">
   <link rel="stylesheet" href="assets/css/main.css">
   <link rel="stylesheet" href="assets/css/works.css">
   <link rel="stylesheet" href="assets/css/achievements.css">
 </head>
+
 <body>
 
   <canvas id="doodle-canvas"></canvas>
@@ -27,7 +31,7 @@
           <img src="assets/images/logoimage%20copy.png" alt="Krishna Sahoo Logo" class="navbar-logo">
         </a>
       </div>
-      
+
       <!-- Middle: Menu Sections -->
       <ul class="navbar-menu">
         <li><a href="#about">About</a></li>
@@ -37,10 +41,11 @@
         <li><a href="#testimonials">Testimonials</a></li>
         <li><a href="#connect">Connect</a></li>
       </ul>
-      
+
       <!-- Right side: Resume button -->
       <div class="navbar-actions">
-        <a href="#resume" class="btn-resume">Resume</a>
+        <a href="sources/resume/Krishna_Sahoo_Resume.pdf" target="_blank" class="btn-resume"
+          id="resume-nav-btn">Resume</a>
       </div>
     </nav>
   </header>
@@ -48,11 +53,11 @@
   <main>
     <section class="hero" id="hero-section">
       <div class="hero-container">
-        
+
         <!-- Center Profile Image & Overlapping Stencil Text -->
         <div class="hero-image-wrapper">
           <div class="profile-container" id="profile-container">
-            
+
             <!-- Background Text (Grey, sits behind the image) -->
             <div class="overlapping-text background-text">
               <div>KRISHNA</div>
@@ -66,21 +71,22 @@
             </div>
 
             <!-- Profile Image (Left Side - Solid) -->
-            <img src="assets/images/krishna-removebg-preview.png" alt="Krishna Sahoo" class="profile-img profile-img-left" id="profile-image">
-            
+            <img src="assets/images/krishna-removebg-preview.png" alt="Krishna Sahoo"
+              class="profile-img profile-img-left" id="profile-image">
+
             <!-- Profile Image (Right Side - Glassmorphic Overlay) -->
             <div class="profile-glass-wrapper">
               <img src="assets/images/krishna-removebg-preview.png" alt="Krishna Sahoo" class="profile-img-glass-bg">
               <div class="profile-glass-overlay"></div>
             </div>
-            
+
             <!-- Foreground Text Mask (Clipped to the image, matching color of body background) -->
             <div class="foreground-text-mask-wrapper">
               <div class="overlapping-text foreground-text">
                 <div>KRISHNA</div>
                 <div>SAHOO</div>
               </div>
-              
+
               <!-- Right Side Foreground Tagline (Masked to the image) -->
               <div class="overlapping-text-right foreground-text-right">
                 <div>I draw what I can't say</div>
@@ -98,7 +104,7 @@
             <a href="#sketches" class="btn-hero btn-hero-secondary">Sketches</a>
           </div>
         </div>
-        
+
       </div>
     </section>
 
@@ -108,10 +114,17 @@
         <div class="about-card">
           <h2 class="about-title">About Me</h2>
           <p class="about-text">
-            Hi, I'm <strong>Krishna Sahoo</strong>, a <strong>2nd-year B.Tech student in Artificial Intelligence & Data Science</strong> at <strong>Vivekanand Education Society's Institute of Technology (VESIT)</strong>. I'm aspiring to become a <strong>Java Full Stack Developer</strong> and enjoy building scalable, user-focused web applications. Alongside Java, I also develop full-stack websites using the <strong>MERN stack</strong>, leveraging modern AI coding tools to accelerate development and enhance productivity.
+            Hi, I'm <strong>Krishna Sahoo</strong>, a <strong>2nd-year B.Tech student in Artificial Intelligence & Data
+              Science</strong> at <strong>Vivekanand Education Society's Institute of Technology (VESIT)</strong>. I'm
+            aspiring to become a <strong>Java Full Stack Developer</strong> and enjoy building scalable, user-focused
+            web applications. Alongside Java, I also develop full-stack websites using the <strong>MERN stack</strong>,
+            leveraging modern AI coding tools to accelerate development and enhance productivity.
           </p>
           <p class="about-text">
-            Academically, I have maintained a strong performance with a <strong>9.82 SGPA</strong> in the 1st semester, <strong>9.65 SGPA</strong> in the 2nd semester, and an overall <strong>CGPA of 9.735</strong>. I'm passionate about continuously learning, solving real-world problems, and building impactful software through hands-on projects.
+            Academically, I have maintained a strong performance with a <strong>9.82 SGPA</strong> in the 1st semester,
+            <strong>9.65 SGPA</strong> in the 2nd semester, and an overall <strong>CGPA of 9.735</strong>. I'm
+            passionate about continuously learning, solving real-world problems, and building impactful software through
+            hands-on projects.
           </p>
         </div>
       </div>
@@ -126,7 +139,7 @@
             <h2 class="skills-title">Skills & Toolchain</h2>
             <p class="skills-subtitle">Click a category to trace my skillset blueprint in real-time.</p>
           </div>
-          
+
           <div class="skills-categories-nav">
             <button class="category-btn active" data-category="languages">
               <span class="btn-num">01</span>
@@ -157,7 +170,7 @@
               <span class="btn-text">Tools</span>
             </button>
           </div>
-          
+
           <!-- Drawing Area -->
           <div class="sketchpad-canvas-wrapper">
             <div class="sketchpad-grid-lines"></div>
@@ -186,7 +199,7 @@
               <span class="editor-action-btn">&#x2715;</span>
             </div>
           </div>
-          
+
           <div class="editor-workspace">
             <div class="line-numbers" id="editor-line-numbers">
               <!-- Dynamically populated line numbers -->
@@ -202,7 +215,8 @@
       <div class="works-container">
         <div class="works-header">
           <h2 class="works-title">Projects & Footprints</h2>
-          <p class="works-subtitle">Explore my software applications, hackathon sprints, and open-source contributions.</p>
+          <p class="works-subtitle">Explore my software applications, hackathon sprints, and open-source contributions.
+          </p>
           <div class="works-tabs">
             <button class="works-tab-btn active" data-tab="projects">Projects</button>
             <button class="works-tab-btn" data-tab="hackathons">Hackathons</button>
@@ -219,7 +233,8 @@
     <section class="achievements-section" id="achievements">
       <div class="achievements-header">
         <h2 class="achievements-title">Achievements</h2>
-        <p class="achievements-subtitle">A dynamic ledger of credentials, hackathon victories, and academic milestones.</p>
+        <p class="achievements-subtitle">A dynamic ledger of credentials, hackathon victories, and academic milestones.
+        </p>
       </div>
 
       <div class="conveyor-container">
@@ -272,9 +287,49 @@
     <img src="" alt="Certificate Zoom" class="portal-lightbox-img" id="portal-lightbox-img">
   </div>
 
+  <!-- Resume Viewer Modal -->
+  <div class="resume-modal" id="resume-modal">
+    <div class="resume-modal-container">
+      <div class="resume-modal-header">
+        <div class="resume-modal-title">
+          Krishna Sahoo - Resume
+        </div>
+        <div class="resume-modal-actions">
+          <a href="sources/resume/Krishna_Sahoo_Resume.pdf" target="_blank" class="resume-action-btn"
+            title="Open in New Tab">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+            <span>Open in New Tab</span>
+          </a>
+          <a href="sources/resume/Krishna_Sahoo_Resume.pdf" download="Krishna_Sahoo_Resume.pdf"
+            class="resume-action-btn" title="Download Resume">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span>Download</span>
+          </a>
+          <button class="resume-close-btn" id="resume-close-btn" aria-label="Close modal">&times;</button>
+        </div>
+      </div>
+      <div class="resume-modal-body">
+        <iframe src="sources/resume/Krishna_Sahoo_Resume.pdf#toolbar=0" id="resume-iframe" width="100%"
+          height="100%"></iframe>
+      </div>
+    </div>
+  </div>
+
   <script src="assets/js/doodles.js" defer></script>
   <script src="assets/js/skills.js" defer></script>
   <script src="assets/js/works.js" defer></script>
   <script src="assets/js/achievements.js" defer></script>
+  <script src="assets/js/main.js" defer></script>
 </body>
+
 </html>
