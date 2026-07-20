@@ -883,6 +883,23 @@ function openProjectSheet(project) {
 
     // Start autoplay slideshow
     startAutoplay();
+
+    // Pause autoplay on hover
+    const carousel = sheet.querySelector('.sheet-carousel');
+    if (carousel) {
+      carousel.addEventListener('mouseenter', stopAutoplay);
+      carousel.addEventListener('mouseleave', startAutoplay);
+    }
+
+    // Keyboard arrow navigation while sheet is open
+    const _arrowHandler = (e) => {
+      if (e.key === 'ArrowLeft')  { showSlide(carouselIndex - 1); startAutoplay(); }
+      if (e.key === 'ArrowRight') { showSlide(carouselIndex + 1); startAutoplay(); }
+    };
+    document.addEventListener('keydown', _arrowHandler);
+
+    // Store reference so it can be cleaned up on sheet close
+    sheet._arrowHandler = _arrowHandler;
   }
 
   // --- Close logic ---
@@ -908,6 +925,10 @@ function openProjectSheet(project) {
       sheet.remove();
       document.body.style.overflow = '';
       _sheetOpen = false;
+      // Clean up keyboard arrow handler if present
+      if (sheet._arrowHandler) {
+        document.removeEventListener('keydown', sheet._arrowHandler);
+      }
     }, 380);
   }
 
@@ -978,6 +999,18 @@ function initWorksSection() {
       // Animate switch
       switchCategory(bentoEl, category);
     });
+  });
+
+  // Add count badges to tab buttons
+  tabBtns.forEach(btn => {
+    const cat = btn.getAttribute('data-tab');
+    const count = (WORKS_DATA[cat] || []).length;
+    if (count > 0 && !btn.querySelector('.tab-count-badge')) {
+      const badge = document.createElement('span');
+      badge.className = 'tab-count-badge';
+      badge.textContent = count;
+      btn.appendChild(badge);
+    }
   });
 
   // Re-align indicator on window resize

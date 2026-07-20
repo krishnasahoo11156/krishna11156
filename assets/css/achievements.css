@@ -574,3 +574,23 @@
     margin-bottom: 0.8rem;
   }
 }
+
+/* ============================================================
+   Achievement Filter — Filtered Out State
+   ============================================================ */
+.conveyor-card.filtered-out {
+  opacity: 0.18;
+  transform: scale(0.94);
+  pointer-events: none;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.conveyor-card {
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+/* Accent override for the achievements title underline */
+.achievements-title::after {
+  background: linear-gradient(90deg, var(--accent-primary, #0ea271) 0%, rgba(14, 162, 113, 0.05) 100%) !important;
+}
+

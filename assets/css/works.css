@@ -1547,3 +1547,30 @@
     display: none;
   }
 }
+
+/* ============================================================
+   Tab Count Badge
+   ============================================================ */
+.tab-count-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  margin-left: 6px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.08);
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: currentColor;
+  opacity: 0.6;
+  transition: opacity 0.25s ease, background 0.25s ease;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+.works-tab-btn.active .tab-count-badge {
+  background: rgba(255, 255, 255, 0.22);
+  opacity: 1;
+}

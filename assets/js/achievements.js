@@ -12,6 +12,7 @@ const ACHIEVEMENTS_DATA = [
   {
     id: "unimerge-win",
     row: 1,
+    filterKey: "hackathon",
     category: "🏆 Hackathon Winner",
     title: "Winner — UniMerge 1.0 (StudySync)",
     issuer: "parth.builds Developer Community",
@@ -25,6 +26,7 @@ const ACHIEVEMENTS_DATA = [
   {
     id: "aws-devops-cert",
     row: 1,
+    filterKey: "cloud",
     category: "☁️ Cloud & Infrastructure",
     title: "Fundamentals of DevOps on AWS",
     issuer: "Amazon Web Services (AWS)",
@@ -38,6 +40,7 @@ const ACHIEVEMENTS_DATA = [
   {
     id: "cn-hackaithon",
     row: 1,
+    filterKey: "hackathon",
     category: "🏆 National Hackathon Win",
     title: "Coding Ninjas Hackaithon (ForeSee)",
     issuer: "Coding Ninjas & Google for Developers",
@@ -51,6 +54,7 @@ const ACHIEVEMENTS_DATA = [
   {
     id: "gcp-pubsub",
     row: 1,
+    filterKey: "cloud",
     category: "🛠️ Google Cloud Badge",
     title: "Get Started with Pub/Sub",
     issuer: "Google Cloud Skills Boost",
@@ -64,6 +68,7 @@ const ACHIEVEMENTS_DATA = [
   {
     id: "gcp-networking",
     row: 1,
+    filterKey: "cloud",
     category: "🛡️ Google Cloud Badge",
     title: "Set Up a Google Cloud Network",
     issuer: "Google Cloud Skills Boost",
@@ -77,6 +82,7 @@ const ACHIEVEMENTS_DATA = [
   {
     id: "gcp-compute",
     row: 1,
+    filterKey: "cloud",
     category: "💻 Google Cloud Badge",
     title: "The Basics of Google Cloud Compute",
     issuer: "Google Cloud Skills Boost",
@@ -90,6 +96,7 @@ const ACHIEVEMENTS_DATA = [
   {
     id: "gcp-partner",
     row: 1,
+    filterKey: "cloud",
     category: "☁️ Google Cloud Badge",
     title: "Google Cloud Partner Training Credentials",
     issuer: "Google Cloud",
@@ -105,6 +112,7 @@ const ACHIEVEMENTS_DATA = [
   {
     id: "syrus-hackathon",
     row: 2,
+    filterKey: "hackathon",
     category: "🚀 Hackathon Sprint",
     title: "Codecell's Syrus Hackathon Onboarding",
     issuer: "Codecell Committee · VESIT",
@@ -118,6 +126,7 @@ const ACHIEVEMENTS_DATA = [
   {
     id: "gemini-streamlit",
     row: 2,
+    filterKey: "cloud",
     category: "🧠 Generative AI Systems",
     title: "Develop GenAI Apps with Gemini",
     issuer: "Google Cloud Skills Boost",
@@ -131,6 +140,7 @@ const ACHIEVEMENTS_DATA = [
   {
     id: "gcp-prompt",
     row: 2,
+    filterKey: "cloud",
     category: "🤖 AI Engineering",
     title: "Prompt Design in Vertex AI",
     issuer: "Google Cloud Skills Boost",
@@ -144,6 +154,7 @@ const ACHIEVEMENTS_DATA = [
   {
     id: "gcp-monitoring",
     row: 2,
+    filterKey: "cloud",
     category: "📊 Google Cloud Badge",
     title: "Monitoring in Google Cloud",
     issuer: "Google Cloud Skills Boost",
@@ -157,6 +168,7 @@ const ACHIEVEMENTS_DATA = [
   {
     id: "gcp-data",
     row: 2,
+    filterKey: "cloud",
     category: "🗄️ Google Cloud Badge",
     title: "Store, Process, and Manage Data on GCP",
     issuer: "Google Cloud Skills Boost",
@@ -170,6 +182,7 @@ const ACHIEVEMENTS_DATA = [
   {
     id: "gcp-genai-studio",
     row: 2,
+    filterKey: "cloud",
     category: "🎨 Google Cloud Badge",
     title: "Introduction to Generative AI Studio",
     issuer: "Google Cloud Skills Boost",
@@ -475,7 +488,55 @@ function setupPortalZoom() {
 
 document.addEventListener("DOMContentLoaded", () => {
   initConveyorSection();
+  initAchievementsFilter();
 });
+
+/**
+ * Populates the meta count strip and wires up category filter pills.
+ * Cards are hidden/shown via CSS class toggling — the conveyor physics still run.
+ */
+function initAchievementsFilter() {
+  const filterBar = document.getElementById('achievements-filter-bar');
+  const metaStrip = document.getElementById('achievements-meta-strip');
+  if (!filterBar) return;
+
+  const total = ACHIEVEMENTS_DATA.length;
+  const hackathonCount = ACHIEVEMENTS_DATA.filter(a => a.filterKey === 'hackathon').length;
+  const cloudCount     = ACHIEVEMENTS_DATA.filter(a => a.filterKey === 'cloud').length;
+  const academicCount  = ACHIEVEMENTS_DATA.filter(a => a.filterKey === 'academic').length;
+  const opensourceCount = ACHIEVEMENTS_DATA.filter(a => a.filterKey === 'opensource').length;
+
+  // Populate meta count strip
+  if (metaStrip) {
+    metaStrip.textContent =
+      `${total} credentials total  ·  ${hackathonCount} hackathon wins  ·  ${cloudCount} cloud badges`;
+  }
+
+  // Filter pills click handler
+  const pills = filterBar.querySelectorAll('.filter-pill');
+  pills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      pills.forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+
+      const filter = pill.getAttribute('data-filter');
+
+      // Find ALL conveyor cards currently in the DOM and toggle visibility
+      const allCards = document.querySelectorAll('.conveyor-card');
+      allCards.forEach(card => {
+        const cardId = card.getAttribute('data-id');
+        const ach = ACHIEVEMENTS_DATA.find(a => a.id === cardId);
+        if (!ach) return; // skip cloned cards without unique id match
+
+        if (filter === 'all' || ach.filterKey === filter) {
+          card.classList.remove('filtered-out');
+        } else {
+          card.classList.add('filtered-out');
+        }
+      });
+    });
+  });
+}
 window.addEventListener("resize", () => {
   // Re-measure track widths on window resize
   const rowLeftTrack = document.getElementById("row-left-track");

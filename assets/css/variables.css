@@ -1,44 +1,48 @@
-/* Design variables for the Art & AI Portfolio */
+/* ============================================================
+   Krishna Sahoo Portfolio — Unified Design System Variables
+   ============================================================ */
 
 :root {
-  /* Color Palette - Sleek Grey / Charcoal base with Art & Tech highlights */
-  --bg-darker: #0d0d0f;
-  --bg-primary: #141416;
-  --bg-secondary: #1a1a1f;
-  --bg-tertiary: #25252b;
-  
-  /* Text colors */
-  --text-primary: #f5f5f7;
-  --text-secondary: #a0a0a5;
-  --text-muted: #6e6e73;
-  
-  /* Tech Glow Accents (AI, Data Science, Math) */
-  --tech-accent: #00f2fe;
-  --tech-accent-rgb: 0, 242, 254;
-  --tech-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-  --tech-glow: 0 0 20px rgba(0, 242, 254, 0.45);
-  
-  /* Art Accents (Pencil, Sketch, Graphite) */
-  --art-accent: #e5e5e7;
-  --art-accent-rgb: 229, 229, 231;
-  --art-gradient: linear-gradient(135deg, #ffffff 0%, #a2a2a6 100%);
-  --art-pencil: #2d2d30;
-  
-  /* Card Styling & Glassmorphic variables */
-  --border-color: rgba(255, 255, 255, 0.08);
-  --border-light: rgba(255, 255, 255, 0.15);
-  --glass-bg: rgba(20, 20, 22, 0.7);
-  --glass-border: rgba(255, 255, 255, 0.06);
-  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
-  
-  /* Typography */
-  --font-tech: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-art: 'Playfair Display', 'Didot', 'Georgia', serif;
-  --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
-  
-  /* Layout details */
-  --header-height: 80px;
-  --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-fast: all 0.25s ease;
-  --max-width: 1280px;
+  /* ── Signature Accent (Premium Emerald — "I code what I can't draw") ── */
+  --accent-primary: #0ea271;
+  --accent-primary-rgb: 14, 162, 113;
+  --accent-hover: #0b8860;
+  --accent-glow: 0 0 24px rgba(14, 162, 113, 0.28);
+  --accent-subtle: rgba(14, 162, 113, 0.08);
+  --accent-border: rgba(14, 162, 113, 0.3);
+
+  /* ── Light Background System (Current Theme) ──────────── */
+  --bg-light: lab(99.38% 0.15 1.65);
+  --bg-dark-start: #3a3a3a;
+  --bg-dark-end:   #1a1a1a;
+  --bg-footer:     #111111;
+
+  /* ── Text Scale ────────────────────────────────────────── */
+  --text-base:  #737373;
+  --text-dark:  #2c2c2c;
+  --text-muted: #7a7a7a;
+  --text-light: rgba(255, 255, 255, 0.88);
+
+  /* ── Typography ─────────────────────────────────────────── */
+  --font-sans:    'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono:    'Consolas', 'Fira Code', 'Courier New', monospace;
+
+  /* ── Glassmorphism Tokens ───────────────────────────────── */
+  --glass-bg-light:   rgba(255, 255, 255, 0.55);
+  --glass-border:     rgba(255, 255, 255, 0.25);
+  --glass-shadow:     0 25px 60px rgba(0, 0, 0, 0.08);
+  --glass-backdrop:   blur(16px) saturate(135%);
+
+  /* ── Layout ─────────────────────────────────────────────── */
+  --max-width:          1280px;
+  --header-height:      80px;
+  --section-padding-y:  7rem;
+  --border-radius-card: 20px;
+  --border-radius-pill: 50px;
+
+  /* ── Transitions ─────────────────────────────────────────── */
+  --transition-spring: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --transition-fast:   all 0.2s ease;
 }
