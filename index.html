@@ -91,7 +91,7 @@
         <li><a href="#testimonials" class="mobile-menu-link">Testimonials</a></li>
         <li><a href="#connect" class="mobile-menu-link">Connect</a></li>
         <li><a href="#blogs" class="mobile-menu-link">Blogs</a></li>
-        <li><a href="#sketches" class="mobile-menu-link">Sketches</a></li>
+        <li><a href="#socials" class="mobile-menu-link">Socials</a></li>
       </ul>
     </div>
   </div>
@@ -143,16 +143,161 @@
           </div>
         </div>
 
-        <!-- Right Side: Action Buttons + Identity Badge -->
-        <div class="hero-content-right">
-          <div class="hero-buttons">
-            <a href="#blogs" class="btn-hero btn-hero-primary">Blogs</a>
-            <a href="#sketches" class="btn-hero btn-hero-secondary">Sketches</a>
-          </div>
-          <!-- Identity Badge -->
-          <div class="hero-identity-badge">
-            <span class="identity-dot"></span>
-            <span>AI &amp; Full-Stack Developer &nbsp;·&nbsp; VESIT &nbsp;·&nbsp; CGPA 9.74</span>
+        <!-- Right Side: Action Buttons + Interactive Sliding Panels -->
+        <div class="hero-content-right" id="hero-content-right">
+          <div class="hero-panels-wrapper" id="hero-panels-wrapper">
+
+            <!-- PANEL 0: Default Overview -->
+            <div class="hero-panel hero-panel-overview active" id="hero-panel-overview">
+              <div class="hero-buttons">
+                <button class="btn-hero btn-hero-primary" id="btn-open-blogs" type="button" aria-label="Open Blogs Panel">
+                  <span>Blogs</span>
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </button>
+                <button class="btn-hero btn-hero-secondary" id="btn-open-socials" type="button" aria-label="Open Socials Panel">
+                  <span>Socials</span>
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                </button>
+              </div>
+              <!-- Identity Badge -->
+              <div class="hero-identity-badge">
+                <span class="identity-dot"></span>
+                <span>AI &amp; Full-Stack Developer &nbsp;·&nbsp; VESIT &nbsp;·&nbsp; CGPA 9.74</span>
+              </div>
+            </div>
+
+            <!-- PANEL 1: Dynamic Blogs Panel (Vertical Parallax) -->
+            <div class="hero-panel hero-panel-blogs" id="hero-panel-blogs">
+              <div class="hero-panel-header">
+                <div class="panel-title-group">
+                  <span class="panel-icon">&#x270D;&#xFE0F;</span>
+                  <h3 class="panel-title">Articles &amp; Build Logs</h3>
+                </div>
+                <div class="panel-header-actions">
+                  <button class="panel-switch-btn" id="blogs-to-socials-btn" type="button">Socials &rarr;</button>
+                  <button class="panel-close-btn" id="blogs-close-btn" type="button" aria-label="Return to overview">&times;</button>
+                </div>
+              </div>
+              
+              <!-- Vertical Parallax Dual-Column Conveyor -->
+              <div class="blogs-vertical-parallax">
+                <div class="parallax-col parallax-col-down" id="blogs-col-1">
+                  <div class="hero-blog-card">
+                    <span class="hero-blog-tag tag-hackathon">Hackathon 48h</span>
+                    <h4 class="hero-blog-title">Building ForeSee Solo vs 3,000+ Devs</h4>
+                    <p class="hero-blog-excerpt">Lessons on architecture, speed, and real-time ML pipelines in 48 hours.</p>
+                    <span class="hero-blog-meta">5 min read &middot; Publishing Soon</span>
+                  </div>
+                  <div class="hero-blog-card">
+                    <span class="hero-blog-tag tag-architecture">Architecture</span>
+                    <h4 class="hero-blog-title">15 Agents, 1 Event Bus Pattern</h4>
+                    <p class="hero-blog-excerpt">Designing resilient pub/sub agentic systems with JS and state recovery.</p>
+                    <span class="hero-blog-meta">7 min read &middot; Publishing Soon</span>
+                  </div>
+                  <div class="hero-blog-card">
+                    <span class="hero-blog-tag tag-hackathon">Hackathon 48h</span>
+                    <h4 class="hero-blog-title">Building ForeSee Solo vs 3,000+ Devs</h4>
+                    <p class="hero-blog-excerpt">Lessons on architecture, speed, and real-time ML pipelines in 48 hours.</p>
+                    <span class="hero-blog-meta">5 min read &middot; Publishing Soon</span>
+                  </div>
+                </div>
+
+                <div class="parallax-col parallax-col-up" id="blogs-col-2">
+                  <div class="hero-blog-card">
+                    <span class="hero-blog-tag tag-opensource">Open Source</span>
+                    <h4 class="hero-blog-title">9 PRs in 2 Weeks on InboxOS</h4>
+                    <p class="hero-blog-excerpt">Navigating large TypeScript monorepos, Docker &amp; Prisma in production.</p>
+                    <span class="hero-blog-meta">4 min read &middot; Publishing Soon</span>
+                  </div>
+                  <div class="hero-blog-card">
+                    <span class="hero-blog-tag tag-ai">AI Systems</span>
+                    <h4 class="hero-blog-title">Prompt Triage with Gemini Classifier</h4>
+                    <p class="hero-blog-excerpt">Optimizing latency and accuracy for disaster crisis dispatching.</p>
+                    <span class="hero-blog-meta">6 min read &middot; Publishing Soon</span>
+                  </div>
+                  <div class="hero-blog-card">
+                    <span class="hero-blog-tag tag-opensource">Open Source</span>
+                    <h4 class="hero-blog-title">9 PRs in 2 Weeks on InboxOS</h4>
+                    <p class="hero-blog-excerpt">Navigating large TypeScript monorepos, Docker &amp; Prisma in production.</p>
+                    <span class="hero-blog-meta">4 min read &middot; Publishing Soon</span>
+                  </div>
+                </div>
+              </div>
+              <div class="panel-footer-hint">Hover column to pause &middot; Scroll to explore</div>
+            </div>
+
+            <!-- PANEL 2: Dynamic Socials Panel -->
+            <div class="hero-panel hero-panel-socials" id="hero-panel-socials">
+              <div class="hero-panel-header">
+                <div class="panel-title-group">
+                  <span class="panel-icon">&#x1F517;</span>
+                  <h3 class="panel-title">Socials &amp; Footprint</h3>
+                </div>
+                <div class="panel-header-actions">
+                  <button class="panel-switch-btn" id="socials-to-blogs-btn" type="button">&larr; Blogs</button>
+                  <button class="panel-close-btn" id="socials-close-btn" type="button" aria-label="Return to overview">&times;</button>
+                </div>
+              </div>
+
+              <div class="hero-social-grid">
+                <a href="https://github.com/krishnasahoo11156" target="_blank" class="hero-social-card card-github">
+                  <div class="social-card-top">
+                    <div class="social-icon-wrapper">
+                      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+                    </div>
+                    <span class="social-handle">@krishnasahoo11156</span>
+                  </div>
+                  <div class="social-card-body">
+                    <span class="social-name">GitHub</span>
+                    <span class="social-meta">9 PRs &middot; 3K+ Devs Outranked</span>
+                  </div>
+                  <span class="social-arrow">&nearr;</span>
+                </a>
+
+                <a href="https://linkedin.com/in/krishnasahoo11156" target="_blank" class="hero-social-card card-linkedin">
+                  <div class="social-card-top">
+                    <div class="social-icon-wrapper">
+                      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </div>
+                    <span class="social-handle">in/krishnasahoo11156</span>
+                  </div>
+                  <div class="social-card-body">
+                    <span class="social-name">LinkedIn</span>
+                    <span class="social-meta">AI &amp; Full Stack &middot; VESIT</span>
+                  </div>
+                  <span class="social-arrow">&nearr;</span>
+                </a>
+
+                <a href="https://leetcode.com/u/krishnasahoo11156/" target="_blank" class="hero-social-card card-leetcode">
+                  <div class="social-card-top">
+                    <div class="social-icon-wrapper">
+                      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/></svg>
+                    </div>
+                    <span class="social-handle">@krishnasahoo11156</span>
+                  </div>
+                  <div class="social-card-body">
+                    <span class="social-name">LeetCode</span>
+                    <span class="social-meta">DSA &amp; Problem Solving</span>
+                  </div>
+                  <span class="social-arrow">&nearr;</span>
+                </a>
+
+                <a href="mailto:krishnasahoo11156@gmail.com" class="hero-social-card card-email">
+                  <div class="social-card-top">
+                    <div class="social-icon-wrapper">
+                      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    </div>
+                    <span class="social-handle">krishnasahoo11156@gmail.com</span>
+                  </div>
+                  <div class="social-card-body">
+                    <span class="social-name">Email</span>
+                    <span class="social-meta">Open for collaborations &amp; internships</span>
+                  </div>
+                  <span class="social-arrow">&nearr;</span>
+                </a>
+              </div>
+            </div>
+
           </div>
         </div>
 
@@ -170,86 +315,65 @@
     <!-- About Section -->
     <section class="about-section" id="about">
       <div class="about-container">
-        <div class="about-grid">
+        <div class="about-card-container">
+          <div class="about-grid">
 
-          <!-- Left: Bio Text + Social Quick Links -->
-          <div class="about-bio">
-            <h2 class="about-title">About Me</h2>
-            <p class="about-text">
-              Hi, I'm <strong>Krishna Sahoo</strong> — a <strong>2nd-year B.Tech student in AI &amp; Data
-              Science</strong> at <strong>VESIT, Mumbai</strong>. I build scalable, production-ready software
-              with <strong>Java Full Stack</strong> and the <strong>MERN stack</strong>, leveraging AI tools
-              to ship faster and smarter.
-            </p>
-            <p class="about-text">
-              I've competed in national-level hackathons against <strong>3,000+ developers</strong>, won
-              community competitions, and contributed to real open-source codebases. I care deeply about
-              clean architecture, performance, and software that genuinely solves problems.
-            </p>
+            <!-- Left: Bio Text + Social Quick Links -->
+            <div class="about-bio">
+              <h2 class="about-title">About Me</h2>
+              <p class="about-text">
+                Hi, I'm <strong>Krishna Sahoo</strong> — a <strong>2nd-year B.Tech student in AI &amp; Data
+                Science</strong> at <strong>VESIT, Mumbai</strong>. I build scalable, production-ready software
+                with <strong>Java Full Stack</strong> and the <strong>MERN stack</strong>, leveraging AI tools
+                to ship faster and smarter.
+              </p>
+              <p class="about-text">
+                I've competed in national-level hackathons against <strong>3,000+ developers</strong>, won
+                community competitions, and contributed to real open-source codebases. I care deeply about
+                clean architecture, performance, and software that genuinely solves problems.
+              </p>
 
-            <!-- Social Quick Links -->
-            <div class="about-quick-links">
-              <a href="https://github.com/krishnasahoo11156" target="_blank" class="about-quick-link" id="about-github-link" aria-label="GitHub Profile">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
-                GitHub
-              </a>
-              <a href="https://linkedin.com/in/krishnasahoo11156" target="_blank" class="about-quick-link" id="about-linkedin-link" aria-label="LinkedIn Profile">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                LinkedIn
-              </a>
-              <a href="https://leetcode.com/u/krishnasahoo11156/" target="_blank" class="about-quick-link" id="about-leetcode-link" aria-label="LeetCode Profile">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/></svg>
-                LeetCode
-              </a>
+              <!-- Bio Highlight Chips -->
+              <div class="about-tech-chips">
+                <span class="about-chip">AI &amp; Data Science</span>
+                <span class="about-chip">Java Full Stack</span>
+                <span class="about-chip">MERN Stack</span>
+                <span class="about-chip">Clean Architecture</span>
+                <span class="about-chip">Hackathon Competitor</span>
+              </div>
             </div>
+
+            <!-- Right: Stats Grid -->
+            <div class="about-right">
+              <div class="about-stats-grid">
+                <div class="stat-card" id="stat-cgpa">
+                  <div class="stat-value">9.74</div>
+                  <div class="stat-label">CGPA</div>
+                </div>
+                <div class="stat-card" id="stat-projects">
+                  <div class="stat-value">5+</div>
+                  <div class="stat-label">Projects Shipped</div>
+                </div>
+                <div class="stat-card" id="stat-hackathons">
+                  <div class="stat-value">4</div>
+                  <div class="stat-label">Hackathons</div>
+                </div>
+                <div class="stat-card" id="stat-prs">
+                  <div class="stat-value">9</div>
+                  <div class="stat-label">Open Source PRs</div>
+                </div>
+                <div class="stat-card" id="stat-competitors">
+                  <div class="stat-value">3K+</div>
+                  <div class="stat-label">Devs Outranked</div>
+                </div>
+                <div class="stat-card" id="stat-certs">
+                  <div class="stat-value">7+</div>
+                  <div class="stat-label">Certifications</div>
+                </div>
+              </div>
+            </div>
+
           </div>
-
-          <!-- Right: Stats Grid + GitHub Live Stats -->
-          <div class="about-right">
-            <div class="about-stats-grid">
-              <div class="stat-card" id="stat-cgpa">
-                <div class="stat-value">9.74</div>
-                <div class="stat-label">CGPA</div>
-              </div>
-              <div class="stat-card" id="stat-projects">
-                <div class="stat-value">5+</div>
-                <div class="stat-label">Projects Shipped</div>
-              </div>
-              <div class="stat-card" id="stat-hackathons">
-                <div class="stat-value">4</div>
-                <div class="stat-label">Hackathons</div>
-              </div>
-              <div class="stat-card" id="stat-prs">
-                <div class="stat-value">9</div>
-                <div class="stat-label">Open Source PRs</div>
-              </div>
-              <div class="stat-card" id="stat-competitors">
-                <div class="stat-value">3K+</div>
-                <div class="stat-label">Devs Outranked</div>
-              </div>
-              <div class="stat-card" id="stat-certs">
-                <div class="stat-value">7+</div>
-                <div class="stat-label">Certifications</div>
-              </div>
-            </div>
-
-            <!-- GitHub & Streak Live Stats (image API) -->
-            <div class="dev-stats-row">
-              <img
-                src="https://github-readme-stats.vercel.app/api?username=krishnasahoo11156&show_icons=true&hide_border=true&title_color=0ea271&icon_color=0ea271&text_color=555555&bg_color=ffffff00&count_private=true&rank_icon=github"
-                alt="Krishna Sahoo GitHub Stats"
-                class="dev-stats-img"
-                id="github-stats-img"
-                loading="lazy">
-              <img
-                src="https://github-readme-streak-stats.herokuapp.com/?user=krishnasahoo11156&hide_border=true&ring=0ea271&fire=0ea271&currStreakLabel=0ea271&background=ffffff00&stroke=e0e0e0&sideLabels=666666&dates=888888"
-                alt="GitHub Contribution Streak"
-                class="dev-stats-img"
-                id="github-streak-img"
-                loading="lazy">
-            </div>
-          </div>
-
         </div>
       </div>
     </section>
@@ -597,7 +721,7 @@
             <span class="footer-nav-heading">More</span>
             <a href="#testimonials" class="footer-nav-link">Testimonials</a>
             <a href="#blogs" class="footer-nav-link">Blogs</a>
-            <a href="#sketches" class="footer-nav-link">Sketches</a>
+            <a href="#socials" class="footer-nav-link">Socials</a>
             <a href="#connect" class="footer-nav-link">Connect</a>
           </div>
         </nav>

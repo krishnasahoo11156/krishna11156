@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollHint();
   initTestimonialsScroll();
   initSectionObserver();
+  initHeroPanels();
 });
 
 /**
@@ -337,6 +338,69 @@ function initTypewriter() {
   
   // Start typewriter loop
   setTimeout(type, 1000);
+}
+
+/**
+ * Hero Section Right-Side Interactive Sliding Panels Manager
+ * Handles seamless slide-in/slide-out animations between overview, blogs, and socials views.
+ */
+function initHeroPanels() {
+  const panelOverview = document.getElementById('hero-panel-overview');
+  const panelBlogs = document.getElementById('hero-panel-blogs');
+  const panelSocials = document.getElementById('hero-panel-socials');
+
+  const btnOpenBlogs = document.getElementById('btn-open-blogs');
+  const btnOpenSocials = document.getElementById('btn-open-socials');
+  
+  const btnBlogsClose = document.getElementById('blogs-close-btn');
+  const btnSocialsClose = document.getElementById('socials-close-btn');
+
+  const btnBlogsToSocials = document.getElementById('blogs-to-socials-btn');
+  const btnSocialsToBlogs = document.getElementById('socials-to-blogs-btn');
+
+  if (!panelOverview || !panelBlogs || !panelSocials) return;
+
+  function setActivePanel(panelName) {
+    [panelOverview, panelBlogs, panelSocials].forEach(p => p.classList.remove('active'));
+    
+    if (panelName === 'blogs') {
+      panelBlogs.classList.add('active');
+    } else if (panelName === 'socials') {
+      panelSocials.classList.add('active');
+    } else {
+      panelOverview.classList.add('active');
+    }
+  }
+
+  if (btnOpenBlogs) btnOpenBlogs.addEventListener('click', () => setActivePanel('blogs'));
+  if (btnOpenSocials) btnOpenSocials.addEventListener('click', () => setActivePanel('socials'));
+  
+  if (btnBlogsClose) btnBlogsClose.addEventListener('click', () => setActivePanel('overview'));
+  if (btnSocialsClose) btnSocialsClose.addEventListener('click', () => setActivePanel('overview'));
+
+  if (btnBlogsToSocials) btnBlogsToSocials.addEventListener('click', () => setActivePanel('socials'));
+  if (btnSocialsToBlogs) btnSocialsToBlogs.addEventListener('click', () => setActivePanel('blogs'));
+
+  // ESC key to return to overview
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && (panelBlogs.classList.contains('active') || panelSocials.classList.contains('active'))) {
+      setActivePanel('overview');
+    }
+  });
+
+  // Intercept navigation links targeting #blogs or #socials
+  document.querySelectorAll('a[href="#blogs"], a[href="#socials"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const target = link.getAttribute('href');
+      if (target === '#blogs' || target === '#socials') {
+        const hero = document.getElementById('hero-section');
+        if (hero) {
+          hero.scrollIntoView({ behavior: 'smooth' });
+          setActivePanel(target === '#blogs' ? 'blogs' : 'socials');
+        }
+      }
+    });
+  });
 }
 
 
