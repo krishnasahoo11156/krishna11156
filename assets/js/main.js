@@ -415,4 +415,184 @@ function initHeroPanels() {
       }
     });
   });
+
+  initBlogReader();
+}
+
+/**
+ * Split-Pane Blog Reader Handler
+ * Renders full articles on the right pane when a blog card on the left conveyor is clicked.
+ */
+const BLOG_ARTICLES_DATA = {
+  'foresee-solo': {
+    title: 'Building ForeSee Solo vs 3,000+ Devs',
+    tag: 'Hackathon Sprint',
+    date: 'Oct 2024',
+    readtime: '5 min read',
+    body: `
+      <p class="article-lead">During an intense 48-hour national hackathon featuring over 3,000 developer participants, I set out to build <strong>ForeSee</strong>—an automated AI crisis dispatch system designed to ingest emergency transcripts, triage incident severity, and dispatch first responders in real-time.</p>
+      
+      <h3>The Architecture Challenge</h3>
+      <p>Building real-time emergency tooling requires zero-latency response pipelines. A single hung API call or unhandled promise rejection could mean lost notifications during critical disaster triage.</p>
+
+      <div class="article-code-block">
+        <pre><code>// Fast JSON schema enforcement using Gemini Flash
+const triageResponse = await aiClient.models.generateContent({
+  model: 'gemini-1.5-flash',
+  contents: prompt,
+  config: { responseMimeType: 'application/json' }
+});</code></pre>
+      </div>
+
+      <h3>Key Engineering Takeaways</h3>
+      <ul>
+        <li><strong>Structured Schema Enforcement:</strong> Forcing JSON output schemas eliminated AI parsing errors completely under stress testing.</li>
+        <li><strong>WebSocket Fallbacks:</strong> Implemented automatic heartbeat polling so socket connections recover instantly when switching networks.</li>
+        <li><strong>Rapid Solo MVP Delivery:</strong> Strict scope constraints allowed me to outrank multi-member teams by shipping a fully working prototype.</li>
+      </ul>
+    `
+  },
+  'agent-bus': {
+    title: 'Event-Driven Micro-Agent Bus Pattern',
+    tag: 'System Design',
+    date: 'Dec 2024',
+    readtime: '7 min read',
+    body: `
+      <p class="article-lead">When orchestrating multi-step AI tasks across several autonomous subagents, traditional synchronous HTTP calls quickly become brittle. This article breaks down the <strong>EventBus Pattern</strong> I implemented for managing agent state and recovery.</p>
+      
+      <h3>Decoupled Messaging Architecture</h3>
+      <p>By routing agent messages through an in-memory pub/sub EventBus, agents operate independently and communicate asynchronously without hard coupling.</p>
+
+      <div class="article-code-block">
+        <pre><code>class EventBus extends EventEmitter {
+  publish(event, payload) {
+    this.emit(event, { timestamp: Date.now(), payload });
+  }
+}</code></pre>
+      </div>
+
+      <h3>State Snapshots &amp; Failover</h3>
+      <p>Each agent saves state JSON snapshots after completing key milestones. If an agent crashes, it resumes from the latest checkpoint without re-running expensive steps.</p>
+    `
+  },
+  'css-shaders': {
+    title: 'Mastering Dual-Axis CSS Shaders & Canvas',
+    tag: 'Frontend Craft',
+    date: 'Feb 2025',
+    readtime: '4 min read',
+    body: `
+      <p class="article-lead">Modern web aesthetics rely on interactive depth, smooth micro-animations, and liquid responsive layouts. Here is how I crafted the dual-axis canvas doodle shader and glassmorphic backdrop filters for this portfolio.</p>
+
+      <h3>Clipping Path Math</h3>
+      <p>To split the hero section diagonally while maintaining crisp resolution on mobile and desktop, CSS custom properties recalculate coordinate bounds dynamically.</p>
+    `
+  },
+  'inboxos-prs': {
+    title: '9 PRs in 2 Weeks: Lessons from InboxOS',
+    tag: 'Open Source',
+    date: 'Nov 2024',
+    readtime: '6 min read',
+    body: `
+      <p class="article-lead">Contributing to large-scale open-source projects requires rapid comprehension of unfamiliar monorepos. In two weeks, I submitted and merged 9 pull requests to InboxOS.</p>
+
+      <h3>Key Technical Fixes</h3>
+      <ul>
+        <li>Optimized Prisma database queries to eliminate N+1 query bottlenecks on message threads.</li>
+        <li>Fixed Docker multi-stage build caching to reduce CI pipeline build times by 40%.</li>
+        <li>Refactored background queue worker memory allocation.</li>
+      </ul>
+    `
+  },
+  'gemini-triage': {
+    title: 'Prompt Engineering vs Fine-Tuning',
+    tag: 'AI Systems',
+    date: 'Jan 2025',
+    readtime: '8 min read',
+    body: `
+      <p class="article-lead">A comprehensive benchmark comparing zero-shot Gemini prompt engineering against fine-tuned smaller models for emergency crisis dispatch classification.</p>
+      
+      <h3>Benchmark Findings</h3>
+      <p>Zero-shot prompting with structured outputs achieved 99.2% accuracy while avoiding the maintenance overhead of dedicated model hosting.</p>
+    `
+  },
+  'clean-java': {
+    title: 'Clean Architecture in Java & Spring',
+    tag: 'Backend Design',
+    date: 'Mar 2025',
+    readtime: '6 min read',
+    body: `
+      <p class="article-lead">How Hexagonal Architecture (Ports &amp; Adapters) protects core Java business domain models from framework deprecations and database changes.</p>
+    `
+  },
+  'websocket-10k': {
+    title: 'Scaling WebSockets to 10k Connections',
+    tag: 'Performance',
+    date: 'Nov 2024',
+    readtime: '9 min read',
+    body: `
+      <p class="article-lead">Stress testing Node.js WS servers to handle 10,000 active concurrent connections without memory exhaustion.</p>
+    `
+  },
+  'rag-hyde': {
+    title: 'HyDE RAG Pipelines with Vector Search',
+    tag: 'AI Retrieval',
+    date: 'Jan 2025',
+    readtime: '7 min read',
+    body: `
+      <p class="article-lead">Combining Hypothetical Document Embeddings (HyDE) with BM25 lexical search for technical document search engines.</p>
+    `
+  }
+};
+
+function initBlogReader() {
+  const placeholder = document.getElementById('reader-placeholder');
+  const articleContent = document.getElementById('reader-article-content');
+  const btnReadFeatured = document.getElementById('btn-read-featured');
+
+  const elTag = document.getElementById('article-tag');
+  const elDate = document.getElementById('article-date');
+  const elReadtime = document.getElementById('article-readtime');
+  const elTitle = document.getElementById('article-title');
+  const elBody = document.getElementById('article-body');
+
+  function renderArticle(articleId) {
+    const data = BLOG_ARTICLES_DATA[articleId];
+    if (!data) return;
+
+    // Highlight active card
+    document.querySelectorAll('.modal-blog-card').forEach(card => {
+      if (card.getAttribute('data-article-id') === articleId) {
+        card.classList.add('active-card');
+      } else {
+        card.classList.remove('active-card');
+      }
+    });
+
+    if (placeholder) placeholder.classList.add('hidden');
+    if (articleContent) {
+      articleContent.classList.remove('hidden');
+      
+      // Populate fields
+      if (elTag) elTag.textContent = data.tag;
+      if (elDate) elDate.textContent = data.date;
+      if (elReadtime) elReadtime.textContent = data.readtime;
+      if (elTitle) elTitle.textContent = data.title;
+      if (elBody) elBody.innerHTML = data.body;
+
+      // Scroll reader pane to top
+      const readerPane = document.getElementById('blog-reader-pane');
+      if (readerPane) readerPane.scrollTop = 0;
+    }
+  }
+
+  document.querySelectorAll('.modal-blog-card[data-article-id]').forEach(card => {
+    card.addEventListener('click', () => {
+      const articleId = card.getAttribute('data-article-id');
+      renderArticle(articleId);
+    });
+  });
+
+  if (btnReadFeatured) {
+    btnReadFeatured.addEventListener('click', () => renderArticle('foresee-solo'));
+  }
 }
