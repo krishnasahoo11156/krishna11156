@@ -341,66 +341,78 @@ function initTypewriter() {
 }
 
 /**
- * Hero Section Right-Side Interactive Sliding Panels Manager
- * Handles seamless slide-in/slide-out animations between overview, blogs, and socials views.
+ * Full-Screen Modal Overlay Manager (Blogs & Socials)
+ * Opens full-screen 4-column vertical parallax conveyors for Blogs and Socials.
  */
 function initHeroPanels() {
-  const panelOverview = document.getElementById('hero-panel-overview');
-  const panelBlogs = document.getElementById('hero-panel-blogs');
-  const panelSocials = document.getElementById('hero-panel-socials');
+  const blogsModal = document.getElementById('blogs-modal-overlay');
+  const socialsModal = document.getElementById('socials-modal-overlay');
 
   const btnOpenBlogs = document.getElementById('btn-open-blogs');
   const btnOpenSocials = document.getElementById('btn-open-socials');
 
-  const btnBlogsClose = document.getElementById('blogs-close-btn');
-  const btnSocialsClose = document.getElementById('socials-close-btn');
+  const blogsClose = document.getElementById('modal-blogs-close');
+  const blogsCloseSec = document.getElementById('modal-blogs-close-sec');
+  const blogsBackdrop = document.getElementById('blogs-modal-backdrop');
 
-  const btnBlogsToSocials = document.getElementById('blogs-to-socials-btn');
-  const btnSocialsToBlogs = document.getElementById('socials-to-blogs-btn');
+  const socialsClose = document.getElementById('modal-socials-close');
+  const socialsCloseSec = document.getElementById('modal-socials-close-sec');
+  const socialsBackdrop = document.getElementById('socials-modal-backdrop');
 
-  if (!panelOverview || !panelBlogs || !panelSocials) return;
+  const switchBlogsToSocials = document.getElementById('modal-blogs-to-socials');
+  const switchSocialsToBlogs = document.getElementById('modal-socials-to-blogs');
 
-  function setActivePanel(panelName) {
-    [panelOverview, panelBlogs, panelSocials].forEach(p => p.classList.remove('active'));
-
-    if (panelName === 'blogs') {
-      panelBlogs.classList.add('active');
-    } else if (panelName === 'socials') {
-      panelSocials.classList.add('active');
-    } else {
-      panelOverview.classList.add('active');
+  function openModal(modal) {
+    closeAllModals();
+    if (modal) {
+      modal.classList.add('active');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
     }
   }
 
-  if (btnOpenBlogs) btnOpenBlogs.addEventListener('click', () => setActivePanel('blogs'));
-  if (btnOpenSocials) btnOpenSocials.addEventListener('click', () => setActivePanel('socials'));
+  function closeAllModals() {
+    [blogsModal, socialsModal].forEach(m => {
+      if (m) {
+        m.classList.remove('active');
+        m.setAttribute('aria-hidden', 'true');
+      }
+    });
+    document.body.style.overflow = '';
+  }
 
-  if (btnBlogsClose) btnBlogsClose.addEventListener('click', () => setActivePanel('overview'));
-  if (btnSocialsClose) btnSocialsClose.addEventListener('click', () => setActivePanel('overview'));
+  if (btnOpenBlogs) btnOpenBlogs.addEventListener('click', () => openModal(blogsModal));
+  if (btnOpenSocials) btnOpenSocials.addEventListener('click', () => openModal(socialsModal));
 
-  if (btnBlogsToSocials) btnBlogsToSocials.addEventListener('click', () => setActivePanel('socials'));
-  if (btnSocialsToBlogs) btnSocialsToBlogs.addEventListener('click', () => setActivePanel('blogs'));
+  if (blogsClose) blogsClose.addEventListener('click', closeAllModals);
+  if (blogsCloseSec) blogsCloseSec.addEventListener('click', closeAllModals);
+  if (blogsBackdrop) blogsBackdrop.addEventListener('click', closeAllModals);
 
-  // ESC key to return to overview
+  if (socialsClose) socialsClose.addEventListener('click', closeAllModals);
+  if (socialsCloseSec) socialsCloseSec.addEventListener('click', closeAllModals);
+  if (socialsBackdrop) socialsBackdrop.addEventListener('click', closeAllModals);
+
+  if (switchBlogsToSocials) switchBlogsToSocials.addEventListener('click', () => openModal(socialsModal));
+  if (switchSocialsToBlogs) switchSocialsToBlogs.addEventListener('click', () => openModal(blogsModal));
+
+  // Escape key closes modals
   window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && (panelBlogs.classList.contains('active') || panelSocials.classList.contains('active'))) {
-      setActivePanel('overview');
+    if (e.key === 'Escape') {
+      closeAllModals();
     }
   });
 
-  // Intercept navigation links targeting #blogs or #socials
+  // Intercept nav links targeting #blogs or #socials
   document.querySelectorAll('a[href="#blogs"], a[href="#socials"]').forEach(link => {
     link.addEventListener('click', (e) => {
       const target = link.getAttribute('href');
-      if (target === '#blogs' || target === '#socials') {
-        const hero = document.getElementById('hero-section');
-        if (hero) {
-          hero.scrollIntoView({ behavior: 'smooth' });
-          setActivePanel(target === '#blogs' ? 'blogs' : 'socials');
-        }
+      if (target === '#blogs') {
+        e.preventDefault();
+        openModal(blogsModal);
+      } else if (target === '#socials') {
+        e.preventDefault();
+        openModal(socialsModal);
       }
     });
   });
 }
-
-
