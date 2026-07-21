@@ -302,16 +302,16 @@ function initResumeModal() {
 function initTypewriter() {
   const target = document.querySelector('.typewriter-text');
   if (!target) return;
-  
+
   const words = JSON.parse(target.getAttribute('data-words') || '[]');
   let wordIndex = 0;
   let charIndex = 0;
   let isDeleting = false;
   let delay = 150; // Typing speed
-  
+
   function type() {
     const currentWord = words[wordIndex];
-    
+
     if (isDeleting) {
       target.textContent = currentWord.substring(0, charIndex - 1);
       charIndex--;
@@ -321,7 +321,7 @@ function initTypewriter() {
       charIndex++;
       delay = 150; // Normal typing
     }
-    
+
     // Switch states
     if (!isDeleting && charIndex === currentWord.length) {
       // Pause at full word
@@ -332,10 +332,10 @@ function initTypewriter() {
       wordIndex = (wordIndex + 1) % words.length;
       delay = 500; // Pause before typing next word
     }
-    
+
     setTimeout(type, delay);
   }
-  
+
   // Start typewriter loop
   setTimeout(type, 1000);
 }
@@ -351,7 +351,7 @@ function initHeroPanels() {
 
   const btnOpenBlogs = document.getElementById('btn-open-blogs');
   const btnOpenSocials = document.getElementById('btn-open-socials');
-  
+
   const btnBlogsClose = document.getElementById('blogs-close-btn');
   const btnSocialsClose = document.getElementById('socials-close-btn');
 
@@ -362,7 +362,7 @@ function initHeroPanels() {
 
   function setActivePanel(panelName) {
     [panelOverview, panelBlogs, panelSocials].forEach(p => p.classList.remove('active'));
-    
+
     if (panelName === 'blogs') {
       panelBlogs.classList.add('active');
     } else if (panelName === 'socials') {
@@ -374,7 +374,7 @@ function initHeroPanels() {
 
   if (btnOpenBlogs) btnOpenBlogs.addEventListener('click', () => setActivePanel('blogs'));
   if (btnOpenSocials) btnOpenSocials.addEventListener('click', () => setActivePanel('socials'));
-  
+
   if (btnBlogsClose) btnBlogsClose.addEventListener('click', () => setActivePanel('overview'));
   if (btnSocialsClose) btnSocialsClose.addEventListener('click', () => setActivePanel('overview'));
 
