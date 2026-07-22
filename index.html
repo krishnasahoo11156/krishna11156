@@ -1090,109 +1090,7 @@
 
       <div class="desk-layout-grid">
         
-        <!-- COLUMN 1: SIDEBAR (22%) -->
-        <aside class="desk-sidebar">
-          <div class="desk-journal-header">
-            <div class="desk-journal-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-              </svg>
-            </div>
-            <div class="desk-journal-title-box">
-              <h2>Developer Journal</h2>
-              <p>Thoughts. Learnings. Experiments.<br>Everything I build and believe.</p>
-            </div>
-          </div>
-
-          <!-- Navigation List -->
-          <ul class="desk-nav-list" role="list">
-            <li class="desk-nav-item active" data-category="All Notes">
-              <div class="desk-nav-left">
-                <span class="desk-nav-icon">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect></svg>
-                </span>
-                <span>All Notes</span>
-              </div>
-              <span class="desk-nav-badge">24</span>
-            </li>
-            <li class="desk-nav-item" data-category="Deep Dives">
-              <div class="desk-nav-left">
-                <span class="desk-nav-icon">📚</span>
-                <span>Deep Dives</span>
-              </div>
-              <span class="desk-nav-badge">7</span>
-            </li>
-            <li class="desk-nav-item" data-category="Quick Thoughts">
-              <div class="desk-nav-left">
-                <span class="desk-nav-icon">⚡</span>
-                <span>Quick Thoughts</span>
-              </div>
-              <span class="desk-nav-badge">8</span>
-            </li>
-            <li class="desk-nav-item" data-category="Build Logs">
-              <div class="desk-nav-left">
-                <span class="desk-nav-icon">📦</span>
-                <span>Build Logs</span>
-              </div>
-              <span class="desk-nav-badge">5</span>
-            </li>
-            <li class="desk-nav-item" data-category="System Design">
-              <div class="desk-nav-left">
-                <span class="desk-nav-icon">⚙️</span>
-                <span>System Design</span>
-              </div>
-              <span class="desk-nav-badge">6</span>
-            </li>
-            <li class="desk-nav-item" data-category="AI & Data Science">
-              <div class="desk-nav-left">
-                <span class="desk-nav-icon">🤖</span>
-                <span>AI & Data Science</span>
-              </div>
-              <span class="desk-nav-badge">7</span>
-            </li>
-            <li class="desk-nav-item" data-category="Career & Growth">
-              <div class="desk-nav-left">
-                <span class="desk-nav-icon">🚀</span>
-                <span>Career & Growth</span>
-              </div>
-              <span class="desk-nav-badge">5</span>
-            </li>
-            <li class="desk-nav-item" data-category="Bookmarks">
-              <div class="desk-nav-left">
-                <span class="desk-nav-icon">🔖</span>
-                <span>Bookmarks</span>
-              </div>
-              <span class="desk-nav-badge">3</span>
-            </li>
-            <li class="desk-nav-item" data-category="Trash">
-              <div class="desk-nav-left">
-                <span class="desk-nav-icon">🗑️</span>
-                <span>Trash</span>
-              </div>
-              <span class="desk-nav-badge">0</span>
-            </li>
-          </ul>
-
-          <!-- Pinned Thought Card -->
-          <div class="desk-pinned-thought">
-            <div class="pinned-thought-header">
-              <div class="pinned-icon-box">💡</div>
-              <span class="pinned-label">Pinned Thought</span>
-            </div>
-            <p class="pinned-quote">"First, solve the right problem. Then, code the right way."</p>
-            <p class="pinned-author">— Krishna Sahoo</p>
-          </div>
-
-          <!-- Search Box -->
-          <div class="desk-search-wrapper">
-            <span class="desk-search-icon">🔍</span>
-            <input type="text" id="desk-search-input" class="desk-search-input" placeholder="Search notes..." />
-            <span class="desk-kbd-badge">⌘K</span>
-          </div>
-        </aside>
-
-        <!-- COLUMN 2: CANVAS (56%) -->
+        <!-- MAIN CANVAS (EXPANDED LEFT + CENTER, 76.5%) -->
         <main class="desk-canvas-container">
           <header class="desk-canvas-header">
             <div class="desk-title-group">
@@ -1200,38 +1098,54 @@
               <p>Drag, explore and discover my thoughts across topics.</p>
             </div>
             
-            <!-- Top Filter Pills -->
-            <div class="desk-filter-pills">
-              <button class="filter-pill active" data-filter="All">
-                <span>All</span>
-              </button>
-              <button class="filter-pill" data-filter="Tech">
-                <span>Tech</span>
-              </button>
-              <button class="filter-pill" data-filter="Life">
-                <span>Life</span>
-              </button>
-              <button class="filter-pill" data-filter="Learnings">
-                <span>Learnings</span>
-              </button>
-              <button class="filter-options-btn" aria-label="Filter Options">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
-              </button>
+            <div style="display: flex; align-items: center; gap: 12px; margin-left: auto;">
+              <!-- Top Filter Pills -->
+              <div class="desk-filter-pills">
+                <button class="filter-pill active" data-filter="All">
+                  <span>All</span>
+                </button>
+                <button class="filter-pill" data-filter="Tech">
+                  <span>Tech</span>
+                </button>
+                <button class="filter-pill" data-filter="Life">
+                  <span>Life</span>
+                </button>
+                <button class="filter-pill" data-filter="Learnings">
+                  <span>Learnings</span>
+                </button>
+              </div>
             </div>
           </header>
 
           <!-- Engineering Desk Surface -->
           <div class="desk-canvas-surface" id="desk-canvas-surface">
             
-            <!-- Desk Marginalia & Doodles -->
-            <div class="doodle-annotation doodle-top-right">
+            <!-- Canvas Pan & Zoom Controls (Floating Bottom-Left) -->
+            <div class="canvas-controls-bar">
+              <button class="zoom-btn" id="btn-zoom-out" title="Zoom Out">-</button>
+              <span class="zoom-level" id="zoom-level-text" title="Reset Zoom">100%</span>
+              <button class="zoom-btn" id="btn-zoom-in" title="Zoom In">+</button>
+            </div>
+
+            <!-- World Container for Pan & Zoom -->
+            <div class="desk-canvas-world" id="desk-canvas-world">
+            
+            <!-- Desk Marginalia & Handcrafted Doodles -->
+            <div class="doodle-annotation doodle-top-right" style="top: 15px; left: 740px;">
               <span>Where ideas turn into code ↗</span>
             </div>
-            <div class="doodle-annotation doodle-middle-right">
+            <div class="doodle-annotation doodle-middle-right" style="top: 325px; left: 450px;">
               <span>always learning ↗</span>
             </div>
-            <!-- Potted Plant SVG Doodle -->
-            <svg class="doodle-plant" viewBox="0 0 100 180" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round">
+            <div class="doodle-annotation" style="top: 175px; left: 615px;">
+              <span>ship > perfect 🚀</span>
+            </div>
+            <div class="doodle-annotation" style="top: 325px; left: 160px;">
+              <span>learn → build → improve 🔁</span>
+            </div>
+
+            <!-- 1. Potted Monstera Plant SVG Doodle -->
+            <svg class="doodle-plant" viewBox="0 0 100 180" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" style="top: 115px; left: 235px; width: 45px; height: 80px;">
               <path d="M30 140 L70 140 L65 170 L35 170 Z" fill="none" stroke="#10B981" />
               <path d="M50 140 Q50 90 50 40" />
               <path d="M50 100 Q20 80 15 95 Q35 105 50 100" fill="rgba(16,185,129,0.15)" />
@@ -1240,20 +1154,71 @@
               <path d="M50 40 Q75 20 80 35 Q60 45 50 40" fill="rgba(16,185,129,0.15)" />
             </svg>
 
-            <!-- 1. GREEN STICKY NOTE (Top Left) -->
-            <div class="desk-card card-green-sticky" style="top: 20px; left: 25px; transform: rotate(-3deg);" data-category="Deep Dives" data-type="Tech" data-date="May 20, 2025" data-readtime="6 min read">
-              <div class="push-pin"></div>
+            <!-- 2. Coffee Mug & Ring Stain SVG Doodle -->
+            <svg class="desk-doodle-svg doodle-coffee" viewBox="0 0 100 100" fill="none" stroke="#D97706" stroke-width="2" stroke-linecap="round" style="top: 15px; left: 635px; width: 65px; height: 65px;">
+              <circle cx="50" cy="50" r="38" stroke="rgba(217,119,6,0.25)" stroke-width="5" />
+              <circle cx="50" cy="50" r="30" stroke="#D97706" stroke-dasharray="8 4" fill="rgba(254,243,199,0.4)" />
+              <path d="M80 40 C92 40 92 60 80 60" stroke="#D97706" />
+              <path d="M42 35 Q46 25 42 18 M52 35 Q56 25 52 18" stroke="rgba(217,119,6,0.6)" stroke-width="1.5" />
+              <text x="50" y="54" font-size="8" fill="#B45309" text-anchor="middle" font-family="'Caveat', cursive" font-weight="bold">coffee</text>
+            </svg>
+
+            <!-- 3. Idea Lightbulb & Eureka Sparks SVG Doodle -->
+            <svg class="desk-doodle-svg doodle-bulb" viewBox="0 0 60 80" fill="none" stroke="#10B981" stroke-width="1.8" stroke-linecap="round" style="top: 15px; left: 360px; width: 40px; height: 55px;">
+              <path d="M30 15 A18 18 0 0 1 45 35 Q40 45 38 52 H22 Q20 45 15 35 A18 18 0 0 1 30 15 Z" fill="rgba(16,185,129,0.12)" />
+              <path d="M22 57 H38 M25 62 H35" />
+              <path d="M30 5 M10 12 L16 18 M50 12 L44 18 M5 35 H12 M55 35 H48" stroke="rgba(16,185,129,0.6)" stroke-width="1.5" stroke-linecap="round" />
+              <text x="30" y="76" font-size="9" fill="#047857" text-anchor="middle" font-family="'Caveat', cursive">idea! 💡</text>
+            </svg>
+
+            <!-- 4. Hand-Drawn Laptop & Terminal Window SVG Doodle -->
+            <svg class="desk-doodle-svg doodle-laptop" viewBox="0 0 140 110" fill="none" stroke="#10B981" stroke-width="1.8" stroke-linecap="round" style="top: 175px; left: 770px; width: 95px; height: 80px;">
+              <rect x="20" y="10" width="100" height="65" rx="6" fill="#FFFFFF" />
+              <path d="M10 82 H130 C130 88 120 92 110 92 H30 C20 92 10 88 10 82 Z" fill="rgba(16,185,129,0.08)" />
+              <rect x="28" y="18" width="84" height="48" rx="3" fill="#111827" />
+              <path d="M34 26 L40 30 L34 34 M44 34 H52" stroke="#A7F3D0" stroke-width="1.5" />
+              <path d="M34 42 H70 M34 48 H84 M34 54 H60" stroke="#60A5FA" stroke-width="1.2" stroke-dasharray="2 2" />
+              <text x="70" y="105" font-size="10" fill="#047857" text-anchor="middle" font-family="'Caveat', cursive">dev rig 💻</text>
+            </svg>
+
+            <!-- 5. Neural Network AI Nodes SVG Doodle -->
+            <svg class="desk-doodle-svg doodle-ai-nn" viewBox="0 0 130 100" fill="none" stroke="#10B981" stroke-width="1.5" stroke-linecap="round" style="top: 340px; left: 740px; width: 95px; height: 75px;">
+              <circle cx="20" cy="30" r="7" fill="rgba(16,185,129,0.2)" />
+              <circle cx="20" cy="70" r="7" fill="rgba(16,185,129,0.2)" />
+              <circle cx="65" cy="20" r="7" fill="rgba(16,185,129,0.2)" />
+              <circle cx="65" cy="50" r="7" fill="rgba(16,185,129,0.2)" />
+              <circle cx="65" cy="80" r="7" fill="rgba(16,185,129,0.2)" />
+              <circle cx="110" cy="50" r="8" fill="#10B981" />
+              
+              <path d="M27 30 L58 20 M27 30 L58 50 M27 30 L58 80" stroke="rgba(16,185,129,0.5)" />
+              <path d="M27 70 L58 20 M27 70 L58 50 M27 70 L58 80" stroke="rgba(16,185,129,0.5)" />
+              <path d="M72 20 L102 50 M72 50 L102 50 M72 80 L102 50" stroke="#10B981" />
+              <text x="65" y="97" font-size="10" fill="#047857" text-anchor="middle" font-family="'Caveat', cursive">Neural Nets 🧠</text>
+            </svg>
+
+            <!-- 6. Target / Focus Reticle SVG Doodle -->
+            <svg class="desk-doodle-svg doodle-target" viewBox="0 0 70 70" fill="none" stroke="#10B981" stroke-width="1.8" stroke-linecap="round" style="top: 345px; left: 535px; width: 45px; height: 45px;">
+              <circle cx="35" cy="35" r="24" stroke-dasharray="4 3" />
+              <circle cx="35" cy="35" r="14" />
+              <circle cx="35" cy="35" r="4" fill="#10B981" />
+              <path d="M35 5 V15 M35 55 V65 M5 35 H15 M55 35 H65" stroke="rgba(16,185,129,0.6)" />
+              <text x="35" y="68" font-size="9" fill="#047857" text-anchor="middle" font-family="'Caveat', cursive">Focus 🎯</text>
+            </svg>
+
+            <!-- 1. GREEN STICKY NOTE (Top Left — 45px blank left/top margins) -->
+            <div class="desk-card card-green-sticky" style="top: 35px; left: 45px; transform: rotate(-3deg);" data-category="Deep Dives" data-type="Tech" data-date="May 20, 2025" data-readtime="6 min read">
+              <div class="push-pin pin-green"></div>
               <span class="card-badge">DEEP DIVE</span>
               <h3>How I Think Before I Code</h3>
-              <p>A peek into my problem-solving mindset.</p>
+              <p>A peek into my problem-solving mindset and system architecture.</p>
               <div class="card-footer-meta">
                 <span>May 20, 2025 • 6 min read</span>
                 <span class="card-arrow">→</span>
               </div>
             </div>
 
-            <!-- 2. NOTEBOOK TEAR-OUT (Top Center) -->
-            <div class="desk-card card-notebook-page" style="top: 25px; left: 245px; transform: rotate(1deg);" data-category="Quick Thoughts" data-type="Learnings" data-date="May 19, 2025" data-readtime="2 min read">
+            <!-- 2. NOTEBOOK TEAR-OUT PAGE (Top Center Left — Touches Card 1 bottom-right corner) -->
+            <div class="desk-card card-notebook-page" style="top: 60px; left: 205px; transform: rotate(1deg);" data-category="Quick Thoughts" data-type="Learnings" data-date="May 19, 2025" data-readtime="2 min read">
               <div class="paper-clip"></div>
               <div class="binder-holes">
                 <div class="binder-hole"></div><div class="binder-hole"></div><div class="binder-hole"></div><div class="binder-hole"></div><div class="binder-hole"></div>
@@ -1262,8 +1227,10 @@
               <p class="handwritten-text">Simplicity is not about doing less. It's about doing what matters most.</p>
             </div>
 
-            <!-- 3. BUILD LOG CARD WITH MINI MACOS CODE EDITOR (Top Right Center) -->
-            <div class="desk-card card-build-log" style="top: 20px; left: 465px; transform: rotate(-1deg);" data-category="Build Logs" data-type="Tech" data-date="May 18, 2025" data-readtime="7 min read">
+            <!-- 3. BUILD LOG CARD WITH MINI MACOS CODE EDITOR (Top Center Right — Generous 35px gap) -->
+            <div class="desk-card card-build-log" style="top: 35px; left: 415px; transform: rotate(-1deg);" data-category="Build Logs" data-type="Tech" data-date="May 18, 2025" data-readtime="7 min read">
+              <div class="masking-tape tape-corner-left"></div>
+              <div class="masking-tape tape-corner-right"></div>
               <div>
                 <span class="card-badge">BUILD LOG</span>
                 <h3>Building NoteNest – An AI Study Companion</h3>
@@ -1280,18 +1247,18 @@
               </div>
             </div>
 
-            <!-- 4. POLAROID PHOTO CARD (Top Right) -->
-            <div class="desk-card card-polaroid" style="top: 290px; left: 660px; transform: rotate(4deg);" data-category="Bookmarks" data-type="Life" data-date="May 2025" data-readtime="Photo">
-              <div class="push-pin"></div>
+            <!-- 4. POLAROID PHOTO CARD (Top Right — 30px blank right border) -->
+            <div class="desk-card card-polaroid" style="top: 35px; left: 730px; transform: rotate(4deg);" data-category="Bookmarks" data-type="Life" data-date="May 2025" data-readtime="Photo">
+              <div class="push-pin pin-red"></div>
               <div class="polaroid-img-wrapper">
                 <img src="assets/images/polaroid_setup.png" alt="Developer Workspace Setup" />
               </div>
               <p class="polaroid-caption">My happy place ♡</p>
             </div>
 
-            <!-- 5. SYSTEM DESIGN ARCHITECTURE SKETCH (Middle Left) -->
-            <div class="desk-card card-system-sketch" style="top: 215px; left: 25px; transform: rotate(2deg);" data-category="System Design" data-type="Tech" data-date="May 16, 2025" data-readtime="8 min read">
-              <div class="paper-clip"></div>
+            <!-- 5. SYSTEM DESIGN GRID ARCHITECTURE SKETCH (Middle Left — 45px blank left border) -->
+            <div class="desk-card card-system-sketch card-dog-ear" style="top: 195px; left: 45px; transform: rotate(2deg);" data-category="System Design" data-type="Tech" data-date="May 16, 2025" data-readtime="8 min read">
+              <div class="paper-clip clip-left"></div>
               <div class="sketch-header">System Design Sketch</div>
               <svg class="sketch-svg-diagram" viewBox="0 0 220 90" fill="none" stroke="#10B981" stroke-width="1.8" stroke-linecap="round">
                 <rect x="5" y="10" width="40" height="22" rx="4" fill="#FFFFFF" />
@@ -1322,9 +1289,9 @@
               <div style="font-family: 'Caveat', cursive; font-size: 13px; color: #059669; text-align: right; margin-top: 2px;">design it right ↗</div>
             </div>
 
-            <!-- 6. PURPLE / LAVENDER STICKY NOTE (Middle Center) -->
-            <div class="desk-card card-purple-sticky" style="top: 235px; left: 290px; transform: rotate(-2deg);" data-category="Quick Thoughts" data-type="Learnings" data-date="May 15, 2025" data-readtime="4 min read">
-              <div class="push-pin" style="background: #A855F7;"></div>
+            <!-- 6. PURPLE / LAVENDER STICKY NOTE (Middle Center — Clean 30px gap) -->
+            <div class="desk-card card-purple-sticky" style="top: 210px; left: 290px; transform: rotate(-2deg);" data-category="Quick Thoughts" data-type="Learnings" data-date="May 15, 2025" data-readtime="4 min read">
+              <div class="push-pin pin-purple"></div>
               <span class="card-badge">QUICK THOUGHT</span>
               <h3>What Hackathons Taught Me</h3>
               <p>Lessons beyond winning: teamwork, speed and clarity.</p>
@@ -1334,8 +1301,8 @@
               </div>
             </div>
 
-            <!-- 7. YELLOW STICKY NOTE (Middle Right) -->
-            <div class="desk-card card-yellow-sticky" style="top: 210px; left: 495px; transform: rotate(1deg);" data-category="AI & Data Science" data-type="Learnings" data-date="May 10, 2025" data-readtime="5 min read">
+            <!-- 7. YELLOW STICKY NOTE WITH MASKING TAPE (Middle Center Right — Clean 30px gap) -->
+            <div class="desk-card card-yellow-sticky" style="top: 195px; left: 490px; transform: rotate(1deg);" data-category="AI & Data Science" data-type="Learnings" data-date="May 10, 2025" data-readtime="5 min read">
               <div class="masking-tape"></div>
               <span class="card-badge">LEARNING</span>
               <h3>Java Streams Explained Simply</h3>
@@ -1346,8 +1313,16 @@
               </div>
             </div>
 
-            <!-- 8. DEEP DIVE ARCHITECTURE CARD (Bottom Left) -->
-            <div class="desk-card card-deep-api" style="top: 400px; left: 25px; transform: rotate(-1deg);" data-category="Deep Dives" data-type="Tech" data-date="May 8, 2025" data-readtime="8 min read">
+            <!-- 9. CORAL PINK QUOTE STICKY (Middle Right — Sits cleanly inside right border) -->
+            <div class="desk-card card-coral-sticky" style="top: 200px; left: 690px; transform: rotate(3deg);" data-category="Quick Thoughts" data-type="Life" data-date="May 2025" data-readtime="Quote">
+              <div class="push-pin pin-coral"></div>
+              <div class="quote-mark">“</div>
+              <p class="handwritten-text" style="font-size: 14.5px; margin-top: 4px;">Code is easy.<br>Maintaining clarity is the hard part.</p>
+            </div>
+
+            <!-- 8. SKY BLUE STICKY NOTE (Bottom Left — 45px blank left & 35px blank bottom margin) -->
+            <div class="desk-card card-blue-sticky" style="top: 355px; left: 45px; transform: rotate(-1deg);" data-category="Deep Dives" data-type="Tech" data-date="May 8, 2025" data-readtime="8 min read">
+              <div class="staple-mark"></div>
               <div>
                 <span class="card-badge">DEEP DIVE</span>
                 <h3>Designing Scalable REST APIs</h3>
@@ -1356,22 +1331,17 @@
                   <span>May 8, 2025 • 8 min read</span>
                 </div>
               </div>
-              <svg class="api-doodle-svg" viewBox="0 0 90 70" fill="none" stroke="#10B981" stroke-width="1.8">
+              <svg class="api-doodle-svg" viewBox="0 0 90 70" fill="none" stroke="#0284C7" stroke-width="1.8">
                 <circle cx="45" cy="30" r="20" stroke-dasharray="3 3" />
-                <path d="M25 30 H65 M45 10 V50" stroke="#10B981" />
+                <path d="M25 30 H65 M45 10 V50" stroke="#0284C7" />
                 <rect x="35" y="48" width="20" height="14" rx="3" fill="#FFFFFF" />
-                <text x="45" y="58" font-size="8" fill="#047857" text-anchor="middle" font-weight="bold">API</text>
+                <text x="45" y="58" font-size="8" fill="#0369A1" text-anchor="middle" font-weight="bold">API</text>
               </svg>
             </div>
 
-            <!-- 9. QUOTE CARD PAPER (Bottom Center) -->
-            <div class="desk-card card-quote-paper" style="top: 430px; left: 360px; transform: rotate(3deg);" data-category="Quick Thoughts" data-type="Life" data-date="May 2025" data-readtime="Quote">
-              <div class="quote-mark">“</div>
-              <p class="handwritten-text" style="font-size: 17px; margin-top: 4px;">Code is easy.<br>Maintaining clarity is the hard part.</p>
-            </div>
-
-            <!-- 10. GROWTH GRAPH CARD (Bottom Right) -->
-            <div class="desk-card card-growth-graph" style="top: 395px; left: 515px; transform: rotate(-1deg);" data-category="Career & Growth" data-type="Life" data-date="May 5, 2025" data-readtime="6 min read">
+            <!-- 10. RULED INDEX CARD WITH LINE GRAPH (Bottom Center — Touches Card 8 right edge) -->
+            <div class="desk-card card-index-ruled" style="top: 365px; left: 300px; transform: rotate(-1deg);" data-category="Career & Growth" data-type="Life" data-date="May 5, 2025" data-readtime="6 min read">
+              <div class="masking-tape tape-clear"></div>
               <div>
                 <span class="card-badge">THOUGHT</span>
                 <h3>Balancing College, Projects & Growth</h3>
@@ -1380,17 +1350,28 @@
                   <span>May 5, 2025 • 6 min read</span>
                 </div>
               </div>
-              <svg class="graph-doodle-svg" viewBox="0 0 100 70" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round">
+              <svg class="graph-doodle-svg" viewBox="0 0 100 70" fill="none" stroke="#EF4444" stroke-width="2" stroke-linecap="round">
                 <path d="M10 60 H90 M10 60 V10" stroke="#9CA3AF" stroke-width="1.2" />
-                <path d="M15 50 Q30 45 45 30 T75 15 L85 25" />
-                <circle cx="45" cy="30" r="3" fill="#10B981" />
-                <circle cx="75" cy="15" r="3" fill="#10B981" />
+                <path d="M15 50 Q30 45 45 30 T75 15 L85 25" stroke="#EF4444" />
+                <circle cx="45" cy="30" r="3" fill="#EF4444" />
+                <circle cx="75" cy="15" r="3" fill="#EF4444" />
                 <text x="85" y="66" font-size="7" fill="#9CA3AF">Time</text>
                 <text x="3" y="15" font-size="7" fill="#9CA3AF">In</text>
               </svg>
             </div>
 
-          </div>
+            <!-- 11. PINNED THOUGHT STICKY NOTE (Bottom Right — 35px blank bottom/right margin) -->
+            <div class="desk-card card-green-sticky" style="top: 355px; left: 610px; transform: rotate(2deg);" data-category="Quick Thoughts" data-type="Learnings" data-date="Always" data-readtime="Pinned">
+              <div class="push-pin pin-teal"></div>
+              <span class="card-badge">PINNED THOUGHT</span>
+              <h3>Philosophy</h3>
+              <p class="handwritten-text" style="font-size: 14.5px; margin-bottom: 6px;">"First, solve the right problem. Then, code the right way."</p>
+              <div class="card-footer-meta">
+                <span>— Krishna Sahoo</span>
+                <span class="card-arrow">💡</span>
+              </div>
+            </div><!-- End #desk-canvas-world -->
+          </div><!-- End #desk-canvas-surface -->
 
           <!-- Bottom Timeline -->
           <footer class="desk-timeline-bar">
@@ -1403,25 +1384,29 @@
             <span class="timeline-year">2026</span>
           </footer>
 
-          <!-- Floating Button -->
-          <button class="desk-floating-btn" id="desk-floating-btn">
-            <span class="plus-icon">+</span>
-            <span>New Note</span>
-          </button>
-
         </main>
 
-        <!-- COLUMN 3: PREVIEW PANEL (23%) -->
+        <!-- INTERACTIVE RESIZER DIVIDER HANDLE -->
+        <div class="desk-resizer" id="desk-resizer" title="Drag to resize canvas and preview panels">
+          <div class="resizer-handle-pill">
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+
+        <!-- RIGHT SIDE PREVIEW PANEL (Default: 30%) -->
         <aside class="desk-preview-panel">
           
           <!-- Empty State -->
           <div class="preview-empty-state" id="preview-empty-state">
-            <div class="empty-state-icon">📖</div>
+            <div class="empty-state-icon">
+              <img src="assets/images/logoimage%20copy.png" alt="Krishna Sahoo Logo" class="empty-state-logo-img" />
+            </div>
             <h3>Choose a note to start reading</h3>
             <p>Click or drag any note on the desk to view details, tags, and full notes.</p>
           </div>
 
-          <!-- Active Preview Content Box -->
+          <!-- Active Inline Article Reader Content Box -->
           <div class="preview-content-box" id="preview-content-box">
             <div class="preview-badge-row">
               <span class="preview-category-badge" id="preview-category">DEEP DIVE</span>
@@ -1431,15 +1416,11 @@
             <div class="preview-meta">
               <span id="preview-readtime">6 min read</span>
               <span>•</span>
-              <span>Krishna Sahoo</span>
+              <span id="preview-author">Krishna Sahoo</span>
             </div>
-            <div class="preview-text" id="preview-text">
-              <p>A peek into my problem-solving mindset and how I structure complex systems before writing lines of code.</p>
+            <div class="preview-body-content" id="preview-text">
+              <!-- Full blog text populated dynamically on click -->
             </div>
-            <button class="preview-btn-primary" id="preview-full-btn">
-              <span>Read Full Note</span>
-              <span>→</span>
-            </button>
           </div>
 
         </aside>
