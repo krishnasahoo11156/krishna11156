@@ -30,7 +30,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Outfit:wght@300;400;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Lato:wght@300;400;700;900&family=Outfit:wght@300;400;600;700&display=swap"
     rel="stylesheet">
 
   <!-- Preload LCP image -->
@@ -41,9 +41,11 @@
   <link rel="stylesheet" href="assets/css/main.css">
   <link rel="stylesheet" href="assets/css/works.css">
   <link rel="stylesheet" href="assets/css/achievements.css">
+  <link rel="stylesheet" href="assets/css/journal.css">
 </head>
 
 <body>
+  <div id="app-wrapper">
 
   <!-- Visually hidden H1 for SEO & screen readers -->
   <h1 class="sr-only">Krishna Sahoo — AI &amp; Full-Stack Developer Portfolio</h1>
@@ -94,7 +96,7 @@
         <li><a href="#achievements" class="mobile-menu-link">Achievements</a></li>
         <li><a href="#testimonials" class="mobile-menu-link">Testimonials</a></li>
         <li><a href="#connect" class="mobile-menu-link">Connect</a></li>
-        <li><a href="#blogs" class="mobile-menu-link">Blogs</a></li>
+        <li><a href="#blogs" class="mobile-menu-link journal-trigger-btn">Blogs 📖</a></li>
         <li><a href="#socials" class="mobile-menu-link">Socials</a></li>
       </ul>
     </div>
@@ -150,7 +152,7 @@
             <!-- Right Side: Action Buttons & Status Line -->
         <div class="hero-content-right" id="hero-content-right">
           <div class="hero-buttons">
-            <button class="btn-hero btn-hero-primary" id="btn-open-blogs" type="button" aria-label="Open Blogs Modal">
+            <button class="btn-hero btn-hero-primary journal-trigger-btn" id="btn-open-blogs" type="button" aria-label="Open Blogs Modal">
               <span>Blogs</span>
               <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
             </button>
@@ -1072,10 +1074,395 @@
     </div>
   </div>
 
+  </div><!-- End #app-wrapper -->
+
+  <!-- ENGINEERING DESK — DEVELOPER JOURNAL POPUP MODAL -->
+  <div class="desk-modal-backdrop" id="engineering-desk-modal" role="dialog" aria-modal="true" aria-label="Developer Journal">
+    <div class="desk-popup-card">
+      
+      <!-- Close Button -->
+      <button class="desk-close-btn" id="desk-close-btn" aria-label="Close Developer Journal">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <div class="desk-layout-grid">
+        
+        <!-- COLUMN 1: SIDEBAR (22%) -->
+        <aside class="desk-sidebar">
+          <div class="desk-journal-header">
+            <div class="desk-journal-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+              </svg>
+            </div>
+            <div class="desk-journal-title-box">
+              <h2>Developer Journal</h2>
+              <p>Thoughts. Learnings. Experiments.<br>Everything I build and believe.</p>
+            </div>
+          </div>
+
+          <!-- Navigation List -->
+          <ul class="desk-nav-list" role="list">
+            <li class="desk-nav-item active" data-category="All Notes">
+              <div class="desk-nav-left">
+                <span class="desk-nav-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect></svg>
+                </span>
+                <span>All Notes</span>
+              </div>
+              <span class="desk-nav-badge">24</span>
+            </li>
+            <li class="desk-nav-item" data-category="Deep Dives">
+              <div class="desk-nav-left">
+                <span class="desk-nav-icon">📚</span>
+                <span>Deep Dives</span>
+              </div>
+              <span class="desk-nav-badge">7</span>
+            </li>
+            <li class="desk-nav-item" data-category="Quick Thoughts">
+              <div class="desk-nav-left">
+                <span class="desk-nav-icon">⚡</span>
+                <span>Quick Thoughts</span>
+              </div>
+              <span class="desk-nav-badge">8</span>
+            </li>
+            <li class="desk-nav-item" data-category="Build Logs">
+              <div class="desk-nav-left">
+                <span class="desk-nav-icon">📦</span>
+                <span>Build Logs</span>
+              </div>
+              <span class="desk-nav-badge">5</span>
+            </li>
+            <li class="desk-nav-item" data-category="System Design">
+              <div class="desk-nav-left">
+                <span class="desk-nav-icon">⚙️</span>
+                <span>System Design</span>
+              </div>
+              <span class="desk-nav-badge">6</span>
+            </li>
+            <li class="desk-nav-item" data-category="AI & Data Science">
+              <div class="desk-nav-left">
+                <span class="desk-nav-icon">🤖</span>
+                <span>AI & Data Science</span>
+              </div>
+              <span class="desk-nav-badge">7</span>
+            </li>
+            <li class="desk-nav-item" data-category="Career & Growth">
+              <div class="desk-nav-left">
+                <span class="desk-nav-icon">🚀</span>
+                <span>Career & Growth</span>
+              </div>
+              <span class="desk-nav-badge">5</span>
+            </li>
+            <li class="desk-nav-item" data-category="Bookmarks">
+              <div class="desk-nav-left">
+                <span class="desk-nav-icon">🔖</span>
+                <span>Bookmarks</span>
+              </div>
+              <span class="desk-nav-badge">3</span>
+            </li>
+            <li class="desk-nav-item" data-category="Trash">
+              <div class="desk-nav-left">
+                <span class="desk-nav-icon">🗑️</span>
+                <span>Trash</span>
+              </div>
+              <span class="desk-nav-badge">0</span>
+            </li>
+          </ul>
+
+          <!-- Pinned Thought Card -->
+          <div class="desk-pinned-thought">
+            <div class="pinned-thought-header">
+              <div class="pinned-icon-box">💡</div>
+              <span class="pinned-label">Pinned Thought</span>
+            </div>
+            <p class="pinned-quote">"First, solve the right problem. Then, code the right way."</p>
+            <p class="pinned-author">— Krishna Sahoo</p>
+          </div>
+
+          <!-- Search Box -->
+          <div class="desk-search-wrapper">
+            <span class="desk-search-icon">🔍</span>
+            <input type="text" id="desk-search-input" class="desk-search-input" placeholder="Search notes..." />
+            <span class="desk-kbd-badge">⌘K</span>
+          </div>
+        </aside>
+
+        <!-- COLUMN 2: CANVAS (56%) -->
+        <main class="desk-canvas-container">
+          <header class="desk-canvas-header">
+            <div class="desk-title-group">
+              <h1>Ideas <span class="live-accent">live</span> here.</h1>
+              <p>Drag, explore and discover my thoughts across topics.</p>
+            </div>
+            
+            <!-- Top Filter Pills -->
+            <div class="desk-filter-pills">
+              <button class="filter-pill active" data-filter="All">
+                <span>All</span>
+              </button>
+              <button class="filter-pill" data-filter="Tech">
+                <span>Tech</span>
+              </button>
+              <button class="filter-pill" data-filter="Life">
+                <span>Life</span>
+              </button>
+              <button class="filter-pill" data-filter="Learnings">
+                <span>Learnings</span>
+              </button>
+              <button class="filter-options-btn" aria-label="Filter Options">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
+              </button>
+            </div>
+          </header>
+
+          <!-- Engineering Desk Surface -->
+          <div class="desk-canvas-surface" id="desk-canvas-surface">
+            
+            <!-- Desk Marginalia & Doodles -->
+            <div class="doodle-annotation doodle-top-right">
+              <span>Where ideas turn into code ↗</span>
+            </div>
+            <div class="doodle-annotation doodle-middle-right">
+              <span>always learning ↗</span>
+            </div>
+            <!-- Potted Plant SVG Doodle -->
+            <svg class="doodle-plant" viewBox="0 0 100 180" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round">
+              <path d="M30 140 L70 140 L65 170 L35 170 Z" fill="none" stroke="#10B981" />
+              <path d="M50 140 Q50 90 50 40" />
+              <path d="M50 100 Q20 80 15 95 Q35 105 50 100" fill="rgba(16,185,129,0.15)" />
+              <path d="M50 80 Q80 60 85 75 Q65 85 50 80" fill="rgba(16,185,129,0.15)" />
+              <path d="M50 60 Q25 40 20 55 Q40 65 50 60" fill="rgba(16,185,129,0.15)" />
+              <path d="M50 40 Q75 20 80 35 Q60 45 50 40" fill="rgba(16,185,129,0.15)" />
+            </svg>
+
+            <!-- 1. GREEN STICKY NOTE (Top Left) -->
+            <div class="desk-card card-green-sticky" style="top: 20px; left: 25px; transform: rotate(-3deg);" data-category="Deep Dives" data-type="Tech" data-date="May 20, 2025" data-readtime="6 min read">
+              <div class="push-pin"></div>
+              <span class="card-badge">DEEP DIVE</span>
+              <h3>How I Think Before I Code</h3>
+              <p>A peek into my problem-solving mindset.</p>
+              <div class="card-footer-meta">
+                <span>May 20, 2025 • 6 min read</span>
+                <span class="card-arrow">→</span>
+              </div>
+            </div>
+
+            <!-- 2. NOTEBOOK TEAR-OUT (Top Center) -->
+            <div class="desk-card card-notebook-page" style="top: 25px; left: 245px; transform: rotate(1deg);" data-category="Quick Thoughts" data-type="Learnings" data-date="May 19, 2025" data-readtime="2 min read">
+              <div class="paper-clip"></div>
+              <div class="binder-holes">
+                <div class="binder-hole"></div><div class="binder-hole"></div><div class="binder-hole"></div><div class="binder-hole"></div><div class="binder-hole"></div>
+              </div>
+              <span class="card-badge">QUICK THOUGHT</span>
+              <p class="handwritten-text">Simplicity is not about doing less. It's about doing what matters most.</p>
+            </div>
+
+            <!-- 3. BUILD LOG CARD WITH MINI MACOS CODE EDITOR (Top Right Center) -->
+            <div class="desk-card card-build-log" style="top: 20px; left: 465px; transform: rotate(-1deg);" data-category="Build Logs" data-type="Tech" data-date="May 18, 2025" data-readtime="7 min read">
+              <div>
+                <span class="card-badge">BUILD LOG</span>
+                <h3>Building NoteNest – An AI Study Companion</h3>
+                <p>From idea to product in 72 hours. What I built, learned and shipped.</p>
+                <div class="card-footer-meta">
+                  <span>May 18, 2025 • 7 min read</span>
+                </div>
+              </div>
+              <div class="mini-code-editor">
+                <div class="mac-traffic-lights">
+                  <span class="mac-dot red"></span><span class="mac-dot yellow"></span><span class="mac-dot green"></span>
+                </div>
+                <code><span class="code-purple">const</span> idea = <span class="code-green">"NoteNest"</span>;<br><span class="code-purple">const</span> build = () =&gt; {<br>&nbsp;&nbsp;iterate();<br>&nbsp;&nbsp;learn();<br>&nbsp;&nbsp;ship();<br>};<br>build();</code>
+              </div>
+            </div>
+
+            <!-- 4. POLAROID PHOTO CARD (Top Right) -->
+            <div class="desk-card card-polaroid" style="top: 290px; left: 660px; transform: rotate(4deg);" data-category="Bookmarks" data-type="Life" data-date="May 2025" data-readtime="Photo">
+              <div class="push-pin"></div>
+              <div class="polaroid-img-wrapper">
+                <img src="assets/images/polaroid_setup.png" alt="Developer Workspace Setup" />
+              </div>
+              <p class="polaroid-caption">My happy place ♡</p>
+            </div>
+
+            <!-- 5. SYSTEM DESIGN ARCHITECTURE SKETCH (Middle Left) -->
+            <div class="desk-card card-system-sketch" style="top: 215px; left: 25px; transform: rotate(2deg);" data-category="System Design" data-type="Tech" data-date="May 16, 2025" data-readtime="8 min read">
+              <div class="paper-clip"></div>
+              <div class="sketch-header">System Design Sketch</div>
+              <svg class="sketch-svg-diagram" viewBox="0 0 220 90" fill="none" stroke="#10B981" stroke-width="1.8" stroke-linecap="round">
+                <rect x="5" y="10" width="40" height="22" rx="4" fill="#FFFFFF" />
+                <text x="25" y="24" font-size="9" fill="#047857" text-anchor="middle" font-weight="bold">Client</text>
+                
+                <rect x="5" y="45" width="40" height="22" rx="4" fill="#FFFFFF" />
+                <text x="25" y="59" font-size="9" fill="#047857" text-anchor="middle" font-weight="bold">Client</text>
+
+                <path d="M45 21 L75 35" stroke="#10B981" />
+                <path d="M45 56 L75 35" stroke="#10B981" />
+
+                <rect x="75" y="22" width="48" height="26" rx="4" fill="#FFFFFF" />
+                <text x="99" y="35" font-size="8" fill="#047857" text-anchor="middle" font-weight="bold">API Gateway</text>
+
+                <path d="M123 35 L145 20" stroke="#10B981" />
+                <path d="M123 35 L145 50" stroke="#10B981" />
+
+                <rect x="145" y="8" width="48" height="24" rx="4" fill="#FFFFFF" />
+                <text x="169" y="22" font-size="8" fill="#047857" text-anchor="middle" font-weight="bold">Auth Service</text>
+
+                <rect x="145" y="40" width="48" height="24" rx="4" fill="#FFFFFF" />
+                <text x="169" y="54" font-size="8" fill="#047857" text-anchor="middle" font-weight="bold">AI Service</text>
+
+                <ellipse cx="169" cy="78" rx="16" ry="6" stroke="#10B981" fill="#FFFFFF" />
+                <path d="M153 78 L153 84 A16 6 0 0 0 185 84 L185 78" stroke="#10B981" />
+                <text x="169" y="81" font-size="7" fill="#047857" text-anchor="middle">DB</text>
+              </svg>
+              <div style="font-family: 'Caveat', cursive; font-size: 13px; color: #059669; text-align: right; margin-top: 2px;">design it right ↗</div>
+            </div>
+
+            <!-- 6. PURPLE / LAVENDER STICKY NOTE (Middle Center) -->
+            <div class="desk-card card-purple-sticky" style="top: 235px; left: 290px; transform: rotate(-2deg);" data-category="Quick Thoughts" data-type="Learnings" data-date="May 15, 2025" data-readtime="4 min read">
+              <div class="push-pin" style="background: #A855F7;"></div>
+              <span class="card-badge">QUICK THOUGHT</span>
+              <h3>What Hackathons Taught Me</h3>
+              <p>Lessons beyond winning: teamwork, speed and clarity.</p>
+              <div class="card-footer-meta">
+                <span>May 15, 2025 • 4 min read</span>
+                <span class="card-arrow" style="color: #A855F7;">→</span>
+              </div>
+            </div>
+
+            <!-- 7. YELLOW STICKY NOTE (Middle Right) -->
+            <div class="desk-card card-yellow-sticky" style="top: 210px; left: 495px; transform: rotate(1deg);" data-category="AI & Data Science" data-type="Learnings" data-date="May 10, 2025" data-readtime="5 min read">
+              <div class="masking-tape"></div>
+              <span class="card-badge">LEARNING</span>
+              <h3>Java Streams Explained Simply</h3>
+              <p>From basics to real-world examples.</p>
+              <div class="card-footer-meta">
+                <span>May 10, 2025 • 5 min read</span>
+                <span class="card-arrow" style="color: #D97706;">→</span>
+              </div>
+            </div>
+
+            <!-- 8. DEEP DIVE ARCHITECTURE CARD (Bottom Left) -->
+            <div class="desk-card card-deep-api" style="top: 400px; left: 25px; transform: rotate(-1deg);" data-category="Deep Dives" data-type="Tech" data-date="May 8, 2025" data-readtime="8 min read">
+              <div>
+                <span class="card-badge">DEEP DIVE</span>
+                <h3>Designing Scalable REST APIs</h3>
+                <p>Principles, best practices and real-world patterns.</p>
+                <div class="card-footer-meta">
+                  <span>May 8, 2025 • 8 min read</span>
+                </div>
+              </div>
+              <svg class="api-doodle-svg" viewBox="0 0 90 70" fill="none" stroke="#10B981" stroke-width="1.8">
+                <circle cx="45" cy="30" r="20" stroke-dasharray="3 3" />
+                <path d="M25 30 H65 M45 10 V50" stroke="#10B981" />
+                <rect x="35" y="48" width="20" height="14" rx="3" fill="#FFFFFF" />
+                <text x="45" y="58" font-size="8" fill="#047857" text-anchor="middle" font-weight="bold">API</text>
+              </svg>
+            </div>
+
+            <!-- 9. QUOTE CARD PAPER (Bottom Center) -->
+            <div class="desk-card card-quote-paper" style="top: 430px; left: 360px; transform: rotate(3deg);" data-category="Quick Thoughts" data-type="Life" data-date="May 2025" data-readtime="Quote">
+              <div class="quote-mark">“</div>
+              <p class="handwritten-text" style="font-size: 17px; margin-top: 4px;">Code is easy.<br>Maintaining clarity is the hard part.</p>
+            </div>
+
+            <!-- 10. GROWTH GRAPH CARD (Bottom Right) -->
+            <div class="desk-card card-growth-graph" style="top: 395px; left: 515px; transform: rotate(-1deg);" data-category="Career & Growth" data-type="Life" data-date="May 5, 2025" data-readtime="6 min read">
+              <div>
+                <span class="card-badge">THOUGHT</span>
+                <h3>Balancing College, Projects & Growth</h3>
+                <p>My framework for staying consistent and sane.</p>
+                <div class="card-footer-meta">
+                  <span>May 5, 2025 • 6 min read</span>
+                </div>
+              </div>
+              <svg class="graph-doodle-svg" viewBox="0 0 100 70" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round">
+                <path d="M10 60 H90 M10 60 V10" stroke="#9CA3AF" stroke-width="1.2" />
+                <path d="M15 50 Q30 45 45 30 T75 15 L85 25" />
+                <circle cx="45" cy="30" r="3" fill="#10B981" />
+                <circle cx="75" cy="15" r="3" fill="#10B981" />
+                <text x="85" y="66" font-size="7" fill="#9CA3AF">Time</text>
+                <text x="3" y="15" font-size="7" fill="#9CA3AF">In</text>
+              </svg>
+            </div>
+
+          </div>
+
+          <!-- Bottom Timeline -->
+          <footer class="desk-timeline-bar">
+            <span class="timeline-year">2023</span>
+            <div class="timeline-track"></div>
+            <span class="timeline-year">2024</span>
+            <div class="timeline-track"></div>
+            <span class="timeline-year active">2025 <span class="active-year-dot"></span></span>
+            <div class="timeline-track"></div>
+            <span class="timeline-year">2026</span>
+          </footer>
+
+          <!-- Floating Button -->
+          <button class="desk-floating-btn" id="desk-floating-btn">
+            <span class="plus-icon">+</span>
+            <span>New Note</span>
+          </button>
+
+        </main>
+
+        <!-- COLUMN 3: PREVIEW PANEL (23%) -->
+        <aside class="desk-preview-panel">
+          
+          <!-- Empty State -->
+          <div class="preview-empty-state" id="preview-empty-state">
+            <div class="empty-state-icon">📖</div>
+            <h3>Choose a note to start reading</h3>
+            <p>Click or drag any note on the desk to view details, tags, and full notes.</p>
+          </div>
+
+          <!-- Active Preview Content Box -->
+          <div class="preview-content-box" id="preview-content-box">
+            <div class="preview-badge-row">
+              <span class="preview-category-badge" id="preview-category">DEEP DIVE</span>
+              <span class="preview-date" id="preview-date">May 20, 2025</span>
+            </div>
+            <h2 class="preview-title" id="preview-title">How I Think Before I Code</h2>
+            <div class="preview-meta">
+              <span id="preview-readtime">6 min read</span>
+              <span>•</span>
+              <span>Krishna Sahoo</span>
+            </div>
+            <div class="preview-text" id="preview-text">
+              <p>A peek into my problem-solving mindset and how I structure complex systems before writing lines of code.</p>
+            </div>
+            <button class="preview-btn-primary" id="preview-full-btn">
+              <span>Read Full Note</span>
+              <span>→</span>
+            </button>
+          </div>
+
+        </aside>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FULLSCREEN ARTICLE READER OVERLAY -->
+  <div class="journal-reader-overlay" id="journal-reader-overlay" role="dialog" aria-modal="true">
+    <div class="journal-reader-container">
+      <button class="reader-close-btn" id="reader-close-btn" aria-label="Close reader">&times;</button>
+      <h1 id="reader-title" style="font-family: 'Outfit', sans-serif; font-size: 32px; color: #111827;">Article Title</h1>
+      <div class="reader-body" id="reader-body"></div>
+    </div>
+  </div>
+
   <script src="assets/js/doodles.js" defer></script>
   <script src="assets/js/skills.js" defer></script>
   <script src="assets/js/works.js" defer></script>
   <script src="assets/js/achievements.js" defer></script>
+  <script src="assets/js/journal.js" defer></script>
   <script src="assets/js/main.js" defer></script>
 </body>
 
