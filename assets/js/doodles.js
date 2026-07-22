@@ -4,7 +4,7 @@ const canvas = document.getElementById('doodle-canvas');
 const ctx = canvas.getContext('2d');
 
 let particles = [];
-const particleCount = 45; // Amount of doodles on screen
+const particleCount = window.innerWidth < 768 ? 20 : 45; // Fewer particles on mobile for performance
 const repelRadius = 180; // Area of cursor influence
 const maxSpeed = 0.5; // Gentler floating speed
 
@@ -292,7 +292,9 @@ function init() {
   }
 }
 
-// Animation loop
+// Animation loop — RAF id tracked so we can pause on tab hidden
+let rafId = null;
+
 function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -301,11 +303,23 @@ function animate() {
     p.draw();
   });
 
-  requestAnimationFrame(animate);
+  rafId = requestAnimationFrame(animate);
 }
 
 init();
-animate();
+rafId = requestAnimationFrame(animate);
+
+// Pause animation when tab is not visible (saves CPU/battery)
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    if (rafId) {
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+  } else if (!rafId) {
+    rafId = requestAnimationFrame(animate);
+  }
+});
 
 // Handle scroll percentage for creative animations
 window.addEventListener('scroll', () => {
