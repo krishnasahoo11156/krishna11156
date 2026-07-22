@@ -11,7 +11,7 @@ function initDeveloperJournal() {
   const backdrop = document.getElementById('engineering-desk-modal');
   const appWrapper = document.getElementById('app-wrapper');
   const closeBtn = document.getElementById('desk-close-btn');
-  const navTriggers = document.querySelectorAll('.journal-trigger-btn, a[href="#blogs"], a[href="#journal"]');
+  const navTriggers = document.querySelectorAll('.journal-trigger-btn, #btn-open-blogs, a[href="#blogs"], a[href="#journal"]');
   const searchInput = document.getElementById('desk-search-input');
   const navItems = document.querySelectorAll('.desk-nav-item');
   const filterPills = document.querySelectorAll('.filter-pill');

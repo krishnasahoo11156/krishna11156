@@ -381,7 +381,7 @@ function initHeroPanels() {
     document.body.style.overflow = '';
   }
 
-  if (btnOpenBlogs) btnOpenBlogs.addEventListener('click', () => openModal(blogsModal));
+  // Note: btnOpenBlogs now opens the Developer Journal popup via journal.js
   if (btnOpenSocials) btnOpenSocials.addEventListener('click', () => openModal(socialsModal));
 
   if (blogsClose) blogsClose.addEventListener('click', closeAllModals);
