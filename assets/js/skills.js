@@ -492,6 +492,22 @@ function initSkillsSection() {
   }
 
   /**
+   * Triggers a smooth 0.5s border highlight transition on the imagery section (.sketchpad-canvas-wrapper)
+   */
+  function triggerWrapperBorderHighlight() {
+    const wrapper = sketchpadCanvas ? sketchpadCanvas.parentElement : null;
+    if (!wrapper) return;
+
+    wrapper.classList.remove('border-highlight');
+    void wrapper.offsetWidth; // Flush layout to restart transition
+    wrapper.classList.add('border-highlight');
+
+    setTimeout(() => {
+      wrapper.classList.remove('border-highlight');
+    }, 550);
+  }
+
+  /**
    * Main orchestrator to load category details
    */
   function loadCategory(categoryKey) {
@@ -500,6 +516,9 @@ function initSkillsSection() {
 
     const data = SKILLS_DATA[categoryKey];
     if (!data) return;
+
+    // Trigger smooth 0.5s border highlight on imagery section
+    triggerWrapperBorderHighlight();
 
     // Update tab bar title
     editorFileName.textContent = data.fileName;
@@ -515,15 +534,67 @@ function initSkillsSection() {
   // Bind click handlers to category buttons
   navButtons.forEach(btn => {
     btn.addEventListener('click', () => {
-      // Remove active from all
-      navButtons.forEach(b => b.classList.remove('active'));
-      // Add active to clicked
+      // Remove active from all and reset animation
+      navButtons.forEach(b => {
+        b.classList.remove('active');
+      });
+
+      // Reflush DOM layout on clicked button to restart border trace animation from 0deg
+      void btn.offsetWidth;
       btn.classList.add('active');
+
+      // If editor was minimized, auto-expand on category click so code is visible
+      if (codeEditorPanel && codeEditorPanel.classList.contains('minimized')) {
+        codeEditorPanel.classList.remove('minimized');
+        if (btnMaximize && btnMinimize) {
+          btnMaximize.classList.remove('active');
+          btnMaximize.classList.add('disabled');
+          btnMinimize.classList.remove('disabled');
+          btnMinimize.classList.add('active');
+        }
+      }
 
       const cat = btn.getAttribute('data-category');
       loadCategory(cat);
     });
   });
+
+  // Minimize & Maximize Code Editor Panel controls
+  const btnMinimize = document.getElementById('editor-btn-minimize');
+  const btnMaximize = document.getElementById('editor-btn-maximize');
+  const codeEditorPanel = document.querySelector('.code-editor-panel');
+
+  if (btnMinimize && btnMaximize && codeEditorPanel) {
+    btnMinimize.addEventListener('click', () => {
+      if (codeEditorPanel.classList.contains('minimized')) return;
+
+      // Shrink code editor down to header height
+      codeEditorPanel.classList.add('minimized');
+
+      // Minimize option fades / becomes disabled
+      btnMinimize.classList.remove('active');
+      btnMinimize.classList.add('disabled');
+
+      // Maximize option becomes active / clickable
+      btnMaximize.classList.remove('disabled');
+      btnMaximize.classList.add('active');
+    });
+
+    btnMaximize.addEventListener('click', () => {
+      if (!codeEditorPanel.classList.contains('minimized')) return;
+
+      // Expand code editor back to full height
+      codeEditorPanel.classList.remove('minimized');
+
+      // Maximize option fades / becomes disabled
+      btnMaximize.classList.remove('active');
+      btnMaximize.classList.add('disabled');
+
+      // Minimize option becomes active / clickable
+      btnMinimize.classList.remove('disabled');
+      btnMinimize.classList.add('active');
+    });
+  }
 
   // Automatically start with "languages" once the section enters the viewport
   const observer = new IntersectionObserver((entries) => {

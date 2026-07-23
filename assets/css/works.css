@@ -1077,7 +1077,8 @@
 
 .sheet-body {
   display: grid;
-  grid-template-columns: 0.85fr 1.15fr; /* Shift center line left */
+  grid-template-columns: 0.85fr 1.15fr;
+  /* Shift center line left */
   flex: 1;
   min-height: 0;
   overflow: hidden;
@@ -1122,7 +1123,8 @@
   width: 100%;
   border-radius: 18px;
   overflow: hidden;
-  aspect-ratio: 21 / 9; /* Cinematic, wider and shorter */
+  aspect-ratio: 21 / 9;
+  /* Cinematic, wider and shorter */
   background: #09090e;
   border: 1px solid rgba(255, 255, 255, 0.06);
   box-shadow: 0 10px 44px rgba(0, 0, 0, 0.55);
@@ -1462,7 +1464,8 @@
   }
 
   .sheet-carousel {
-    aspect-ratio: 16 / 9; /* Normal aspect ratio on mobile for readability */
+    aspect-ratio: 16 / 9;
+    /* Normal aspect ratio on mobile for readability */
   }
 
   .sheet-details {
@@ -1527,7 +1530,7 @@
   .works-tab-indicator {
     display: none;
   }
-  
+
   .works-tab-btn.active {
     background: linear-gradient(135deg, rgba(55, 55, 55, 0.85) 0%, rgba(24, 24, 24, 0.95) 100%) !important;
     border: 1px solid rgba(255, 255, 255, 0.08) !important;

@@ -658,7 +658,7 @@ async function switchCategory(bentoEl, category) {
   // 4. Measure new height
   bentoEl.style.height = 'auto';
   const newHeight = bentoEl.offsetHeight;
-  
+
   // Set back to old height temporarily for transition
   bentoEl.style.height = `${currentHeight}px`;
   bentoEl.offsetHeight; // Force reflow
@@ -893,7 +893,7 @@ function openProjectSheet(project) {
 
     // Keyboard arrow navigation while sheet is open
     const _arrowHandler = (e) => {
-      if (e.key === 'ArrowLeft')  { showSlide(carouselIndex - 1); startAutoplay(); }
+      if (e.key === 'ArrowLeft') { showSlide(carouselIndex - 1); startAutoplay(); }
       if (e.key === 'ArrowRight') { showSlide(carouselIndex + 1); startAutoplay(); }
     };
     document.addEventListener('keydown', _arrowHandler);
@@ -1020,3 +1020,7 @@ function initWorksSection() {
 document.addEventListener('DOMContentLoaded', () => {
   initWorksSection();
 });
+
+// Expose globally for cross-section modal opening
+window.openProjectSheet = openProjectSheet;
+window.WORKS_DATA = WORKS_DATA;

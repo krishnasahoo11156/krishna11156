@@ -10,6 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollHint();
   initTestimonialsScroll();
   initSectionObserver();
+  initStatsCounter();
+  initTimelineObserver();
+  initCurrentlyBuildingPreviews();
+  initSectionTransitions();
+  initBlogReader();
   initHeroPanels();
 });
 
@@ -256,88 +261,386 @@ function initTypewriter() {
 }
 
 /**
- * Handles opening and closing of the Resume Viewer Modal
+ * Animated count-up counter for stats in About section
  */
-function initResumeModal() {
-  const resumeBtn = document.getElementById('resume-nav-btn');
-  const modal = document.getElementById('resume-modal');
-  const closeBtn = document.getElementById('resume-close-btn');
+function initStatsCounter() {
+  const statElements = document.querySelectorAll('.stat-bento-box .stat-num, .modal-stat-card .stat-num');
+  if (!statElements.length) return;
 
-  if (!resumeBtn || !modal || !closeBtn) return;
+  const statsContainer = document.querySelector('.bento-stats-card') || document.querySelector('#about');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Open modal
-  resumeBtn.addEventListener('click', (e) => {
-    e.preventDefault(); // Prevent opening the PDF directly
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden'; // Lock main page scrolling
+  const items = [];
+
+  statElements.forEach(el => {
+    const targetAttr = el.getAttribute('data-target');
+    const rawText = (targetAttr || el.textContent || '').trim();
+
+    if (!rawText) return;
+
+    const hasPlus = rawText.includes('+');
+    const hasPercent = rawText.includes('%');
+    const cleanNumStr = rawText.replace(/[^0-9.]/g, '');
+    const targetVal = parseFloat(cleanNumStr);
+
+    if (isNaN(targetVal)) return;
+
+    const isFloat = cleanNumStr.includes('.');
+    const decimals = isFloat ? (cleanNumStr.split('.')[1] || '').length : 0;
+    const suffix = (hasPlus ? '+' : '') + (hasPercent ? '%' : '');
+
+    items.push({
+      el,
+      target: targetVal,
+      decimals,
+      suffix
+    });
+
+    if (!prefersReducedMotion) {
+      const startNum = (0).toFixed(decimals);
+      el.textContent = `${startNum}${suffix}`;
+    }
   });
 
-  // Close modal function
-  const closeModal = () => {
-    modal.classList.remove('active');
-    document.body.style.overflow = ''; // Unlock scrolling
+  if (!items.length || prefersReducedMotion) return;
+
+  let hasStarted = false;
+  const startAnimation = () => {
+    if (hasStarted) return;
+    hasStarted = true;
+
+    items.forEach((item, index) => {
+      setTimeout(() => {
+        const duration = 1600; // 1.6s duration
+        const startTime = performance.now();
+
+        const animateStep = (currentTime) => {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+
+          // Ease out cubic deceleration formula
+          const easeProgress = 1 - Math.pow(1 - progress, 3);
+          const currentVal = easeProgress * item.target;
+
+          item.el.textContent = `${currentVal.toFixed(item.decimals)}${item.suffix}`;
+
+          if (progress < 1) {
+            requestAnimationFrame(animateStep);
+          } else {
+            item.el.textContent = `${item.target.toFixed(item.decimals)}${item.suffix}`;
+            item.el.classList.remove('counter-finish');
+            void item.el.offsetWidth; // Trigger reflow for animation restart
+            item.el.classList.add('counter-finish');
+          }
+        };
+
+        requestAnimationFrame(animateStep);
+      }, index * 90);
+    });
   };
 
-  // Close on button click
-  closeBtn.addEventListener('click', closeModal);
-
-  // Close when clicking overlay backdrop
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) {
-      closeModal();
+  // Immediate check if element is already visible in the viewport
+  if (statsContainer) {
+    const rect = statsContainer.getBoundingClientRect();
+    const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+    if (rect.top < windowHeight && rect.bottom >= 0) {
+      startAnimation();
+      return;
     }
-  });
+  }
 
-  // Close on Escape key press
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('active')) {
-      closeModal();
-    }
-  });
+  // IntersectionObserver for scroll trigger
+  if ('IntersectionObserver' in window && statsContainer) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          startAnimation();
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.05, rootMargin: '0px 0px 50px 0px' });
+
+    observer.observe(statsContainer);
+  } else {
+    startAnimation();
+  }
 }
 
 /**
- * Typewriter effect for the tagline
+ * Sequential reveal animation for the Journey Timeline in About section
  */
-function initTypewriter() {
-  const target = document.querySelector('.typewriter-text');
-  if (!target) return;
+function initTimelineObserver() {
+  const timelineContainer = document.querySelector('.creative-timeline');
+  if (!timelineContainer) return;
 
-  const words = JSON.parse(target.getAttribute('data-words') || '[]');
-  let wordIndex = 0;
-  let charIndex = 0;
-  let isDeleting = false;
-  let delay = 150; // Typing speed
+  const timelineSteps = timelineContainer.querySelectorAll('.timeline-step');
+  if (!timelineSteps.length) return;
 
-  function type() {
-    const currentWord = words[wordIndex];
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    if (isDeleting) {
-      target.textContent = currentWord.substring(0, charIndex - 1);
-      charIndex--;
-      delay = 75; // Faster deletion
-    } else {
-      target.textContent = currentWord.substring(0, charIndex + 1);
-      charIndex++;
-      delay = 150; // Normal typing
-    }
-
-    // Switch states
-    if (!isDeleting && charIndex === currentWord.length) {
-      // Pause at full word
-      delay = 2000;
-      isDeleting = true;
-    } else if (isDeleting && charIndex === 0) {
-      isDeleting = false;
-      wordIndex = (wordIndex + 1) % words.length;
-      delay = 500; // Pause before typing next word
-    }
-
-    setTimeout(type, delay);
+  if (prefersReducedMotion) {
+    timelineContainer.classList.add('timeline-animated');
+    timelineSteps.forEach(step => step.classList.add('step-visible'));
+    return;
   }
 
-  // Start typewriter loop
-  setTimeout(type, 1000);
+  const revealedSet = new Set();
+
+  const revealStep = (step, delay = 0) => {
+    if (revealedSet.has(step)) return;
+    revealedSet.add(step);
+
+    timelineContainer.classList.add('timeline-animated');
+
+    setTimeout(() => {
+      step.classList.add('step-visible');
+    }, delay);
+  };
+
+  let containerTriggered = false;
+  const triggerContainerReveal = () => {
+    if (containerTriggered) return;
+    containerTriggered = true;
+
+    timelineContainer.classList.add('timeline-animated');
+
+    let visibleIndex = 0;
+    timelineSteps.forEach((step) => {
+      const rect = step.getBoundingClientRect();
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+
+      if (rect.top < windowHeight - 20) {
+        revealStep(step, visibleIndex * 140);
+        visibleIndex++;
+      }
+    });
+  };
+
+  // Immediate check on load if already in viewport
+  const containerRect = timelineContainer.getBoundingClientRect();
+  const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+  if (containerRect.top < windowHeight - 40 && containerRect.bottom >= 0) {
+    triggerContainerReveal();
+  }
+
+  // IntersectionObserver for container & individual steps on scroll
+  if ('IntersectionObserver' in window) {
+    const containerObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          triggerContainerReveal();
+          containerObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
+
+    containerObserver.observe(timelineContainer);
+
+    const stepObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          revealStep(entry.target, 0);
+          stepObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -20px 0px' });
+
+    timelineSteps.forEach(step => stepObserver.observe(step));
+  } else {
+    triggerContainerReveal();
+  }
+}
+
+/**
+ * macOS Quick Look-style Floating Preview Popover for "Currently Building" items in About Section.
+ * Reuses the exact project sheet modal from Works section as single source of truth.
+ */
+function initCurrentlyBuildingPreviews() {
+  const buildingItems = document.querySelectorAll('.building-item');
+  if (!buildingItems.length) return;
+
+  // Dynamically create single floating preview popover in DOM if not present
+  let popover = document.getElementById('building-preview-popover');
+  if (!popover) {
+    popover = document.createElement('div');
+    popover.id = 'building-preview-popover';
+    popover.className = 'building-preview-popover';
+    popover.innerHTML = `
+      <div class="preview-popover-img-wrap">
+        <img src="" alt="Project Preview" class="preview-popover-img" id="popover-img">
+      </div>
+      <div class="preview-popover-meta">
+        <span class="preview-status-pill">
+          <span class="preview-status-dot"></span>
+          <span id="popover-status">Currently Building</span>
+        </span>
+        <button class="preview-more-btn" id="popover-more-btn" type="button" aria-label="View More Details">
+          <span>More Details</span>
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </button>
+      </div>
+    `;
+    document.body.appendChild(popover);
+  }
+
+  const popoverImg = popover.querySelector('#popover-img');
+  const popoverStatus = popover.querySelector('#popover-status');
+  const popoverMoreBtn = popover.querySelector('#popover-more-btn');
+
+  let currentTargetItem = null;
+  let hideTimeout = null;
+
+  // Position popover relative to item with exact vertical center height arrow alignment
+  const positionPopover = (item) => {
+    const itemRect = item.getBoundingClientRect();
+    const popoverWidth = 320;
+    const popoverHeight = popover.offsetHeight || 215;
+    const margin = 18;
+
+    // Calculate exact center Y height of the hovered item card
+    const itemCenterY = itemRect.top + (itemRect.height / 2);
+    let top = itemCenterY - 48; // Default 48px arrow offset
+    let left = itemRect.right + margin;
+    let arrowClass = 'arrow-left';
+
+    // Position above or below if right side overflows viewport
+    if (left + popoverWidth > window.innerWidth - 16) {
+      left = Math.max(16, Math.min(itemRect.left, window.innerWidth - popoverWidth - 16));
+      if (itemRect.top > popoverHeight + 20) {
+        top = itemRect.top - popoverHeight - 12;
+        arrowClass = 'arrow-bottom';
+      } else {
+        top = itemRect.bottom + 12;
+        arrowClass = 'arrow-top';
+      }
+    } else {
+      // Clamp top within viewport boundaries while keeping arrow aligned to itemCenterY
+      const minTop = 12;
+      const maxTop = window.innerHeight - popoverHeight - 12;
+      const clampedTop = Math.max(minTop, Math.min(top, maxTop));
+
+      // Dynamically calculate arrow top offset so arrow ALWAYS points directly to itemCenterY
+      const arrowTopPx = Math.max(20, Math.min(itemCenterY - clampedTop, popoverHeight - 20));
+      popover.style.setProperty('--arrow-top', `${arrowTopPx}px`);
+      top = clampedTop;
+    }
+
+    popover.style.left = `${left}px`;
+    popover.style.top = `${top}px`;
+    popover.className = `building-preview-popover active ${arrowClass}`;
+  };
+
+  // Trigger project sheet modal (Single Source of Truth)
+  const handleOpenProjectModal = (projectId, fallbackTitle, fallbackDesc, previewImg) => {
+    let projectData = null;
+
+    if (typeof WORKS_DATA !== 'undefined' && WORKS_DATA) {
+      const allItems = [...(WORKS_DATA.projects || []), ...(WORKS_DATA.hackathons || [])];
+      projectData = allItems.find(p => p.id === projectId || p.title.toLowerCase().includes(fallbackTitle.toLowerCase()));
+    }
+
+    if (!projectData) {
+      projectData = {
+        id: projectId || 'code2git',
+        title: fallbackTitle,
+        subtitle: 'Currently Building Project',
+        tagline: fallbackDesc,
+        status: 'Currently Building · In Active Development',
+        role: 'Creator & Architect',
+        tech: ['React', 'TypeScript', 'Node.js', 'AI Agents', 'Tailwind CSS'],
+        repo: 'https://github.com/krishnasahoo11156',
+        accent: '#10B981',
+        images: [previewImg],
+        details: [
+          `<strong>Active Development:</strong> ${fallbackDesc}`,
+          '<strong>Architecture:</strong> Engineered with clean modular design, high performance, and responsive UI.',
+          '<strong>Key Objective:</strong> Delivering intuitive agentic and full-stack user experiences.'
+        ],
+        metaTags: ['Currently Building', 'Full Stack', 'AI Agent']
+      };
+    }
+
+    popover.classList.remove('active');
+
+    if (typeof openProjectSheet === 'function') {
+      openProjectSheet(projectData);
+    } else if (window.openProjectSheet) {
+      window.openProjectSheet(projectData);
+    }
+  };
+
+  buildingItems.forEach(item => {
+    const projectId = item.getAttribute('data-project-id');
+    const previewImg = item.getAttribute('data-preview-img');
+    const titleText = item.querySelector('h5') ? item.querySelector('h5').textContent : 'Project';
+    const descText = item.querySelector('p') ? item.querySelector('p').textContent : '';
+
+    item.addEventListener('mouseenter', () => {
+      clearTimeout(hideTimeout);
+
+      if (currentTargetItem !== item) {
+        currentTargetItem = item;
+
+        // Smooth image cross-fade when switching rapidly between items
+        if (popoverImg && previewImg) {
+          if (popoverImg.src && popoverImg.src !== previewImg) {
+            popoverImg.style.opacity = '0.2';
+            setTimeout(() => {
+              popoverImg.src = previewImg;
+              popoverImg.style.opacity = '1';
+            }, 120);
+          } else {
+            popoverImg.src = previewImg;
+            popoverImg.style.opacity = '1';
+          }
+        }
+      }
+
+      if (popoverStatus) popoverStatus.textContent = 'Currently Building';
+      positionPopover(item);
+    });
+
+    item.addEventListener('mouseleave', () => {
+      hideTimeout = setTimeout(() => {
+        if (!popover.matches(':hover') && !document.querySelector('.building-item:hover')) {
+          popover.classList.remove('active');
+          currentTargetItem = null;
+        }
+      }, 200);
+    });
+
+    item.addEventListener('click', (e) => {
+      e.preventDefault();
+      handleOpenProjectModal(projectId, titleText, descText, previewImg);
+    });
+  });
+
+  popover.addEventListener('mouseenter', () => {
+    clearTimeout(hideTimeout);
+  });
+
+  popover.addEventListener('mouseleave', () => {
+    hideTimeout = setTimeout(() => {
+      if (!document.querySelector('.building-item:hover')) {
+        popover.classList.remove('active');
+        currentTargetItem = null;
+      }
+    }, 200);
+  });
+
+  if (popoverMoreBtn) {
+    popoverMoreBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (currentTargetItem) {
+        const projectId = currentTargetItem.getAttribute('data-project-id');
+        const previewImg = currentTargetItem.getAttribute('data-preview-img');
+        const titleText = currentTargetItem.querySelector('h5') ? currentTargetItem.querySelector('h5').textContent : 'Project';
+        const descText = currentTargetItem.querySelector('p') ? currentTargetItem.querySelector('p').textContent : '';
+        handleOpenProjectModal(projectId, titleText, descText, previewImg);
+      }
+    });
+  }
 }
 
 function initHeroPanels() {
@@ -496,7 +799,7 @@ function initBlogReader() {
     if (placeholder) placeholder.classList.add('hidden');
     if (articleContent) {
       articleContent.classList.remove('hidden');
-      
+
       // Populate fields
       if (elTag) elTag.textContent = data.tag;
       if (elDate) elDate.textContent = data.date;
@@ -520,4 +823,63 @@ function initBlogReader() {
   if (btnReadFeatured) {
     btnReadFeatured.addEventListener('click', () => renderArticle('foresee-solo'));
   }
+}
+
+/**
+ * Cinematic Viewport Scroll Transitions & Lens Pop-up Reveal (Hero <-> About <-> Skills)
+ * Dynamically applies section-active and section-receding states based on viewport scroll ratio.
+ */
+function initSectionTransitions() {
+  const heroSec = document.getElementById('hero-section');
+  const aboutSec = document.getElementById('about');
+  const skillsSec = document.getElementById('skills');
+
+  if (!heroSec || !aboutSec || !skillsSec) return;
+
+  const sections = [
+    { el: heroSec, name: 'hero' },
+    { el: aboutSec, name: 'about' },
+    { el: skillsSec, name: 'skills' }
+  ];
+
+  const updateSectionStates = () => {
+    const windowHeight = window.innerHeight;
+
+    sections.forEach(({ el }) => {
+      const rect = el.getBoundingClientRect();
+      const topRatio = rect.top / windowHeight;
+      const bottomRatio = rect.bottom / windowHeight;
+
+      // Section is active inside primary viewing window
+      if (topRatio < 0.75 && bottomRatio > 0.25) {
+        el.classList.add('section-active');
+        el.classList.remove('section-receding');
+      }
+      // Section is above viewing window (scrolled past / receding upward)
+      else if (bottomRatio <= 0.25) {
+        el.classList.remove('section-active');
+        el.classList.add('section-receding');
+      }
+      // Section is below viewing window (waiting to pop up / enter)
+      else {
+        el.classList.remove('section-active');
+        el.classList.remove('section-receding');
+      }
+    });
+  };
+
+  // Run initial state setup
+  updateSectionStates();
+
+  // Optimized scroll listener
+  let tick = false;
+  window.addEventListener('scroll', () => {
+    if (!tick) {
+      window.requestAnimationFrame(() => {
+        updateSectionStates();
+        tick = false;
+      });
+      tick = true;
+    }
+  }, { passive: true });
 }
