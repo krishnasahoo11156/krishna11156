@@ -340,83 +340,8 @@ function initTypewriter() {
   setTimeout(type, 1000);
 }
 
-/**
- * Full-Screen Modal Overlay Manager (Blogs & Socials)
- * Opens full-screen 4-column vertical parallax conveyors for Blogs and Socials.
- */
 function initHeroPanels() {
-  const blogsModal = document.getElementById('blogs-modal-overlay');
-  const socialsModal = document.getElementById('socials-modal-overlay');
-
-  const btnOpenBlogs = document.getElementById('btn-open-blogs');
-  const btnOpenSocials = document.getElementById('btn-open-socials');
-
-  const blogsClose = document.getElementById('modal-blogs-close');
-  const blogsCloseSec = document.getElementById('modal-blogs-close-sec');
-  const blogsBackdrop = document.getElementById('blogs-modal-backdrop');
-
-  const socialsClose = document.getElementById('modal-socials-close');
-  const socialsCloseSec = document.getElementById('modal-socials-close-sec');
-  const socialsBackdrop = document.getElementById('socials-modal-backdrop');
-
-  const switchBlogsToSocials = document.getElementById('modal-blogs-to-socials');
-  const switchSocialsToBlogs = document.getElementById('modal-socials-to-blogs');
-
-  function openModal(modal) {
-    closeAllModals();
-    if (modal) {
-      modal.classList.add('active');
-      modal.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-    }
-  }
-
-  function closeAllModals() {
-    [blogsModal, socialsModal].forEach(m => {
-      if (m) {
-        m.classList.remove('active');
-        m.setAttribute('aria-hidden', 'true');
-      }
-    });
-    document.body.style.overflow = '';
-  }
-
-  // Note: btnOpenBlogs now opens the Developer Journal popup via journal.js
-  if (btnOpenSocials) btnOpenSocials.addEventListener('click', () => openModal(socialsModal));
-
-  if (blogsClose) blogsClose.addEventListener('click', closeAllModals);
-  if (blogsCloseSec) blogsCloseSec.addEventListener('click', closeAllModals);
-  if (blogsBackdrop) blogsBackdrop.addEventListener('click', closeAllModals);
-
-  if (socialsClose) socialsClose.addEventListener('click', closeAllModals);
-  if (socialsCloseSec) socialsCloseSec.addEventListener('click', closeAllModals);
-  if (socialsBackdrop) socialsBackdrop.addEventListener('click', closeAllModals);
-
-  if (switchBlogsToSocials) switchBlogsToSocials.addEventListener('click', () => openModal(socialsModal));
-  if (switchSocialsToBlogs) switchSocialsToBlogs.addEventListener('click', () => openModal(blogsModal));
-
-  // Escape key closes modals
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      closeAllModals();
-    }
-  });
-
-  // Intercept nav links targeting #blogs or #socials
-  document.querySelectorAll('a[href="#blogs"], a[href="#socials"]').forEach(link => {
-    link.addEventListener('click', (e) => {
-      const target = link.getAttribute('href');
-      if (target === '#blogs') {
-        e.preventDefault();
-        openModal(blogsModal);
-      } else if (target === '#socials') {
-        e.preventDefault();
-        openModal(socialsModal);
-      }
-    });
-  });
-
-  initBlogReader();
+  // Obsolete full-screen modal overlays removed in favor of Engineering Desk Journal popup
 }
 
 /**
