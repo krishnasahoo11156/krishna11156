@@ -10,7 +10,14 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollHint();
   initTestimonialsScroll();
   initSectionObserver();
+  initStatsCounter();
+  initTimelineObserver();
+  initCurrentlyBuildingPreviews();
+  initSectionTransitions();
+  initBlogReader();
   initHeroPanels();
+  initContactAndAppointmentSystem();
+  initFooterTypewriter();
 });
 
 /**
@@ -256,167 +263,390 @@ function initTypewriter() {
 }
 
 /**
- * Handles opening and closing of the Resume Viewer Modal
+ * Animated count-up counter for stats in About section
  */
-function initResumeModal() {
-  const resumeBtn = document.getElementById('resume-nav-btn');
-  const modal = document.getElementById('resume-modal');
-  const closeBtn = document.getElementById('resume-close-btn');
+function initStatsCounter() {
+  const statElements = document.querySelectorAll('.stat-bento-box .stat-num, .modal-stat-card .stat-num');
+  if (!statElements.length) return;
 
-  if (!resumeBtn || !modal || !closeBtn) return;
+  const statsContainer = document.querySelector('.bento-stats-card') || document.querySelector('#about');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Open modal
-  resumeBtn.addEventListener('click', (e) => {
-    e.preventDefault(); // Prevent opening the PDF directly
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden'; // Lock main page scrolling
+  const items = [];
+
+  statElements.forEach(el => {
+    const targetAttr = el.getAttribute('data-target');
+    const rawText = (targetAttr || el.textContent || '').trim();
+
+    if (!rawText) return;
+
+    const hasPlus = rawText.includes('+');
+    const hasPercent = rawText.includes('%');
+    const cleanNumStr = rawText.replace(/[^0-9.]/g, '');
+    const targetVal = parseFloat(cleanNumStr);
+
+    if (isNaN(targetVal)) return;
+
+    const isFloat = cleanNumStr.includes('.');
+    const decimals = isFloat ? (cleanNumStr.split('.')[1] || '').length : 0;
+    const suffix = (hasPlus ? '+' : '') + (hasPercent ? '%' : '');
+
+    items.push({
+      el,
+      target: targetVal,
+      decimals,
+      suffix
+    });
+
+    if (!prefersReducedMotion) {
+      const startNum = (0).toFixed(decimals);
+      el.textContent = `${startNum}${suffix}`;
+    }
   });
 
-  // Close modal function
-  const closeModal = () => {
-    modal.classList.remove('active');
-    document.body.style.overflow = ''; // Unlock scrolling
+  if (!items.length || prefersReducedMotion) return;
+
+  let hasStarted = false;
+  const startAnimation = () => {
+    if (hasStarted) return;
+    hasStarted = true;
+
+    items.forEach((item, index) => {
+      setTimeout(() => {
+        const duration = 1600; // 1.6s duration
+        const startTime = performance.now();
+
+        const animateStep = (currentTime) => {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+
+          // Ease out cubic deceleration formula
+          const easeProgress = 1 - Math.pow(1 - progress, 3);
+          const currentVal = easeProgress * item.target;
+
+          item.el.textContent = `${currentVal.toFixed(item.decimals)}${item.suffix}`;
+
+          if (progress < 1) {
+            requestAnimationFrame(animateStep);
+          } else {
+            item.el.textContent = `${item.target.toFixed(item.decimals)}${item.suffix}`;
+            item.el.classList.remove('counter-finish');
+            void item.el.offsetWidth; // Trigger reflow for animation restart
+            item.el.classList.add('counter-finish');
+          }
+        };
+
+        requestAnimationFrame(animateStep);
+      }, index * 90);
+    });
   };
 
-  // Close on button click
-  closeBtn.addEventListener('click', closeModal);
-
-  // Close when clicking overlay backdrop
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) {
-      closeModal();
+  // Immediate check if element is already visible in the viewport
+  if (statsContainer) {
+    const rect = statsContainer.getBoundingClientRect();
+    const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+    if (rect.top < windowHeight && rect.bottom >= 0) {
+      startAnimation();
+      return;
     }
-  });
+  }
 
-  // Close on Escape key press
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('active')) {
-      closeModal();
-    }
-  });
+  // IntersectionObserver for scroll trigger
+  if ('IntersectionObserver' in window && statsContainer) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          startAnimation();
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.05, rootMargin: '0px 0px 50px 0px' });
+
+    observer.observe(statsContainer);
+  } else {
+    startAnimation();
+  }
 }
 
 /**
- * Typewriter effect for the tagline
+ * Sequential reveal animation for the Journey Timeline in About section
  */
-function initTypewriter() {
-  const target = document.querySelector('.typewriter-text');
-  if (!target) return;
+function initTimelineObserver() {
+  const timelineContainer = document.querySelector('.creative-timeline');
+  if (!timelineContainer) return;
 
-  const words = JSON.parse(target.getAttribute('data-words') || '[]');
-  let wordIndex = 0;
-  let charIndex = 0;
-  let isDeleting = false;
-  let delay = 150; // Typing speed
+  const timelineSteps = timelineContainer.querySelectorAll('.timeline-step');
+  if (!timelineSteps.length) return;
 
-  function type() {
-    const currentWord = words[wordIndex];
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    if (isDeleting) {
-      target.textContent = currentWord.substring(0, charIndex - 1);
-      charIndex--;
-      delay = 75; // Faster deletion
+  if (prefersReducedMotion) {
+    timelineContainer.classList.add('timeline-animated');
+    timelineSteps.forEach(step => step.classList.add('step-visible'));
+    return;
+  }
+
+  const revealedSet = new Set();
+
+  const revealStep = (step, delay = 0) => {
+    if (revealedSet.has(step)) return;
+    revealedSet.add(step);
+
+    timelineContainer.classList.add('timeline-animated');
+
+    setTimeout(() => {
+      step.classList.add('step-visible');
+    }, delay);
+  };
+
+  let containerTriggered = false;
+  const triggerContainerReveal = () => {
+    if (containerTriggered) return;
+    containerTriggered = true;
+
+    timelineContainer.classList.add('timeline-animated');
+
+    let visibleIndex = 0;
+    timelineSteps.forEach((step) => {
+      const rect = step.getBoundingClientRect();
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+
+      if (rect.top < windowHeight - 20) {
+        revealStep(step, visibleIndex * 140);
+        visibleIndex++;
+      }
+    });
+  };
+
+  // Immediate check on load if already in viewport
+  const containerRect = timelineContainer.getBoundingClientRect();
+  const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+  if (containerRect.top < windowHeight - 40 && containerRect.bottom >= 0) {
+    triggerContainerReveal();
+  }
+
+  // IntersectionObserver for container & individual steps on scroll
+  if ('IntersectionObserver' in window) {
+    const containerObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          triggerContainerReveal();
+          containerObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
+
+    containerObserver.observe(timelineContainer);
+
+    const stepObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          revealStep(entry.target, 0);
+          stepObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -20px 0px' });
+
+    timelineSteps.forEach(step => stepObserver.observe(step));
+  } else {
+    triggerContainerReveal();
+  }
+}
+
+/**
+ * macOS Quick Look-style Floating Preview Popover for "Currently Building" items in About Section.
+ * Reuses the exact project sheet modal from Works section as single source of truth.
+ */
+function initCurrentlyBuildingPreviews() {
+  const buildingItems = document.querySelectorAll('.building-item');
+  if (!buildingItems.length) return;
+
+  // Dynamically create single floating preview popover in DOM if not present
+  let popover = document.getElementById('building-preview-popover');
+  if (!popover) {
+    popover = document.createElement('div');
+    popover.id = 'building-preview-popover';
+    popover.className = 'building-preview-popover';
+    popover.innerHTML = `
+      <div class="preview-popover-img-wrap">
+        <img src="" alt="Project Preview" class="preview-popover-img" id="popover-img">
+      </div>
+      <div class="preview-popover-meta">
+        <span class="preview-status-pill">
+          <span class="preview-status-dot"></span>
+          <span id="popover-status">Currently Building</span>
+        </span>
+        <button class="preview-more-btn" id="popover-more-btn" type="button" aria-label="View More Details">
+          <span>More Details</span>
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </button>
+      </div>
+    `;
+    document.body.appendChild(popover);
+  }
+
+  const popoverImg = popover.querySelector('#popover-img');
+  const popoverStatus = popover.querySelector('#popover-status');
+  const popoverMoreBtn = popover.querySelector('#popover-more-btn');
+
+  let currentTargetItem = null;
+  let hideTimeout = null;
+
+  // Position popover relative to item with exact vertical center height arrow alignment
+  const positionPopover = (item) => {
+    const itemRect = item.getBoundingClientRect();
+    const popoverWidth = 320;
+    const popoverHeight = popover.offsetHeight || 215;
+    const margin = 18;
+
+    // Calculate exact center Y height of the hovered item card
+    const itemCenterY = itemRect.top + (itemRect.height / 2);
+    let top = itemCenterY - 48; // Default 48px arrow offset
+    let left = itemRect.right + margin;
+    let arrowClass = 'arrow-left';
+
+    // Position above or below if right side overflows viewport
+    if (left + popoverWidth > window.innerWidth - 16) {
+      left = Math.max(16, Math.min(itemRect.left, window.innerWidth - popoverWidth - 16));
+      if (itemRect.top > popoverHeight + 20) {
+        top = itemRect.top - popoverHeight - 12;
+        arrowClass = 'arrow-bottom';
+      } else {
+        top = itemRect.bottom + 12;
+        arrowClass = 'arrow-top';
+      }
     } else {
-      target.textContent = currentWord.substring(0, charIndex + 1);
-      charIndex++;
-      delay = 150; // Normal typing
+      // Clamp top within viewport boundaries while keeping arrow aligned to itemCenterY
+      const minTop = 12;
+      const maxTop = window.innerHeight - popoverHeight - 12;
+      const clampedTop = Math.max(minTop, Math.min(top, maxTop));
+
+      // Dynamically calculate arrow top offset so arrow ALWAYS points directly to itemCenterY
+      const arrowTopPx = Math.max(20, Math.min(itemCenterY - clampedTop, popoverHeight - 20));
+      popover.style.setProperty('--arrow-top', `${arrowTopPx}px`);
+      top = clampedTop;
     }
 
-    // Switch states
-    if (!isDeleting && charIndex === currentWord.length) {
-      // Pause at full word
-      delay = 2000;
-      isDeleting = true;
-    } else if (isDeleting && charIndex === 0) {
-      isDeleting = false;
-      wordIndex = (wordIndex + 1) % words.length;
-      delay = 500; // Pause before typing next word
+    popover.style.left = `${left}px`;
+    popover.style.top = `${top}px`;
+    popover.className = `building-preview-popover active ${arrowClass}`;
+  };
+
+  // Trigger project sheet modal (Single Source of Truth)
+  const handleOpenProjectModal = (projectId, fallbackTitle, fallbackDesc, previewImg) => {
+    let projectData = null;
+
+    if (typeof WORKS_DATA !== 'undefined' && WORKS_DATA) {
+      const allItems = [...(WORKS_DATA.projects || []), ...(WORKS_DATA.hackathons || [])];
+      projectData = allItems.find(p => p.id === projectId || p.title.toLowerCase().includes(fallbackTitle.toLowerCase()));
     }
 
-    setTimeout(type, delay);
+    if (!projectData) {
+      projectData = {
+        id: projectId || 'code2git',
+        title: fallbackTitle,
+        subtitle: 'Currently Building Project',
+        tagline: fallbackDesc,
+        status: 'Currently Building · In Active Development',
+        role: 'Creator & Architect',
+        tech: ['React', 'TypeScript', 'Node.js', 'AI Agents', 'Tailwind CSS'],
+        repo: 'https://github.com/krishnasahoo11156',
+        accent: '#10B981',
+        images: [previewImg],
+        details: [
+          `<strong>Active Development:</strong> ${fallbackDesc}`,
+          '<strong>Architecture:</strong> Engineered with clean modular design, high performance, and responsive UI.',
+          '<strong>Key Objective:</strong> Delivering intuitive agentic and full-stack user experiences.'
+        ],
+        metaTags: ['Currently Building', 'Full Stack', 'AI Agent']
+      };
+    }
+
+    popover.classList.remove('active');
+
+    if (typeof openProjectSheet === 'function') {
+      openProjectSheet(projectData);
+    } else if (window.openProjectSheet) {
+      window.openProjectSheet(projectData);
+    }
+  };
+
+  buildingItems.forEach(item => {
+    const projectId = item.getAttribute('data-project-id');
+    const previewImg = item.getAttribute('data-preview-img');
+    const titleText = item.querySelector('h5') ? item.querySelector('h5').textContent : 'Project';
+    const descText = item.querySelector('p') ? item.querySelector('p').textContent : '';
+
+    item.addEventListener('mouseenter', () => {
+      clearTimeout(hideTimeout);
+
+      if (currentTargetItem !== item) {
+        currentTargetItem = item;
+
+        // Smooth image cross-fade when switching rapidly between items
+        if (popoverImg && previewImg) {
+          if (popoverImg.src && popoverImg.src !== previewImg) {
+            popoverImg.style.opacity = '0.2';
+            setTimeout(() => {
+              popoverImg.src = previewImg;
+              popoverImg.style.opacity = '1';
+            }, 120);
+          } else {
+            popoverImg.src = previewImg;
+            popoverImg.style.opacity = '1';
+          }
+        }
+      }
+
+      if (popoverStatus) popoverStatus.textContent = 'Currently Building';
+      positionPopover(item);
+    });
+
+    item.addEventListener('mouseleave', () => {
+      hideTimeout = setTimeout(() => {
+        if (!popover.matches(':hover') && !document.querySelector('.building-item:hover')) {
+          popover.classList.remove('active');
+          currentTargetItem = null;
+        }
+      }, 200);
+    });
+
+    item.addEventListener('click', (e) => {
+      e.preventDefault();
+      handleOpenProjectModal(projectId, titleText, descText, previewImg);
+    });
+  });
+
+  popover.addEventListener('mouseenter', () => {
+    clearTimeout(hideTimeout);
+  });
+
+  popover.addEventListener('mouseleave', () => {
+    hideTimeout = setTimeout(() => {
+      if (!document.querySelector('.building-item:hover')) {
+        popover.classList.remove('active');
+        currentTargetItem = null;
+      }
+    }, 200);
+  });
+
+  if (popoverMoreBtn) {
+    popoverMoreBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (currentTargetItem) {
+        const projectId = currentTargetItem.getAttribute('data-project-id');
+        const previewImg = currentTargetItem.getAttribute('data-preview-img');
+        const titleText = currentTargetItem.querySelector('h5') ? currentTargetItem.querySelector('h5').textContent : 'Project';
+        const descText = currentTargetItem.querySelector('p') ? currentTargetItem.querySelector('p').textContent : '';
+        handleOpenProjectModal(projectId, titleText, descText, previewImg);
+      }
+    });
   }
-
-  // Start typewriter loop
-  setTimeout(type, 1000);
 }
 
-/**
- * Full-Screen Modal Overlay Manager (Blogs & Socials)
- * Opens full-screen 4-column vertical parallax conveyors for Blogs and Socials.
- */
 function initHeroPanels() {
-  const blogsModal = document.getElementById('blogs-modal-overlay');
-  const socialsModal = document.getElementById('socials-modal-overlay');
-
-  const btnOpenBlogs = document.getElementById('btn-open-blogs');
-  const btnOpenSocials = document.getElementById('btn-open-socials');
-
-  const blogsClose = document.getElementById('modal-blogs-close');
-  const blogsCloseSec = document.getElementById('modal-blogs-close-sec');
-  const blogsBackdrop = document.getElementById('blogs-modal-backdrop');
-
-  const socialsClose = document.getElementById('modal-socials-close');
-  const socialsCloseSec = document.getElementById('modal-socials-close-sec');
-  const socialsBackdrop = document.getElementById('socials-modal-backdrop');
-
-  const switchBlogsToSocials = document.getElementById('modal-blogs-to-socials');
-  const switchSocialsToBlogs = document.getElementById('modal-socials-to-blogs');
-
-  function openModal(modal) {
-    closeAllModals();
-    if (modal) {
-      modal.classList.add('active');
-      modal.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-    }
-  }
-
-  function closeAllModals() {
-    [blogsModal, socialsModal].forEach(m => {
-      if (m) {
-        m.classList.remove('active');
-        m.setAttribute('aria-hidden', 'true');
-      }
-    });
-    document.body.style.overflow = '';
-  }
-
-  // Note: btnOpenBlogs now opens the Developer Journal popup via journal.js
-  if (btnOpenSocials) btnOpenSocials.addEventListener('click', () => openModal(socialsModal));
-
-  if (blogsClose) blogsClose.addEventListener('click', closeAllModals);
-  if (blogsCloseSec) blogsCloseSec.addEventListener('click', closeAllModals);
-  if (blogsBackdrop) blogsBackdrop.addEventListener('click', closeAllModals);
-
-  if (socialsClose) socialsClose.addEventListener('click', closeAllModals);
-  if (socialsCloseSec) socialsCloseSec.addEventListener('click', closeAllModals);
-  if (socialsBackdrop) socialsBackdrop.addEventListener('click', closeAllModals);
-
-  if (switchBlogsToSocials) switchBlogsToSocials.addEventListener('click', () => openModal(socialsModal));
-  if (switchSocialsToBlogs) switchSocialsToBlogs.addEventListener('click', () => openModal(blogsModal));
-
-  // Escape key closes modals
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      closeAllModals();
-    }
-  });
-
-  // Intercept nav links targeting #blogs or #socials
-  document.querySelectorAll('a[href="#blogs"], a[href="#socials"]').forEach(link => {
-    link.addEventListener('click', (e) => {
-      const target = link.getAttribute('href');
-      if (target === '#blogs') {
-        e.preventDefault();
-        openModal(blogsModal);
-      } else if (target === '#socials') {
-        e.preventDefault();
-        openModal(socialsModal);
-      }
-    });
-  });
-
-  initBlogReader();
+  // Obsolete full-screen modal overlays removed in favor of Engineering Desk Journal popup
 }
 
 /**
@@ -571,7 +801,7 @@ function initBlogReader() {
     if (placeholder) placeholder.classList.add('hidden');
     if (articleContent) {
       articleContent.classList.remove('hidden');
-      
+
       // Populate fields
       if (elTag) elTag.textContent = data.tag;
       if (elDate) elDate.textContent = data.date;
@@ -596,3 +826,594 @@ function initBlogReader() {
     btnReadFeatured.addEventListener('click', () => renderArticle('foresee-solo'));
   }
 }
+
+/**
+ * Cinematic Viewport Scroll Transitions & Lens Pop-up Reveal (Hero <-> About <-> Skills)
+ * Dynamically applies section-active and section-receding states based on viewport scroll ratio.
+ */
+function initSectionTransitions() {
+  const heroSec = document.getElementById('hero-section');
+  const aboutSec = document.getElementById('about');
+  const skillsSec = document.getElementById('skills');
+
+  if (!heroSec || !aboutSec || !skillsSec) return;
+
+  const sections = [
+    { el: heroSec, name: 'hero' },
+    { el: aboutSec, name: 'about' },
+    { el: skillsSec, name: 'skills' }
+  ];
+
+  const updateSectionStates = () => {
+    const windowHeight = window.innerHeight;
+
+    sections.forEach(({ el }) => {
+      const rect = el.getBoundingClientRect();
+      const topRatio = rect.top / windowHeight;
+      const bottomRatio = rect.bottom / windowHeight;
+
+      // Section is active inside primary viewing window
+      if (topRatio < 0.75 && bottomRatio > 0.25) {
+        el.classList.add('section-active');
+        el.classList.remove('section-receding');
+      }
+      // Section is above viewing window (scrolled past / receding upward)
+      else if (bottomRatio <= 0.25) {
+        el.classList.remove('section-active');
+        el.classList.add('section-receding');
+      }
+      // Section is below viewing window (waiting to pop up / enter)
+      else {
+        el.classList.remove('section-active');
+        el.classList.remove('section-receding');
+      }
+    });
+  };
+
+  // Run initial state setup
+  updateSectionStates();
+
+  // Optimized scroll listener
+  let tick = false;
+  window.addEventListener('scroll', () => {
+    if (!tick) {
+      window.requestAnimationFrame(() => {
+        updateSectionStates();
+        tick = false;
+      });
+      tick = true;
+    }
+  }, { passive: true });
+}
+
+/**
+ * Interactive Contact Section & Google Calendar Appointment Scheduler Engine
+ */
+function initContactAndAppointmentSystem() {
+  // Toast Helper
+  const toastEl = document.getElementById('toast-notification');
+  function showToast(msg, duration = 3000) {
+    if (!toastEl) return;
+    toastEl.textContent = msg;
+    toastEl.classList.add('active');
+    setTimeout(() => {
+      toastEl.classList.remove('active');
+    }, duration);
+  }
+
+  // 1. TAB SWITCHER (Drop a Message vs Book Appointment)
+  const tabSendMsg = document.getElementById('tab-send-msg');
+  const tabBookAppt = document.getElementById('tab-book-appt');
+  const paneMsg = document.getElementById('pane-msg');
+  const paneAppt = document.getElementById('pane-appt');
+
+  if (tabSendMsg && tabBookAppt && paneMsg && paneAppt) {
+    tabSendMsg.addEventListener('click', () => {
+      tabSendMsg.classList.add('active');
+      tabBookAppt.classList.remove('active');
+      paneMsg.classList.add('active');
+      paneAppt.classList.remove('active');
+    });
+
+    tabBookAppt.addEventListener('click', () => {
+      tabBookAppt.classList.add('active');
+      tabSendMsg.classList.remove('active');
+      paneAppt.classList.add('active');
+      paneMsg.classList.remove('active');
+    });
+  }
+
+  // 2. DIRECT MESSAGE FORM HANDLER
+  const directForm = document.getElementById('direct-contact-form');
+  if (directForm) {
+    directForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('contact-name')?.value.trim();
+      const email = document.getElementById('contact-email')?.value.trim();
+      const subject = document.getElementById('contact-subject')?.value || 'General Inquiry';
+      const message = document.getElementById('contact-message')?.value.trim();
+
+      if (!name || !email || !message) {
+        showToast('Please fill out all required fields.');
+        return;
+      }
+
+      // Pre-fill mailto fallback
+      const mailtoUrl = `mailto:krishnasahoo11156@gmail.com?subject=${encodeURIComponent(subject + ' - ' + name)}&body=${encodeURIComponent(message + '\n\nFrom: ' + name + ' (' + email + ')')}`;
+      window.open(mailtoUrl, '_blank');
+
+      showToast(`Thank you ${name}! Direct message opened in your email client.`);
+      directForm.reset();
+    });
+  }
+
+  // 3. DISCORD TAG COPY HANDLER
+  const discordCopyBtn = document.getElementById('discord-copy-btn');
+  if (discordCopyBtn) {
+    discordCopyBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText('queenbee11156').then(() => {
+        showToast('📋 Copied Discord Tag: queenbee11156');
+      }).catch(() => {
+        showToast('Copied: queenbee11156');
+      });
+    });
+  }
+
+  // 4. GOOGLE CALENDAR APPOINTMENT ENGINE
+  const apptModal = document.getElementById('appointment-modal');
+  const btnOpenModal = document.getElementById('btn-open-calendar-modal');
+  const btnCloseModal = document.getElementById('calendar-modal-close');
+  const bookingBody = document.getElementById('calendar-booking-body');
+  const confirmationBody = document.getElementById('calendar-confirmation-body');
+
+  const monthTitle = document.getElementById('cal-month-title');
+  const daysGrid = document.getElementById('calendar-days-grid');
+  const btnPrevMonth = document.getElementById('cal-prev-month');
+  const btnNextMonth = document.getElementById('cal-next-month');
+
+  const selectedSlotSummary = document.getElementById('selected-slot-summary');
+  const summaryModeText = document.getElementById('summary-mode-text');
+
+  // Calendar State
+  const now = new Date();
+  let currentYear = now.getFullYear();
+  let currentMonth = now.getMonth(); // 0-indexed
+
+  let selectedDay = now.getDate() + 1; // Default to tomorrow
+  let selectedTime = '10:00 AM';
+  let selectedMode = 'Online (Google Meet)';
+
+  const monthNames = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
+
+  function openApptModal() {
+    if (!apptModal) return;
+    apptModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    if (bookingBody) bookingBody.style.display = 'block';
+    if (confirmationBody) confirmationBody.style.display = 'none';
+    renderCalendar();
+  }
+
+  function closeApptModal() {
+    if (!apptModal) return;
+    apptModal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  if (btnOpenModal) btnOpenModal.addEventListener('click', openApptModal);
+  if (btnCloseModal) btnCloseModal.addEventListener('click', closeApptModal);
+  if (apptModal) {
+    apptModal.addEventListener('click', (e) => {
+      if (e.target === apptModal) closeApptModal();
+    });
+  }
+
+  // Render Calendar Days
+  function renderCalendar() {
+    if (!monthTitle || !daysGrid) return;
+
+    monthTitle.textContent = `${monthNames[currentMonth]} ${currentYear}`;
+    daysGrid.innerHTML = '';
+
+    const firstDayIndex = new Date(currentYear, currentMonth, 1).getDay(); // 0 is Sun
+    const totalDaysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+    // Blank cells before day 1
+    for (let i = 0; i < firstDayIndex; i++) {
+      const blank = document.createElement('div');
+      blank.className = 'cal-day-btn disabled';
+      daysGrid.appendChild(blank);
+    }
+
+    // Days 1..totalDaysInMonth
+    for (let day = 1; day <= totalDaysInMonth; day++) {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'cal-day-btn';
+      btn.textContent = day;
+
+      const dateObj = new Date(currentYear, currentMonth, day);
+      const todayFloor = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+      if (dateObj < todayFloor) {
+        btn.classList.add('disabled');
+      } else {
+        if (day === selectedDay && currentMonth === now.getMonth() && currentYear === now.getFullYear()) {
+          btn.classList.add('active');
+        }
+
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.cal-day-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          selectedDay = day;
+          updateSummary();
+        });
+      }
+
+      daysGrid.appendChild(btn);
+    }
+
+    updateSummary();
+  }
+
+  if (btnPrevMonth) {
+    btnPrevMonth.addEventListener('click', () => {
+      if (currentMonth === 0) {
+        currentMonth = 11;
+        currentYear--;
+      } else {
+        currentMonth--;
+      }
+      renderCalendar();
+    });
+  }
+
+  if (btnNextMonth) {
+    btnNextMonth.addEventListener('click', () => {
+      if (currentMonth === 11) {
+        currentMonth = 0;
+        currentYear++;
+      } else {
+        currentMonth++;
+      }
+      renderCalendar();
+    });
+  }
+
+  // Time Slot Selection
+  document.querySelectorAll('.time-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.time-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      selectedTime = chip.getAttribute('data-time') || chip.textContent;
+      updateSummary();
+    });
+  });
+
+  // Meeting Mode Selection
+  document.querySelectorAll('.mode-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      document.querySelectorAll('.mode-pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      selectedMode = pill.getAttribute('data-mode') || pill.textContent;
+      updateSummary();
+    });
+  });
+
+  function updateSummary() {
+    if (selectedSlotSummary) {
+      selectedSlotSummary.innerHTML = `Selected: <strong>${monthNames[currentMonth]} ${selectedDay}, ${currentYear} at ${selectedTime}</strong> &bull; <span>${selectedMode}</span>`;
+    }
+  }
+
+  // Appointment Submission
+  const bookerForm = document.getElementById('calendar-booker-form');
+  let currentCreatedAppt = null;
+
+  if (bookerForm) {
+    bookerForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const bookerName = document.getElementById('appt-booker-name')?.value.trim();
+      const bookerEmail = document.getElementById('appt-booker-email')?.value.trim();
+      const bookerNotes = document.getElementById('appt-booker-notes')?.value.trim() || 'General Meeting';
+
+      if (!bookerName || !bookerEmail) {
+        showToast('Please enter your name and email address.');
+        return;
+      }
+
+      const formattedDateStr = `${monthNames[currentMonth]} ${selectedDay}, ${currentYear}`;
+      const requestId = 'APT-' + Math.random().toString(36).substring(2, 7).toUpperCase();
+
+      currentCreatedAppt = {
+        id: requestId,
+        name: bookerName,
+        email: bookerEmail,
+        notes: bookerNotes,
+        dateStr: formattedDateStr,
+        timeStr: selectedTime,
+        mode: selectedMode,
+        month: currentMonth,
+        day: selectedDay,
+        year: currentYear,
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        status: 'Pending'
+      };
+
+      // Save to localStorage
+      const existing = JSON.parse(localStorage.getItem('krishna_appointments') || '[]');
+      existing.unshift(currentCreatedAppt);
+      localStorage.setItem('krishna_appointments', JSON.stringify(existing));
+
+      // Update Confirmation View UI
+      if (bookingBody) bookingBody.style.display = 'none';
+      if (confirmationBody) confirmationBody.style.display = 'flex';
+
+      const confDateTime = document.getElementById('conf-date-time');
+      const confMode = document.getElementById('conf-mode');
+      const confBooker = document.getElementById('conf-booker');
+
+      if (confDateTime) confDateTime.textContent = `${formattedDateStr} at ${selectedTime}`;
+      if (confMode) confMode.textContent = selectedMode;
+      if (confBooker) confBooker.textContent = `${bookerName} (${bookerEmail})`;
+
+      // Build Google Calendar Add Link
+      // Time parsing helper
+      const gcalBtn = document.getElementById('btn-gcal-link');
+      if (gcalBtn) {
+        const startISO = formatGoogleCalISO(currentYear, currentMonth + 1, selectedDay, selectedTime);
+        const endISO = formatGoogleCalISO(currentYear, currentMonth + 1, selectedDay, selectedTime, 45);
+        const title = encodeURIComponent(`Meeting with Krishna Sahoo (${selectedMode})`);
+        const details = encodeURIComponent(`Meeting Agenda: ${bookerNotes}\nBooked by: ${bookerName} (${bookerEmail})\nRequest ID: ${requestId}`);
+        const location = encodeURIComponent(selectedMode.includes('Online') ? 'Google Meet (Link will be sent on confirmation)' : 'Mumbai, India');
+
+        gcalBtn.href = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${startISO}/${endISO}&details=${details}&location=${location}`;
+      }
+
+      showToast('🎉 Appointment Request Logged!');
+    });
+  }
+
+  // Download .ics File Button
+  const btnDownloadIcs = document.getElementById('btn-download-ics');
+  if (btnDownloadIcs) {
+    btnDownloadIcs.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (!currentCreatedAppt) return;
+
+      const startISO = formatGoogleCalISO(currentCreatedAppt.year, currentCreatedAppt.month + 1, currentCreatedAppt.day, currentCreatedAppt.timeStr);
+      const endISO = formatGoogleCalISO(currentCreatedAppt.year, currentCreatedAppt.month + 1, currentCreatedAppt.day, currentCreatedAppt.timeStr, 45);
+
+      const icsData = [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'PRODID:-//Krishna Sahoo//Portfolio Appointment System//EN',
+        'BEGIN:VEVENT',
+        `SUMMARY:Meeting with Krishna Sahoo (${currentCreatedAppt.mode})`,
+        `DESCRIPTION:Agenda: ${currentCreatedAppt.notes}\\nBooked by: ${currentCreatedAppt.name} (${currentCreatedAppt.email})`,
+        `LOCATION:${currentCreatedAppt.mode.includes('Online') ? 'Google Meet' : 'Mumbai, India'}`,
+        `DTSTART:${startISO}`,
+        `DTEND:${endISO}`,
+        'STATUS:TENTATIVE',
+        'END:VEVENT',
+        'END:VCALENDAR'
+      ].join('\r\n');
+
+      const blob = new Blob([icsData], { type: 'text/calendar;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.setAttribute('download', `Meeting_Krishna_Sahoo_${currentCreatedAppt.id}.ics`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast('📥 Downloaded .ics Calendar File');
+    });
+  }
+
+  // Format ISO string for Google Calendar (YYYYMMDDTHHmmssZ)
+  function formatGoogleCalISO(yr, mo, dy, timeStr, addMinutes = 0) {
+    let hour = 10;
+    let minute = 0;
+
+    const match = timeStr.match(/(\d+):(\d+)\s*(AM|PM)/i);
+    if (match) {
+      hour = parseInt(match[1], 10);
+      minute = parseInt(match[2], 10);
+      const ampm = match[3].toUpperCase();
+      if (ampm === 'PM' && hour < 12) hour += 12;
+      if (ampm === 'AM' && hour === 12) hour = 0;
+    }
+
+    const dateObj = new Date(yr, mo - 1, dy, hour, minute + addMinutes);
+
+    const pad = (n) => String(n).padStart(2, '0');
+    return `${dateObj.getUTCFullYear()}${pad(dateObj.getUTCMonth() + 1)}${pad(dateObj.getUTCDate())}T${pad(dateObj.getUTCHours())}${pad(dateObj.getUTCMinutes())}00Z`;
+  }
+
+  // 5. SECURE HOST MANAGEMENT PORTAL HANDLER
+  const hostModal = document.getElementById('host-portal-modal');
+  const btnHostTrigger = document.getElementById('btn-host-login-trigger');
+  const btnCloseHostModal = document.getElementById('host-modal-close');
+
+  const hostAuthView = document.getElementById('host-auth-view');
+  const hostDashboardView = document.getElementById('host-dashboard-view');
+  const hostPasscodeInput = document.getElementById('host-passcode-input');
+  const btnUnlockHost = document.getElementById('btn-unlock-host');
+  const hostAuthError = document.getElementById('host-auth-error');
+
+  const hostRequestsList = document.getElementById('host-requests-list');
+  const hostPendingCount = document.getElementById('host-pending-count');
+  const btnClearRequests = document.getElementById('btn-clear-requests');
+
+  function openHostModal() {
+    if (!hostModal) return;
+    hostModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeHostModal() {
+    if (!hostModal) return;
+    hostModal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  if (btnHostTrigger) btnHostTrigger.addEventListener('click', openHostModal);
+  if (btnCloseHostModal) btnCloseHostModal.addEventListener('click', closeHostModal);
+
+  // Shortcut key combo Ctrl + Shift + K to toggle Host portal
+  window.addEventListener('keydown', (e) => {
+    if (e.ctrlKey && e.shiftKey && e.key.toUpperCase() === 'K') {
+      openHostModal();
+    }
+  });
+
+  if (btnUnlockHost && hostPasscodeInput) {
+    btnUnlockHost.addEventListener('click', () => {
+      if (hostPasscodeInput.value.trim() === '11156' || hostPasscodeInput.value.trim() === 'admin') {
+        if (hostAuthView) hostAuthView.style.display = 'none';
+        if (hostDashboardView) hostDashboardView.style.display = 'block';
+        if (hostAuthError) hostAuthError.style.display = 'none';
+        renderHostRequests();
+        showToast('🔓 Host Portal Unlocked');
+      } else {
+        if (hostAuthError) hostAuthError.style.display = 'block';
+      }
+    });
+  }
+
+  function renderHostRequests() {
+    if (!hostRequestsList || !hostPendingCount) return;
+
+    const requests = JSON.parse(localStorage.getItem('krishna_appointments') || '[]');
+    const pending = requests.filter(r => r.status === 'Pending');
+
+    hostPendingCount.textContent = pending.length;
+    hostRequestsList.innerHTML = '';
+
+    if (requests.length === 0) {
+      hostRequestsList.innerHTML = '<p style="color: #94a3b8; font-size: 0.9rem;">No appointment requests found.</p>';
+      return;
+    }
+
+    requests.forEach((req, idx) => {
+      const item = document.createElement('div');
+      item.className = 'request-card-item';
+
+      item.innerHTML = `
+        <div class="request-card-header">
+          <span class="request-booker-name">${req.name} (${req.email})</span>
+          <span style="font-size: 0.78rem; padding: 0.2rem 0.6rem; border-radius: 50px; background: ${req.status === 'Accepted' ? '#d1fae5; color: #047857;' : req.status === 'Rejected' ? '#fee2e2; color: #b91c1c;' : '#fef3c7; color: #b45309;'} font-weight: 700;">
+            ${req.status}
+          </span>
+        </div>
+        <div class="request-meta">
+          📍 ${req.mode} &bull; 📅 ${req.dateStr} at ${req.timeStr}
+        </div>
+        <div class="request-notes">
+          Agenda: &ldquo;${req.notes}&rdquo;
+        </div>
+        ${req.status === 'Pending' ? `
+          <div class="request-actions">
+            <button class="btn-host-accept" data-idx="${idx}">Accept &amp; Send Meet Link</button>
+            <button class="btn-host-reject" data-idx="${idx}">Reject / Reschedule</button>
+          </div>
+        ` : ''}
+      `;
+
+      hostRequestsList.appendChild(item);
+    });
+
+    // Accept / Reject Listeners
+    document.querySelectorAll('.btn-host-accept').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const idx = parseInt(btn.getAttribute('data-idx'), 10);
+        requests[idx].status = 'Accepted';
+        localStorage.setItem('krishna_appointments', JSON.stringify(requests));
+        renderHostRequests();
+        showToast(`✅ Accepted appointment for ${requests[idx].name}! Google Meet invitation dispatched.`);
+      });
+    });
+
+    document.querySelectorAll('.btn-host-reject').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const idx = parseInt(btn.getAttribute('data-idx'), 10);
+        requests[idx].status = 'Rejected';
+        localStorage.setItem('krishna_appointments', JSON.stringify(requests));
+        renderHostRequests();
+        showToast(`❌ Rejected/Rescheduled appointment for ${requests[idx].name}. Message sent.`);
+      });
+    });
+  }
+
+  if (btnClearRequests) {
+    btnClearRequests.addEventListener('click', () => {
+      localStorage.removeItem('krishna_appointments');
+      renderHostRequests();
+      showToast('Cleared all appointment logs.');
+    });
+  }
+
+  // 6. BACK TO TOP SMOOTH SCROLL
+  const btnBackToTop = document.getElementById('btn-back-to-top');
+  if (btnBackToTop) {
+    btnBackToTop.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+}
+
+/**
+ * 7. FOOTER ROLE TYPEWRITER ANIMATION
+ * Cycles continuously between AI & Full Stack Developer -> Open Source Contributor -> Freelancer
+ */
+function initFooterTypewriter() {
+  const footerTypewriterElem = document.getElementById('footer-typewriter-text');
+  if (!footerTypewriterElem) return;
+
+  const roles = [
+    "AI & Full Stack Developer",
+    "Open Source Contributor",
+    "Freelancer"
+  ];
+  let roleIdx = 0;
+  let charIdx = roles[0].length;
+  let isDeleting = false;
+  let typeSpeed = 100;
+
+  function typeFooterRole() {
+    const currentRole = roles[roleIdx];
+
+    if (isDeleting) {
+      charIdx--;
+      typeSpeed = 40;
+    } else {
+      charIdx++;
+      typeSpeed = 85;
+    }
+
+    footerTypewriterElem.textContent = currentRole.substring(0, charIdx);
+
+    if (!isDeleting && charIdx === currentRole.length) {
+      typeSpeed = 2200; // Pause when role is fully typed out
+      isDeleting = true;
+    } else if (isDeleting && charIdx === 0) {
+      isDeleting = false;
+      roleIdx = (roleIdx + 1) % roles.length;
+      typeSpeed = 300; // Pause before typing next role
+    }
+
+    setTimeout(typeFooterRole, typeSpeed);
+  }
+
+  // Start deleting first role after 2-second initial pause
+  setTimeout(() => {
+    isDeleting = true;
+    typeFooterRole();
+  }, 2000);
+}
+
+

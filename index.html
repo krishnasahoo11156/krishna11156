@@ -30,7 +30,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Lato:wght@300;400;700;900&family=Outfit:wght@300;400;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@600;700&family=Great+Vibes&family=Lato:wght@300;400;700;900&family=Outfit:wght@300;400;600;700&display=swap"
     rel="stylesheet">
 
   <!-- Preload LCP image -->
@@ -47,1381 +47,1713 @@
 <body>
   <div id="app-wrapper">
 
-  <!-- Visually hidden H1 for SEO & screen readers -->
-  <h1 class="sr-only">Krishna Sahoo — AI &amp; Full-Stack Developer Portfolio</h1>
+    <!-- Visually hidden H1 for SEO & screen readers -->
+    <h1 class="sr-only">Krishna Sahoo — AI &amp; Full-Stack Developer Portfolio</h1>
 
-  <canvas id="doodle-canvas"></canvas>
+    <canvas id="doodle-canvas"></canvas>
 
-  <header class="navbar-header">
-    <nav class="navbar">
-      <!-- Left side: Logo -->
-      <div class="navbar-logo-area">
-        <a href="#hero-section" class="navbar-logo-link">
-          <img src="assets/images/logoimage%20copy.png" alt="Krishna Sahoo Logo" class="navbar-logo">
-        </a>
+    <header class="navbar-header">
+      <nav class="navbar">
+        <!-- Left side: Logo -->
+        <div class="navbar-logo-area">
+          <a href="#hero-section" class="navbar-logo-link">
+            <img src="assets/images/logoimage%20copy.png" alt="Krishna Sahoo Logo" class="navbar-logo">
+          </a>
+        </div>
+
+        <!-- Middle: Menu Sections -->
+        <ul class="navbar-menu" role="list">
+          <li><a href="#about" aria-label="About section">About</a></li>
+          <li><a href="#skills" aria-label="Skills section">Skills</a></li>
+          <li><a href="#works" aria-label="Works section">Works</a></li>
+          <li><a href="#achievements" aria-label="Achievements section">Achievements</a></li>
+          <li><a href="#testimonials" aria-label="Testimonials section">Testimonials</a></li>
+          <li><a href="#connect" aria-label="Connect section">Connect</a></li>
+        </ul>
+
+        <!-- Right side: Resume button + Mobile Hamburger -->
+        <div class="navbar-actions">
+          <a href="sources/resume/Krishna_Sahoo_Resume.pdf" target="_blank" class="btn-resume"
+            id="resume-nav-btn">Resume</a>
+        </div>
+
+        <button class="hamburger-btn" id="hamburger-btn" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+      </nav>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay" role="dialog" aria-modal="true"
+      aria-label="Navigation menu">
+      <div class="mobile-menu" id="mobile-menu">
+        <ul class="mobile-menu-list" role="list">
+          <li><a href="#about" class="mobile-menu-link">About</a></li>
+          <li><a href="#skills" class="mobile-menu-link">Skills</a></li>
+          <li><a href="#works" class="mobile-menu-link">Works</a></li>
+          <li><a href="#achievements" class="mobile-menu-link">Achievements</a></li>
+          <li><a href="#testimonials" class="mobile-menu-link">Testimonials</a></li>
+          <li><a href="#connect" class="mobile-menu-link">Connect</a></li>
+          <li><a href="#blogs" class="mobile-menu-link journal-trigger-btn">Blogs 📖</a></li>
+          <li><a href="#socials" class="mobile-menu-link">Socials</a></li>
+        </ul>
       </div>
-
-      <!-- Middle: Menu Sections -->
-      <ul class="navbar-menu" role="list">
-        <li><a href="#about" aria-label="About section">About</a></li>
-        <li><a href="#skills" aria-label="Skills section">Skills</a></li>
-        <li><a href="#works" aria-label="Works section">Works</a></li>
-        <li><a href="#achievements" aria-label="Achievements section">Achievements</a></li>
-        <li><a href="#testimonials" aria-label="Testimonials section">Testimonials</a></li>
-        <li><a href="#connect" aria-label="Connect section">Connect</a></li>
-      </ul>
-
-      <!-- Right side: Resume button + Mobile Hamburger -->
-      <div class="navbar-actions">
-        <a href="sources/resume/Krishna_Sahoo_Resume.pdf" target="_blank" class="btn-resume"
-          id="resume-nav-btn">Resume</a>
-      </div>
-
-      <button class="hamburger-btn" id="hamburger-btn" aria-label="Toggle navigation menu" aria-expanded="false">
-        <span class="hamburger-line"></span>
-        <span class="hamburger-line"></span>
-        <span class="hamburger-line"></span>
-      </button>
-    </nav>
-  </header>
-
-  <!-- Mobile Menu Overlay -->
-  <div class="mobile-menu-overlay" id="mobile-menu-overlay" role="dialog" aria-modal="true"
-    aria-label="Navigation menu">
-    <div class="mobile-menu" id="mobile-menu">
-      <ul class="mobile-menu-list" role="list">
-        <li><a href="#about" class="mobile-menu-link">About</a></li>
-        <li><a href="#skills" class="mobile-menu-link">Skills</a></li>
-        <li><a href="#works" class="mobile-menu-link">Works</a></li>
-        <li><a href="#achievements" class="mobile-menu-link">Achievements</a></li>
-        <li><a href="#testimonials" class="mobile-menu-link">Testimonials</a></li>
-        <li><a href="#connect" class="mobile-menu-link">Connect</a></li>
-        <li><a href="#blogs" class="mobile-menu-link journal-trigger-btn">Blogs 📖</a></li>
-        <li><a href="#socials" class="mobile-menu-link">Socials</a></li>
-      </ul>
     </div>
-  </div>
 
-  <main>
-    <section class="hero" id="hero-section">
-      <div class="hero-container">
+    <main>
+      <section class="hero" id="hero-section">
+        <div class="hero-container">
 
-        <!-- Center Profile Image & Overlapping Stencil Text -->
-        <div class="hero-image-wrapper">
-          <div class="profile-container" id="profile-container">
+          <!-- Center Profile Image & Overlapping Stencil Text -->
+          <div class="hero-image-wrapper">
+            <div class="profile-container" id="profile-container">
 
-            <!-- Background Text (Grey, sits behind the image) -->
-            <div class="overlapping-text background-text">
-              <div>KRISHNA</div>
-              <div>SAHOO</div>
-            </div>
-
-            <!-- Right Side Background Tagline (sits behind the image) -->
-            <div class="overlapping-text-right background-text-right">
-              <div>I draw what I can't say</div>
-              <div>I code what I can't draw</div>
-            </div>
-
-            <!-- Profile Image (Left Side - Solid) -->
-            <img src="assets/images/krishna-removebg-preview.png" alt="Krishna Sahoo"
-              class="profile-img profile-img-left" id="profile-image">
-
-            <!-- Profile Image (Right Side - Glassmorphic Overlay) -->
-            <div class="profile-glass-wrapper">
-              <img src="assets/images/krishna-removebg-preview.png" alt="Krishna Sahoo" class="profile-img-glass-bg">
-              <div class="profile-glass-overlay"></div>
-            </div>
-
-            <!-- Foreground Text Mask (Clipped to the image, matching color of body background) -->
-            <div class="foreground-text-mask-wrapper">
-              <div class="overlapping-text foreground-text">
+              <!-- Background Text (Grey, sits behind the image) -->
+              <div class="overlapping-text background-text">
                 <div>KRISHNA</div>
                 <div>SAHOO</div>
               </div>
 
-              <!-- Right Side Foreground Tagline (Masked to the image) -->
-              <div class="overlapping-text-right foreground-text-right">
+              <!-- Right Side Background Tagline (sits behind the image) -->
+              <div class="overlapping-text-right background-text-right">
                 <div>I draw what I can't say</div>
                 <div>I code what I can't draw</div>
               </div>
-            </div>
 
-          </div>
-        </div>
+              <!-- Profile Image (Left Side - Solid) -->
+              <img src="assets/images/krishna-removebg-preview.png" alt="Krishna Sahoo"
+                class="profile-img profile-img-left" id="profile-image">
 
-            <!-- Right Side: Action Buttons & Status Line -->
-        <div class="hero-content-right" id="hero-content-right">
-          <div class="hero-buttons">
-            <button class="btn-hero btn-hero-primary journal-trigger-btn" id="btn-open-blogs" type="button" aria-label="Open Blogs Modal">
-              <span>Blogs</span>
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-            </button>
-            <button class="btn-hero btn-hero-secondary" id="btn-open-socials" type="button" aria-label="Open Socials Modal">
-              <span>Socials</span>
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
-            </button>
-          </div>
-          <div class="hero-identity-badge">
-            <span class="identity-dot"></span>
-            <span>AI &amp; Full-Stack Developer</span>
-          </div>
-        </div>      </div>
-
-      <!-- Scroll Hint Chevron -->
-      <div class="scroll-hint-chevron" id="scroll-hint" role="button" tabindex="0" aria-label="Scroll down to explore">
-        <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5"
-          stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="6 9 12 15 18 9"></polyline>
-        </svg>
-      </div>
-
-    </section>
-
-    <!-- About Section -->
-    <section class="about-section" id="about">
-      <div class="about-container">
-        <div class="about-card-container">
-          <div class="about-grid">
-
-            <!-- Left: Bio Text + Social Quick Links -->
-            <div class="about-bio">
-              <h2 class="about-title">About Me</h2>
-              <p class="about-text">
-                Hi, I'm <strong>Krishna Sahoo</strong> — a <strong>2nd-year B.Tech student in AI &amp; Data
-                  Science</strong> at <strong>VESIT, Mumbai</strong>. I build scalable, production-ready software
-                with <strong>Java Full Stack</strong> and the <strong>MERN stack</strong>, leveraging AI tools
-                to ship faster and smarter.
-              </p>
-              <p class="about-text">
-                I've competed in national-level hackathons against <strong>3,000+ developers</strong>, won
-                community competitions, and contributed to real open-source codebases. I care deeply about
-                clean architecture, performance, and software that genuinely solves problems.
-              </p>
-
-              <!-- Bio Highlight Chips -->
-              <div class="about-tech-chips">
-                <span class="about-chip">AI &amp; Data Science</span>
-                <span class="about-chip">Java Full Stack</span>
-                <span class="about-chip">MERN Stack</span>
-                <span class="about-chip">Clean Architecture</span>
-                <span class="about-chip">Hackathon Competitor</span>
+              <!-- Profile Image (Right Side - Glassmorphic Overlay) -->
+              <div class="profile-glass-wrapper">
+                <img src="assets/images/krishna-removebg-preview.png" alt="Krishna Sahoo" class="profile-img-glass-bg">
+                <div class="profile-glass-overlay"></div>
               </div>
-            </div>
 
-            <!-- Right: Stats Grid -->
-            <div class="about-right">
-              <div class="about-stats-grid">
-                <div class="stat-card" id="stat-cgpa">
-                  <div class="stat-value">9.74</div>
-                  <div class="stat-label">CGPA</div>
+              <!-- Foreground Text Mask (Clipped to the image, matching color of body background) -->
+              <div class="foreground-text-mask-wrapper">
+                <div class="overlapping-text foreground-text">
+                  <div>KRISHNA</div>
+                  <div>SAHOO</div>
                 </div>
-                <div class="stat-card" id="stat-projects">
-                  <div class="stat-value">5+</div>
-                  <div class="stat-label">Projects Shipped</div>
-                </div>
-                <div class="stat-card" id="stat-hackathons">
-                  <div class="stat-value">4</div>
-                  <div class="stat-label">Hackathons</div>
-                </div>
-                <div class="stat-card" id="stat-prs">
-                  <div class="stat-value">9</div>
-                  <div class="stat-label">Open Source PRs</div>
-                </div>
-                <div class="stat-card" id="stat-competitors">
-                  <div class="stat-value">3K+</div>
-                  <div class="stat-label">Devs Outranked</div>
-                </div>
-                <div class="stat-card" id="stat-certs">
-                  <div class="stat-value">7+</div>
-                  <div class="stat-label">Certifications</div>
+
+                <!-- Right Side Foreground Tagline (Masked to the image) -->
+                <div class="overlapping-text-right foreground-text-right">
+                  <div>I draw what I can't say</div>
+                  <div>I code what I can't draw</div>
                 </div>
               </div>
+
             </div>
-
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Skills Section (Sketch-to-Code Workbench) -->
-    <section class="skills-section" id="skills">
-      <div class="skills-container">
-        <!-- Left Panel: The Sketchpad -->
-        <div class="sketchpad-panel">
-          <div class="sketchpad-header">
-            <h2 class="skills-title">Skills & Toolchain</h2>
-            <p class="skills-subtitle">Click a category to trace my skillset blueprint in real-time.</p>
           </div>
 
-          <div class="skills-categories-nav">
-            <button class="category-btn active" data-category="languages">
-              <span class="btn-num">01</span>
-              <span class="btn-text">Languages</span>
-            </button>
-            <button class="category-btn" data-category="backend">
-              <span class="btn-num">02</span>
-              <span class="btn-text">Java & Backend</span>
-            </button>
-            <button class="category-btn" data-category="frontend">
-              <span class="btn-num">03</span>
-              <span class="btn-text">Frontend</span>
-            </button>
-            <button class="category-btn" data-category="databases">
-              <span class="btn-num">04</span>
-              <span class="btn-text">Databases</span>
-            </button>
-            <button class="category-btn" data-category="cloud">
-              <span class="btn-num">05</span>
-              <span class="btn-text">Cloud & DevOps</span>
-            </button>
-            <button class="category-btn" data-category="apis">
-              <span class="btn-num">06</span>
-              <span class="btn-text">APIs</span>
-            </button>
-            <button class="category-btn" data-category="tools">
-              <span class="btn-num">07</span>
-              <span class="btn-text">Tools</span>
-            </button>
-          </div>
-
-          <!-- Drawing Area -->
-          <div class="sketchpad-canvas-wrapper">
-            <div class="sketchpad-grid-lines"></div>
-            <div class="sketchpad-canvas" id="sketchpad-canvas">
-              <!-- SVG drawings will be dynamically generated and animated here -->
+          <!-- Right Side: Action Buttons & Status Line -->
+          <div class="hero-content-right" id="hero-content-right">
+            <div class="hero-buttons">
+              <button class="btn-hero btn-hero-primary journal-trigger-btn" id="btn-open-blogs" type="button"
+                aria-label="Open Blogs Modal">
+                <span>Blogs</span>
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </button>
+              <button class="btn-hero btn-hero-secondary" id="btn-open-socials" type="button"
+                aria-label="Open Socials Modal">
+                <span>Socials</span>
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="18" cy="5" r="3"></circle>
+                  <circle cx="6" cy="12" r="3"></circle>
+                  <circle cx="18" cy="19" r="3"></circle>
+                  <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                  <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                </svg>
+              </button>
+            </div>
+            <div class="hero-identity-badge">
+              <span class="identity-dot"></span>
+              <span>AI &amp; Full-Stack Developer</span>
             </div>
           </div>
         </div>
 
-        <!-- Right Panel: Code Editor -->
-        <div class="code-editor-panel">
-          <!-- Editor Window Frame -->
-          <div class="editor-header">
-            <div class="editor-dots">
-              <span class="dot dot-red"></span>
-              <span class="dot dot-yellow"></span>
-              <span class="dot dot-green"></span>
-            </div>
-            <div class="editor-title-tab">
-              <span class="file-icon">&#x1F4CC;</span>
-              <span class="file-name" id="editor-file-name">languages.json</span>
-            </div>
-            <div class="editor-window-actions">
-              <span class="editor-action-btn">&#x2212;</span>
-              <span class="editor-action-btn">&#x25A2;</span>
-              <span class="editor-action-btn">&#x2715;</span>
-            </div>
-          </div>
+        <!-- Scroll Hint Chevron -->
+        <div class="scroll-hint-chevron" id="scroll-hint" role="button" tabindex="0"
+          aria-label="Scroll down to explore">
+          <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
 
-          <div class="editor-workspace">
-            <div class="line-numbers" id="editor-line-numbers">
-              <!-- Dynamically populated line numbers -->
+      </section>
+
+      <!-- About Section -->
+      <section class="about-section" id="about">
+        <div class="about-container">
+          <div class="about-card-container">
+
+            <!-- Bento Grid Main Container -->
+            <div class="about-bento-grid">
+
+              <!-- TOP ROW: LEFT HEADER / BIO & RIGHT STATS BENTO -->
+              <div class="bento-top-row">
+
+                <!-- Left: Header, Headline & Core Bio -->
+                <div class="bento-bio-card">
+                  <h2 class="bento-headline">
+                    MEET <span class="bento-highlight">THE ENGINEER</span>
+                  </h2>
+                  <p class="bento-cursive-tagline">
+                    Curiosity turned into code. <span class="cursive-underline">One project at a time.</span>
+                  </p>
+                  <p class="bento-bio-text">
+                    I'm <strong>Krishna Sahoo</strong>, a 2nd-year B.Tech student in AI &amp; Data Science at VESIT,
+                    Mumbai.
+                    I love building <span class="bio-accent">scalable, intelligent</span> and <span
+                      class="bio-accent">impactful</span> products that solve real problems.
+                    From winning hackathons to contributing to open source. I am learning <span
+                      class="bio-accent-subtle">Java Full Stack</span> and building real world solutions using <span
+                      class="bio-accent-subtle">AI in MERN stacks</span>.
+                  </p>
+
+                  <!-- 4 Core Engineering Value Cards -->
+                  <div class="about-values-grid">
+                    <div class="value-card">
+                      <h4>Ship First</h4>
+                      <p>I believe in shipping fast and improving continuously.</p>
+                    </div>
+                    <div class="value-card">
+                      <h4>Solve Real Problems</h4>
+                      <p>I build solutions that create real impact for real users.</p>
+                    </div>
+                    <div class="value-card">
+                      <h4>Clean &amp; Scalable</h4>
+                      <p>Clean architecture and performance are non-negotiable.</p>
+                    </div>
+                    <div class="value-card">
+                      <h4>Learn Publicly</h4>
+                      <p>I document my journey so others can learn with me.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Right: 6-Card Stats Bento Grid -->
+                <div class="bento-stats-card">
+                  <div class="stats-bento-grid">
+                    <div class="stat-bento-box">
+                      <div class="stat-num" data-target="9.74">9.74</div>
+                      <div class="stat-title">CGPA</div>
+                      <div class="stat-sub">Top 5% of Class</div>
+                    </div>
+                    <div class="stat-bento-box">
+                      <div class="stat-num" data-target="15+">15+</div>
+                      <div class="stat-title">Projects Shipped</div>
+                      <div class="stat-sub">Full Stack &amp; AI</div>
+                    </div>
+                    <div class="stat-bento-box">
+                      <div class="stat-num" data-target="3">3</div>
+                      <div class="stat-title">Hackathons</div>
+                      <div class="stat-sub">1 Won &bull; 1 Finalist &bull; 1 Semi</div>
+                    </div>
+                    <div class="stat-bento-box">
+                      <div class="stat-num" data-target="9">9</div>
+                      <div class="stat-title">Open Source PRs</div>
+                      <div class="stat-sub">Contributed</div>
+                    </div>
+                    <div class="stat-bento-box">
+                      <div class="stat-num" data-target="149">149</div>
+                      <div class="stat-title">LeetCode Solved</div>
+                      <div class="stat-sub">DSA Problems</div>
+                    </div>
+                    <div class="stat-bento-box">
+                      <div class="stat-num" data-target="6+">6+</div>
+                      <div class="stat-title">Certifications</div>
+                      <div class="stat-sub">And Counting</div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- BOTTOM ROW: CURRENTLY BUILDING, TIMELINE, BUILD WITH, WORKSPACE -->
+              <div class="bento-bottom-row">
+
+                <!-- Card 1: Currently Building -->
+                <div class="bento-card bento-card-building">
+                  <div class="card-section-label">
+                    <span class="green-dot"></span> CURRENTLY BUILDING
+                  </div>
+                  <div class="building-item-list">
+                    <div class="building-item" data-project-id="code2git"
+                      data-preview-img="assets/images/projects/code2git/code2GitLogo2.png" data-title="Code2Git">
+                      <div class="item-content">
+                        <h5>Code2Git</h5>
+                        <p>All solved DSA problems, consolidated in one place</p>
+                      </div>
+                    </div>
+                    <div class="building-item" data-project-id="foresee"
+                      data-preview-img="assets/images/projects/foresee/image.png" data-title="AI Agents">
+                      <div class="item-content">
+                        <h5>AI Agents</h5>
+                        <p>Exploring agentic workflows &amp; real-world apps</p>
+                      </div>
+                    </div>
+                    <div class="building-item" data-project-id="thegreenroom"
+                      data-preview-img="assets/images/projects/thegreenroom/image.png" data-title="The Green Room">
+                      <div class="item-content">
+                        <h5>The Green Room</h5>
+                        <p>Persona based chat system</p>
+                      </div>
+                    </div>
+                    <div class="building-item" data-project-id="code2git"
+                      data-preview-img="assets/images/projects/code2git/c2g3.png" data-title="DSA">
+                      <div class="item-content">
+                        <h5>DSA</h5>
+                        <p>Solving, practicing and mastering Data Structures &amp; Algorithms</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card 2: Journey Timeline (Creative Step Cards) -->
+                <div class="bento-card bento-card-timeline">
+                  <div class="card-section-label">
+                    <span class="green-dot"></span> JOURNEY TIMELINE
+                  </div>
+
+                  <div class="creative-timeline">
+
+                    <div class="timeline-step">
+                      <div class="step-connector">
+                        <span class="step-dot"></span>
+                      </div>
+                      <div class="step-card">
+                        <div class="step-header">
+                          <span class="step-date">July 2025</span>
+                          <span class="step-tag tag-genesis">Genesis</span>
+                        </div>
+                        <div class="step-title">Started Coding</div>
+                      </div>
+                    </div>
+
+                    <div class="timeline-step">
+                      <div class="step-connector">
+                        <span class="step-dot"></span>
+                      </div>
+                      <div class="step-card">
+                        <div class="step-header">
+                          <span class="step-date">Dec 2025</span>
+                          <span class="step-tag">First Sprint</span>
+                        </div>
+                        <div class="step-title">Participated in First Hackathon</div>
+                      </div>
+                    </div>
+
+                    <div class="timeline-step">
+                      <div class="step-connector">
+                        <span class="step-dot"></span>
+                      </div>
+                      <div class="step-card">
+                        <div class="step-header">
+                          <span class="step-date">Mar 2026</span>
+                          <span class="step-tag tag-finalist">Finalist</span>
+                        </div>
+                        <div class="step-title">First Hackathon Finalist</div>
+                      </div>
+                    </div>
+
+                    <div class="timeline-step">
+                      <div class="step-connector">
+                        <span class="step-dot"></span>
+                      </div>
+                      <div class="step-card">
+                        <div class="step-header">
+                          <span class="step-date">Apr 2026</span>
+                          <span class="step-tag tag-victory">Winner</span>
+                        </div>
+                        <div class="step-title">First Solo Hackathon Won</div>
+                      </div>
+                    </div>
+
+                    <div class="timeline-step">
+                      <div class="step-connector">
+                        <span class="step-dot"></span>
+                      </div>
+                      <div class="step-card">
+                        <div class="step-header">
+                          <span class="step-date">Jun 2026</span>
+                          <span class="step-tag">Open Source</span>
+                        </div>
+                        <div class="step-title">First Open Source Project</div>
+                      </div>
+                    </div>
+
+                    <div class="timeline-step step-active">
+                      <div class="step-connector">
+                        <span class="step-dot dot-beacon"></span>
+                      </div>
+                      <div class="step-card card-active">
+                        <div class="step-header">
+                          <span class="step-date">July 2026</span>
+                          <span class="step-tag tag-active">11k+ Devs</span>
+                        </div>
+                        <div class="step-title">Semi-finalist in International Hackathon <span
+                            class="highlight-badge">Global Top</span></div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <!-- Card 3: I Build With + My Workspace Stack Grid -->
+                <div class="bento-card bento-card-stack-workspace">
+
+                  <!-- Sub-section 1: I Build With -->
+                  <div class="stack-subsection">
+                    <div class="card-section-label">I BUILD WITH</div>
+                    <div class="tech-icon-grid">
+                      <img src="assets/images/icons/java.svg" alt="Java" title="Java" class="tech-icon-only" />
+                      <img src="assets/images/icons/spring (1).svg" alt="Spring" title="Spring"
+                        class="tech-icon-only" />
+                      <img src="assets/images/icons/html-5.svg" alt="HTML" title="HTML5" class="tech-icon-only" />
+                      <img src="assets/images/icons/css-3.svg" alt="CSS" title="CSS3" class="tech-icon-only" />
+                      <img src="assets/images/icons/javascript (2).svg" alt="JavaScript" title="JavaScript"
+                        class="tech-icon-only" />
+                      <img src="assets/images/icons/postgresql.svg" alt="PostgreSQL" title="PostgreSQL"
+                        class="tech-icon-only" />
+                    </div>
+                  </div>
+
+                  <!-- Sub-section 2: My Workspace + Handcrafted Desk Plant -->
+                  <div class="workspace-subsection">
+                    <div class="card-section-label">
+                      MY WORKSPACE
+                    </div>
+                    <p class="workspace-subtext">Tools &amp; things I love</p>
+
+                    <div class="tech-icon-grid">
+                      <img src="assets/images/tools icon/visual-studio-code.svg" alt="VS Code" title="VS Code"
+                        class="tech-icon-only" />
+                      <img src="assets/images/tools icon/git-icon (1).svg" alt="Git" title="Git"
+                        class="tech-icon-only" />
+                      <img src="assets/images/tools icon/github-icon.svg" alt="GitHub" title="GitHub"
+                        class="tech-icon-only" />
+                      <img src="assets/images/tools icon/antigravity-color.svg" alt="Antigravity" title="Antigravity"
+                        class="tech-icon-only" />
+                      <img src="assets/images/tools icon/claude-icon (1).svg" alt="Claude" title="Claude"
+                        class="tech-icon-only" />
+                      <img src="assets/images/tools icon/openai-icon.svg" alt="OpenAI" title="OpenAI"
+                        class="tech-icon-only" />
+                      <img src="assets/images/tools icon/firebase-icon.svg" alt="Firebase" title="Firebase"
+                        class="tech-icon-only" />
+                      <img src="assets/images/tools icon/supabase-icon.svg" alt="Supabase" title="Supabase"
+                        class="tech-icon-only" />
+                      <img src="assets/images/tools icon/google-cloud.svg" alt="Google Cloud" title="Google Cloud"
+                        class="tech-icon-only" />
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
             </div>
-            <pre class="editor-code-container"><code id="editor-code"><!-- Typed code will appear here --></code></pre>
+
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Works Section — Bento Grid + Immersive Sheet -->
-    <section class="works-section" id="works">
-      <div class="works-container">
-        <div class="works-header">
-          <h2 class="works-title">Projects & Footprints</h2>
-          <p class="works-subtitle">Explore my software applications, hackathon sprints, and open-source contributions.
+      <!-- Skills Section (Sketch-to-Code Workbench) -->
+      <section class="skills-section" id="skills">
+        <div class="skills-container">
+          <!-- Left Panel: The Sketchpad -->
+          <div class="sketchpad-panel">
+            <div class="sketchpad-header">
+              <h2 class="skills-title">SKILLS <span class="skills-highlight">&amp; TOOLCHAIN</span></h2>
+              <p class="skills-subtitle">Click a category to trace my skillset blueprint in real-time.</p>
+            </div>
+
+            <div class="skills-categories-nav">
+              <button class="category-btn active" data-category="languages">
+                <span class="btn-num">01</span>
+                <span class="btn-text">Languages</span>
+              </button>
+              <button class="category-btn" data-category="backend">
+                <span class="btn-num">02</span>
+                <span class="btn-text">Java & Backend</span>
+              </button>
+              <button class="category-btn" data-category="frontend">
+                <span class="btn-num">03</span>
+                <span class="btn-text">Frontend</span>
+              </button>
+              <button class="category-btn" data-category="databases">
+                <span class="btn-num">04</span>
+                <span class="btn-text">Databases</span>
+              </button>
+              <button class="category-btn" data-category="cloud">
+                <span class="btn-num">05</span>
+                <span class="btn-text">Cloud & DevOps</span>
+              </button>
+              <button class="category-btn" data-category="apis">
+                <span class="btn-num">06</span>
+                <span class="btn-text">APIs</span>
+              </button>
+              <button class="category-btn" data-category="tools">
+                <span class="btn-num">07</span>
+                <span class="btn-text">Tools</span>
+              </button>
+            </div>
+
+            <!-- Drawing Area -->
+            <div class="sketchpad-canvas-wrapper">
+              <div class="sketchpad-grid-lines"></div>
+              <div class="sketchpad-canvas" id="sketchpad-canvas">
+                <!-- SVG drawings will be dynamically generated and animated here -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Panel: Code Editor & Hidden Behind Image -->
+          <div class="code-editor-wrapper">
+            <!-- Revealed Background Image when editor is minimized -->
+            <div class="editor-behind-image-container">
+              <img src="assets/images/skills section/ChatGPT Image Jul 23, 2026, 08_38_31 AM.png"
+                alt="Behind Code Editor Illustration" class="editor-behind-image" />
+            </div>
+
+            <!-- Code Editor Panel -->
+            <div class="code-editor-panel">
+              <!-- Editor Window Frame -->
+              <div class="editor-header">
+                <div class="editor-dots">
+                  <span class="dot dot-red"></span>
+                  <span class="dot dot-yellow"></span>
+                  <span class="dot dot-green"></span>
+                </div>
+                <div class="editor-title-tab">
+                  <span class="file-icon">&#x1F4CC;</span>
+                  <span class="file-name" id="editor-file-name">languages.json</span>
+                </div>
+                <div class="editor-window-actions">
+                  <button type="button" class="editor-action-btn btn-minimize active" id="editor-btn-minimize"
+                    aria-label="Minimize editor" title="Minimize editor">&#x2212;</button>
+                  <button type="button" class="editor-action-btn btn-maximize disabled" id="editor-btn-maximize"
+                    aria-label="Maximize editor" title="Maximize editor">&#x25A2;</button>
+                </div>
+              </div>
+
+              <div class="editor-workspace">
+                <div class="line-numbers" id="editor-line-numbers">
+                  <!-- Dynamically populated line numbers -->
+                </div>
+                <pre
+                  class="editor-code-container"><code id="editor-code"><!-- Typed code will appear here --></code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Works Section — Bento Grid + Immersive Sheet -->
+      <section class="works-section" id="works">
+        <div class="works-container">
+          <div class="works-header">
+            <h2 class="works-title">PROJECTS <span class="works-highlight">&amp; FOOTPRINTS</span></h2>
+            <p class="works-subtitle">Selected engineering work — software applications, hackathon sprints, and open-source
+              systems.
+            </p>
+            <div class="works-tabs">
+              <button class="works-tab-btn active" data-tab="projects">Projects</button>
+              <button class="works-tab-btn" data-tab="hackathons">Hackathons</button>
+              <button class="works-tab-btn" data-tab="opensource">Open-Source</button>
+            </div>
+          </div>
+
+          <!-- Bento grid: featured card + compact grid, populated by works.js -->
+          <div class="works-bento" id="works-bento"></div>
+        </div>
+      </section>
+
+      <!-- Sticky Canvas Memories Section (Surprise Section) -->
+      <section class="memories-section" id="memories">
+        <div class="memories-canvas-background">
+          <div class="canvas-grid-pattern"></div>
+          <div class="canvas-ambient-glow"></div>
+          <div class="canvas-vignette"></div>
+
+          <div class="memories-board-container" id="memories-board">
+            <div class="memories-header-badge">
+              <span class="pin-icon">📌</span>
+              <span class="board-title-text">MEMORIES &amp; SNAPSHOTS</span>
+            </div>
+
+            <!-- Canvas board area ready for memory sticky notes/photos -->
+            <div class="memories-board-canvas" id="memories-board-canvas"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Achievements Section — Infinite Dual-Axis Conveyor -->
+      <section class="achievements-section" id="achievements">
+        <div class="achievements-header">
+          <h2 class="achievements-title">Achievements</h2>
+          <p class="achievements-subtitle">A dynamic ledger of credentials, hackathon victories, and academic
+            milestones.
           </p>
-          <div class="works-tabs">
-            <button class="works-tab-btn active" data-tab="projects">Projects</button>
-            <button class="works-tab-btn" data-tab="hackathons">Hackathons</button>
-            <button class="works-tab-btn" data-tab="opensource">Open-Source</button>
+        </div>
+
+        <!-- Meta Count Strip -->
+        <div class="achievements-meta-strip" id="achievements-meta-strip"></div>
+
+        <!-- Category Filter Bar -->
+        <div class="achievements-filter-bar" id="achievements-filter-bar">
+          <button class="filter-pill active" data-filter="all" id="filter-all">All</button>
+          <button class="filter-pill" data-filter="hackathon" id="filter-hackathon">🏆 Hackathon Wins</button>
+          <button class="filter-pill" data-filter="cloud" id="filter-cloud">&#x2601;&#xFE0F; Cloud Badges</button>
+          <button class="filter-pill" data-filter="academic" id="filter-academic">&#x1F393; Academic</button>
+          <button class="filter-pill" data-filter="opensource" id="filter-opensource">&#x1F680; Open Source</button>
+        </div>
+
+        <div class="conveyor-container" id="conveyor-container">
+          <!-- Row 1: Sliding Left -->
+          <div class="conveyor-row row-left">
+            <div class="conveyor-track" id="row-left-track">
+              <!-- Generated dynamically by achievements.js -->
+            </div>
+          </div>
+
+          <!-- Row 2: Sliding Right -->
+          <div class="conveyor-row row-right">
+            <div class="conveyor-track" id="row-right-track">
+              <!-- Generated dynamically by achievements.js -->
+            </div>
           </div>
         </div>
 
-        <!-- Bento grid: featured card + compact grid, populated by works.js -->
-        <div class="works-bento" id="works-bento"></div>
-      </div>
-    </section>
-
-    <!-- Achievements Section — Infinite Dual-Axis Conveyor -->
-    <section class="achievements-section" id="achievements">
-      <div class="achievements-header">
-        <h2 class="achievements-title">Achievements</h2>
-        <p class="achievements-subtitle">A dynamic ledger of credentials, hackathon victories, and academic milestones.
-        </p>
-      </div>
-
-      <!-- Meta Count Strip -->
-      <div class="achievements-meta-strip" id="achievements-meta-strip"></div>
-
-      <!-- Category Filter Bar -->
-      <div class="achievements-filter-bar" id="achievements-filter-bar">
-        <button class="filter-pill active" data-filter="all" id="filter-all">All</button>
-        <button class="filter-pill" data-filter="hackathon" id="filter-hackathon">🏆 Hackathon Wins</button>
-        <button class="filter-pill" data-filter="cloud" id="filter-cloud">&#x2601;&#xFE0F; Cloud Badges</button>
-        <button class="filter-pill" data-filter="academic" id="filter-academic">&#x1F393; Academic</button>
-        <button class="filter-pill" data-filter="opensource" id="filter-opensource">&#x1F680; Open Source</button>
-      </div>
-
-      <div class="conveyor-container" id="conveyor-container">
-        <!-- Row 1: Sliding Left -->
-        <div class="conveyor-row row-left">
-          <div class="conveyor-track" id="row-left-track">
-            <!-- Generated dynamically by achievements.js -->
-          </div>
+        <div class="conveyor-status-tip">
+          <span>Hover any card to pause &nbsp;&middot;&nbsp; Click to inspect details</span>
         </div>
+      </section>
 
-        <!-- Row 2: Sliding Right -->
-        <div class="conveyor-row row-right">
-          <div class="conveyor-track" id="row-right-track">
-            <!-- Generated dynamically by achievements.js -->
-          </div>
-        </div>
-      </div>
 
-      <div class="conveyor-status-tip">
-        <span>Hover any card to pause &nbsp;&middot;&nbsp; Click to inspect details</span>
-      </div>
-    </section>
 
-    <!-- ============================================================
-         Blogs Section — Coming Soon
-         ============================================================ -->
-    <section class="coming-soon-section" id="blogs">
-      <div class="coming-soon-container">
-        <div class="coming-soon-pill">Coming Soon</div>
-        <div class="coming-soon-icon" aria-hidden="true">&#x270D;&#xFE0F;</div>
-        <h2 class="coming-soon-title">Blogs</h2>
-        <p class="coming-soon-desc">Build logs, technical deep-dives, and lessons from shipping real products. Articles
-          on what I build, what breaks, and what I learn along the way.</p>
-        <div class="blog-previews">
-          <div class="blog-preview-card">
-            <span class="blog-tag">Hackathon</span>
-            <p class="blog-preview-title">How I Built ForeSee in 48 Hours as a Solo Dev Against 3,000+ Competitors</p>
-            <span class="blog-preview-eta">Publishing Soon &#x2192;</span>
-          </div>
-          <div class="blog-preview-card">
-            <span class="blog-tag">Architecture</span>
-            <p class="blog-preview-title">15 Agents, 1 Pub/Sub Bus: My Event-Driven Orchestration Pattern</p>
-            <span class="blog-preview-eta">Publishing Soon &#x2192;</span>
-          </div>
-          <div class="blog-preview-card">
-            <span class="blog-tag">Open Source</span>
-            <p class="blog-preview-title">9 PRs in 2 Weeks: My Complete InboxOS Contribution Journey</p>
-            <span class="blog-preview-eta">Publishing Soon &#x2192;</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================================
-         Sketches Section — Coming Soon
-         ============================================================ -->
-    <section class="coming-soon-section sketches-section" id="sketches">
-      <div class="coming-soon-container">
-        <div class="coming-soon-pill sketches-pill">Coming Soon</div>
-        <div class="coming-soon-icon" aria-hidden="true">&#x1F3A8;</div>
-        <h2 class="coming-soon-title sketches-title">Sketches</h2>
-        <p class="coming-soon-desc">"I draw what I can&rsquo;t say, I code what I can&rsquo;t draw." A gallery of pencil
-          artwork, digital illustrations, and visual explorations — the creative side of an engineer.</p>
-        <div class="sketch-grid-placeholder">
-          <div class="sketch-card-placeholder"><span>Architecture Doodles</span></div>
-          <div class="sketch-card-placeholder"><span>Character Studies</span></div>
-          <div class="sketch-card-placeholder"><span>Concept Illustrations</span></div>
-          <div class="sketch-card-placeholder"><span>Interface Wireframes</span></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================================
+      <!-- ============================================================
          Testimonials Section
          ============================================================ -->
-    <section class="testimonials-section" id="testimonials">
-      <div class="testimonials-container">
-        <div class="section-header-standard">
-          <h2 class="section-title-standard">What People Say</h2>
-          <p class="section-subtitle-standard">Feedback from peers, mentors, and collaborators I&rsquo;ve worked with.
-          </p>
-        </div>
-
-        <div class="testimonials-track-wrapper" id="testimonials-track-wrapper">
-          <div class="testimonials-track" id="testimonials-track">
-
-            <div class="testimonial-card">
-              <div class="testimonial-stars">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</div>
-              <p class="testimonial-text">&ldquo;Krishna has an exceptional ability to turn complex ideas into working
-                software in record time. His work on StudySync &mdash; particularly the Web Audio synthesis engine
-                &mdash; was genuinely innovative for a second-year student.&rdquo;</p>
-              <div class="testimonial-attribution">
-                <div class="testimonial-avatar" style="--avatar-color: #0ea271;">PB</div>
-                <div class="testimonial-meta">
-                  <div class="testimonial-name">parth.builds Community</div>
-                  <div class="testimonial-role">UniMerge 1.0 Hackathon Organizer</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="testimonial-card">
-              <div class="testimonial-stars">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</div>
-              <p class="testimonial-text">&ldquo;One of the most self-driven developers I&rsquo;ve seen at the 2nd-year
-                level. Krishna approached a production TypeScript monorepo with Docker, Prisma, and Redis, and merged 9
-                PRs in under two weeks. That kind of initiative is rare.&rdquo;</p>
-              <div class="testimonial-attribution">
-                <div class="testimonial-avatar" style="--avatar-color: #0984e3;">IO</div>
-                <div class="testimonial-meta">
-                  <div class="testimonial-name">InboxOS Maintainer</div>
-                  <div class="testimonial-role">Open Source Project Lead</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="testimonial-card">
-              <div class="testimonial-stars">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</div>
-              <p class="testimonial-text">&ldquo;In our CrisisSync team project, Krishna handled Flutter integration,
-                Firebase real-time sync, and the Gemini triage classifier simultaneously. He never needed to be asked
-                twice &mdash; he just built it and it worked.&rdquo;</p>
-              <div class="testimonial-attribution">
-                <div class="testimonial-avatar" style="--avatar-color: #e74c3c;">AM</div>
-                <div class="testimonial-meta">
-                  <div class="testimonial-name">Team AlgoMinds</div>
-                  <div class="testimonial-role">Hackathon Collaborator &mdash; Google Solution Challenge</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="testimonial-card">
-              <div class="testimonial-stars">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</div>
-              <p class="testimonial-text">&ldquo;Krishna&rsquo;s portfolio itself is a testament to his engineering
-                depth &mdash; custom canvas physics, SVG path tracing, bento grid transitions, all in vanilla JS. This
-                level of craftsmanship is not typical student work.&rdquo;</p>
-              <div class="testimonial-attribution">
-                <div class="testimonial-avatar" style="--avatar-color: #8e75b2;">SR</div>
-                <div class="testimonial-meta">
-                  <div class="testimonial-name">Technical Reviewer</div>
-                  <div class="testimonial-role">Engineering Evaluation Panel</div>
-                </div>
-              </div>
-            </div>
-
+      <section class="testimonials-section" id="testimonials">
+        <div class="testimonials-container">
+          <div class="section-header-standard">
+            <h2 class="section-title-standard">What People Say</h2>
+            <p class="section-subtitle-standard">Feedback from peers, mentors, and collaborators I&rsquo;ve worked with.
+            </p>
           </div>
+
+          <div class="testimonials-track-wrapper" id="testimonials-track-wrapper">
+            <div class="testimonials-track" id="testimonials-track">
+
+              <div class="testimonial-card">
+                <div class="testimonial-stars">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</div>
+                <p class="testimonial-text">&ldquo;Krishna has an exceptional ability to turn complex ideas into working
+                  software in record time. His work on StudySync &mdash; particularly the Web Audio synthesis engine
+                  &mdash; was genuinely innovative for a second-year student.&rdquo;</p>
+                <div class="testimonial-attribution">
+                  <div class="testimonial-avatar" style="--avatar-color: #0ea271;">PB</div>
+                  <div class="testimonial-meta">
+                    <div class="testimonial-name">parth.builds Community</div>
+                    <div class="testimonial-role">UniMerge 1.0 Hackathon Organizer</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="testimonial-card">
+                <div class="testimonial-stars">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</div>
+                <p class="testimonial-text">&ldquo;One of the most self-driven developers I&rsquo;ve seen at the
+                  2nd-year
+                  level. Krishna approached a production TypeScript monorepo with Docker, Prisma, and Redis, and merged
+                  9
+                  PRs in under two weeks. That kind of initiative is rare.&rdquo;</p>
+                <div class="testimonial-attribution">
+                  <div class="testimonial-avatar" style="--avatar-color: #0984e3;">IO</div>
+                  <div class="testimonial-meta">
+                    <div class="testimonial-name">InboxOS Maintainer</div>
+                    <div class="testimonial-role">Open Source Project Lead</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="testimonial-card">
+                <div class="testimonial-stars">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</div>
+                <p class="testimonial-text">&ldquo;In our CrisisSync team project, Krishna handled Flutter integration,
+                  Firebase real-time sync, and the Gemini triage classifier simultaneously. He never needed to be asked
+                  twice &mdash; he just built it and it worked.&rdquo;</p>
+                <div class="testimonial-attribution">
+                  <div class="testimonial-avatar" style="--avatar-color: #e74c3c;">AM</div>
+                  <div class="testimonial-meta">
+                    <div class="testimonial-name">Team AlgoMinds</div>
+                    <div class="testimonial-role">Hackathon Collaborator &mdash; Google Solution Challenge</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="testimonial-card">
+                <div class="testimonial-stars">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</div>
+                <p class="testimonial-text">&ldquo;Krishna&rsquo;s portfolio itself is a testament to his engineering
+                  depth &mdash; custom canvas physics, SVG path tracing, bento grid transitions, all in vanilla JS. This
+                  level of craftsmanship is not typical student work.&rdquo;</p>
+                <div class="testimonial-attribution">
+                  <div class="testimonial-avatar" style="--avatar-color: #8e75b2;">SR</div>
+                  <div class="testimonial-meta">
+                    <div class="testimonial-name">Technical Reviewer</div>
+                    <div class="testimonial-role">Engineering Evaluation Panel</div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <p class="testimonials-note">&#x2726; Testimonials reflect feedback from hackathons and collaborations. Real
+            endorsements being collected.</p>
         </div>
+      </section>
 
-        <p class="testimonials-note">&#x2726; Testimonials reflect feedback from hackathons and collaborations. Real
-          endorsements being collected.</p>
-      </div>
-    </section>
-
-    <!-- ============================================================
-         Connect Section
+      <!-- ============================================================
+         Connect Section — Refined Dual Split Card Hub
          ============================================================ -->
-    <section class="connect-section" id="connect">
-      <div class="connect-container">
+      <section class="connect-section" id="connect">
+        <div class="connect-container">
 
-        <div class="connect-header">
-          <h2 class="connect-title">Let&rsquo;s Build Something</h2>
-          <p class="connect-subtitle">I&rsquo;m open to internship opportunities, project collaborations, and
-            conversations about AI, full-stack development, and impactful software.</p>
+          <div class="connect-header">
+            <span class="connect-badge">
+              <span class="connect-badge-dot"></span>
+              Open to Internships &bull; Summer 2027
+            </span>
+            <h2 class="connect-title">GET IN TOUCH</h2>
+            <p class="connect-subtitle">Have a project in mind, an internship opportunity, or want to discuss AI and full-stack development? Reach out directly or schedule a meeting on my calendar.</p>
+          </div>
+
+          <!-- Main Split-Card Container (Left Light Theme | Diagonal Divider | Right Dark Theme) -->
+          <div class="contact-split-card">
+
+            <!-- LEFT SIDE: Light Theme Surface for Interactive Forms -->
+            <div class="contact-card-left">
+              <div class="contact-tabs-bar">
+                <button class="contact-tab-btn active" id="tab-send-msg" data-tab="msg">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                    <polyline points="22,6 12,13 2,6"/>
+                  </svg>
+                  Drop a Message
+                </button>
+                <button class="contact-tab-btn" id="tab-book-appt" data-tab="appt">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                    <line x1="16" y1="2" x2="16" y2="6"/>
+                    <line x1="8" y1="2" x2="8" y2="6"/>
+                    <line x1="3" y1="10" x2="21" y2="10"/>
+                  </svg>
+                  Book Appointment
+                </button>
+              </div>
+
+              <!-- PANE 1: Direct Email Message Form -->
+              <div class="contact-pane active" id="pane-msg">
+                <h3 class="pane-heading">Send a Direct Message</h3>
+                <p class="pane-subtext">Fill in your details below to send me a direct email message.</p>
+
+                <form class="contact-form" id="direct-contact-form">
+                  <div class="form-row-dual">
+                    <div class="form-group">
+                      <label for="contact-name">Full Name <span class="req">*</span></label>
+                      <input type="text" id="contact-name" placeholder="e.g. Alex Morgan" required />
+                    </div>
+                    <div class="form-group">
+                      <label for="contact-email">Email Address <span class="req">*</span></label>
+                      <input type="email" id="contact-email" placeholder="alex@example.com" required />
+                    </div>
+                  </div>
+
+                  <div class="form-row-dual">
+                    <div class="form-group">
+                      <label for="contact-subject">Topic / Subject</label>
+                      <select id="contact-subject">
+                        <option value="Internship / Hiring">Internship / Hiring</option>
+                        <option value="Project Collaboration">Project Collaboration</option>
+                        <option value="Freelance / Contract">Freelance / Contract</option>
+                        <option value="General Inquiry">General Inquiry</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="contact-phone">Phone (Optional)</label>
+                      <input type="tel" id="contact-phone" placeholder="+1 (555) 000-0000" />
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="contact-message">Message <span class="req">*</span></label>
+                    <textarea id="contact-message" rows="4" placeholder="Tell me about your project, team, or opportunity..." required></textarea>
+                  </div>
+
+                  <button type="submit" class="btn-send-message" id="btn-send-message">
+                    <span>Send Message</span>
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="22" y1="2" x2="11" y2="13"></line>
+                      <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                  </button>
+                </form>
+              </div>
+
+              <!-- PANE 2: Quick Appointment Booking Teaser -->
+              <div class="contact-pane" id="pane-appt">
+                <h3 class="pane-heading">Schedule a 1-on-1 Meeting</h3>
+                <p class="pane-subtext">Pick a date & time from Google Calendar. Choose Online (Google Meet) or Offline (In-Person).</p>
+
+                <div class="appt-teaser-box">
+                  <div class="appt-features-grid">
+                    <div class="appt-feature-card">
+                      <div class="feature-icon">🌐</div>
+                      <div class="feature-info">
+                        <h4>Online Meeting</h4>
+                        <p>Google Meet link generated automatically</p>
+                      </div>
+                    </div>
+                    <div class="appt-feature-card">
+                      <div class="feature-icon">📍</div>
+                      <div class="feature-info">
+                        <h4>Offline Meeting</h4>
+                        <p>In-Person chat around Mumbai / VESIT</p>
+                      </div>
+                    </div>
+                    <div class="appt-feature-card">
+                      <div class="feature-icon">📅</div>
+                      <div class="feature-info">
+                        <h4>Google Calendar Sync</h4>
+                        <p>Instant event add & downloadable .ics</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <button class="btn-open-calendar-modal" id="btn-open-calendar-modal">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                      <line x1="16" y1="2" x2="16" y2="6"/>
+                      <line x1="8" y1="2" x2="8" y2="6"/>
+                      <line x1="3" y1="10" x2="21" y2="10"/>
+                    </svg>
+                    <span>Book an Appointment Now</span>
+                  </button>
+                </div>
+              </div>
+
+            </div><!-- End Left Side -->
+
+            <!-- DIAGONAL SLICE SEPARATOR WITH EMERALD GARNISH -->
+            <div class="contact-diagonal-divider" aria-hidden="true"></div>
+
+            <!-- RIGHT SIDE: Dark Emerald Theme Surface for Contact Info, Discord & Social Links -->
+            <div class="contact-card-right">
+
+              <!-- Contact Info Heading & Badges -->
+              <div class="right-header">
+                <h3>Contact Information</h3>
+                <p>Direct channels to connect with me</p>
+              </div>
+
+              <div class="right-info-list">
+                <div class="info-item">
+                  <div class="info-icon">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                      <polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                  </div>
+                  <div class="info-text">
+                    <span class="info-label">Direct Email</span>
+                    <a href="mailto:krishnasahoo11156@gmail.com" class="info-value">krishnasahoo11156@gmail.com</a>
+                  </div>
+                </div>
+
+                <div class="info-item">
+                  <div class="info-icon">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                      <circle cx="12" cy="10" r="3"/>
+                    </svg>
+                  </div>
+                  <div class="info-text">
+                    <span class="info-label">Location</span>
+                    <span class="info-value">Mumbai, Maharashtra, India (VESIT)</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- HANDCRAFTED DISCORD PROFILE WIDGET (Reference 1 Style) -->
+              <div class="discord-profile-card">
+                <div class="discord-card-header">
+                  <div class="discord-avatar-wrapper">
+                    <img src="assets/images/profile.png" alt="Discord Profile Avatar" class="discord-avatar-img" />
+                    <span class="discord-online-dot" title="Online"></span>
+                  </div>
+                  <div class="discord-status-bubble">
+                    <span class="bubble-plus">+</span>
+                    <span class="bubble-text">Last song stuck in your head?</span>
+                  </div>
+                </div>
+
+                <div class="discord-user-info">
+                  <div class="discord-display-name">eclipse</div>
+                  <div class="discord-username">queenbee11156</div>
+                  <p class="discord-quote">&ldquo;I draw what I can&rsquo;t say<br>I code what I can&rsquo;t draw&rdquo;</p>
+                </div>
+
+                <div class="discord-actions-row">
+                  <button class="discord-copy-btn" id="discord-copy-btn">
+                    <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                    <span>Copy Tag</span>
+                  </button>
+                  <span class="discord-badge-tag">🟢 Online</span>
+                </div>
+              </div>
+
+              <!-- SOCIAL MEDIA CHANNELS GRID -->
+              <div class="social-channels-grid">
+                <a href="https://github.com/krishnasahoo11156" target="_blank" class="social-channel-btn" title="GitHub">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                    <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+                  </svg>
+                  <span>GitHub</span>
+                </a>
+
+                <a href="https://www.linkedin.com/in/krishna-sahoo-b3440537a/" target="_blank" class="social-channel-btn" title="LinkedIn">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                  </svg>
+                  <span>LinkedIn</span>
+                </a>
+
+                <a href="https://x.com/Krishna11156" target="_blank" class="social-channel-btn" title="X (Twitter)">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                  </svg>
+                  <span>X / Twitter</span>
+                </a>
+
+                <a href="https://leetcode.com/u/KrishnaSahoo11156/" target="_blank" class="social-channel-btn" title="LeetCode">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                    <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z" />
+                  </svg>
+                  <span>LeetCode</span>
+                </a>
+              </div>
+
+              <!-- Discrete Host Entry Switcher (Hidden Host Key Entry) -->
+              <div class="host-entry-footer">
+                <button class="btn-host-login-trigger" id="btn-host-login-trigger" title="Host Management Portal (Passcode Required)">
+                  <span>🔒 Host Portal Access</span>
+                </button>
+              </div>
+
+            </div><!-- End Right Side -->
+
+          </div><!-- End .contact-split-card -->
+
         </div>
+      </section>
 
-        <div class="availability-chip" id="availability-chip">
-          <span class="availability-dot"></span>
-          <span>Open to Internships &nbsp;&middot;&nbsp; Summer 2027</span>
+      <!-- ============================================================
+         GOOGLE CALENDAR APPOINTMENT SCHEDULER MODAL
+         ============================================================ -->
+      <div class="calendar-modal-backdrop" id="appointment-modal" role="dialog" aria-modal="true">
+        <div class="calendar-modal-container">
+          <button class="calendar-modal-close" id="calendar-modal-close" aria-label="Close scheduler">&times;</button>
+
+          <div class="calendar-modal-header">
+            <div class="modal-header-icon">📅</div>
+            <div>
+              <h3>Book an Appointment with Krishna</h3>
+              <p>Select date, time slot, and meeting preference below</p>
+            </div>
+          </div>
+
+          <div class="calendar-modal-body" id="calendar-booking-body">
+
+            <!-- STEP 1: Date & Time Picker -->
+            <div class="calendar-picker-layout">
+
+              <!-- Left Column: Interactive Calendar Grid -->
+              <div class="calendar-widget">
+                <div class="calendar-nav-bar">
+                  <button class="cal-nav-btn" id="cal-prev-month" title="Previous Month">&larr;</button>
+                  <span class="cal-month-title" id="cal-month-title">July 2026</span>
+                  <button class="cal-nav-btn" id="cal-next-month" title="Next Month">&rarr;</button>
+                </div>
+
+                <div class="calendar-weekdays">
+                  <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+                </div>
+
+                <div class="calendar-days-grid" id="calendar-days-grid">
+                  <!-- Dynamically populated days -->
+                </div>
+              </div>
+
+              <!-- Right Column: Time Slots & Meeting Mode -->
+              <div class="time-slots-column">
+                <div class="slot-section-title">Select Meeting Mode</div>
+                <div class="mode-selector-pills">
+                  <button class="mode-pill active" data-mode="Online (Google Meet)">
+                    <span>🌐 Online (Google Meet)</span>
+                  </button>
+                  <button class="mode-pill" data-mode="Offline (In-Person)">
+                    <span>📍 Offline (Mumbai)</span>
+                  </button>
+                </div>
+
+                <div class="slot-section-title" style="margin-top: 1.2rem;">Select Time Slot</div>
+                <div class="time-slots-grid" id="time-slots-grid">
+                  <button class="time-chip active" data-time="10:00 AM">10:00 AM</button>
+                  <button class="time-chip" data-time="11:30 AM">11:30 AM</button>
+                  <button class="time-chip" data-time="02:00 PM">02:00 PM</button>
+                  <button class="time-chip" data-time="04:30 PM">04:30 PM</button>
+                  <button class="time-chip" data-time="06:00 PM">06:00 PM</button>
+                  <button class="time-chip" data-time="07:30 PM">07:30 PM</button>
+                </div>
+
+                <div class="selected-slot-summary" id="selected-slot-summary">
+                  Selected: <strong>July 25, 2026 at 10:00 AM</strong> &bull; <span id="summary-mode-text">Online (Google Meet)</span>
+                </div>
+              </div>
+
+            </div><!-- End .calendar-picker-layout -->
+
+            <!-- STEP 2: Booker Contact Form -->
+            <form class="calendar-booker-form" id="calendar-booker-form">
+              <div class="form-row-dual">
+                <div class="form-group">
+                  <label for="appt-booker-name">Your Full Name <span class="req">*</span></label>
+                  <input type="text" id="appt-booker-name" placeholder="e.g. Sarah Jenkins" required />
+                </div>
+                <div class="form-group">
+                  <label for="appt-booker-email">Your Email Address <span class="req">*</span></label>
+                  <input type="email" id="appt-booker-email" placeholder="sarah@company.com" required />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="appt-booker-notes">Meeting Agenda / Notes</label>
+                <textarea id="appt-booker-notes" rows="2" placeholder="Briefly share what you would like to discuss during our meeting..."></textarea>
+              </div>
+
+              <button type="submit" class="btn-submit-appointment" id="btn-submit-appointment">
+                <span>Confirm &amp; Request Appointment</span>
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </button>
+            </form>
+
+          </div><!-- End #calendar-booking-body -->
+
+          <!-- CONFIRMATION & GOOGLE CALENDAR SYNC VIEW (Shown after submitting) -->
+          <div class="calendar-confirmation-body" id="calendar-confirmation-body" style="display: none;">
+            <div class="conf-success-icon">🎉</div>
+            <h3>Appointment Request Submitted!</h3>
+            <p>Your appointment request has been logged and sent to <strong>krishnasahoo11156@gmail.com</strong>.</p>
+
+            <div class="conf-details-card">
+              <div class="conf-detail-row">
+                <span>Date &amp; Time:</span>
+                <strong id="conf-date-time">July 25, 2026 at 10:00 AM</strong>
+              </div>
+              <div class="conf-detail-row">
+                <span>Meeting Mode:</span>
+                <strong id="conf-mode">Online (Google Meet)</strong>
+              </div>
+              <div class="conf-detail-row">
+                <span>Booked By:</span>
+                <strong id="conf-booker">Sarah Jenkins (sarah@company.com)</strong>
+              </div>
+              <div class="conf-detail-row">
+                <span>Status:</span>
+                <span class="status-badge-pending">⏳ Pending Host Approval</span>
+              </div>
+            </div>
+
+            <div class="conf-action-buttons">
+              <a href="#" target="_blank" class="btn-gcal-link" id="btn-gcal-link">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                  <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
+                </svg>
+                <span>Add to Google Calendar</span>
+              </a>
+
+              <button class="btn-download-ics" id="btn-download-ics">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                <span>Download .ics Event File</span>
+              </button>
+            </div>
+
+            <p class="conf-footer-note">Once Krishna accepts your request, a direct Google Meet invitation will be emailed to your inbox.</p>
+          </div>
+
         </div>
+      </div>
 
-        <div class="connect-links-grid">
-          <a href="mailto:krishnasahoo11156@gmail.com" class="connect-link-btn" id="connect-email">
-            <div class="connect-link-icon">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
+      <!-- ============================================================
+         SECURE HOST MANAGEMENT PORTAL MODAL (Password Protected)
+         ============================================================ -->
+      <div class="host-modal-backdrop" id="host-portal-modal" role="dialog" aria-modal="true">
+        <div class="host-modal-container">
+          <button class="host-modal-close" id="host-modal-close" aria-label="Close host portal">&times;</button>
+
+          <div class="host-modal-header">
+            <h3>🔒 Host Appointment Management</h3>
+            <p>Review incoming booking requests, accept/reject meetings, and dispatch calendar invites</p>
+          </div>
+
+          <!-- Auth View (Passcode Prompt) -->
+          <div class="host-auth-view" id="host-auth-view">
+            <p>Please enter the Host Passcode to view private booking requests:</p>
+            <div class="host-auth-row">
+              <input type="password" id="host-passcode-input" placeholder="Enter Host Passcode (11156)" />
+              <button class="btn-unlock-host" id="btn-unlock-host">Unlock Portal</button>
+            </div>
+            <p class="auth-error-msg" id="host-auth-error" style="display: none; color: #ef4444; margin-top: 0.5rem; font-size: 0.85rem;">Incorrect passcode. Hint: Use 11156</p>
+          </div>
+
+          <!-- Requests Dashboard View (Logged in) -->
+          <div class="host-dashboard-view" id="host-dashboard-view" style="display: none;">
+            <div class="dashboard-top-bar">
+              <span>Pending Requests: <strong id="host-pending-count">0</strong></span>
+              <button class="btn-clear-requests" id="btn-clear-requests">Clear All Requests</button>
+            </div>
+
+            <div class="host-requests-list" id="host-requests-list">
+              <!-- Dynamically populated request items -->
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Global Toast Notification Container -->
+      <div class="toast-notification" id="toast-notification" role="status" aria-live="polite"></div>
+
+    </main>
+
+    <!-- Footer Top Divider with Central Emerald Accent -->
+    <div class="footer-top-divider" aria-hidden="true">
+      <span class="divider-emerald-tick"></span>
+    </div>
+
+    <!-- Site Footer — Product-Grade Redesign -->
+    <footer class="site-footer" role="contentinfo">
+      <div class="footer-container">
+
+        <!-- Main 3-Column Grid -->
+        <div class="footer-main-grid footer-grid-3col">
+
+          <!-- 1. Left Personal Signature Column -->
+          <div class="footer-profile-col">
+            <h3 class="footer-profile-name">Krishna Sahoo</h3>
+            <p class="footer-profile-role">
+              <span id="footer-typewriter-text">AI &amp; Full Stack Developer</span><span class="typewriter-cursor">|</span>
+            </p>
+            <p class="footer-profile-bio">Building thoughtful software with curiosity and precision.</p>
+            <div class="footer-profile-location">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+              <span>Mumbai &bull; VESIT &bull; Class of 2029</span>
+            </div>
+            <div class="footer-availability-badge">
+              <span class="availability-dot-green"></span>
+              <span>Available for Opportunities</span>
+            </div>
+          </div>
+
+          <!-- Center Gray Watermark Logo Shadow -->
+          <div class="footer-center-logo" aria-hidden="true">
+            <img src="assets/images/logoimage copy.png" alt="" class="footer-watermark-img" />
+          </div>
+
+          <!-- Right Grouped Columns (Pushed Right with Open Center) -->
+          <div class="footer-right-cols">
+            <!-- 2. Explore Navigation Column -->
+            <div class="footer-nav-col">
+              <h4 class="footer-col-title">EXPLORE</h4>
+              <ul class="footer-links-list">
+                <li><a href="#about" class="footer-link">About</a></li>
+                <li><a href="#skills" class="footer-link">Skills</a></li>
+                <li><a href="#works" class="footer-link">Works</a></li>
+                <li><a href="#achievements" class="footer-link">Achievements</a></li>
+              </ul>
+            </div>
+
+            <!-- 3. Resources Navigation Column -->
+            <div class="footer-nav-col">
+              <h4 class="footer-col-title">RESOURCES</h4>
+              <ul class="footer-links-list">
+                <li><a href="#testimonials" class="footer-link">Testimonials</a></li>
+                <li><a href="#blogs" class="footer-link">Blogs</a></li>
+                <li><a href="sources/resume/Krishna_Sahoo_Resume.pdf" target="_blank" class="footer-link">Resume</a></li>
+                <li><a href="#connect" class="footer-link">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+
+        </div><!-- End .footer-main-grid -->
+
+        <!-- Infinite Scrolling Social Icons Ticker -->
+        <div class="footer-ticker-wrapper" aria-label="Social links infinite scroll">
+          <div class="footer-ticker-track">
+            <!-- Set 1 -->
+            <a href="https://github.com/krishnasahoo11156" target="_blank" class="ticker-icon-btn" aria-label="GitHub" title="GitHub">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+              </svg>
+            </a>
+            <a href="https://linkedin.com/in/krishnasahoo11156" target="_blank" class="ticker-icon-btn" aria-label="LinkedIn" title="LinkedIn">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.239-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+              </svg>
+            </a>
+            <a href="https://x.com/Krishna11156" target="_blank" class="ticker-icon-btn" aria-label="Twitter" title="Twitter / X">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+            </a>
+            <a href="https://leetcode.com/u/krishnasahoo11156/" target="_blank" class="ticker-icon-btn" aria-label="LeetCode" title="LeetCode">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z" />
+              </svg>
+            </a>
+            <a href="mailto:krishnasahoo11156@gmail.com" class="ticker-icon-btn" aria-label="Email" title="Email">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                 <polyline points="22,6 12,13 2,6" />
               </svg>
-            </div>
-            <div class="connect-link-text">
-              <span class="connect-link-label">Email Me</span>
-              <span class="connect-link-value">krishnasahoo11156@gmail.com</span>
-            </div>
-            <span class="connect-link-arrow">&#x2192;</span>
-          </a>
-
-          <a href="https://github.com/krishnasahoo11156" target="_blank" class="connect-link-btn"
-            id="connect-github-btn">
-            <div class="connect-link-icon">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
-                <path
-                  d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
-              </svg>
-            </div>
-            <div class="connect-link-text">
-              <span class="connect-link-label">GitHub</span>
-              <span class="connect-link-value">krishnasahoo11156</span>
-            </div>
-            <span class="connect-link-arrow">&#x2192;</span>
-          </a>
-
-          <a href="https://linkedin.com/in/krishnasahoo11156" target="_blank" class="connect-link-btn"
-            id="connect-linkedin-btn">
-            <div class="connect-link-icon">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
-                <path
-                  d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-              </svg>
-            </div>
-            <div class="connect-link-text">
-              <span class="connect-link-label">LinkedIn</span>
-              <span class="connect-link-value">krishnasahoo11156</span>
-            </div>
-            <span class="connect-link-arrow">&#x2192;</span>
-          </a>
-
-          <a href="https://leetcode.com/u/krishnasahoo11156/" target="_blank" class="connect-link-btn"
-            id="connect-leetcode-btn">
-            <div class="connect-link-icon">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
-                <path
-                  d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z" />
-              </svg>
-            </div>
-            <div class="connect-link-text">
-              <span class="connect-link-label">LeetCode</span>
-              <span class="connect-link-value">krishnasahoo11156</span>
-            </div>
-            <span class="connect-link-arrow">&#x2192;</span>
-          </a>
-        </div>
-
-      </div>
-    </section>
-
-  </main>
-
-  <!-- Site Footer -->
-  <footer class="site-footer">
-    <div class="footer-container">
-      <div class="footer-grid">
-
-        <div class="footer-brand">
-          <img src="assets/images/logoimage copy.png" alt="Krishna Sahoo" class="footer-logo">
-          <p class="footer-tagline">AI &amp; Full-Stack Developer<br>VESIT Mumbai &nbsp;&middot;&nbsp; Class of 2027</p>
-        </div>
-
-        <nav class="footer-nav" aria-label="Footer navigation">
-          <div class="footer-nav-col">
-            <span class="footer-nav-heading">Portfolio</span>
-            <a href="#about" class="footer-nav-link">About</a>
-            <a href="#skills" class="footer-nav-link">Skills</a>
-            <a href="#works" class="footer-nav-link">Works</a>
-            <a href="#achievements" class="footer-nav-link">Achievements</a>
-          </div>
-          <div class="footer-nav-col">
-            <span class="footer-nav-heading">More</span>
-            <a href="#testimonials" class="footer-nav-link">Testimonials</a>
-            <a href="#blogs" class="footer-nav-link">Blogs</a>
-            <a href="#socials" class="footer-nav-link">Socials</a>
-            <a href="#connect" class="footer-nav-link">Connect</a>
-          </div>
-        </nav>
-
-        <div class="footer-social-col">
-          <span class="footer-nav-heading">Find Me</span>
-          <div class="footer-social-icons">
-            <a href="https://github.com/krishnasahoo11156" target="_blank" class="footer-social-btn" id="footer-github"
-              aria-label="GitHub">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                <path
-                  d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+            </a>
+            <a href="#connect" class="ticker-icon-btn" aria-label="Discord" title="Discord (queenbee11156)">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.893.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
               </svg>
             </a>
-            <a href="https://linkedin.com/in/krishnasahoo11156" target="_blank" class="footer-social-btn"
-              id="footer-linkedin" aria-label="LinkedIn">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                <path
-                  d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+
+            <!-- Set 2 (Duplicate for Seamless Infinite Loop) -->
+            <a href="https://github.com/krishnasahoo11156" target="_blank" class="ticker-icon-btn" aria-label="GitHub" title="GitHub">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
               </svg>
             </a>
-            <a href="https://leetcode.com/u/krishnasahoo11156/" target="_blank" class="footer-social-btn"
-              id="footer-leetcode" aria-label="LeetCode">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                <path
-                  d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z" />
+            <a href="https://linkedin.com/in/krishnasahoo11156" target="_blank" class="ticker-icon-btn" aria-label="LinkedIn" title="LinkedIn">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.239-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
               </svg>
             </a>
-            <a href="mailto:krishnasahoo11156@gmail.com" class="footer-social-btn" id="footer-email" aria-label="Email">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
+            <a href="https://x.com/Krishna11156" target="_blank" class="ticker-icon-btn" aria-label="Twitter" title="Twitter / X">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+            </a>
+            <a href="https://leetcode.com/u/krishnasahoo11156/" target="_blank" class="ticker-icon-btn" aria-label="LeetCode" title="LeetCode">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z" />
+              </svg>
+            </a>
+            <a href="mailto:krishnasahoo11156@gmail.com" class="ticker-icon-btn" aria-label="Email" title="Email">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                 <polyline points="22,6 12,13 2,6" />
               </svg>
             </a>
+            <a href="#connect" class="ticker-icon-btn" aria-label="Discord" title="Discord (queenbee11156)">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.893.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Bottom Information Row -->
+        <div class="footer-bottom-row">
+          <div class="footer-bottom-left">
+            <button class="btn-back-to-top" id="btn-back-to-top" aria-label="Back to top">
+              <span class="btn-text">Back to Top</span>
+            </button>
+          </div>
+
+          <div class="footer-bottom-center">
+            <p>Built from scratch using<br><strong>Vanilla JavaScript</strong>, <strong>Modern CSS</strong>, <strong>Performance-first engineering</strong>.</p>
+          </div>
+
+          <div class="footer-bottom-right">
+            <p>&copy; 2026 Krishna Sahoo<br>Designed &amp; engineered with precision.</p>
           </div>
         </div>
 
       </div>
-      <div class="footer-bottom">
-        <span>&copy; 2026 Krishna Sahoo</span>
-        <span class="footer-separator">&middot;</span>
-        <span>Built with Vanilla JS &amp; CSS &mdash; No frameworks, just craft</span>
-      </div>
-    </div>
-  </footer>
+    </footer>
 
-  <!-- Portal Zoom Details Overlay -->
-  <div class="portal-zoom-overlay" id="portal-zoom-overlay">
-    <div class="portal-content-wrapper">
-      <div class="portal-left">
-        <img src="" alt="Certificate" class="portal-cert-img" id="portal-cert-img">
-      </div>
-      <div class="portal-right">
-        <button class="portal-close-btn" id="portal-close-btn">&times;</button>
-        <div>
-          <span class="portal-category-badge" id="portal-category-badge">Category</span>
-          <h3 class="portal-title" id="portal-title">Achievement Title</h3>
-          <div class="portal-issuer" id="portal-issuer">Organization</div>
-          <div class="portal-date" id="portal-date">Date</div>
-          <p class="portal-desc" id="portal-desc">Description details...</p>
-          <div class="portal-tech-row" id="portal-tech-row">
-            <!-- Tech pills -->
-          </div>
+    <!-- Portal Zoom Details Overlay -->
+    <div class="portal-zoom-overlay" id="portal-zoom-overlay">
+      <div class="portal-content-wrapper">
+        <div class="portal-left">
+          <img src="" alt="Certificate" class="portal-cert-img" id="portal-cert-img">
         </div>
-        <a href="" target="_blank" class="btn-portal-verify" id="btn-portal-verify">Verify Credential</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Portal Lightbox Zoom Overlay -->
-  <div class="portal-lightbox" id="portal-lightbox">
-    <img src="" alt="Certificate Zoom" class="portal-lightbox-img" id="portal-lightbox-img">
-  </div>
-
-  <!-- Resume Viewer Modal -->
-  <div class="resume-modal" id="resume-modal">
-    <div class="resume-modal-container">
-      <div class="resume-modal-header">
-        <div class="resume-modal-title">
-          Krishna Sahoo - Resume
-        </div>
-        <div class="resume-modal-actions">
-          <a href="sources/resume/Krishna_Sahoo_Resume.pdf" target="_blank" class="resume-action-btn"
-            title="Open in New Tab">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-              <polyline points="15 3 21 3 21 9"></polyline>
-              <line x1="10" y1="14" x2="21" y2="3"></line>
-            </svg>
-            <span>Open in New Tab</span>
-          </a>
-          <a href="sources/resume/Krishna_Sahoo_Resume.pdf" download="Krishna_Sahoo_Resume.pdf"
-            class="resume-action-btn" title="Download Resume">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-              <polyline points="7 10 12 15 17 10"></polyline>
-              <line x1="12" y1="15" x2="12" y2="3"></line>
-            </svg>
-            <span>Download</span>
-          </a>
-          <button class="resume-close-btn" id="resume-close-btn" aria-label="Close modal">&times;</button>
-        </div>
-      </div>
-      <div class="resume-modal-body">
-        <iframe src="sources/resume/Krishna_Sahoo_Resume.pdf#toolbar=0" id="resume-iframe" width="100%"
-          height="100%"></iframe>
-      </div>
-    </div>
-  </div>
-
-  <!-- ==========================================
-       NEAR FULL-SCREEN MODAL OVERLAYS (BLOGS & SOCIALS)
-       ========================================== -->
-
-  <!-- BLOGS FULL-SCREEN MODAL OVERLAY (SPLIT-VIEW) -->
-  <div class="full-modal-overlay" id="blogs-modal-overlay" aria-hidden="true">
-    <div class="full-modal-backdrop" id="blogs-modal-backdrop"></div>
-    <div class="full-modal-container modal-blogs-split">
-      
-      <!-- Modal Header -->
-      <div class="full-modal-header">
-        <div class="modal-title-group">
-          <span class="modal-icon">&#x270D;&#xFE0F;</span>
+        <div class="portal-right">
+          <button class="portal-close-btn" id="portal-close-btn">&times;</button>
           <div>
-            <h2 class="modal-title">Articles &amp; Technical Build Logs</h2>
-            <p class="modal-subtitle">Select an article from the conveyor on the left to read full log</p>
+            <span class="portal-category-badge" id="portal-category-badge">Category</span>
+            <h3 class="portal-title" id="portal-title">Achievement Title</h3>
+            <div class="portal-issuer" id="portal-issuer">Organization</div>
+            <div class="portal-date" id="portal-date">Date</div>
+            <p class="portal-desc" id="portal-desc">Description details...</p>
+            <div class="portal-tech-row" id="portal-tech-row">
+              <!-- Tech pills -->
+            </div>
           </div>
-        </div>
-        <div class="modal-header-actions">
-          <button class="modal-switch-btn" id="modal-blogs-to-socials" type="button">Socials &rarr;</button>
-          <button class="modal-close-btn" id="modal-blogs-close" type="button" aria-label="Close Modal">&times;</button>
+          <a href="" target="_blank" class="btn-portal-verify" id="btn-portal-verify">Verify Credential</a>
         </div>
       </div>
-
-      <!-- Modal Body: 50/50 Split (Left Conveyor, Right Article Reader) -->
-      <div class="blogs-split-body">
-        
-        <!-- LEFT HALF: Conveyor Belt of Blog Cards -->
-        <div class="blogs-split-left">
-          <div class="conveyor-2col-grid">
-            
-            <!-- Column 1: Moves DOWN -->
-            <div class="conveyor-col conveyor-col-down">
-              <div class="modal-card modal-blog-card" data-article-id="foresee-solo">
-                <div class="card-header-badge-row">
-                  <span class="card-tag tag-featured">Hackathon Sprint</span>
-                  <span class="card-date">Oct 2024</span>
-                </div>
-                <h3 class="card-title">Building ForeSee Solo vs 3,000+ Devs</h3>
-                <p class="card-excerpt">Architecting a real-time crisis dispatch pipeline with WebSocket fallbacks under 48 hours.</p>
-                <div class="card-footer">
-                  <span class="card-meta">5 min read</span>
-                  <span class="card-arrow">Read Article &rarr;</span>
-                </div>
-              </div>
-
-              <div class="modal-card modal-blog-card" data-article-id="agent-bus">
-                <div class="card-header-badge-row">
-                  <span class="card-tag tag-mono">System Design</span>
-                  <span class="card-date">Dec 2024</span>
-                </div>
-                <h3 class="card-title">Event-Driven Micro-Agent Bus Pattern</h3>
-                <p class="card-excerpt">Designing decoupled pub/sub message routing with state persistence and automatic failover.</p>
-                <div class="card-footer">
-                  <span class="card-meta">7 min read</span>
-                  <span class="card-arrow">Read Article &rarr;</span>
-                </div>
-              </div>
-
-              <div class="modal-card modal-blog-card" data-article-id="css-shaders">
-                <div class="card-header-badge-row">
-                  <span class="card-tag tag-mono">Frontend Craft</span>
-                  <span class="card-date">Feb 2025</span>
-                </div>
-                <h3 class="card-title">Mastering Dual-Axis CSS Shaders &amp; Canvas</h3>
-                <p class="card-excerpt">Building performant stencil mask overlays, backdrop blurs, and interactive canvas engines.</p>
-                <div class="card-footer">
-                  <span class="card-meta">4 min read</span>
-                  <span class="card-arrow">Read Article &rarr;</span>
-                </div>
-              </div>
-
-              <div class="modal-card modal-blog-card" data-article-id="websocket-10k">
-                <div class="card-header-badge-row">
-                  <span class="card-tag tag-mono">Performance</span>
-                  <span class="card-date">Nov 2024</span>
-                </div>
-                <h3 class="card-title">Scaling WebSockets to 10k Connections</h3>
-                <p class="card-excerpt">Benchmarking Node.js cluster modes, Redis pub/sub adapters, and memory footprint optimizations.</p>
-                <div class="card-footer">
-                  <span class="card-meta">9 min read</span>
-                  <span class="card-arrow">Read Article &rarr;</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Column 2: Moves UP -->
-            <div class="conveyor-col conveyor-col-up">
-              <div class="modal-card modal-blog-card" data-article-id="inboxos-prs">
-                <div class="card-header-badge-row">
-                  <span class="card-tag tag-featured">Open Source</span>
-                  <span class="card-date">Nov 2024</span>
-                </div>
-                <h3 class="card-title">9 PRs in 2 Weeks: Lessons from InboxOS</h3>
-                <p class="card-excerpt">Navigating large TypeScript monorepos, Docker containerization, and Prisma migrations.</p>
-                <div class="card-footer">
-                  <span class="card-meta">6 min read</span>
-                  <span class="card-arrow">Read Article &rarr;</span>
-                </div>
-              </div>
-
-              <div class="modal-card modal-blog-card" data-article-id="gemini-triage">
-                <div class="card-header-badge-row">
-                  <span class="card-tag tag-mono">AI Systems</span>
-                  <span class="card-date">Jan 2025</span>
-                </div>
-                <h3 class="card-title">Prompt Engineering vs Fine-Tuning</h3>
-                <p class="card-excerpt">Comparing latency, cost, and classification accuracy for emergency crisis dispatching.</p>
-                <div class="card-footer">
-                  <span class="card-meta">8 min read</span>
-                  <span class="card-arrow">Read Article &rarr;</span>
-                </div>
-              </div>
-
-              <div class="modal-card modal-blog-card" data-article-id="clean-java">
-                <div class="card-header-badge-row">
-                  <span class="card-tag tag-mono">Backend Design</span>
-                  <span class="card-date">Mar 2025</span>
-                </div>
-                <h3 class="card-title">Clean Architecture in Java &amp; Spring</h3>
-                <p class="card-excerpt">Separating domain logic from infrastructure frameworks for maintainable web services.</p>
-                <div class="card-footer">
-                  <span class="card-meta">6 min read</span>
-                  <span class="card-arrow">Read Article &rarr;</span>
-                </div>
-              </div>
-
-              <div class="modal-card modal-blog-card" data-article-id="rag-hyde">
-                <div class="card-header-badge-row">
-                  <span class="card-tag tag-mono">AI Retrieval</span>
-                  <span class="card-date">Jan 2025</span>
-                </div>
-                <h3 class="card-title">HyDE RAG Pipelines with Vector Search</h3>
-                <p class="card-excerpt">Using Hypothetical Document Embeddings paired with hybrid BM25 retrieval.</p>
-                <div class="card-footer">
-                  <span class="card-meta">7 min read</span>
-                  <span class="card-arrow">Read Article &rarr;</span>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- RIGHT HALF: Interactive Article Reader Pane -->
-        <div class="blogs-split-right" id="blog-reader-pane">
-          
-          <!-- Default Reader Placeholder -->
-          <div class="reader-placeholder" id="reader-placeholder">
-            <div class="placeholder-icon">&#x1F4D6;</div>
-            <h3 class="placeholder-title">Select an Article to Read</h3>
-            <p class="placeholder-desc">Click any card on the conveyor to load the full technical build log, code architecture, and key engineering takeaways.</p>
-            <button class="btn-read-featured" id="btn-read-featured" type="button">Read Featured: ForeSee Solo &rarr;</button>
-          </div>
-
-          <!-- Dynamic Reader Content Container -->
-          <div class="reader-article-content hidden" id="reader-article-content">
-            <div class="reader-article-header">
-              <div class="article-meta-bar">
-                <span class="article-tag tag-featured" id="article-tag">Hackathon Sprint</span>
-                <span class="article-date" id="article-date">Oct 2024</span>
-                <span class="article-readtime" id="article-readtime">5 min read</span>
-              </div>
-              <h1 class="article-main-title" id="article-title">Building ForeSee Solo vs 3,000+ Devs</h1>
-              <div class="article-author-row">
-                <img src="assets/images/krishna-removebg-preview.png" alt="Krishna Sahoo" class="article-author-img">
-                <div>
-                  <span class="article-author-name">Krishna Sahoo</span>
-                  <span class="article-author-role">AI &amp; Full-Stack Developer</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="article-body-text" id="article-body">
-              <!-- Content dynamically injected via main.js -->
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
-      <!-- Modal Footer -->
-      <div class="full-modal-footer">
-        <span class="modal-footer-hint">&bull; Hover conveyor to pause &bull; Click card to read &bull; Scroll right panel for full article</span>
-        <button class="modal-close-btn-secondary" id="modal-blogs-close-sec" type="button">Close Window &times;</button>
-      </div>
-
     </div>
-  </div>
 
-
-  <!-- SOCIALS FULL-SCREEN MODAL OVERLAY -->
-  <div class="full-modal-overlay" id="socials-modal-overlay" aria-hidden="true">
-    <div class="full-modal-backdrop" id="socials-modal-backdrop"></div>
-    <div class="full-modal-container">
-      
-      <!-- Modal Header -->
-      <div class="full-modal-header">
-        <div class="modal-title-group">
-          <span class="modal-icon">&#x1F517;</span>
-          <div>
-            <h2 class="modal-title">Social Connections &amp; Profiles</h2>
-            <p class="modal-subtitle">Follow open source work, coding activities, and direct contact channels</p>
-          </div>
-        </div>
-        <div class="modal-header-actions">
-          <button class="modal-switch-btn" id="modal-socials-to-blogs" type="button">&larr; Blogs</button>
-          <button class="modal-close-btn" id="modal-socials-close" type="button" aria-label="Close Modal">&times;</button>
-        </div>
-      </div>
-
-      <!-- Modal Body: 4-Column Infinite Vertical Parallax Conveyor -->
-      <div class="full-modal-body">
-        <div class="conveyor-4col-grid">
-          
-          <!-- Column 1: GitHub & Repos (Moves DOWN) -->
-          <div class="conveyor-col conveyor-col-down">
-            <a href="https://github.com/krishnasahoo11156" target="_blank" class="modal-card modal-social-card card-github">
-              <div class="social-top">
-                <div class="social-icon">
-                  <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
-                </div>
-                <span class="social-badge">Code Repository</span>
-              </div>
-              <h3 class="social-title">@krishnasahoo11156</h3>
-              <p class="social-desc">Explore open-source contributions, full-stack projects, and system design repositories on GitHub.</p>
-              <div class="social-footer-meta">Explore Repos &amp; Commits &nearr;</div>
-            </a>
-
-            <div class="modal-stat-card">
-              <span class="stat-num">3,000+</span>
-              <span class="stat-lbl">Devs Outranked at Hackathons</span>
-            </div>
-
-            <div class="modal-card modal-social-card">
-              <div class="social-top">
-                <span class="card-tag tag-featured">Community</span>
-              </div>
-              <h3 class="social-title">Open-Source Contribution Log</h3>
-              <p class="social-desc">Active pull requests merged for TypeScript monorepos, Prisma migrations, and developer tooling.</p>
-              <div class="social-footer-meta">9 PRs Merged</div>
-            </div>
-          </div>
-
-          <!-- Column 2: LinkedIn & Academics (Moves UP) -->
-          <div class="conveyor-col conveyor-col-up">
-            <a href="https://linkedin.com/in/krishnasahoo11156" target="_blank" class="modal-card modal-social-card card-linkedin">
-              <div class="social-top">
-                <div class="social-icon">
-                  <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                </div>
-                <span class="social-badge">Professional</span>
-              </div>
-              <h3 class="social-title">in/krishnasahoo11156</h3>
-              <p class="social-desc">Connect for technical roles, software architecture discussions, and engineering updates.</p>
-              <div class="social-footer-meta">Connect on LinkedIn &nearr;</div>
-            </a>
-
-            <div class="modal-stat-card">
-              <span class="stat-num">VESIT</span>
-              <span class="stat-lbl">AI &amp; Data Science Class of 2026</span>
-            </div>
-
-            <div class="modal-card modal-social-card">
-              <div class="social-top">
-                <span class="card-tag tag-mono">Technical Core</span>
-              </div>
-              <h3 class="social-title">Tech Stack &amp; Competencies</h3>
-              <p class="social-desc">Building full-stack web applications with clean architecture, REST/GraphQL APIs, and ML integrations.</p>
-              <div class="social-footer-meta">Java &bull; MERN &bull; Python &bull; AI</div>
-            </div>
-          </div>
-
-          <!-- Column 3: LeetCode & Problem Solving (Moves DOWN) -->
-          <div class="conveyor-col conveyor-col-down">
-            <a href="https://leetcode.com/u/krishnasahoo11156/" target="_blank" class="modal-card modal-social-card card-leetcode">
-              <div class="social-top">
-                <div class="social-icon">
-                  <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/></svg>
-                </div>
-                <span class="social-badge">Algorithms</span>
-              </div>
-              <h3 class="social-title">@krishnasahoo11156</h3>
-              <p class="social-desc">Practicing algorithmic problem solving across dynamic programming, graph traversal, and tree structures.</p>
-              <div class="social-footer-meta">View LeetCode Profile &nearr;</div>
-            </a>
-
-            <div class="modal-stat-card">
-              <span class="stat-num">DSA</span>
-              <span class="stat-lbl">Algorithmic Problem Solving</span>
-            </div>
-
-            <div class="modal-card modal-social-card">
-              <div class="social-top">
-                <span class="card-tag tag-mono">Demonstrations</span>
-              </div>
-              <h3 class="social-title">Project Showcase &amp; Demos</h3>
-              <p class="social-desc">Interactive web applications, AI crisis management platforms, and developer utility tools.</p>
-              <div class="social-footer-meta">Explore Live Demos</div>
-            </div>
-          </div>
-
-          <!-- Column 4: Email & Resume (Moves UP) -->
-          <div class="conveyor-col conveyor-col-up">
-            <a href="mailto:krishnasahoo11156@gmail.com" class="modal-card modal-social-card card-email">
-              <div class="social-top">
-                <div class="social-icon">
-                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                </div>
-                <span class="social-badge">Direct Channel</span>
-              </div>
-              <h3 class="social-title">krishnasahoo11156@gmail.com</h3>
-              <p class="social-desc">Send a direct message for software engineering opportunities, internships, or technical projects.</p>
-              <div class="social-footer-meta">Send Email Message &nearr;</div>
-            </a>
-
-            <div class="modal-stat-card">
-              <span class="stat-num">AI + FS</span>
-              <span class="stat-lbl">Full-Stack &amp; AI Engineering</span>
-            </div>
-
-            <a href="sources/resume/Krishna_Sahoo_Resume.pdf" download="Krishna_Sahoo_Resume.pdf" class="modal-card modal-social-card">
-              <div class="social-top">
-                <span class="card-tag tag-featured">Document</span>
-              </div>
-              <h3 class="social-title">Resume &amp; Credentials</h3>
-              <p class="social-desc">Download complete technical resume detailing experience, project achievements, and skill profile.</p>
-              <div class="social-footer-meta">Download Resume PDF &darr;</div>
-            </a>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- Modal Footer -->
-      <div class="full-modal-footer">
-        <span class="modal-footer-hint">&bull; Hover over any column to freeze infinite scrolling &bull; Click profile to connect</span>
-        <button class="modal-close-btn-secondary" id="modal-socials-close-sec" type="button">Close Window &times;</button>
-      </div>
-
+    <!-- Portal Lightbox Zoom Overlay -->
+    <div class="portal-lightbox" id="portal-lightbox">
+      <img src="" alt="Certificate Zoom" class="portal-lightbox-img" id="portal-lightbox-img">
     </div>
-  </div>
+
+    <!-- Resume Viewer Modal -->
+    <div class="resume-modal" id="resume-modal">
+      <div class="resume-modal-container">
+        <div class="resume-modal-header">
+          <div class="resume-modal-title">
+            Krishna Sahoo - Resume
+          </div>
+          <div class="resume-modal-actions">
+            <a href="sources/resume/Krishna_Sahoo_Resume.pdf" target="_blank" class="resume-action-btn"
+              title="Open in New Tab">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+              <span>Open in New Tab</span>
+            </a>
+            <a href="sources/resume/Krishna_Sahoo_Resume.pdf" download="Krishna_Sahoo_Resume.pdf"
+              class="resume-action-btn" title="Download Resume">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>Download</span>
+            </a>
+            <button class="resume-close-btn" id="resume-close-btn" aria-label="Close modal">&times;</button>
+          </div>
+        </div>
+        <div class="resume-modal-body">
+          <iframe src="sources/resume/Krishna_Sahoo_Resume.pdf#toolbar=0" id="resume-iframe" width="100%"
+            height="100%"></iframe>
+        </div>
+      </div>
+    </div>
+
+
 
   </div><!-- End #app-wrapper -->
 
   <!-- ENGINEERING DESK — DEVELOPER JOURNAL POPUP MODAL -->
-  <div class="desk-modal-backdrop" id="engineering-desk-modal" role="dialog" aria-modal="true" aria-label="Developer Journal">
+  <div class="desk-modal-backdrop" id="engineering-desk-modal" role="dialog" aria-modal="true"
+    aria-label="Developer Journal">
     <div class="desk-popup-card">
-      
+
       <!-- Close Button -->
       <button class="desk-close-btn" id="desk-close-btn" aria-label="Close Developer Journal">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+          stroke-linecap="round" stroke-linejoin="round">
           <line x1="18" y1="6" x2="6" y2="18"></line>
           <line x1="6" y1="6" x2="18" y2="18"></line>
         </svg>
       </button>
 
       <div class="desk-layout-grid">
-        
-        <!-- COLUMN 1: SIDEBAR (22%) -->
-        <aside class="desk-sidebar">
-          <div class="desk-journal-header">
-            <div class="desk-journal-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-              </svg>
-            </div>
-            <div class="desk-journal-title-box">
-              <h2>Developer Journal</h2>
-              <p>Thoughts. Learnings. Experiments.<br>Everything I build and believe.</p>
-            </div>
-          </div>
 
-          <!-- Navigation List -->
-          <ul class="desk-nav-list" role="list">
-            <li class="desk-nav-item active" data-category="All Notes">
-              <div class="desk-nav-left">
-                <span class="desk-nav-icon">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect></svg>
-                </span>
-                <span>All Notes</span>
-              </div>
-              <span class="desk-nav-badge">24</span>
-            </li>
-            <li class="desk-nav-item" data-category="Deep Dives">
-              <div class="desk-nav-left">
-                <span class="desk-nav-icon">📚</span>
-                <span>Deep Dives</span>
-              </div>
-              <span class="desk-nav-badge">7</span>
-            </li>
-            <li class="desk-nav-item" data-category="Quick Thoughts">
-              <div class="desk-nav-left">
-                <span class="desk-nav-icon">⚡</span>
-                <span>Quick Thoughts</span>
-              </div>
-              <span class="desk-nav-badge">8</span>
-            </li>
-            <li class="desk-nav-item" data-category="Build Logs">
-              <div class="desk-nav-left">
-                <span class="desk-nav-icon">📦</span>
-                <span>Build Logs</span>
-              </div>
-              <span class="desk-nav-badge">5</span>
-            </li>
-            <li class="desk-nav-item" data-category="System Design">
-              <div class="desk-nav-left">
-                <span class="desk-nav-icon">⚙️</span>
-                <span>System Design</span>
-              </div>
-              <span class="desk-nav-badge">6</span>
-            </li>
-            <li class="desk-nav-item" data-category="AI & Data Science">
-              <div class="desk-nav-left">
-                <span class="desk-nav-icon">🤖</span>
-                <span>AI & Data Science</span>
-              </div>
-              <span class="desk-nav-badge">7</span>
-            </li>
-            <li class="desk-nav-item" data-category="Career & Growth">
-              <div class="desk-nav-left">
-                <span class="desk-nav-icon">🚀</span>
-                <span>Career & Growth</span>
-              </div>
-              <span class="desk-nav-badge">5</span>
-            </li>
-            <li class="desk-nav-item" data-category="Bookmarks">
-              <div class="desk-nav-left">
-                <span class="desk-nav-icon">🔖</span>
-                <span>Bookmarks</span>
-              </div>
-              <span class="desk-nav-badge">3</span>
-            </li>
-            <li class="desk-nav-item" data-category="Trash">
-              <div class="desk-nav-left">
-                <span class="desk-nav-icon">🗑️</span>
-                <span>Trash</span>
-              </div>
-              <span class="desk-nav-badge">0</span>
-            </li>
-          </ul>
-
-          <!-- Pinned Thought Card -->
-          <div class="desk-pinned-thought">
-            <div class="pinned-thought-header">
-              <div class="pinned-icon-box">💡</div>
-              <span class="pinned-label">Pinned Thought</span>
-            </div>
-            <p class="pinned-quote">"First, solve the right problem. Then, code the right way."</p>
-            <p class="pinned-author">— Krishna Sahoo</p>
-          </div>
-
-          <!-- Search Box -->
-          <div class="desk-search-wrapper">
-            <span class="desk-search-icon">🔍</span>
-            <input type="text" id="desk-search-input" class="desk-search-input" placeholder="Search notes..." />
-            <span class="desk-kbd-badge">⌘K</span>
-          </div>
-        </aside>
-
-        <!-- COLUMN 2: CANVAS (56%) -->
+        <!-- MAIN CANVAS (EXPANDED LEFT + CENTER, 76.5%) -->
         <main class="desk-canvas-container">
           <header class="desk-canvas-header">
             <div class="desk-title-group">
               <h1>Ideas <span class="live-accent">live</span> here.</h1>
               <p>Drag, explore and discover my thoughts across topics.</p>
             </div>
-            
-            <!-- Top Filter Pills -->
-            <div class="desk-filter-pills">
-              <button class="filter-pill active" data-filter="All">
-                <span>All</span>
-              </button>
-              <button class="filter-pill" data-filter="Tech">
-                <span>Tech</span>
-              </button>
-              <button class="filter-pill" data-filter="Life">
-                <span>Life</span>
-              </button>
-              <button class="filter-pill" data-filter="Learnings">
-                <span>Learnings</span>
-              </button>
-              <button class="filter-options-btn" aria-label="Filter Options">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></svg>
-              </button>
+
+            <div style="display: flex; align-items: center; gap: 12px; margin-left: auto;">
+              <!-- Top Filter Pills -->
+              <div class="desk-filter-pills">
+                <button class="filter-pill active" data-filter="All">
+                  <span>All</span>
+                </button>
+                <button class="filter-pill" data-filter="Tech">
+                  <span>Tech</span>
+                </button>
+                <button class="filter-pill" data-filter="Life">
+                  <span>Life</span>
+                </button>
+                <button class="filter-pill" data-filter="Learnings">
+                  <span>Learnings</span>
+                </button>
+              </div>
             </div>
           </header>
 
           <!-- Engineering Desk Surface -->
           <div class="desk-canvas-surface" id="desk-canvas-surface">
-            
-            <!-- Desk Marginalia & Doodles -->
-            <div class="doodle-annotation doodle-top-right">
-              <span>Where ideas turn into code ↗</span>
-            </div>
-            <div class="doodle-annotation doodle-middle-right">
-              <span>always learning ↗</span>
-            </div>
-            <!-- Potted Plant SVG Doodle -->
-            <svg class="doodle-plant" viewBox="0 0 100 180" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round">
-              <path d="M30 140 L70 140 L65 170 L35 170 Z" fill="none" stroke="#10B981" />
-              <path d="M50 140 Q50 90 50 40" />
-              <path d="M50 100 Q20 80 15 95 Q35 105 50 100" fill="rgba(16,185,129,0.15)" />
-              <path d="M50 80 Q80 60 85 75 Q65 85 50 80" fill="rgba(16,185,129,0.15)" />
-              <path d="M50 60 Q25 40 20 55 Q40 65 50 60" fill="rgba(16,185,129,0.15)" />
-              <path d="M50 40 Q75 20 80 35 Q60 45 50 40" fill="rgba(16,185,129,0.15)" />
-            </svg>
 
-            <!-- 1. GREEN STICKY NOTE (Top Left) -->
-            <div class="desk-card card-green-sticky" style="top: 20px; left: 25px; transform: rotate(-3deg);" data-category="Deep Dives" data-type="Tech" data-date="May 20, 2025" data-readtime="6 min read">
-              <div class="push-pin"></div>
-              <span class="card-badge">DEEP DIVE</span>
-              <h3>How I Think Before I Code</h3>
-              <p>A peek into my problem-solving mindset.</p>
-              <div class="card-footer-meta">
-                <span>May 20, 2025 • 6 min read</span>
-                <span class="card-arrow">→</span>
+            <!-- Canvas Pan & Zoom Controls (Floating Bottom-Left) -->
+            <div class="canvas-controls-bar">
+              <button class="zoom-btn" id="btn-zoom-out" title="Zoom Out">-</button>
+              <span class="zoom-level" id="zoom-level-text" title="Reset Zoom">100%</span>
+              <button class="zoom-btn" id="btn-zoom-in" title="Zoom In">+</button>
+            </div>
+
+            <!-- World Container for Pan & Zoom -->
+            <div class="desk-canvas-world" id="desk-canvas-world">
+
+              <!-- Desk Marginalia & Handcrafted Doodles -->
+              <div class="doodle-annotation doodle-top-right" style="top: 15px; left: 740px;">
+                <span>Where ideas turn into code ↗</span>
               </div>
-            </div>
-
-            <!-- 2. NOTEBOOK TEAR-OUT (Top Center) -->
-            <div class="desk-card card-notebook-page" style="top: 25px; left: 245px; transform: rotate(1deg);" data-category="Quick Thoughts" data-type="Learnings" data-date="May 19, 2025" data-readtime="2 min read">
-              <div class="paper-clip"></div>
-              <div class="binder-holes">
-                <div class="binder-hole"></div><div class="binder-hole"></div><div class="binder-hole"></div><div class="binder-hole"></div><div class="binder-hole"></div>
+              <div class="doodle-annotation doodle-middle-right" style="top: 325px; left: 450px;">
+                <span>always learning ↗</span>
               </div>
-              <span class="card-badge">QUICK THOUGHT</span>
-              <p class="handwritten-text">Simplicity is not about doing less. It's about doing what matters most.</p>
-            </div>
-
-            <!-- 3. BUILD LOG CARD WITH MINI MACOS CODE EDITOR (Top Right Center) -->
-            <div class="desk-card card-build-log" style="top: 20px; left: 465px; transform: rotate(-1deg);" data-category="Build Logs" data-type="Tech" data-date="May 18, 2025" data-readtime="7 min read">
-              <div>
-                <span class="card-badge">BUILD LOG</span>
-                <h3>Building NoteNest – An AI Study Companion</h3>
-                <p>From idea to product in 72 hours. What I built, learned and shipped.</p>
-                <div class="card-footer-meta">
-                  <span>May 18, 2025 • 7 min read</span>
-                </div>
+              <div class="doodle-annotation" style="top: 175px; left: 615px;">
+                <span>ship > perfect 🚀</span>
               </div>
-              <div class="mini-code-editor">
-                <div class="mac-traffic-lights">
-                  <span class="mac-dot red"></span><span class="mac-dot yellow"></span><span class="mac-dot green"></span>
-                </div>
-                <code><span class="code-purple">const</span> idea = <span class="code-green">"NoteNest"</span>;<br><span class="code-purple">const</span> build = () =&gt; {<br>&nbsp;&nbsp;iterate();<br>&nbsp;&nbsp;learn();<br>&nbsp;&nbsp;ship();<br>};<br>build();</code>
+              <div class="doodle-annotation" style="top: 325px; left: 160px;">
+                <span>learn → build → improve 🔁</span>
               </div>
-            </div>
 
-            <!-- 4. POLAROID PHOTO CARD (Top Right) -->
-            <div class="desk-card card-polaroid" style="top: 290px; left: 660px; transform: rotate(4deg);" data-category="Bookmarks" data-type="Life" data-date="May 2025" data-readtime="Photo">
-              <div class="push-pin"></div>
-              <div class="polaroid-img-wrapper">
-                <img src="assets/images/polaroid_setup.png" alt="Developer Workspace Setup" />
-              </div>
-              <p class="polaroid-caption">My happy place ♡</p>
-            </div>
-
-            <!-- 5. SYSTEM DESIGN ARCHITECTURE SKETCH (Middle Left) -->
-            <div class="desk-card card-system-sketch" style="top: 215px; left: 25px; transform: rotate(2deg);" data-category="System Design" data-type="Tech" data-date="May 16, 2025" data-readtime="8 min read">
-              <div class="paper-clip"></div>
-              <div class="sketch-header">System Design Sketch</div>
-              <svg class="sketch-svg-diagram" viewBox="0 0 220 90" fill="none" stroke="#10B981" stroke-width="1.8" stroke-linecap="round">
-                <rect x="5" y="10" width="40" height="22" rx="4" fill="#FFFFFF" />
-                <text x="25" y="24" font-size="9" fill="#047857" text-anchor="middle" font-weight="bold">Client</text>
-                
-                <rect x="5" y="45" width="40" height="22" rx="4" fill="#FFFFFF" />
-                <text x="25" y="59" font-size="9" fill="#047857" text-anchor="middle" font-weight="bold">Client</text>
-
-                <path d="M45 21 L75 35" stroke="#10B981" />
-                <path d="M45 56 L75 35" stroke="#10B981" />
-
-                <rect x="75" y="22" width="48" height="26" rx="4" fill="#FFFFFF" />
-                <text x="99" y="35" font-size="8" fill="#047857" text-anchor="middle" font-weight="bold">API Gateway</text>
-
-                <path d="M123 35 L145 20" stroke="#10B981" />
-                <path d="M123 35 L145 50" stroke="#10B981" />
-
-                <rect x="145" y="8" width="48" height="24" rx="4" fill="#FFFFFF" />
-                <text x="169" y="22" font-size="8" fill="#047857" text-anchor="middle" font-weight="bold">Auth Service</text>
-
-                <rect x="145" y="40" width="48" height="24" rx="4" fill="#FFFFFF" />
-                <text x="169" y="54" font-size="8" fill="#047857" text-anchor="middle" font-weight="bold">AI Service</text>
-
-                <ellipse cx="169" cy="78" rx="16" ry="6" stroke="#10B981" fill="#FFFFFF" />
-                <path d="M153 78 L153 84 A16 6 0 0 0 185 84 L185 78" stroke="#10B981" />
-                <text x="169" y="81" font-size="7" fill="#047857" text-anchor="middle">DB</text>
+              <!-- 1. Potted Monstera Plant SVG Doodle -->
+              <svg class="doodle-plant" viewBox="0 0 100 180" fill="none" stroke="#10B981" stroke-width="2"
+                stroke-linecap="round" style="top: 115px; left: 235px; width: 45px; height: 80px;">
+                <path d="M30 140 L70 140 L65 170 L35 170 Z" fill="none" stroke="#10B981" />
+                <path d="M50 140 Q50 90 50 40" />
+                <path d="M50 100 Q20 80 15 95 Q35 105 50 100" fill="rgba(16,185,129,0.15)" />
+                <path d="M50 80 Q80 60 85 75 Q65 85 50 80" fill="rgba(16,185,129,0.15)" />
+                <path d="M50 60 Q25 40 20 55 Q40 65 50 60" fill="rgba(16,185,129,0.15)" />
+                <path d="M50 40 Q75 20 80 35 Q60 45 50 40" fill="rgba(16,185,129,0.15)" />
               </svg>
-              <div style="font-family: 'Caveat', cursive; font-size: 13px; color: #059669; text-align: right; margin-top: 2px;">design it right ↗</div>
-            </div>
 
-            <!-- 6. PURPLE / LAVENDER STICKY NOTE (Middle Center) -->
-            <div class="desk-card card-purple-sticky" style="top: 235px; left: 290px; transform: rotate(-2deg);" data-category="Quick Thoughts" data-type="Learnings" data-date="May 15, 2025" data-readtime="4 min read">
-              <div class="push-pin" style="background: #A855F7;"></div>
-              <span class="card-badge">QUICK THOUGHT</span>
-              <h3>What Hackathons Taught Me</h3>
-              <p>Lessons beyond winning: teamwork, speed and clarity.</p>
-              <div class="card-footer-meta">
-                <span>May 15, 2025 • 4 min read</span>
-                <span class="card-arrow" style="color: #A855F7;">→</span>
-              </div>
-            </div>
+              <!-- 2. Coffee Mug & Ring Stain SVG Doodle -->
+              <svg class="desk-doodle-svg doodle-coffee" viewBox="0 0 100 100" fill="none" stroke="#D97706"
+                stroke-width="2" stroke-linecap="round" style="top: 15px; left: 635px; width: 65px; height: 65px;">
+                <circle cx="50" cy="50" r="38" stroke="rgba(217,119,6,0.25)" stroke-width="5" />
+                <circle cx="50" cy="50" r="30" stroke="#D97706" stroke-dasharray="8 4" fill="rgba(254,243,199,0.4)" />
+                <path d="M80 40 C92 40 92 60 80 60" stroke="#D97706" />
+                <path d="M42 35 Q46 25 42 18 M52 35 Q56 25 52 18" stroke="rgba(217,119,6,0.6)" stroke-width="1.5" />
+                <text x="50" y="54" font-size="8" fill="#B45309" text-anchor="middle" font-family="'Caveat', cursive"
+                  font-weight="bold">coffee</text>
+              </svg>
 
-            <!-- 7. YELLOW STICKY NOTE (Middle Right) -->
-            <div class="desk-card card-yellow-sticky" style="top: 210px; left: 495px; transform: rotate(1deg);" data-category="AI & Data Science" data-type="Learnings" data-date="May 10, 2025" data-readtime="5 min read">
-              <div class="masking-tape"></div>
-              <span class="card-badge">LEARNING</span>
-              <h3>Java Streams Explained Simply</h3>
-              <p>From basics to real-world examples.</p>
-              <div class="card-footer-meta">
-                <span>May 10, 2025 • 5 min read</span>
-                <span class="card-arrow" style="color: #D97706;">→</span>
-              </div>
-            </div>
+              <!-- 3. Idea Lightbulb & Eureka Sparks SVG Doodle -->
+              <svg class="desk-doodle-svg doodle-bulb" viewBox="0 0 60 80" fill="none" stroke="#10B981"
+                stroke-width="1.8" stroke-linecap="round" style="top: 15px; left: 360px; width: 40px; height: 55px;">
+                <path d="M30 15 A18 18 0 0 1 45 35 Q40 45 38 52 H22 Q20 45 15 35 A18 18 0 0 1 30 15 Z"
+                  fill="rgba(16,185,129,0.12)" />
+                <path d="M22 57 H38 M25 62 H35" />
+                <path d="M30 5 M10 12 L16 18 M50 12 L44 18 M5 35 H12 M55 35 H48" stroke="rgba(16,185,129,0.6)"
+                  stroke-width="1.5" stroke-linecap="round" />
+                <text x="30" y="76" font-size="9" fill="#047857" text-anchor="middle"
+                  font-family="'Caveat', cursive">idea! 💡</text>
+              </svg>
 
-            <!-- 8. DEEP DIVE ARCHITECTURE CARD (Bottom Left) -->
-            <div class="desk-card card-deep-api" style="top: 400px; left: 25px; transform: rotate(-1deg);" data-category="Deep Dives" data-type="Tech" data-date="May 8, 2025" data-readtime="8 min read">
-              <div>
+              <!-- 4. Hand-Drawn Laptop & Terminal Window SVG Doodle -->
+              <svg class="desk-doodle-svg doodle-laptop" viewBox="0 0 140 110" fill="none" stroke="#10B981"
+                stroke-width="1.8" stroke-linecap="round" style="top: 175px; left: 770px; width: 95px; height: 80px;">
+                <rect x="20" y="10" width="100" height="65" rx="6" fill="#FFFFFF" />
+                <path d="M10 82 H130 C130 88 120 92 110 92 H30 C20 92 10 88 10 82 Z" fill="rgba(16,185,129,0.08)" />
+                <rect x="28" y="18" width="84" height="48" rx="3" fill="#111827" />
+                <path d="M34 26 L40 30 L34 34 M44 34 H52" stroke="#A7F3D0" stroke-width="1.5" />
+                <path d="M34 42 H70 M34 48 H84 M34 54 H60" stroke="#60A5FA" stroke-width="1.2" stroke-dasharray="2 2" />
+                <text x="70" y="105" font-size="10" fill="#047857" text-anchor="middle"
+                  font-family="'Caveat', cursive">dev rig 💻</text>
+              </svg>
+
+              <!-- 5. Neural Network AI Nodes SVG Doodle -->
+              <svg class="desk-doodle-svg doodle-ai-nn" viewBox="0 0 130 100" fill="none" stroke="#10B981"
+                stroke-width="1.5" stroke-linecap="round" style="top: 340px; left: 740px; width: 95px; height: 75px;">
+                <circle cx="20" cy="30" r="7" fill="rgba(16,185,129,0.2)" />
+                <circle cx="20" cy="70" r="7" fill="rgba(16,185,129,0.2)" />
+                <circle cx="65" cy="20" r="7" fill="rgba(16,185,129,0.2)" />
+                <circle cx="65" cy="50" r="7" fill="rgba(16,185,129,0.2)" />
+                <circle cx="65" cy="80" r="7" fill="rgba(16,185,129,0.2)" />
+                <circle cx="110" cy="50" r="8" fill="#10B981" />
+
+                <path d="M27 30 L58 20 M27 30 L58 50 M27 30 L58 80" stroke="rgba(16,185,129,0.5)" />
+                <path d="M27 70 L58 20 M27 70 L58 50 M27 70 L58 80" stroke="rgba(16,185,129,0.5)" />
+                <path d="M72 20 L102 50 M72 50 L102 50 M72 80 L102 50" stroke="#10B981" />
+                <text x="65" y="97" font-size="10" fill="#047857" text-anchor="middle"
+                  font-family="'Caveat', cursive">Neural Nets 🧠</text>
+              </svg>
+
+              <!-- 6. Target / Focus Reticle SVG Doodle -->
+              <svg class="desk-doodle-svg doodle-target" viewBox="0 0 70 70" fill="none" stroke="#10B981"
+                stroke-width="1.8" stroke-linecap="round" style="top: 345px; left: 535px; width: 45px; height: 45px;">
+                <circle cx="35" cy="35" r="24" stroke-dasharray="4 3" />
+                <circle cx="35" cy="35" r="14" />
+                <circle cx="35" cy="35" r="4" fill="#10B981" />
+                <path d="M35 5 V15 M35 55 V65 M5 35 H15 M55 35 H65" stroke="rgba(16,185,129,0.6)" />
+                <text x="35" y="68" font-size="9" fill="#047857" text-anchor="middle"
+                  font-family="'Caveat', cursive">Focus 🎯</text>
+              </svg>
+
+              <!-- 1. GREEN STICKY NOTE (Top Left — 45px blank left/top margins) -->
+              <div class="desk-card card-green-sticky" style="top: 35px; left: 45px; transform: rotate(-3deg);"
+                data-category="Deep Dives" data-type="Tech" data-date="May 20, 2025" data-readtime="6 min read">
+                <div class="push-pin pin-green"></div>
                 <span class="card-badge">DEEP DIVE</span>
-                <h3>Designing Scalable REST APIs</h3>
-                <p>Principles, best practices and real-world patterns.</p>
+                <h3>How I Think Before I Code</h3>
+                <p>A peek into my problem-solving mindset and system architecture.</p>
                 <div class="card-footer-meta">
-                  <span>May 8, 2025 • 8 min read</span>
+                  <span>May 20, 2025 • 6 min read</span>
+                  <span class="card-arrow">→</span>
                 </div>
               </div>
-              <svg class="api-doodle-svg" viewBox="0 0 90 70" fill="none" stroke="#10B981" stroke-width="1.8">
-                <circle cx="45" cy="30" r="20" stroke-dasharray="3 3" />
-                <path d="M25 30 H65 M45 10 V50" stroke="#10B981" />
-                <rect x="35" y="48" width="20" height="14" rx="3" fill="#FFFFFF" />
-                <text x="45" y="58" font-size="8" fill="#047857" text-anchor="middle" font-weight="bold">API</text>
-              </svg>
-            </div>
 
-            <!-- 9. QUOTE CARD PAPER (Bottom Center) -->
-            <div class="desk-card card-quote-paper" style="top: 430px; left: 360px; transform: rotate(3deg);" data-category="Quick Thoughts" data-type="Life" data-date="May 2025" data-readtime="Quote">
-              <div class="quote-mark">“</div>
-              <p class="handwritten-text" style="font-size: 17px; margin-top: 4px;">Code is easy.<br>Maintaining clarity is the hard part.</p>
-            </div>
+              <!-- 2. NOTEBOOK TEAR-OUT PAGE (Top Center Left — Touches Card 1 bottom-right corner) -->
+              <div class="desk-card card-notebook-page" style="top: 60px; left: 205px; transform: rotate(1deg);"
+                data-category="Quick Thoughts" data-type="Learnings" data-date="May 19, 2025"
+                data-readtime="2 min read">
+                <div class="paper-clip"></div>
+                <div class="binder-holes">
+                  <div class="binder-hole"></div>
+                  <div class="binder-hole"></div>
+                  <div class="binder-hole"></div>
+                  <div class="binder-hole"></div>
+                  <div class="binder-hole"></div>
+                </div>
+                <span class="card-badge">QUICK THOUGHT</span>
+                <p class="handwritten-text">Simplicity is not about doing less. It's about doing what matters most.</p>
+              </div>
 
-            <!-- 10. GROWTH GRAPH CARD (Bottom Right) -->
-            <div class="desk-card card-growth-graph" style="top: 395px; left: 515px; transform: rotate(-1deg);" data-category="Career & Growth" data-type="Life" data-date="May 5, 2025" data-readtime="6 min read">
-              <div>
-                <span class="card-badge">THOUGHT</span>
-                <h3>Balancing College, Projects & Growth</h3>
-                <p>My framework for staying consistent and sane.</p>
-                <div class="card-footer-meta">
-                  <span>May 5, 2025 • 6 min read</span>
+              <!-- 3. BUILD LOG CARD WITH MINI MACOS CODE EDITOR (Top Center Right — Generous 35px gap) -->
+              <div class="desk-card card-build-log" style="top: 35px; left: 415px; transform: rotate(-1deg);"
+                data-category="Build Logs" data-type="Tech" data-date="May 18, 2025" data-readtime="7 min read">
+                <div class="masking-tape tape-corner-left"></div>
+                <div class="masking-tape tape-corner-right"></div>
+                <div>
+                  <span class="card-badge">BUILD LOG</span>
+                  <h3>Building NoteNest – An AI Study Companion</h3>
+                  <p>From idea to product in 72 hours. What I built, learned and shipped.</p>
+                  <div class="card-footer-meta">
+                    <span>May 18, 2025 • 7 min read</span>
+                  </div>
+                </div>
+                <div class="mini-code-editor">
+                  <div class="mac-traffic-lights">
+                    <span class="mac-dot red"></span><span class="mac-dot yellow"></span><span
+                      class="mac-dot green"></span>
+                  </div>
+                  <code><span class="code-purple">const</span> idea = <span class="code-green">"NoteNest"</span>;<br><span class="code-purple">const</span> build = () =&gt; {<br>&nbsp;&nbsp;iterate();<br>&nbsp;&nbsp;learn();<br>&nbsp;&nbsp;ship();<br>};<br>build();</code>
                 </div>
               </div>
-              <svg class="graph-doodle-svg" viewBox="0 0 100 70" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round">
-                <path d="M10 60 H90 M10 60 V10" stroke="#9CA3AF" stroke-width="1.2" />
-                <path d="M15 50 Q30 45 45 30 T75 15 L85 25" />
-                <circle cx="45" cy="30" r="3" fill="#10B981" />
-                <circle cx="75" cy="15" r="3" fill="#10B981" />
-                <text x="85" y="66" font-size="7" fill="#9CA3AF">Time</text>
-                <text x="3" y="15" font-size="7" fill="#9CA3AF">In</text>
-              </svg>
-            </div>
 
-          </div>
+              <!-- 4. POLAROID PHOTO CARD (Top Right — 30px blank right border) -->
+              <div class="desk-card card-polaroid" style="top: 35px; left: 730px; transform: rotate(4deg);"
+                data-category="Bookmarks" data-type="Life" data-date="May 2025" data-readtime="Photo">
+                <div class="push-pin pin-red"></div>
+                <div class="polaroid-img-wrapper">
+                  <img src="assets/images/polaroid_setup.png" alt="Developer Workspace Setup" />
+                </div>
+                <p class="polaroid-caption">My happy place ♡</p>
+              </div>
 
-          <!-- Bottom Timeline -->
-          <footer class="desk-timeline-bar">
-            <span class="timeline-year">2023</span>
-            <div class="timeline-track"></div>
-            <span class="timeline-year">2024</span>
-            <div class="timeline-track"></div>
-            <span class="timeline-year active">2025 <span class="active-year-dot"></span></span>
-            <div class="timeline-track"></div>
-            <span class="timeline-year">2026</span>
-          </footer>
+              <!-- 5. SYSTEM DESIGN GRID ARCHITECTURE SKETCH (Middle Left — 45px blank left border) -->
+              <div class="desk-card card-system-sketch card-dog-ear"
+                style="top: 195px; left: 45px; transform: rotate(2deg);" data-category="System Design" data-type="Tech"
+                data-date="May 16, 2025" data-readtime="8 min read">
+                <div class="paper-clip clip-left"></div>
+                <div class="sketch-header">System Design Sketch</div>
+                <svg class="sketch-svg-diagram" viewBox="0 0 220 90" fill="none" stroke="#10B981" stroke-width="1.8"
+                  stroke-linecap="round">
+                  <rect x="5" y="10" width="40" height="22" rx="4" fill="#FFFFFF" />
+                  <text x="25" y="24" font-size="9" fill="#047857" text-anchor="middle" font-weight="bold">Client</text>
 
-          <!-- Floating Button -->
-          <button class="desk-floating-btn" id="desk-floating-btn">
-            <span class="plus-icon">+</span>
-            <span>New Note</span>
-          </button>
+                  <rect x="5" y="45" width="40" height="22" rx="4" fill="#FFFFFF" />
+                  <text x="25" y="59" font-size="9" fill="#047857" text-anchor="middle" font-weight="bold">Client</text>
+
+                  <path d="M45 21 L75 35" stroke="#10B981" />
+                  <path d="M45 56 L75 35" stroke="#10B981" />
+
+                  <rect x="75" y="22" width="48" height="26" rx="4" fill="#FFFFFF" />
+                  <text x="99" y="35" font-size="8" fill="#047857" text-anchor="middle" font-weight="bold">API
+                    Gateway</text>
+
+                  <path d="M123 35 L145 20" stroke="#10B981" />
+                  <path d="M123 35 L145 50" stroke="#10B981" />
+
+                  <rect x="145" y="8" width="48" height="24" rx="4" fill="#FFFFFF" />
+                  <text x="169" y="22" font-size="8" fill="#047857" text-anchor="middle" font-weight="bold">Auth
+                    Service</text>
+
+                  <rect x="145" y="40" width="48" height="24" rx="4" fill="#FFFFFF" />
+                  <text x="169" y="54" font-size="8" fill="#047857" text-anchor="middle" font-weight="bold">AI
+                    Service</text>
+
+                  <ellipse cx="169" cy="78" rx="16" ry="6" stroke="#10B981" fill="#FFFFFF" />
+                  <path d="M153 78 L153 84 A16 6 0 0 0 185 84 L185 78" stroke="#10B981" />
+                  <text x="169" y="81" font-size="7" fill="#047857" text-anchor="middle">DB</text>
+                </svg>
+                <div
+                  style="font-family: 'Caveat', cursive; font-size: 13px; color: #059669; text-align: right; margin-top: 2px;">
+                  design it right ↗</div>
+              </div>
+
+              <!-- 6. PURPLE / LAVENDER STICKY NOTE (Middle Center — Clean 30px gap) -->
+              <div class="desk-card card-purple-sticky" style="top: 210px; left: 290px; transform: rotate(-2deg);"
+                data-category="Quick Thoughts" data-type="Learnings" data-date="May 15, 2025"
+                data-readtime="4 min read">
+                <div class="push-pin pin-purple"></div>
+                <span class="card-badge">QUICK THOUGHT</span>
+                <h3>What Hackathons Taught Me</h3>
+                <p>Lessons beyond winning: teamwork, speed and clarity.</p>
+                <div class="card-footer-meta">
+                  <span>May 15, 2025 • 4 min read</span>
+                  <span class="card-arrow" style="color: #A855F7;">→</span>
+                </div>
+              </div>
+
+              <!-- 7. YELLOW STICKY NOTE WITH MASKING TAPE (Middle Center Right — Clean 30px gap) -->
+              <div class="desk-card card-yellow-sticky" style="top: 195px; left: 490px; transform: rotate(1deg);"
+                data-category="AI & Data Science" data-type="Learnings" data-date="May 10, 2025"
+                data-readtime="5 min read">
+                <div class="masking-tape"></div>
+                <span class="card-badge">LEARNING</span>
+                <h3>Java Streams Explained Simply</h3>
+                <p>From basics to real-world examples.</p>
+                <div class="card-footer-meta">
+                  <span>May 10, 2025 • 5 min read</span>
+                  <span class="card-arrow" style="color: #D97706;">→</span>
+                </div>
+              </div>
+
+              <!-- 9. CORAL PINK QUOTE STICKY (Middle Right — Sits cleanly inside right border) -->
+              <div class="desk-card card-coral-sticky" style="top: 200px; left: 690px; transform: rotate(3deg);"
+                data-category="Quick Thoughts" data-type="Life" data-date="May 2025" data-readtime="Quote">
+                <div class="push-pin pin-coral"></div>
+                <div class="quote-mark">“</div>
+                <p class="handwritten-text" style="font-size: 14.5px; margin-top: 4px;">Code is easy.<br>Maintaining
+                  clarity is the hard part.</p>
+              </div>
+
+              <!-- 8. SKY BLUE STICKY NOTE (Bottom Left — 45px blank left & 35px blank bottom margin) -->
+              <div class="desk-card card-blue-sticky" style="top: 355px; left: 45px; transform: rotate(-1deg);"
+                data-category="Deep Dives" data-type="Tech" data-date="May 8, 2025" data-readtime="8 min read">
+                <div class="staple-mark"></div>
+                <div>
+                  <span class="card-badge">DEEP DIVE</span>
+                  <h3>Designing Scalable REST APIs</h3>
+                  <p>Principles, best practices and real-world patterns.</p>
+                  <div class="card-footer-meta">
+                    <span>May 8, 2025 • 8 min read</span>
+                  </div>
+                </div>
+                <svg class="api-doodle-svg" viewBox="0 0 90 70" fill="none" stroke="#0284C7" stroke-width="1.8">
+                  <circle cx="45" cy="30" r="20" stroke-dasharray="3 3" />
+                  <path d="M25 30 H65 M45 10 V50" stroke="#0284C7" />
+                  <rect x="35" y="48" width="20" height="14" rx="3" fill="#FFFFFF" />
+                  <text x="45" y="58" font-size="8" fill="#0369A1" text-anchor="middle" font-weight="bold">API</text>
+                </svg>
+              </div>
+
+              <!-- 10. RULED INDEX CARD WITH LINE GRAPH (Bottom Center — Touches Card 8 right edge) -->
+              <div class="desk-card card-index-ruled" style="top: 365px; left: 300px; transform: rotate(-1deg);"
+                data-category="Career & Growth" data-type="Life" data-date="May 5, 2025" data-readtime="6 min read">
+                <div class="masking-tape tape-clear"></div>
+                <div>
+                  <span class="card-badge">THOUGHT</span>
+                  <h3>Balancing College, Projects & Growth</h3>
+                  <p>My framework for staying consistent and sane.</p>
+                  <div class="card-footer-meta">
+                    <span>May 5, 2025 • 6 min read</span>
+                  </div>
+                </div>
+                <svg class="graph-doodle-svg" viewBox="0 0 100 70" fill="none" stroke="#EF4444" stroke-width="2"
+                  stroke-linecap="round">
+                  <path d="M10 60 H90 M10 60 V10" stroke="#9CA3AF" stroke-width="1.2" />
+                  <path d="M15 50 Q30 45 45 30 T75 15 L85 25" stroke="#EF4444" />
+                  <circle cx="45" cy="30" r="3" fill="#EF4444" />
+                  <circle cx="75" cy="15" r="3" fill="#EF4444" />
+                  <text x="85" y="66" font-size="7" fill="#9CA3AF">Time</text>
+                  <text x="3" y="15" font-size="7" fill="#9CA3AF">In</text>
+                </svg>
+              </div>
+
+              <!-- 11. PINNED THOUGHT STICKY NOTE (Bottom Right — 35px blank bottom/right margin) -->
+              <div class="desk-card card-green-sticky" style="top: 355px; left: 610px; transform: rotate(2deg);"
+                data-category="Quick Thoughts" data-type="Learnings" data-date="Always" data-readtime="Pinned">
+                <div class="push-pin pin-teal"></div>
+                <span class="card-badge">PINNED THOUGHT</span>
+                <h3>Philosophy</h3>
+                <p class="handwritten-text" style="font-size: 14.5px; margin-bottom: 6px;">"First, solve the right
+                  problem. Then, code the right way."</p>
+                <div class="card-footer-meta">
+                  <span>— Krishna Sahoo</span>
+                  <span class="card-arrow">💡</span>
+                </div>
+              </div><!-- End #desk-canvas-world -->
+            </div><!-- End #desk-canvas-surface -->
+
+            <!-- Bottom Timeline -->
+            <footer class="desk-timeline-bar">
+              <span class="timeline-year">2023</span>
+              <div class="timeline-track"></div>
+              <span class="timeline-year">2024</span>
+              <div class="timeline-track"></div>
+              <span class="timeline-year active">2025 <span class="active-year-dot"></span></span>
+              <div class="timeline-track"></div>
+              <span class="timeline-year">2026</span>
+            </footer>
 
         </main>
 
-        <!-- COLUMN 3: PREVIEW PANEL (23%) -->
+        <!-- INTERACTIVE RESIZER DIVIDER HANDLE -->
+        <div class="desk-resizer" id="desk-resizer" title="Drag to resize canvas and preview panels">
+          <div class="resizer-handle-pill">
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+
+        <!-- RIGHT SIDE PREVIEW PANEL (Default: 30%) -->
         <aside class="desk-preview-panel">
-          
+
           <!-- Empty State -->
           <div class="preview-empty-state" id="preview-empty-state">
-            <div class="empty-state-icon">📖</div>
+            <div class="empty-state-icon">
+              <img src="assets/images/logoimage%20copy.png" alt="Krishna Sahoo Logo" class="empty-state-logo-img" />
+            </div>
             <h3>Choose a note to start reading</h3>
             <p>Click or drag any note on the desk to view details, tags, and full notes.</p>
           </div>
 
-          <!-- Active Preview Content Box -->
+          <!-- Active Inline Article Reader Content Box -->
           <div class="preview-content-box" id="preview-content-box">
             <div class="preview-badge-row">
               <span class="preview-category-badge" id="preview-category">DEEP DIVE</span>
@@ -1431,15 +1763,11 @@
             <div class="preview-meta">
               <span id="preview-readtime">6 min read</span>
               <span>•</span>
-              <span>Krishna Sahoo</span>
+              <span id="preview-author">Krishna Sahoo</span>
             </div>
-            <div class="preview-text" id="preview-text">
-              <p>A peek into my problem-solving mindset and how I structure complex systems before writing lines of code.</p>
+            <div class="preview-body-content" id="preview-text">
+              <!-- Full blog text populated dynamically on click -->
             </div>
-            <button class="preview-btn-primary" id="preview-full-btn">
-              <span>Read Full Note</span>
-              <span>→</span>
-            </button>
           </div>
 
         </aside>
@@ -1453,7 +1781,8 @@
   <div class="journal-reader-overlay" id="journal-reader-overlay" role="dialog" aria-modal="true">
     <div class="journal-reader-container">
       <button class="reader-close-btn" id="reader-close-btn" aria-label="Close reader">&times;</button>
-      <h1 id="reader-title" style="font-family: 'Outfit', sans-serif; font-size: 32px; color: #111827;">Article Title</h1>
+      <h1 id="reader-title" style="font-family: 'Outfit', sans-serif; font-size: 32px; color: #111827;">Article Title
+      </h1>
       <div class="reader-body" id="reader-body"></div>
     </div>
   </div>

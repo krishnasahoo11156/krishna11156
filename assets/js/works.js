@@ -15,7 +15,15 @@ const WORKS_DATA = {
       subtitle: "AI-Powered Explainable Hiring Intelligence",
       tagline: "Transform hiring from black-box resume screening to explainable, multi-source talent intelligence.",
       status: "Completed · Summer Hackathon 2026",
+      timeline: "May 2026 – July 2026",
       role: "Full-Stack Developer & AI Integrator",
+      roleTitle: "Full-Stack Developer & AI Integrator",
+      roleDetails: "Sole designer & developer of Featherless.ai LLM integration, live candidate skill-gap heatmaps, and blind bias-scrubbing algorithms.",
+      metrics: [
+        { value: "100%", label: "Explainable AI" },
+        { value: "Live", label: "Multi-Source Feed" },
+        { value: "Blind", label: "Bias Scrubbing" }
+      ],
       tech: ["React", "TypeScript", "Tailwind CSS", "Express.js", "Firebase", "Socket.io", "Featherless.ai (LLM)"],
       repo: "https://github.com/krishnasahoo11156/HireMind",
       demo: "https://hire-mind-client.vercel.app/",
@@ -44,7 +52,15 @@ const WORKS_DATA = {
       subtitle: "Chrome Extension for Coding Portfolios",
       tagline: "Effortlessly sync your coding platform solutions to GitHub and build your developer portfolio in real-time.",
       status: "Completed · Used by 5+ Active Users",
+      timeline: "Feb 2026 – Apr 2026",
       role: "Creator & Solo Developer",
+      roleTitle: "Creator & Solo Developer",
+      roleDetails: "Engineered Chrome Extension API background workers, GitHub API OAuth pipeline, and Firebase real-time leaderboards.",
+      metrics: [
+        { value: "5+", label: "Active Users" },
+        { value: "3", label: "Platforms Synced" },
+        { value: "100%", label: "Client Security" }
+      ],
       tech: ["JavaScript (ES6)", "HTML5", "CSS3", "Chrome Extension API", "GitHub API", "Firebase DB"],
       repo: "https://github.com/krishnasahoo11156/Code2Git",
       accent: "#f1c40f",
@@ -72,7 +88,15 @@ const WORKS_DATA = {
       subtitle: "Relational AI Chat Ecosystem",
       tagline: "Evolving from a single-purpose 'roasting' agent into a next-generation Relational AI Chat Ecosystem.",
       status: "Upcoming · Concept & Design Stage",
+      timeline: "Upcoming 2026",
       role: "Solo Architect",
+      roleTitle: "Solo Architect & Product Designer",
+      roleDetails: "Designing emotional memory models, multi-modal reaction image generators, and ambient vibe trackers.",
+      metrics: [
+        { value: "Relational", label: "AI Ecosystem" },
+        { value: "Multi-Modal", label: "Personas" },
+        { value: "Web Audio", label: "Vibe Engine" }
+      ],
       tech: ["Next.js 14", "TypeScript", "Tailwind CSS", "Web Audio API", "Stable Diffusion", "Firebase"],
       accent: "#00b894",
       accentRgb: "0,184,148",
@@ -96,7 +120,15 @@ const WORKS_DATA = {
       subtitle: "Predictive Deadline Rescue Engine",
       tagline: "AI-powered predictive deadline rescue platform simulating alternative calendar paths using Monte Carlo trials.",
       status: "Vibe2Ship Hackathon · Solo Project",
+      timeline: "June 2026 · National Hackathon",
       role: "Solo Architect & Developer",
+      roleTitle: "Solo Architect & Full-Stack Developer",
+      roleDetails: "Built an event-driven system of 15+ agents over Google Cloud Pub/Sub, Monte Carlo path simulator, and Gemini Calendar sync out of 3,000+ competitors.",
+      metrics: [
+        { value: "3,000+", label: "Solo Competitors" },
+        { value: "15+", label: "Pub/Sub Agents" },
+        { value: "Monte Carlo", label: "Predictive Risk Engine" }
+      ],
       tech: ["Next.js 14", "Tailwind CSS", "TypeScript", "Node.js", "Express", "Docker", "Google Cloud Run", "Gemini API", "Pub/Sub"],
       repo: "https://github.com/krishnasahoo11156/foresee-app-2026",
       demo: "https://foresee-app-827856108785.us-central1.run.app/",
@@ -131,7 +163,15 @@ const WORKS_DATA = {
       subtitle: "Unified Academic Command Center",
       tagline: "A unified React-based academic command center integrating task planners, library vaults, and Pomodoro trackers.",
       status: "🏆 Winner — UniMerge 1.0",
+      timeline: "Apr 2026 – May 2026",
       role: "Solo Project (parth.builds community)",
+      roleTitle: "Solo Creator & Full-Stack Developer",
+      roleDetails: "Designed complete academic command center, Web Audio environmental sound synthesizer, and Base64 Firestore document vault.",
+      metrics: [
+        { value: "🏆 1st", label: "UniMerge 1.0 Winner" },
+        { value: "Native", label: "Web Audio Engine" },
+        { value: "Zero-Cost", label: "Firestore Vault" }
+      ],
       tech: ["React.js (Vite)", "Tailwind CSS", "React Router", "Web Audio API", "Firebase DB & Auth"],
       repo: "https://github.com/krishnasahoo11156/StudySync",
       demo: "https://study-sync-eosin-seven.vercel.app/",
@@ -161,7 +201,15 @@ const WORKS_DATA = {
       subtitle: "High-Pressure Emergency Coordination",
       tagline: "Emergency incident coordination and real-time triage platform engineered for hospitality venues.",
       status: "Google Solution Challenge · Team Project",
+      timeline: "May 2026 · Global Challenge",
       role: "Core Developer (Team of 4)",
+      roleTitle: "Core Full-Stack & AI Developer",
+      roleDetails: "Engineered Firebase Realtime Database sub-200ms coordinates sync and Gemini AI emergency triage classifier.",
+      metrics: [
+        { value: "3,000+", label: "Global Competitors" },
+        { value: "<200ms", label: "Sub-Second Event Sync" },
+        { value: "<3s", label: "Gemini AI Triage" }
+      ],
       tech: ["Flutter", "Dart", "Firebase", "Gemini AI", "Google Maps API", "Docker", "Nginx"],
       repo: "https://github.com/krishnasahoo11156/crisissync",
       accent: "#e74c3c",
@@ -197,7 +245,15 @@ const WORKS_DATA = {
       subtitle: "3D Space Traffic Control Simulator",
       tagline: "Real-time Space Situational Awareness (SSA) system propagating coordinates and tracking conjunction risks.",
       status: "Space Traffic Control Hackathon",
+      timeline: "June 2026 · Global Arena",
       role: "Lead Systems Architect & UI Developer",
+      roleTitle: "Lead Systems Architect & UI Developer",
+      roleDetails: "Built 3D R3F/Three.js Earth atmospheric shaders, WebGL instanced rendering for 500+ orbiters, and SGP4 TLE orbital propagator.",
+      metrics: [
+        { value: "11,000+", label: "Teams Participating" },
+        { value: "60 FPS", label: "WebGL Instanced Engine" },
+        { value: "500+", label: "Active Orbiters" }
+      ],
       tech: ["React 19", "React Three Fiber (R3F)", "Three.js", "FastAPI", "PostgreSQL", "Redis", "Socket.IO"],
       repo: "https://github.com/parthnarkar/OrbitalWatch",
       demo: "https://orbital-watch-bay.vercel.app/",
@@ -223,7 +279,15 @@ const WORKS_DATA = {
       subtitle: "AI Employee Onboarding Platform",
       tagline: "Conversational employee onboarding platform utilizing local agent monitoring to verify developer setups automatically.",
       status: "Syrus Hackathon · Team Project",
+      timeline: "July 2026 · Syrus Hackathon",
       role: "Solo Frontend & Integrations Architect",
+      roleTitle: "Solo Frontend & Integrations Architect",
+      roleDetails: "Engineered Next.js 16 App Router interface, local Node.js system verification agent, and HR analytics dashboard.",
+      metrics: [
+        { value: "Team AlgoMinds", label: "Syrus Hackathon" },
+        { value: "Real-time", label: "Local Agent Checks" },
+        { value: "Copilot", label: "Gemini Onboarding AI" }
+      ],
       tech: ["Next.js 16 (App Router)", "TypeScript", "Tailwind CSS 4", "Gemini AI", "NextAuth", "Chart.js"],
       repo: "https://github.com/krishnasahoo11156/crisissync",
       video: "https://drive.google.com/drive/folders/1f5uDXGoUeDgz4zbZQjtp_dPNcljTUiS-?usp=drive_link",
@@ -253,7 +317,15 @@ const WORKS_DATA = {
       subtitle: "Open Source Email Hub",
       tagline: "Merged 9 backend and frontend pull requests structuring database Schemas and core mail client views.",
       status: "Open Source Contributor",
+      timeline: "Early 2026 · Core Contributor",
       role: "9 Merged Pull Requests",
+      roleTitle: "Open Source Contributor",
+      roleDetails: "Authored 9 pull requests configuring Outlook OAuth2/IMAP integrations, Prisma database schemas, and BullMQ background task workers.",
+      metrics: [
+        { value: "9", label: "Merged Backend PRs" },
+        { value: "OAuth2", label: "IMAP & Mail Parser" },
+        { value: "Prisma", label: "PostgreSQL & Docker" }
+      ],
       tech: ["Node.js", "TypeScript", "React", "Prisma", "Docker Compose", "PostgreSQL", "Redis", "Jest"],
       repo: "https://github.com/krishnasahoo11156/InboxOS",
       accent: "#00d2d3",
@@ -277,7 +349,15 @@ const WORKS_DATA = {
       subtitle: "Onboarding Bug Fix",
       tagline: "Escaped translation characters in Lingala README to prevent directory crashes.",
       status: "Open Source Contributor",
+      timeline: "Early 2026",
       role: "Merged Translation Fix",
+      roleTitle: "Open Source Contributor",
+      roleDetails: "Escaped angle brackets inside Lingala translation strings, resolving a layout parser issue in standard directory registration.",
+      metrics: [
+        { value: "Merged", label: "Pull Request" },
+        { value: "Fix", label: "Parser Bug" },
+        { value: "Git Flow", label: "Standard Onboarding" }
+      ],
       tech: ["Git", "Markdown", "HTML", "Lingala Translation"],
       repo: "https://github.com/firstcontributions/first-contributions",
       demo: "https://github.com/firstcontributions/first-contributions/pull/119971",
@@ -299,7 +379,15 @@ const WORKS_DATA = {
       subtitle: "GSoC 2027 Java Preparation",
       tagline: "Target GSoC organization preparing contributions to enterprise Java web servers, databases, and compilers.",
       status: "Future GSoC Target Org",
+      timeline: "Target 2027",
       role: "Target Organization",
+      roleTitle: "Prospective GSoC Contributor",
+      roleDetails: "Studying Apache Maven build core, Tomcat/Kafka messaging networks, and ShardingSphere transaction connectors.",
+      metrics: [
+        { value: "Target", label: "GSoC 2027 Org" },
+        { value: "Java", label: "Enterprise Stack" },
+        { value: "Maven", label: "Tomcat & Kafka" }
+      ],
       tech: ["Java", "Maven", "Spring Boot", "Docker", "Git", "JUnit"],
       repo: "https://github.com/apache",
       guide: "https://community.apache.org/contributors/",
@@ -324,7 +412,15 @@ const WORKS_DATA = {
       subtitle: "GSoC 2027 Java Preparation",
       tagline: "Target GSoC organization preparing contributions to IDE Java compilers, tooling platforms, and collections.",
       status: "Future GSoC Target Org",
+      timeline: "Target 2027",
       role: "Target Organization",
+      roleTitle: "Prospective GSoC Contributor",
+      roleDetails: "Studying Java Development Tools (JDT) compiler parser scripts, OSGi microservices, and Eclipse Collections API.",
+      metrics: [
+        { value: "Target", label: "GSoC 2027 Org" },
+        { value: "IDE", label: "Tooling & Compiler" },
+        { value: "Jakarta", label: "EE Microservices" }
+      ],
       tech: ["Java", "Maven", "Gradle", "OSGi", "SWT", "Jakarta EE"],
       repo: "https://github.com/eclipse",
       guide: "https://eclipse.github.io/eclipse-projects/",
@@ -348,7 +444,15 @@ const WORKS_DATA = {
       subtitle: "GSoC 2027 Java Preparation",
       tagline: "Target GSoC organization preparing plugins and core server configurations written in Groovy and Java.",
       status: "Future GSoC Target Org",
+      timeline: "Target 2027",
       role: "Target Organization",
+      roleTitle: "Prospective GSoC Contributor",
+      roleDetails: "Analyzing Jenkins lifecycle servers, Groovy-based pipeline script parsers, and YAML Configuration as Code (JCasC).",
+      metrics: [
+        { value: "Target", label: "GSoC 2027 Org" },
+        { value: "DevOps", label: "CI/CD Pipeline" },
+        { value: "Groovy", label: "Plugin Architecture" }
+      ],
       tech: ["Java", "Maven", "Groovy", "Docker", "Git"],
       repo: "https://github.com/jenkinsci",
       guide: "https://www.jenkins.io/participate/",
@@ -371,7 +475,15 @@ const WORKS_DATA = {
       subtitle: "GSoC 2027 Java Preparation",
       tagline: "Target GSoC organization preparing patient record modules and REST APIs built in Spring and Hibernate.",
       status: "Future GSoC Target Org",
+      timeline: "Target 2027",
       role: "Target Organization",
+      roleTitle: "Prospective GSoC Contributor",
+      roleDetails: "Reviewing patient record database schema engines, Spring Boot REST controllers, and Hibernate ORM interceptors.",
+      metrics: [
+        { value: "Target", label: "GSoC 2027 Org" },
+        { value: "Spring", label: "REST & Hibernate" },
+        { value: "Health", label: "Patient Modules" }
+      ],
       tech: ["Java", "Spring Boot", "Hibernate", "MySQL", "REST APIs"],
       repo: "https://github.com/openmrs",
       guide: "https://openmrs.atlassian.net/wiki/spaces/RES",
@@ -658,7 +770,7 @@ async function switchCategory(bentoEl, category) {
   // 4. Measure new height
   bentoEl.style.height = 'auto';
   const newHeight = bentoEl.offsetHeight;
-  
+
   // Set back to old height temporarily for transition
   bentoEl.style.height = `${currentHeight}px`;
   bentoEl.offsetHeight; // Force reflow
@@ -718,6 +830,29 @@ function openProjectSheet(project) {
     ).join('')}
        </div>`
     : '';
+
+  // --- Build Key Metrics Grid ---
+  const metricsHtml = (project.metrics && project.metrics.length > 0)
+    ? `<div class="sheet-metrics-row">
+        ${project.metrics.map(m => `
+          <div class="sheet-metric-card">
+            <div class="sheet-metric-value">${m.value}</div>
+            <div class="sheet-metric-label">${m.label}</div>
+          </div>
+        `).join('')}
+       </div>`
+    : '';
+
+  // --- Build My Role & Contributions ---
+  const roleCardHtml = `
+    <div class="sheet-role-card">
+      <div class="sheet-role-header">
+        <span class="sheet-role-title">👤 ${project.roleTitle || project.role}</span>
+        ${project.timeline ? `<span class="sheet-timeline-tag">📅 ${project.timeline}</span>` : ''}
+      </div>
+      ${project.roleDetails ? `<p class="sheet-role-details">${project.roleDetails}</p>` : ''}
+    </div>
+  `;
 
   // --- Build tech cloud ---
   const techCloud = project.tech
@@ -788,7 +923,7 @@ function openProjectSheet(project) {
     </div>
 
     <div class="sheet-body">
-      <!-- Left: Visuals & Metadata (Saves vertical scrolling in details column) -->
+      <!-- Left: Visuals & Metadata -->
       <div class="sheet-visuals">
         <div class="sheet-carousel">
           <div class="sheet-carousel-inner" id="sheet-carousel-inner">
@@ -799,7 +934,7 @@ function openProjectSheet(project) {
         
         <div class="sheet-left-meta">
           <div class="sheet-meta-group">
-            <div class="sheet-section-label">Status</div>
+            <div class="sheet-section-label">Status & Timeline</div>
             <div class="sheet-status-badge">${project.status}</div>
           </div>
 
@@ -810,8 +945,15 @@ function openProjectSheet(project) {
         </div>
       </div>
 
-      <!-- Right: Detailed Specifications -->
+      <!-- Right: Key Metrics, My Role & Detailed Specifications -->
       <div class="sheet-details">
+        ${metricsHtml}
+
+        <div class="sheet-role-section">
+          <div class="sheet-section-label">My Role & Contributions</div>
+          ${roleCardHtml}
+        </div>
+
         <div class="sheet-specs-section">
           <div class="sheet-section-label">Specifications & Impact</div>
           <ul class="sheet-feature-list">${featureList}</ul>
@@ -893,7 +1035,7 @@ function openProjectSheet(project) {
 
     // Keyboard arrow navigation while sheet is open
     const _arrowHandler = (e) => {
-      if (e.key === 'ArrowLeft')  { showSlide(carouselIndex - 1); startAutoplay(); }
+      if (e.key === 'ArrowLeft') { showSlide(carouselIndex - 1); startAutoplay(); }
       if (e.key === 'ArrowRight') { showSlide(carouselIndex + 1); startAutoplay(); }
     };
     document.addEventListener('keydown', _arrowHandler);
@@ -1020,3 +1162,7 @@ function initWorksSection() {
 document.addEventListener('DOMContentLoaded', () => {
   initWorksSection();
 });
+
+// Expose globally for cross-section modal opening
+window.openProjectSheet = openProjectSheet;
+window.WORKS_DATA = WORKS_DATA;
