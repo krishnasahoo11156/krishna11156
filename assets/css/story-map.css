@@ -1,0 +1,113 @@
+/* ── Single Interactive World Map (Supportive & Decorative) ── */
+.world-map-wrapper {
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 20px;
+  padding: 16px;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03);
+  position: relative;
+  overflow: hidden;
+  transition: border-color 220ms ease, box-shadow 220ms ease;
+  outline: none;
+}
+
+.world-map-wrapper:hover,
+.world-map-wrapper:focus-visible {
+  border-color: rgba(16, 185, 129, 0.4);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.06);
+}
+
+.world-map-container {
+  position: relative;
+  width: 100%;
+  height: 220px;
+}
+
+.world-map-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* India Highlight Shape */
+.world-india-highlight {
+  transition: opacity 400ms ease, fill 400ms ease;
+  filter: drop-shadow(0 0 6px rgba(0, 168, 107, 0.4));
+}
+
+.world-map-wrapper.hovered .world-india-highlight {
+  opacity: 0.65;
+  fill: #00A86B;
+}
+
+/* Bézier Dotted Flight Path */
+.flight-route-path {
+  opacity: 0.35;
+  transition: opacity 300ms ease;
+}
+
+.world-map-wrapper.hovered .flight-route-path {
+  opacity: 0.85;
+}
+
+/* Single Pulse Ring on Mumbai Pin */
+.mumbai-pulse-ring {
+  transition: opacity 300ms ease;
+}
+
+.world-map-wrapper.hovered .mumbai-pulse-ring {
+  animation: singleRipple 1.6s ease-out 1 forwards;
+}
+
+@keyframes singleRipple {
+  0% { r: 6px; opacity: 0.9; stroke-width: 1.8px; }
+  100% { r: 22px; opacity: 0; stroke-width: 0.5px; }
+}
+
+/* Outlined SVG Paper Plane */
+.map-paper-plane {
+  transition: opacity 300ms ease;
+}
+
+/* Compact Floating Tooltip (📍 Mumbai, India • Building AI products) */
+.map-tooltip {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  background: #FFFFFF;
+  border: 1px solid #10B981;
+  color: #111827;
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-family: var(--font-display, 'Outfit', sans-serif);
+  font-size: 11px;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 300ms ease, transform 300ms ease;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.world-map-wrapper.hovered .map-tooltip {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Handwritten Note Annotation */
+.story-note {
+  position: absolute;
+  bottom: 8px;
+  left: 14px;
+  font-family: 'Caveat', cursive;
+  font-size: 16px;
+  font-weight: 700;
+  color: #00A86B;
+  pointer-events: none;
+  z-index: 8;
+  transition: opacity 300ms ease;
+}
+
+.world-map-wrapper.hovered .story-note {
+  opacity: 0.85;
+}
