@@ -3516,7 +3516,8 @@ main {
   z-index: 10;
   background-color: lab(99.38% 0.15 1.65);
   background-image: none;
-  padding: 64px 24px 96px;
+  padding: 140px 24px 96px;
+  scroll-margin-top: 100px;
   overflow: hidden;
 }
 
@@ -3652,19 +3653,21 @@ main {
   font-weight: 700;
 }
 
-/* ── Main 2-Column Grid (~45% Left | ~55% Right) ── */
+/* ── Main 2-Column Grid (Left Info & Map | Right "Drop a Message" Card) ── */
 .connect-split-grid {
   display: grid;
-  grid-template-columns: 4.5fr 5.5fr;
-  gap: 32px;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
   align-items: start;
   width: 100%;
 }
 
-.connect-left-col {
+.connect-left-col,
+.connect-right-col {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  width: 100%;
 }
 
 /* ── Single Unified Horizontal Status Card Bar (4 Columns) with Integrated Copy ── */
@@ -4557,35 +4560,23 @@ main {
   margin-top: 16px;
 }
 
-/* Single-Play Staggered Reveal Animation */
+/* Side-by-Side Column Visibility */
 .connect-section .connect-left-col,
 .connect-section .connect-right-col {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 400ms ease-out, transform 400ms ease-out;
-}
-
-.connect-section.reveal-active .connect-left-col {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.connect-section.reveal-active .connect-right-col {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 100ms;
+  opacity: 1 !important;
+  transform: none !important;
 }
 
 /* Responsive Layout */
-@media (max-width: 991px) {
+@media (max-width: 868px) {
   .connect-split-grid {
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 28px;
   }
 
-  .trust-cards-bar {
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
+  .trust-cards-cols-row {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px 0;
   }
 
   .trust-card-col {
