@@ -901,18 +901,38 @@ function initContactAndAppointmentSystem() {
     }, duration);
   }
 
-  // 1. TAB SWITCHER (Drop a Message vs Book Appointment)
+  // ============================================================
+  // CONNECT SECTION — HANDCRAFTED REFINED MICRO-INTERACTIONS
+  // ============================================================
+
+  // 1. TAB SWITCHER & ACTIVE EMERALD INDICATOR
   const tabSendMsg = document.getElementById('tab-send-msg');
   const tabBookAppt = document.getElementById('tab-book-appt');
   const paneMsg = document.getElementById('pane-msg');
   const paneAppt = document.getElementById('pane-appt');
+  const tabIndicator = document.getElementById('tab-active-indicator');
+
+  function updateTabIndicator(activeBtn) {
+    if (!activeBtn || !tabIndicator) return;
+    const parent = activeBtn.parentElement;
+    if (!parent) return;
+    const parentRect = parent.getBoundingClientRect();
+    const btnRect = activeBtn.getBoundingClientRect();
+    const leftOffset = btnRect.left - parentRect.left;
+    tabIndicator.style.width = `${btnRect.width}px`;
+    tabIndicator.style.transform = `translateX(${leftOffset}px)`;
+  }
 
   if (tabSendMsg && tabBookAppt && paneMsg && paneAppt) {
+    // Initial indicator positioning
+    setTimeout(() => updateTabIndicator(tabSendMsg), 100);
+
     tabSendMsg.addEventListener('click', () => {
       tabSendMsg.classList.add('active');
       tabBookAppt.classList.remove('active');
       paneMsg.classList.add('active');
       paneAppt.classList.remove('active');
+      updateTabIndicator(tabSendMsg);
     });
 
     tabBookAppt.addEventListener('click', () => {
@@ -920,34 +940,540 @@ function initContactAndAppointmentSystem() {
       tabSendMsg.classList.remove('active');
       paneAppt.classList.add('active');
       paneMsg.classList.remove('active');
+      updateTabIndicator(tabBookAppt);
+    });
+
+    window.addEventListener('resize', () => {
+      const activeBtn = tabSendMsg.classList.contains('active') ? tabSendMsg : tabBookAppt;
+      updateTabIndicator(activeBtn);
     });
   }
 
-  // 2. DIRECT MESSAGE FORM HANDLER
-  const directForm = document.getElementById('direct-contact-form');
-  if (directForm) {
-    directForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const name = document.getElementById('contact-name')?.value.trim();
-      const email = document.getElementById('contact-email')?.value.trim();
-      const subject = document.getElementById('contact-subject')?.value || 'General Inquiry';
-      const message = document.getElementById('contact-message')?.value.trim();
+  // ⭐ 2. SOFT AMBIENT CURSOR LIGHT (180px, 3% Opacity Inside Paper Card)
+  const paperCard = document.getElementById('contact-paper-card');
+  const ambientLight = document.getElementById('paper-ambient-light');
 
-      if (!name || !email || !message) {
-        showToast('Please fill out all required fields.');
+  if (paperCard && ambientLight) {
+    let currentX = 0, currentY = 0;
+    let targetX = 0, targetY = 0;
+    let animFrame = null;
+
+    function updateAmbientPos() {
+      currentX += (targetX - currentX) * 0.1;
+      currentY += (targetY - currentY) * 0.1;
+      ambientLight.style.left = `${currentX}px`;
+      ambientLight.style.top = `${currentY}px`;
+
+      if (Math.abs(targetX - currentX) > 0.5 || Math.abs(targetY - currentY) > 0.5) {
+        animFrame = requestAnimationFrame(updateAmbientPos);
+      } else {
+        animFrame = null;
+      }
+    }
+
+    paperCard.addEventListener('mousemove', (e) => {
+      const rect = paperCard.getBoundingClientRect();
+      targetX = e.clientX - rect.left;
+      targetY = e.clientY - rect.top;
+
+      if (!animFrame) {
+        animFrame = requestAnimationFrame(updateAmbientPos);
+      }
+    });
+  }
+
+  // ⭐ 3. LOCAL PARALLAX SPARKLE (Moves 6-8px Following Cursor in Header)
+  const headerElem = document.querySelector('.connect-header');
+  const sparkleSvg = document.getElementById('connect-sparkle-svg');
+
+  if (headerElem && sparkleSvg) {
+    let spX = 0, spY = 0;
+    let targetSpX = 0, targetSpY = 0;
+    let spAnimFrame = null;
+
+    function updateSparklePos() {
+      spX += (targetSpX - spX) * 0.08;
+      spY += (targetSpY - spY) * 0.08;
+      sparkleSvg.style.transform = `translate(${spX}px, ${spY}px)`;
+
+      if (Math.abs(targetSpX - spX) > 0.2 || Math.abs(targetSpY - spY) > 0.2) {
+        spAnimFrame = requestAnimationFrame(updateSparklePos);
+      } else {
+        spAnimFrame = null;
+      }
+    }
+
+    headerElem.addEventListener('mousemove', (e) => {
+      const rect = headerElem.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      targetSpX = Math.max(-8, Math.min(8, (e.clientX - centerX) * 0.03));
+      targetSpY = Math.max(-8, Math.min(8, (e.clientY - centerY) * 0.03));
+
+      if (!spAnimFrame) {
+        spAnimFrame = requestAnimationFrame(updateSparklePos);
+      }
+    });
+
+    headerElem.addEventListener('mouseleave', () => {
+      targetSpX = 0;
+      targetSpY = 0;
+      if (!spAnimFrame) spAnimFrame = requestAnimationFrame(updateSparklePos);
+    });
+  }
+
+  // ⭐ 4. INTERACTIVE SINGLE-DRAW SVG UNDERLINE (Plays Once on Subtitle Hover)
+  const subtitleWrap = document.getElementById('connect-subtitle-wrap');
+  if (subtitleWrap) {
+    subtitleWrap.addEventListener('mouseenter', () => {
+      subtitleWrap.classList.add('drawn');
+    });
+  }
+
+  // ⭐ 5. REACTIVE HANDWRITTEN CORNER NOTE (Updates Text State when User Types in Textarea)
+  const msgArea = document.getElementById('contact-message');
+  const cornerNoteText = document.getElementById('corner-note-text');
+  let typingDebounceTimer = null;
+
+  if (msgArea && cornerNoteText) {
+    msgArea.addEventListener('input', () => {
+      const val = msgArea.value.trim();
+      if (!val) {
+        cornerNoteText.textContent = 'No bots. Just me.';
         return;
       }
 
-      // Pre-fill mailto fallback
-      const mailtoUrl = `mailto:krishnasahoo11156@gmail.com?subject=${encodeURIComponent(subject + ' - ' + name)}&body=${encodeURIComponent(message + '\n\nFrom: ' + name + ' (' + email + ')')}`;
-      window.open(mailtoUrl, '_blank');
+      cornerNoteText.textContent = 'Reading...';
+      clearTimeout(typingDebounceTimer);
 
-      showToast(`Thank you ${name}! Direct message opened in your email client.`);
-      directForm.reset();
+      typingDebounceTimer = setTimeout(() => {
+        if (msgArea.value.trim().length > 0) {
+          cornerNoteText.textContent = "I'll reply soon :)";
+        }
+      }, 800);
     });
   }
 
-  // 3. DISCORD TAG COPY HANDLER
+  // 6. NICER CHARACTER COUNTER (0 characters -> 412 / 500 near limit)
+  const charCounter = document.getElementById('char-counter');
+  if (msgArea && charCounter) {
+    msgArea.addEventListener('input', () => {
+      const len = msgArea.value.length;
+      if (len > 400) {
+        charCounter.textContent = `${len} / 500`;
+        charCounter.classList.add('near-limit');
+      } else {
+        charCounter.textContent = `${len} characters`;
+        charCounter.classList.remove('near-limit');
+      }
+    });
+  }
+
+  // 7. REAL-TIME FORM INPUT VALIDATION (Green Checkmark Badge & Shake Error)
+  const formInputs = document.querySelectorAll('#direct-contact-form input, #direct-contact-form textarea');
+  formInputs.forEach(input => {
+    const wrapper = input.closest('.input-wrapper');
+    if (!wrapper) return;
+
+    function validateField() {
+      const val = input.value.trim();
+      if (input.type === 'email') {
+        const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+        if (isEmailValid) {
+          wrapper.classList.add('valid');
+          wrapper.classList.remove('error');
+        } else {
+          wrapper.classList.remove('valid');
+        }
+      } else if (input.required) {
+        if (val.length > 0) {
+          wrapper.classList.add('valid');
+          wrapper.classList.remove('error');
+        } else {
+          wrapper.classList.remove('valid');
+        }
+      }
+    }
+
+    input.addEventListener('input', validateField);
+    input.addEventListener('blur', validateField);
+  });
+
+  // 8. DIRECT MESSAGE FORM SUBMISSION & LOADING STATE SEQUENCE
+  const directForm = document.getElementById('direct-contact-form');
+  const btnSendMsg = document.getElementById('btn-send-message');
+  const btnSendText = document.getElementById('btn-send-text');
+  const btnSpinner = document.getElementById('btn-spinner');
+
+  if (directForm && btnSendMsg) {
+    directForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const nameInput = document.getElementById('contact-name');
+      const emailInput = document.getElementById('contact-email');
+      const subjectInput = document.getElementById('contact-subject');
+      const msgInput = document.getElementById('contact-message');
+
+      const name = nameInput?.value.trim();
+      const email = emailInput?.value.trim();
+      const subject = subjectInput?.value || 'General Inquiry';
+      const message = msgInput?.value.trim();
+
+      // Check required fields
+      let hasError = false;
+      [nameInput, emailInput, msgInput].forEach(inp => {
+        if (inp && (!inp.value.trim() || (inp.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inp.value.trim())))) {
+          const wrap = inp.closest('.input-wrapper');
+          if (wrap) {
+            wrap.classList.add('error');
+            setTimeout(() => wrap.classList.remove('error'), 400);
+          }
+          hasError = true;
+        }
+      });
+
+      if (hasError) {
+        showToast('Please check required fields.');
+        return;
+      }
+
+      // Enter Loading / Submitting State
+      btnSendMsg.disabled = true;
+      btnSendMsg.classList.add('submitting');
+      if (btnSpinner) btnSpinner.style.display = 'inline-block';
+      if (btnSendText) btnSendText.textContent = 'Sending...';
+
+      // Flying paper plane & morphing logic
+      setTimeout(() => {
+        // Mailto fallback dispatch
+        const mailtoUrl = `mailto:krishnasahoo11156@gmail.com?subject=${encodeURIComponent(subject + ' - ' + name)}&body=${encodeURIComponent(message + '\n\nFrom: ' + name + ' (' + email + ')')}`;
+        window.open(mailtoUrl, '_blank');
+
+        if (btnSpinner) btnSpinner.style.display = 'none';
+        if (btnSendText) btnSendText.textContent = '✓ Message Sent';
+        showToast(`Thank you ${name}! Direct message opened in your email client.`);
+
+        directForm.reset();
+        formInputs.forEach(inp => {
+          const wrp = inp.closest('.input-wrapper');
+          if (wrp) wrp.classList.remove('valid', 'error');
+        });
+        if (charCounter) charCounter.textContent = '0 / 500';
+        if (cornerNoteText) cornerNoteText.textContent = 'Just me.';
+
+        // Reset button state after 2.5s
+        setTimeout(() => {
+          btnSendMsg.disabled = false;
+          btnSendMsg.classList.remove('submitting');
+          if (btnSendText) btnSendText.textContent = 'Send Message';
+        }, 2500);
+
+      }, 700);
+    });
+  }
+
+  // ⭐ 9. DETERMINISTIC FINITE STATE MACHINE (FSM) — INTERACTIVE STORY MAP
+  class StoryMapFSM {
+    constructor() {
+      this.wrapper = document.getElementById('world-map-wrapper');
+      this.viewWorld = document.getElementById('view-world');
+      this.viewIndia = document.getElementById('view-india');
+      this.viewMh = document.getElementById('view-maharashtra');
+      this.viewCard = document.getElementById('view-info-card');
+      
+      this.paperPlane = document.getElementById('map-paper-plane');
+      this.flightRoutePath = document.getElementById('flight-route-path');
+      this.tooltip = document.getElementById('map-tooltip');
+      this.tooltipText = document.getElementById('map-tooltip-text');
+      this.note = document.getElementById('story-note');
+      this.noteText = document.getElementById('story-note-text');
+
+      this.bcWorld = document.getElementById('bc-world');
+      this.bcIndia = document.getElementById('bc-india');
+      this.bcMh = document.getElementById('bc-mh');
+      this.bcCard = document.getElementById('bc-card');
+      this.sepIndia = document.getElementById('sep-india');
+      this.sepMh = document.getElementById('sep-mh');
+      this.sepCard = document.getElementById('sep-card');
+
+      this.btnIndia = document.querySelector('.world-india-highlight');
+      this.btnMh = document.getElementById('btn-explore-mh');
+      this.btnMumbai = document.getElementById('btn-explore-mumbai');
+
+      this.state = 0; // 0: World, 2: India, 3: MH, 4: Card
+      this.hoverTimer = null;
+      this.animFrame = null;
+      this.flightProgress = 0;
+      this.isHovered = false;
+      this.isResetting = false;
+      this.prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (this.wrapper) this.init();
+    }
+
+    init() {
+      // 1. Mouse & Focus Enter/Leave Listeners
+      this.wrapper.addEventListener('mouseenter', () => this.handleMouseEnter());
+      this.wrapper.addEventListener('mouseleave', () => this.handleMouseLeave());
+      this.wrapper.addEventListener('focusin', () => this.handleMouseEnter());
+      this.wrapper.addEventListener('focusout', (e) => {
+        if (!this.wrapper.contains(e.relatedTarget)) this.handleMouseLeave();
+      });
+
+      // 2. Interactive View & Element Click Triggers
+      if (this.viewWorld) {
+        this.viewWorld.addEventListener('click', (e) => {
+          if (this.state === 0 && !e.target.closest('.story-breadcrumbs')) {
+            this.gotoState(2);
+          }
+        });
+      }
+      if (this.viewIndia) {
+        this.viewIndia.addEventListener('click', (e) => {
+          if (this.state === 2 && !e.target.closest('.story-breadcrumbs')) {
+            this.gotoState(3);
+          }
+        });
+      }
+      if (this.viewMh) {
+        this.viewMh.addEventListener('click', (e) => {
+          if (this.state === 3 && !e.target.closest('.story-breadcrumbs')) {
+            this.gotoState(4);
+          }
+        });
+      }
+      if (this.tooltip) {
+        this.tooltip.addEventListener('click', () => {
+          if (this.state === 0) this.gotoState(2);
+          else if (this.state === 2) this.gotoState(3);
+          else if (this.state === 3) this.gotoState(4);
+        });
+      }
+
+      if (this.btnIndia) {
+        this.btnIndia.addEventListener('click', (e) => { e.stopPropagation(); this.gotoState(2); });
+        this.btnIndia.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.gotoState(2); }
+        });
+      }
+      if (this.btnMh) {
+        this.btnMh.addEventListener('click', (e) => { e.stopPropagation(); this.gotoState(3); });
+        this.btnMh.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.gotoState(3); }
+        });
+      }
+      if (this.btnMumbai) {
+        this.btnMumbai.addEventListener('click', (e) => { e.stopPropagation(); this.gotoState(4); });
+        this.btnMumbai.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.gotoState(4); }
+        });
+      }
+
+      // 3. Breadcrumb Click Handlers
+      if (this.bcWorld) this.bcWorld.addEventListener('click', () => this.gotoState(0));
+      if (this.bcIndia) this.bcIndia.addEventListener('click', () => this.gotoState(2));
+      if (this.bcMh) this.bcMh.addEventListener('click', () => this.gotoState(3));
+      if (this.bcCard) this.bcCard.addEventListener('click', () => this.gotoState(4));
+
+      // Set initial UI
+      this.renderState();
+    }
+
+    handleMouseEnter() {
+      if (this.isResetting) return;
+      this.isHovered = true;
+
+      // 120ms debounce delay before triggering State 1 hover animation
+      if (this.hoverTimer) clearTimeout(this.hoverTimer);
+      this.hoverTimer = setTimeout(() => {
+        if (this.isHovered && this.state === 0) {
+          this.triggerState1Hover();
+        }
+      }, 120);
+    }
+
+    triggerState1Hover() {
+      if (this.prefersReducedMotion) {
+        if (this.tooltip) {
+          this.tooltipText.textContent = "📍 Mumbai • Click to explore →";
+          this.tooltip.classList.add('visible');
+        }
+        return;
+      }
+
+      this.flightProgress = 0;
+      if (this.paperPlane) this.paperPlane.style.opacity = '1';
+
+      if (this.flightRoutePath && this.flightRoutePath.getTotalLength) {
+        const routeLength = this.flightRoutePath.getTotalLength();
+
+        const stepFlight = () => {
+          if (!this.isHovered || this.state !== 0) return;
+
+          this.flightProgress += 0.02;
+          if (this.flightProgress >= 1) {
+            this.flightProgress = 1;
+            if (this.paperPlane) this.paperPlane.style.opacity = '0.75';
+            if (this.tooltip) {
+              this.tooltipText.textContent = "📍 Mumbai • Click to explore →";
+              this.tooltip.classList.add('visible');
+            }
+          }
+
+          const pt = this.flightRoutePath.getPointAtLength(this.flightProgress * routeLength);
+          const nextPt = this.flightRoutePath.getPointAtLength(Math.min(routeLength, this.flightProgress * routeLength + 2));
+          const angle = Math.atan2(nextPt.y - pt.y, nextPt.x - pt.x) * (180 / Math.PI);
+
+          if (this.paperPlane) {
+            this.paperPlane.setAttribute('transform', `translate(${pt.x}, ${pt.y}) rotate(${angle})`);
+          }
+
+          if (this.flightProgress < 1) {
+            this.animFrame = requestAnimationFrame(stepFlight);
+          }
+        };
+
+        this.animFrame = requestAnimationFrame(stepFlight);
+      }
+    }
+
+    handleMouseLeave() {
+      this.isHovered = false;
+      if (this.hoverTimer) clearTimeout(this.hoverTimer);
+      if (this.animFrame) cancelAnimationFrame(this.animFrame);
+
+      // Perform graceful 700-900ms reset sequence to return to Idle World
+      this.performGracefulReset();
+    }
+
+    performGracefulReset() {
+      this.isResetting = true;
+      if (this.tooltip) this.tooltip.classList.remove('visible');
+
+      // Step-by-step reverse transition back to State 0
+      const resetStep = (fromState) => {
+        if (fromState > 0) {
+          const nextState = fromState === 4 ? 3 : fromState === 3 ? 2 : 0;
+          this.state = nextState;
+          this.renderState();
+          setTimeout(() => resetStep(nextState), 220);
+        } else {
+          // Final reset of World view elements
+          this.state = 0;
+          this.renderState();
+          if (this.paperPlane) {
+            this.paperPlane.style.opacity = '1';
+            this.paperPlane.setAttribute('transform', 'translate(248, 134) rotate(15)');
+          }
+          this.isResetting = false;
+        }
+      };
+
+      resetStep(this.state);
+    }
+
+    gotoState(targetState) {
+      if (this.isResetting) return;
+      if (this.animFrame) cancelAnimationFrame(this.animFrame);
+      this.state = targetState;
+      this.renderState();
+    }
+
+    renderState() {
+      // 1. Hide all views
+      if (this.viewWorld) this.viewWorld.classList.add('hidden');
+      if (this.viewIndia) this.viewIndia.classList.add('hidden');
+      if (this.viewMh) this.viewMh.classList.add('hidden');
+      if (this.viewCard) this.viewCard.classList.add('hidden');
+
+      // 2. Hide all breadcrumbs
+      [this.bcIndia, this.bcMh, this.bcCard, this.sepIndia, this.sepMh, this.sepCard].forEach(el => {
+        if (el) el.classList.add('hidden');
+      });
+
+      if (this.bcWorld) this.bcWorld.classList.remove('active');
+      if (this.bcIndia) this.bcIndia.classList.remove('active');
+      if (this.bcMh) this.bcMh.classList.remove('active');
+      if (this.bcCard) this.bcCard.classList.remove('active');
+
+      // 3. Render target state
+      switch (this.state) {
+        case 0: // World
+          if (this.viewWorld) this.viewWorld.classList.remove('hidden');
+          if (this.bcWorld) this.bcWorld.classList.add('active');
+          if (this.noteText) this.noteText.textContent = "Follow the journey.";
+          if (this.note) this.note.style.opacity = '1';
+          if (this.tooltip && !this.isHovered) this.tooltip.classList.remove('visible');
+          break;
+
+        case 2: // India
+          if (this.viewIndia) this.viewIndia.classList.remove('hidden');
+          if (this.sepIndia) this.sepIndia.classList.remove('hidden');
+          if (this.bcIndia) {
+            this.bcIndia.classList.remove('hidden');
+            this.bcIndia.classList.add('active');
+          }
+          if (this.noteText) this.noteText.textContent = "Home base.";
+          if (this.note) this.note.style.opacity = '1';
+          if (this.tooltip) {
+            this.tooltipText.textContent = "Click Maharashtra →";
+            this.tooltip.classList.add('visible');
+          }
+          break;
+
+        case 3: // Maharashtra
+          if (this.viewMh) this.viewMh.classList.remove('hidden');
+          if (this.sepIndia) this.sepIndia.classList.remove('hidden');
+          if (this.bcIndia) this.bcIndia.classList.remove('hidden');
+          if (this.sepMh) this.sepMh.classList.remove('hidden');
+          if (this.bcMh) {
+            this.bcMh.classList.remove('hidden');
+            this.bcMh.classList.add('active');
+          }
+          if (this.noteText) this.noteText.textContent = "Where ideas become products.";
+          if (this.note) this.note.style.opacity = '1';
+          if (this.tooltip) {
+            this.tooltipText.textContent = "Click Mumbai →";
+            this.tooltip.classList.add('visible');
+          }
+          break;
+
+        case 4: // Info Card
+          if (this.viewCard) this.viewCard.classList.remove('hidden');
+          if (this.sepIndia) this.sepIndia.classList.remove('hidden');
+          if (this.bcIndia) this.bcIndia.classList.remove('hidden');
+          if (this.sepMh) this.sepMh.classList.remove('hidden');
+          if (this.bcMh) this.bcMh.classList.remove('hidden');
+          if (this.sepCard) this.sepCard.classList.remove('hidden');
+          if (this.bcCard) {
+            this.bcCard.classList.remove('hidden');
+            this.bcCard.classList.add('active');
+          }
+          if (this.note) this.note.style.opacity = '0';
+          if (this.tooltip) this.tooltip.classList.remove('visible');
+          break;
+      }
+    }
+  }
+
+  // Instantiate Story Map FSM
+  new StoryMapFSM();
+
+  // 10. SINGLE-PLAY SCROLL REVEAL OBSERVER
+  const connectSection = document.getElementById('connect');
+  if (connectSection && 'IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          connectSection.classList.add('reveal-active');
+          revealObserver.unobserve(connectSection); // Play once only
+        }
+      });
+    }, { threshold: 0.15 });
+
+    revealObserver.observe(connectSection);
+  }
+
+  // 11. DISCORD TAG COPY HANDLER
   const discordCopyBtn = document.getElementById('discord-copy-btn');
   if (discordCopyBtn) {
     discordCopyBtn.addEventListener('click', () => {
