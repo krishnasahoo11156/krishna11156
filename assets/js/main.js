@@ -1189,16 +1189,17 @@ function initContactAndAppointmentSystem() {
   }
 
   // 11. DISCORD TAG COPY HANDLER
-  const discordCopyBtn = document.getElementById('discord-copy-btn');
-  if (discordCopyBtn) {
-    discordCopyBtn.addEventListener('click', () => {
+  const discordCopyBtns = document.querySelectorAll('#discord-copy-btn, .discord-copy-duplicate');
+  discordCopyBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
       navigator.clipboard.writeText('queenbee11156').then(() => {
         showToast('📋 Copied Discord Tag: queenbee11156');
       }).catch(() => {
         showToast('Copied: queenbee11156');
       });
     });
-  }
+  });
 
   // 4. GOOGLE CALENDAR APPOINTMENT ENGINE
   const apptModal = document.getElementById('appointment-modal');
