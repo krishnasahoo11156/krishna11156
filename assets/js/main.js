@@ -949,38 +949,294 @@ function initContactAndAppointmentSystem() {
     });
   }
 
-  // ⭐ 2. SOFT AMBIENT CURSOR LIGHT (180px, 3% Opacity Inside Paper Card)
-  const paperCard = document.getElementById('contact-paper-card');
-  const ambientLight = document.getElementById('paper-ambient-light');
+  // ⭐ 2. DOT FIELD — SPRING PHYSICS CURSOR EFFECT
+  // Bimodal compliance, inertia of rest/motion, spatial wake modulation, soft collision
+  (function () {
+    const paperCard = document.getElementById('contact-paper-card');
+    const dotCanvas = document.getElementById('dot-field-canvas');
+    if (!paperCard || !dotCanvas) return;
 
-  if (paperCard && ambientLight) {
-    let currentX = 0, currentY = 0;
-    let targetX = 0, targetY = 0;
-    let animFrame = null;
+    const ctx = dotCanvas.getContext('2d');
 
-    function updateAmbientPos() {
-      currentX += (targetX - currentX) * 0.1;
-      currentY += (targetY - currentY) * 0.1;
-      ambientLight.style.left = `${currentX}px`;
-      ambientLight.style.top = `${currentY}px`;
+    // ── PHYSICS CONSTANTS ────────────────────────────────────────────────────
+    const SPACING        = 15;    // px — dot rest-position grid gap
+    const RADIUS         = 145;   // px — cursor influence radius
+    const MAX_PULL       = 0.30;  // fraction of RADIUS a dot can be displaced toward cursor
+    const BASE_STIFF     = 0.058; // spring stiffness (compliant baseline)
+    const REPEL_DIST     = 8.0;   // px — soft repulsion activation distance
+    const REPEL_STRENGTH = 0.09;  // repulsion force magnitude
+    const IDLE_VEL       = 0.04;  // velocity magnitude threshold to consider dot "settled"
+    const IDLE_POS       = 0.35;  // position error threshold to consider dot "settled"
 
-      if (Math.abs(targetX - currentX) > 0.5 || Math.abs(targetY - currentY) > 0.5) {
-        animFrame = requestAnimationFrame(updateAmbientPos);
+    // ── SITE GREEN PALETTE (R, G, B) ─────────────────────────────────────────
+    const C_CORE  = [52,  211, 153]; // #34D399 — light emerald at cursor centre
+    const C_MID   = [110, 231, 183]; // #6EE7B7 — light mint mid-ring
+    const C_EDGE  = [167, 243, 208]; // #A7F3D0 — very light mint at influence edge
+
+    // ── STATE ────────────────────────────────────────────────────────────────
+    let dots = [], pairs = [];
+    let numCols = 0, numRows = 0;
+    let cursorX = -9999, cursorY = -9999;
+    let prevCX  = -9999, prevCY  = -9999;
+    let curVX = 0, curVY = 0, cursorSpeed = 0;
+    let isInside = false;
+    let rafId = null;
+
+    // ── GAUSSIAN RANDOM (Box-Muller) ─────────────────────────────────────────
+    function gauss(mean, std) {
+      let u, v;
+      do { u = Math.random(); } while (u === 0);
+      do { v = Math.random(); } while (v === 0);
+      return mean + std * Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+    }
+
+    // ── BIMODAL COMPLIANCE SAMPLER ───────────────────────────────────────────
+    // Returns a value 0–1. Two clusters:
+    //   Compliant (85%): clustered near 0.87 ± 0.055   → heavy inertia, oscillate
+    //   Rebel     (15%): clustered near 0.22 ± 0.060   → eager, low inertia
+    // Within each cluster, Gaussian spread gives natural variance.
+    function sampleCompliance() {
+      if (Math.random() < 0.15) {
+        return Math.max(0.06, Math.min(0.42, gauss(0.22, 0.060))); // rebel cluster
       } else {
-        animFrame = null;
+        return Math.max(0.58, Math.min(1.00, gauss(0.87, 0.055))); // compliant cluster
       }
     }
 
+    // ── INIT DOT GRID + COLLISION PAIRS ──────────────────────────────────────
+    function init() {
+      dots = [];
+      pairs = [];
+
+      const W = dotCanvas.width;
+      const H = dotCanvas.height;
+      // Centre the grid within the canvas
+      const ox = ((W % SPACING) + SPACING) / 2;
+      const oy = ((H % SPACING) + SPACING) / 2;
+
+      numCols = Math.floor((W - ox) / SPACING) + 1;
+      numRows = Math.floor((H - oy) / SPACING) + 1;
+
+      for (let r = 0; r < numRows; r++) {
+        for (let c = 0; c < numCols; c++) {
+          const rx = ox + c * SPACING;
+          const ry = oy + r * SPACING;
+          const comp = sampleCompliance();
+
+          // Compliance → physics mapping:
+          //   Rebel  (low comp): stiff spring + high damp → snappy/eager, little oscillation
+          //   Compliant (high): soft spring + low  damp → laggy start, rich overshoot & oscillation
+          const stiffness = BASE_STIFF * (1.55 - comp * 0.90); // rebel ≈ 0.078, compliant ≈ 0.045
+          const damping   = 0.895 - comp * 0.115;              // rebel ≈ 0.870, compliant ≈ 0.795
+
+          dots.push({ rx, ry, x: rx, y: ry, vx: 0, vy: 0, comp, stiffness, damping });
+        }
+      }
+
+      // Precompute immediate-neighbor pairs (right, down, 2 diagonals).
+      // Only O(4n) pairs → collision stays performant even for 2000+ dots.
+      for (let r = 0; r < numRows; r++) {
+        for (let c = 0; c < numCols; c++) {
+          const i = r * numCols + c;
+          if (c + 1 < numCols)                       pairs.push([i, r * numCols + c + 1]);
+          if (r + 1 < numRows)                       pairs.push([i, (r + 1) * numCols + c]);
+          if (r + 1 < numRows && c + 1 < numCols)   pairs.push([i, (r + 1) * numCols + c + 1]);
+          if (r + 1 < numRows && c - 1 >= 0)        pairs.push([i, (r + 1) * numCols + c - 1]);
+        }
+      }
+    }
+
+    // ── COLOR INTERPOLATION ───────────────────────────────────────────────────
+    // t: 0 = cursor centre → C_CORE, 1 = influence edge → C_EDGE
+    function lerpColor(t) {
+      const [r1, g1, b1] = t < 0.45
+        ? [C_CORE[0] + (C_MID[0] - C_CORE[0]) * (t / 0.45),
+           C_CORE[1] + (C_MID[1] - C_CORE[1]) * (t / 0.45),
+           C_CORE[2] + (C_MID[2] - C_CORE[2]) * (t / 0.45)]
+        : [C_MID[0] + (C_EDGE[0] - C_MID[0]) * ((t - 0.45) / 0.55),
+           C_MID[1] + (C_EDGE[1] - C_MID[1]) * ((t - 0.45) / 0.55),
+           C_MID[2] + (C_EDGE[2] - C_MID[2]) * ((t - 0.45) / 0.55)];
+      return [Math.round(r1), Math.round(g1), Math.round(b1)];
+    }
+
+    // ── MAIN ANIMATION LOOP ───────────────────────────────────────────────────
+    function animate() {
+      rafId = requestAnimationFrame(animate);
+      ctx.clearRect(0, 0, dotCanvas.width, dotCanvas.height);
+
+      // Smooth cursor velocity (used for spatial wake modulation)
+      if (prevCX !== -9999) {
+        curVX = cursorX - prevCX;
+        curVY = cursorY - prevCY;
+        cursorSpeed = Math.sqrt(curVX * curVX + curVY * curVY);
+      }
+      prevCX = cursorX;
+      prevCY = cursorY;
+
+      // Normalized speed [0–1] for spatial modulation strength
+      const speedNorm = Math.min(1, cursorSpeed / 10);
+      // Direction of cursor movement (angle)
+      const movAngle = Math.atan2(curVY, curVX);
+
+      // ── PER-DOT PHYSICS ──────────────────────────────────────────────────
+      for (let i = 0; i < dots.length; i++) {
+        const d = dots[i];
+
+        // Distance from dot's REST position to cursor
+        const rdx = cursorX - d.rx;
+        const rdy = cursorY - d.ry;
+        const restDist = Math.sqrt(rdx * rdx + rdy * rdy);
+
+        // Smooth influence falloff: 1 at cursor, 0 at RADIUS  (smoothstep³)
+        const raw = Math.max(0, 1 - restDist / RADIUS);
+        const infl = raw * raw * (3 - 2 * raw); // smoothstep
+
+        const inMotion = Math.abs(d.vx) > IDLE_VEL || Math.abs(d.vy) > IDLE_VEL
+                      || Math.abs(d.x - d.rx) > IDLE_POS || Math.abs(d.y - d.ry) > IDLE_POS;
+
+        if (infl < 0.001 && !inMotion) continue; // fully settled & out of range → skip
+
+        // ── SPATIAL WAKE MODULATION ─────────────────────────────────────────
+        // When cursor moves, dots in its WAKE get a temporary stiffness reduction
+        // (more lag/inertia). Dots AHEAD of the cursor get a slight stiffness boost
+        // (more eager). This creates a natural directional drag texture.
+        // Effect is proportional to cursor speed so it's invisible at rest.
+        let stiffnessMod = 1.0;
+        if (speedNorm > 0.04 && infl > 0.03) {
+          // alignment: +1 = dot ahead of cursor, -1 = dot behind (in wake)
+          const dotAngle  = Math.atan2(d.ry - cursorY, d.rx - cursorX);
+          const alignment = Math.cos(dotAngle - movAngle);
+          // Wake: alignment ≈ -1 → reduce stiffness (heavier inertia)
+          // Front: alignment ≈ +1 → boost stiffness (more eager)
+          stiffnessMod = 1.0 + speedNorm * 0.28 * alignment;
+          stiffnessMod  = Math.max(0.35, stiffnessMod);
+        }
+
+        // ── SPRING TARGET ───────────────────────────────────────────────────
+        // All dots aim for the same target: rest pos + partial pull toward cursor.
+        // HOW fast they reach it is what compliance controls.
+        const pullFrac = infl * MAX_PULL;
+        const targetX  = d.rx + rdx * pullFrac;
+        const targetY  = d.ry + rdy * pullFrac;
+
+        // Spring force toward target (stiffness × error × spatial mod)
+        const eff = d.stiffness * stiffnessMod;
+        d.vx += (targetX - d.x) * eff;
+        d.vy += (targetY - d.y) * eff;
+
+        // Velocity damping (rebels damp fast → settle quick; compliant damp slow → overshoot)
+        d.vx *= d.damping;
+        d.vy *= d.damping;
+
+        // Integrate position
+        d.x += d.vx;
+        d.y += d.vy;
+      }
+
+      // ── SOFT COLLISION REPULSION ─────────────────────────────────────────
+      // Only run for neighbor pairs where at least one dot is near cursor.
+      // Very slight repulsion — prevents overlap but allows gap to compress.
+      if (isInside) {
+        for (let p = 0; p < pairs.length; p++) {
+          const [ai, bi] = pairs[p];
+          const a = dots[ai], b = dots[bi];
+
+          // Cull pairs far from cursor (both rest positions outside influence)
+          if (Math.hypot(cursorX - a.rx, cursorY - a.ry) > RADIUS * 1.15 &&
+              Math.hypot(cursorX - b.rx, cursorY - b.ry) > RADIUS * 1.15) continue;
+
+          const dx   = a.x - b.x;
+          const dy   = a.y - b.y;
+          const dist2 = dx * dx + dy * dy;
+
+          if (dist2 < REPEL_DIST * REPEL_DIST && dist2 > 0.0001) {
+            const dist   = Math.sqrt(dist2);
+            const force  = REPEL_STRENGTH * (1 - dist / REPEL_DIST);
+            const nx = dx / dist, ny = dy / dist;
+            // Equal and opposite impulse (momentum conservation)
+            a.vx += nx * force; a.vy += ny * force;
+            b.vx -= nx * force; b.vy -= ny * force;
+          }
+        }
+      }
+
+      // ── DRAW DOTS ────────────────────────────────────────────────────────
+      for (let i = 0; i < dots.length; i++) {
+        const d = dots[i];
+
+        const rdx2     = cursorX - d.rx;
+        const rdy2     = cursorY - d.ry;
+        const restDist2 = Math.sqrt(rdx2 * rdx2 + rdy2 * rdy2);
+        const raw2     = Math.max(0, 1 - restDist2 / RADIUS);
+        const infl2    = raw2 * raw2 * (3 - 2 * raw2);
+
+        if (infl2 < 0.004) continue; // too dim to be visible
+
+        const normDist = Math.min(1, restDist2 / RADIUS);   // 0=centre, 1=edge
+        const [r, g, b] = lerpColor(normDist);
+        const opacity  = (infl2 * 0.72).toFixed(3);
+        // Dot radius: bold at centre (3px), fine at edge (0.55px)
+        const dotR = 0.55 + 2.45 * (1 - normDist);
+
+        ctx.beginPath();
+        ctx.arc(d.x, d.y, dotR, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${r},${g},${b},${opacity})`;
+        ctx.fill();
+      }
+
+      // ── IDLE CHECK: stop rAF when cursor is gone and all dots have settled ─
+      if (!isInside) {
+        let anyActive = false;
+        for (let i = 0; i < dots.length; i++) {
+          const d = dots[i];
+          if (Math.abs(d.vx) > IDLE_VEL || Math.abs(d.vy) > IDLE_VEL ||
+              Math.abs(d.x - d.rx) > IDLE_POS || Math.abs(d.y - d.ry) > IDLE_POS) {
+            anyActive = true;
+            break;
+          }
+        }
+        if (!anyActive) {
+          cancelAnimationFrame(rafId);
+          rafId = null;
+          ctx.clearRect(0, 0, dotCanvas.width, dotCanvas.height);
+        }
+      }
+    }
+
+    // ── RESIZE HANDLER ────────────────────────────────────────────────────────
+    function resize() {
+      const rect = paperCard.getBoundingClientRect();
+      dotCanvas.width  = Math.round(rect.width);
+      dotCanvas.height = Math.round(rect.height);
+      init();
+    }
+
+    // ── EVENTS ───────────────────────────────────────────────────────────────
+    paperCard.addEventListener('mouseenter', () => {
+      isInside = true;
+      prevCX = -9999; prevCY = -9999;
+      cursorSpeed = 0;
+      if (!rafId) rafId = requestAnimationFrame(animate);
+    });
+
     paperCard.addEventListener('mousemove', (e) => {
       const rect = paperCard.getBoundingClientRect();
-      targetX = e.clientX - rect.left;
-      targetY = e.clientY - rect.top;
-
-      if (!animFrame) {
-        animFrame = requestAnimationFrame(updateAmbientPos);
-      }
+      cursorX = e.clientX - rect.left;
+      cursorY = e.clientY - rect.top;
     });
-  }
+
+    paperCard.addEventListener('mouseleave', () => {
+      isInside = false;
+      cursorX  = -9999;
+      cursorY  = -9999;
+      cursorSpeed = 0;
+    });
+
+    // ── STARTUP ──────────────────────────────────────────────────────────────
+    resize();
+    const ro = new ResizeObserver(resize);
+    ro.observe(paperCard);
+  })();
 
   // ⭐ 3. LOCAL PARALLAX SPARKLE (Moves 6-8px Following Cursor in Header)
   const headerElem = document.querySelector('.connect-header');
@@ -1142,32 +1398,63 @@ function initContactAndAppointmentSystem() {
       if (btnSpinner) btnSpinner.style.display = 'inline-block';
       if (btnSendText) btnSendText.textContent = 'Sending...';
 
-      // Flying paper plane & morphing logic
-      setTimeout(() => {
-        // Mailto fallback dispatch
+      // Submit via Web3Forms AJAX API (Free up to 250 submissions/month)
+      // Paste your Web3Forms Access Key here:
+      const WEB3_ACCESS_KEY = "YOUR_ACCESS_KEY_HERE";
+      const phoneVal = document.getElementById('contact-phone')?.value.trim() || 'N/A';
+
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          access_key: WEB3_ACCESS_KEY,
+          name: name,
+          email: email,
+          subject: `Portfolio Inquiry: ${subject} from ${name}`,
+          phone: phoneVal,
+          message: message
+        })
+      })
+      .then(res => {
+        if (!res.ok) throw new Error('Network response not ok');
+        return res.json();
+      })
+      .then(data => {
+        if (data.success) {
+          if (btnSpinner) btnSpinner.style.display = 'none';
+          if (btnSendText) btnSendText.textContent = '✓ Message Sent';
+          showToast(`Thank you ${name}! Your message has been sent directly.`);
+
+          directForm.reset();
+          formInputs.forEach(inp => {
+            const wrp = inp.closest('.input-wrapper');
+            if (wrp) wrp.classList.remove('valid', 'error');
+          });
+          if (charCounter) charCounter.textContent = '0 / 500';
+          if (cornerNoteText) cornerNoteText.textContent = 'Just me.';
+        } else {
+          throw new Error(data.message || 'Submission failed');
+        }
+      })
+      .catch(err => {
+        console.error('Direct submission error:', err);
+        // Fallback to mailto if request fails
         const mailtoUrl = `mailto:krishnasahoo11156@gmail.com?subject=${encodeURIComponent(subject + ' - ' + name)}&body=${encodeURIComponent(message + '\n\nFrom: ' + name + ' (' + email + ')')}`;
         window.open(mailtoUrl, '_blank');
-
         if (btnSpinner) btnSpinner.style.display = 'none';
-        if (btnSendText) btnSendText.textContent = '✓ Message Sent';
-        showToast(`Thank you ${name}! Direct message opened in your email client.`);
-
-        directForm.reset();
-        formInputs.forEach(inp => {
-          const wrp = inp.closest('.input-wrapper');
-          if (wrp) wrp.classList.remove('valid', 'error');
-        });
-        if (charCounter) charCounter.textContent = '0 / 500';
-        if (cornerNoteText) cornerNoteText.textContent = 'Just me.';
-
-        // Reset button state after 2.5s
+        if (btnSendText) btnSendText.textContent = '✓ Mailto Opened';
+        showToast('Direct delivery failed. Opened mail client instead.');
+      })
+      .finally(() => {
         setTimeout(() => {
           btnSendMsg.disabled = false;
           btnSendMsg.classList.remove('submitting');
           if (btnSendText) btnSendText.textContent = 'Send Message';
         }, 2500);
-
-      }, 700);
+      });
     });
   }
 
@@ -1189,16 +1476,17 @@ function initContactAndAppointmentSystem() {
   }
 
   // 11. DISCORD TAG COPY HANDLER
-  const discordCopyBtn = document.getElementById('discord-copy-btn');
-  if (discordCopyBtn) {
-    discordCopyBtn.addEventListener('click', () => {
+  const discordCopyBtns = document.querySelectorAll('#discord-copy-btn, .discord-copy-duplicate');
+  discordCopyBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
       navigator.clipboard.writeText('queenbee11156').then(() => {
         showToast('📋 Copied Discord Tag: queenbee11156');
       }).catch(() => {
         showToast('Copied: queenbee11156');
       });
     });
-  }
+  });
 
   // 4. GOOGLE CALENDAR APPOINTMENT ENGINE
   const apptModal = document.getElementById('appointment-modal');
@@ -1476,7 +1764,7 @@ function initContactAndAppointmentSystem() {
 
   // 5. SECURE HOST MANAGEMENT PORTAL HANDLER
   const hostModal = document.getElementById('host-portal-modal');
-  const btnHostTrigger = document.getElementById('btn-host-login-trigger');
+  const btnHostTrigger = document.getElementById('hidden-host-trigger');
   const btnCloseHostModal = document.getElementById('host-modal-close');
 
   const hostAuthView = document.getElementById('host-auth-view');
