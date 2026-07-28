@@ -4331,22 +4331,14 @@ main {
   overflow: hidden;
 }
 
-/* ⭐ Soft Ambient Cursor Light Layer */
-.paper-ambient-light {
+/* ⭐ Dot Field Spring Physics Canvas */
+#dot-field-canvas {
   position: absolute;
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(16, 185, 129, 0.08) 0%, transparent 70%);
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
   pointer-events: none;
-  opacity: 0;
-  transition: opacity 300ms ease;
   z-index: 1;
-}
-
-.contact-paper-card:hover .paper-ambient-light {
-  opacity: 1;
+  border-radius: 28px;
 }
 
 /* ⭐ Reactive Corner Note (Top-Right) */
@@ -4511,6 +4503,27 @@ main {
   width: 100%;
 }
 
+/* Green Bottom Border Transition (Starts from left to right, 0.5s duration) */
+.input-wrapper::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #10B981 0%, #059669 50%, #047857 100%);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.input-wrapper:hover::after,
+.input-wrapper:focus-within::after {
+  transform: scaleX(1);
+}
+
 .input-icon {
   position: absolute;
   left: 14px;
@@ -4530,10 +4543,11 @@ main {
 .form-group select,
 .form-group textarea {
   width: 100%;
-  padding: 12px 14px 12px 42px;
-  background: #F9FAFB;
-  border: 1px solid #E5E7EB;
-  border-radius: 14px;
+  padding: 12px 0;
+  background: transparent; /* Completely transparent rectangle */
+  border: none;
+  border-bottom: 1px solid #E5E7EB;
+  border-radius: 0;
   font-family: var(--font-sans, 'Lato', sans-serif);
   font-size: 14px;
   color: #111827;
@@ -4543,16 +4557,14 @@ main {
 }
 
 .form-group select {
-  padding-left: 14px;
   cursor: pointer;
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%206B7280' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right 14px center;
+  background-position: right 0 center;
 }
 
 .textarea-wrapper textarea {
-  padding-left: 42px;
   padding-bottom: 28px;
 }
 
@@ -4564,15 +4576,15 @@ main {
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-  border-color: #00A86B;
-  background: #FFFFFF;
-  box-shadow: 0 0 0 4px rgba(0, 168, 107, 0.1);
+  border-bottom-color: #E5E7EB; /* Keep bottom border color grey to let bottom green highlight pop */
+  background: transparent;
+  box-shadow: none; /* Keep completely transparent without focus glow */
 }
 
 /* Green Checkmark Badge */
 .field-valid-check {
   position: absolute;
-  right: 14px;
+  right: 0;
   top: 50%;
   transform: translateY(-50%);
   color: #00A86B;
@@ -4590,7 +4602,7 @@ main {
 .char-counter {
   position: absolute;
   bottom: 10px;
-  right: 14px;
+  right: 0;
   font-size: 11px;
   color: #9CA3AF;
   pointer-events: none;
@@ -4625,6 +4637,8 @@ main {
 .privacy-text .sub {
   color: #9CA3AF;
   font-size: 11px;
+  cursor: default;
+  user-select: none;
 }
 
 .btn-send-message {
@@ -4633,7 +4647,8 @@ main {
   justify-content: center;
   gap: 10px;
   padding: 14px 28px;
-  background: #00A86B;
+  background: linear-gradient(135deg, #10B981 0%, #059669 50%, #047857 100%);
+  background-size: 200% auto;
   color: #FFFFFF;
   border: none;
   border-radius: 14px;
@@ -4641,15 +4656,13 @@ main {
   font-size: 15px;
   font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(0, 168, 107, 0.25);
-  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+  transition: transform 180ms ease, background-position 300ms ease;
   min-height: 48px;
 }
 
 .btn-send-message:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 168, 107, 0.35);
-  background: #059669;
+  background-position: right center;
 }
 
 /* Bottom Center Handwritten Quote */

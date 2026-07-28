@@ -944,8 +944,8 @@
           <!-- RIGHT COLUMN: Floating White Paper Container ("Drop a Message" Form Card) -->
           <div class="connect-right-col">
             <div class="contact-paper-card" id="contact-paper-card">
-              <!-- Soft Ambient Cursor Light Layer -->
-              <div class="paper-ambient-light" id="paper-ambient-light" aria-hidden="true"></div>
+              <!-- Dot Field Spring Physics Canvas -->
+              <canvas id="dot-field-canvas" aria-hidden="true"></canvas>
 
               <!-- Reactive Handwritten Corner Note (Top-Right) -->
               <div class="corner-note-wrapper">
@@ -997,7 +997,6 @@
                     <div class="form-group">
                       <label for="contact-name">Your Name <span class="req">*</span></label>
                       <div class="input-wrapper">
-                        <span class="input-icon">👤</span>
                         <input type="text" id="contact-name" placeholder="e.g. Alex Morgan" required />
                         <span class="field-valid-check" aria-hidden="true">✓</span>
                       </div>
@@ -1006,7 +1005,6 @@
                     <div class="form-group">
                       <label for="contact-email">Email Address <span class="req">*</span></label>
                       <div class="input-wrapper">
-                        <span class="input-icon">✉️</span>
                         <input type="email" id="contact-email" placeholder="alex@example.com" required />
                         <span class="field-valid-check" aria-hidden="true">✓</span>
                       </div>
@@ -1030,7 +1028,6 @@
                     <div class="form-group">
                       <label for="contact-phone">Phone (Optional)</label>
                       <div class="input-wrapper">
-                        <span class="input-icon">📞</span>
                         <input type="tel" id="contact-phone" placeholder="+91 98765 43210" />
                       </div>
                     </div>
@@ -1039,7 +1036,6 @@
                   <div class="form-group">
                     <label for="contact-message">Your Message <span class="req">*</span></label>
                     <div class="input-wrapper textarea-wrapper">
-                      <span class="input-icon input-icon-textarea">✏️</span>
                       <textarea id="contact-message" rows="5" placeholder="Tell me about your project, team, or opportunity..." required></textarea>
                       <span class="char-counter" id="char-counter">0 / 500</span>
                     </div>
@@ -1054,7 +1050,7 @@
                       </svg>
                       <div class="privacy-text">
                         <span>Your details are safe</span><br>
-                        <span class="sub">No spam. Ever.</span>
+                        <span class="sub" id="hidden-host-trigger">No spam. Ever.</span>
                       </div>
                     </div>
 
@@ -1112,12 +1108,6 @@
                 </div>
               </div>
 
-              <!-- Discrete Host Entry Switcher -->
-              <div class="host-entry-footer">
-                <button class="btn-host-login-trigger" id="btn-host-login-trigger" title="Host Management Portal (Passcode Required)">
-                  <span>🔒 Host Portal Access</span>
-                </button>
-              </div>
             </div><!-- End .contact-paper-card -->
           </div><!-- End .connect-right-col -->
         </div><!-- End .connect-split-grid -->
