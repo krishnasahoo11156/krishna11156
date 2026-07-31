@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initResumeModal();
   initNavbar();
   initScrollHint();
-  initTestimonialsScroll();
+  initTestimonialsEditorialShowcase();
   initSectionObserver();
   initStatsCounter();
   initTimelineObserver();
@@ -155,49 +155,313 @@ function initScrollHint() {
 }
 
 /**
- * Testimonials section — mouse & touch drag-to-scroll
+ * Testimonials Editorial Showcase — Premium Apple x Linear x Stripe Redesign
  */
-function initTestimonialsScroll() {
-  const wrapper = document.getElementById('testimonials-track-wrapper');
-  if (!wrapper) return;
 
-  let isDown = false;
-  let startX = 0;
-  let scrollStart = 0;
+const TESTIMONIALS_DATA = [
+  {
+    id: "1",
+    name: "Malavya Mankar",
+    role: "Team AlgoMinds Lead",
+    organisation: "VESIT",
+    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=250&q=80",
+    initials: "MM",
+    quote: "Krishna is one of the most driven builders I've met. His ability to turn ideas into impactful products in record time is remarkable. He's not just a great developer, but also a fantastic teammate and leader.",
+    project: "Autonomous Onboarding Agent",
+    projectSlug: "works",
+    badge: "Verified Collaboration",
+    date: "Syrus 2026",
+    tooltip: {
+      title: "WORKED TOGETHER ON",
+      project: "Autonomous Onboarding Agent",
+      event: "Syrus 2026",
+      role: "Frontend & AI Architecture"
+    },
+    verified: true
+  },
+  {
+    id: "2",
+    name: "Rishabh Mishra",
+    role: "Fullstack Collaborator",
+    organisation: "Team AlgoMinds",
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=250&q=80",
+    initials: "RM",
+    quote: "Krishna brings clarity to complexity. His ability to break down problems and build elegant, scalable solutions in high-pressure hackathon sprints is rare to find.",
+    project: "CrisisSync Platform",
+    projectSlug: "works",
+    badge: "Highly Recommended",
+    date: "Solution Challenge",
+    tooltip: {
+      title: "WORKED TOGETHER ON",
+      project: "CrisisSync Realtime",
+      event: "Google Solution Challenge",
+      role: "Flutter & Firebase Engine"
+    },
+    verified: true
+  },
+  {
+    id: "3",
+    name: "Nidhi Patil",
+    role: "Product Strategist",
+    organisation: "VESIT",
+    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=250&q=80",
+    initials: "NP",
+    quote: "Krishna's consistency, dedication and problem-solving mindset are truly inspiring. During tight project timelines, he delivers clean engineering with meticulous detail. He elevates the whole team.",
+    project: "StudySync Platform",
+    projectSlug: "works",
+    badge: "Verified Collaboration",
+    date: "UniMerge 1.0",
+    tooltip: {
+      title: "WORKED TOGETHER ON",
+      project: "StudySync Audio Engine",
+      event: "UniMerge 1.0",
+      role: "Web Audio Synthesis Engine"
+    },
+    verified: true
+  },
+  {
+    id: "4",
+    name: "Parth B.",
+    role: "Hackathon Organizer",
+    organisation: "parth.builds Community",
+    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=250&q=80",
+    initials: "PB",
+    quote: "Krishna has an exceptional ability to turn complex ideas into working software in record time. His work on StudySync — particularly the Web Audio synthesis engine — was genuinely innovative for a second-year student.",
+    project: "StudySync Web Audio",
+    projectSlug: "works",
+    badge: "Hackathon Judge",
+    date: "UniMerge 1.0",
+    tooltip: {
+      title: "EVALUATED AT HACKATHON",
+      project: "StudySync Platform",
+      event: "UniMerge 1.0",
+      role: "Grand Finalist Evaluation"
+    },
+    verified: true
+  },
+  {
+    id: "5",
+    name: "InboxOS Maintainer",
+    role: "Open Source Lead",
+    organisation: "InboxOS Monorepo",
+    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=250&q=80",
+    initials: "IO",
+    quote: "One of the most self-driven developers I've seen. Krishna approached a production TypeScript monorepo with Docker, Prisma, and Redis, and merged 9 PRs in under two weeks. That kind of initiative is rare.",
+    project: "InboxOS Core",
+    projectSlug: "works",
+    badge: "Verified Contributor",
+    date: "Open Source 2026",
+    tooltip: {
+      title: "OPEN SOURCE COLLABORATION",
+      project: "InboxOS Monorepo",
+      event: "Production Release",
+      role: "Docker & Prisma Infrastructure"
+    },
+    verified: true
+  }
+];
 
-  wrapper.addEventListener('mousedown', (e) => {
-    isDown = true;
-    wrapper.classList.add('grabbing');
-    startX = e.pageX - wrapper.offsetLeft;
-    scrollStart = wrapper.scrollLeft;
-    e.preventDefault();
-  });
+const IMPACT_METRICS_DATA = [
+  { icon: 'trophy', value: '6+', label: 'Hackathons Participated' },
+  { icon: 'award', value: '3', label: 'Top 3 Finishes' },
+  { icon: 'users', value: '15+', label: 'Projects Built' },
+  { icon: 'code', value: '1166+', label: 'Hours of Collaboration' },
+  { icon: 'shield-check', value: '5+', label: 'Collaborations' }
+];
 
-  ['mouseleave', 'mouseup'].forEach(evt => {
-    wrapper.addEventListener(evt, () => {
-      isDown = false;
-      wrapper.classList.remove('grabbing');
+const OUTLINE_ICONS = {
+  trophy: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"></path></svg>`,
+  award: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"></circle><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path></svg>`,
+  users: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>`,
+  code: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>`,
+  'shield-check': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg>`
+};
+
+class TestimonialsManager {
+  constructor(data, metrics) {
+    this.data = data;
+    this.metrics = metrics;
+    this.track = document.getElementById('testim-conveyor-track');
+    this.metricsGrid = document.getElementById('impact-metrics-grid');
+  }
+
+  init() {
+    if (!this.track) return;
+
+    if (!this.data || this.data.length === 0) {
+      this.renderEmptyState();
+      return;
+    }
+
+    this.renderMetrics();
+    this.renderConveyor();
+    this.bindCardInteractions();
+  }
+
+  renderEmptyState() {
+    if (!this.track) return;
+    this.track.innerHTML = `
+      <div class="testim-empty-state">
+        <p>Testimonials coming soon.</p>
+        <p class="sub">I'm currently collaborating on exciting engineering projects. Check back soon!</p>
+      </div>
+    `;
+  }
+
+  renderMetrics() {
+    if (!this.metricsGrid) return;
+    this.metricsGrid.innerHTML = this.metrics.map(m => `
+      <div class="impact-metric-col">
+        <div class="impact-icon-badge">
+          ${OUTLINE_ICONS[m.icon] || ''}
+        </div>
+        <div class="impact-metric-info">
+          <span class="impact-metric-value">${m.value}</span>
+          <span class="impact-metric-label">${m.label}</span>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  renderConveyor() {
+    if (!this.track) return;
+    // Duplicate dataset twice so loop translation is 100% continuous and seamless
+    const itemsToRender = [...this.data, ...this.data];
+
+    this.track.innerHTML = itemsToRender.map((item, index) => this.createCardHTML(item, index)).join('');
+  }
+
+  createCardHTML(item, index) {
+    return `
+      <article class="testim-card-editorial" data-id="${item.id}" data-index="${index}">
+        <!-- Card Header: Quote Icon & Badge -->
+        <div class="testim-card-header">
+          <svg class="testim-quote-icon quote-icon" viewBox="0 0 24 24">
+            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+          </svg>
+          <span class="testim-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
+            ${item.badge}
+          </span>
+        </div>
+
+        <!-- Card Body -->
+        <div class="testim-card-body">
+          <p class="testim-quote-text">
+            &ldquo;${item.quote}&rdquo;
+          </p>
+        </div>
+
+        <!-- Card Footer -->
+        <div class="testim-card-footer">
+          <div class="testim-author-wrapper">
+            <div class="testim-avatar-container">
+              <img src="${item.avatar}"
+                   alt="${item.name}"
+                   class="testim-avatar-img"
+                   onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+              <div class="testim-avatar-initials" style="display: none;">
+                ${item.initials}
+              </div>
+
+              <!-- Floating Tooltip -->
+              <div class="testim-avatar-tooltip" role="tooltip" aria-hidden="true">
+                <div class="tooltip-title">${item.tooltip.title}</div>
+                <div class="tooltip-desc">${item.tooltip.project}</div>
+                <div class="tooltip-sub">${item.tooltip.event} &bull; ${item.tooltip.role}</div>
+              </div>
+            </div>
+
+            <div class="testim-author-meta">
+              <div class="testim-author-name-row">
+                <span class="testim-author-name">${item.name}</span>
+                ${item.verified ? `
+                  <svg class="testim-verified-icon" viewBox="0 0 24 24" fill="currentColor" title="Verified Collaborator">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                  </svg>
+                ` : ''}
+              </div>
+              <span class="testim-author-role">${item.role} &bull; ${item.organisation}</span>
+              <span class="testim-author-event">${item.date}</span>
+            </div>
+          </div>
+
+          ${item.project ? `
+            <a href="#${item.projectSlug}" class="testim-project-link" data-slug="${item.projectSlug}">
+              <span>View Project</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+          ` : ''}
+        </div>
+
+        <!-- Card Watermark Quote -->
+        <svg class="testim-card-watermark" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+        </svg>
+      </article>
+    `;
+  }
+
+  bindCardInteractions() {
+    if (!this.track) return;
+
+    // Linked project smooth scroll deduction for navbar
+    const projectLinks = this.track.querySelectorAll('.testim-project-link');
+    projectLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const slug = link.getAttribute('data-slug') || 'works';
+        this.scrollToProject(slug);
+      });
     });
-  });
 
-  wrapper.addEventListener('mousemove', (e) => {
-    if (!isDown) return;
-    const x = e.pageX - wrapper.offsetLeft;
-    wrapper.scrollLeft = scrollStart - (x - startX) * 1.4;
-  });
+    // Avatar mobile tap tooltips
+    const avatarContainers = this.track.querySelectorAll('.testim-avatar-container');
+    avatarContainers.forEach(container => {
+      container.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isActive = container.classList.contains('is-active-tooltip');
+        this.closeAllTooltips();
+        if (!isActive) {
+          container.classList.add('is-active-tooltip');
+          const tooltip = container.querySelector('.testim-avatar-tooltip');
+          if (tooltip) tooltip.setAttribute('aria-hidden', 'false');
+        }
+      });
+    });
 
-  // Touch support
-  let touchStartX = 0;
-  let touchScrollStart = 0;
+    document.addEventListener('click', () => this.closeAllTooltips());
+  }
 
-  wrapper.addEventListener('touchstart', (e) => {
-    touchStartX = e.touches[0].pageX;
-    touchScrollStart = wrapper.scrollLeft;
-  }, { passive: true });
+  closeAllTooltips() {
+    if (!this.track) return;
+    const activeTooltips = this.track.querySelectorAll('.testim-avatar-container.is-active-tooltip');
+    activeTooltips.forEach(el => {
+      el.classList.remove('is-active-tooltip');
+      const tooltip = el.querySelector('.testim-avatar-tooltip');
+      if (tooltip) tooltip.setAttribute('aria-hidden', 'true');
+    });
+  }
 
-  wrapper.addEventListener('touchmove', (e) => {
-    wrapper.scrollLeft = touchScrollStart + (touchStartX - e.touches[0].pageX);
-  }, { passive: true });
+  scrollToProject(slug) {
+    const target = document.getElementById(slug);
+    if (!target) return;
+    const navbarHeight = 80;
+    const elementPosition = target.getBoundingClientRect().top + window.pageYOffset;
+    const offsetPosition = elementPosition - navbarHeight;
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth'
+    });
+  }
+}
+
+let testimonialsInstance = null;
+
+function initTestimonialsEditorialShowcase() {
+  testimonialsInstance = new TestimonialsManager(TESTIMONIALS_DATA, IMPACT_METRICS_DATA);
+  testimonialsInstance.init();
 }
 
 /**
@@ -941,6 +1205,11 @@ function initContactAndAppointmentSystem() {
       paneAppt.classList.add('active');
       paneMsg.classList.remove('active');
       updateTabIndicator(tabBookAppt);
+      // Trigger journey animation on tab click
+      const journeyDesktop = document.getElementById('journey-desktop');
+      if (journeyDesktop) {
+        journeyDesktop.classList.add('animate-active');
+      }
     });
 
     window.addEventListener('resize', () => {
@@ -1400,7 +1669,7 @@ function initContactAndAppointmentSystem() {
 
       // Submit via Web3Forms AJAX API (Free up to 250 submissions/month)
       // Paste your Web3Forms Access Key here:
-      const WEB3_ACCESS_KEY = "YOUR_ACCESS_KEY_HERE";
+      const WEB3_ACCESS_KEY = "cbe412a4-2170-4213-8bcd-d7dbd530d0d4";
       const phoneVal = document.getElementById('contact-phone')?.value.trim() || 'N/A';
 
       fetch('https://api.web3forms.com/submit', {
@@ -1467,6 +1736,10 @@ function initContactAndAppointmentSystem() {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           connectSection.classList.add('reveal-active');
+          const journeyDesktop = document.getElementById('journey-desktop');
+          if (journeyDesktop) {
+            journeyDesktop.classList.add('animate-active');
+          }
           revealObserver.unobserve(connectSection); // Play once only
         }
       });

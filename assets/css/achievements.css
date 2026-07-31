@@ -1,274 +1,488 @@
 /* ==========================================================================
-   Krishna Sahoo Portfolio – Achievements Section (Infinite Dual-Axis Conveyor)
+   Krishna Sahoo Portfolio — Achievements Section v4.0
+   Editorial Three-Column Vertical Infinite Gallery
+   Apple x Linear x Stripe · Restrained Premium Design
    ========================================================================== */
+
+/* ============================================================
+   1. SECTION FOUNDATION
+   ============================================================ */
 
 .achievements-section {
   position: relative;
   z-index: 10;
-  background-color: lab(99.38% 0.15 1.65); /* Continues doodles background */
+  background-color: lab(99.38% 0.15 1.65);
   width: 100%;
-  padding: 8rem 0;
+  padding: 7rem 0 5rem;
   overflow: hidden;
-  box-sizing: border-box;
 }
 
-/* Section Header (Left Aligned) */
-.achievements-header {
-  text-align: left;
-  margin-bottom: 2rem;
-  width: 100%;
-  max-width: 1240px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0 2rem;
-  z-index: 5;
-  position: relative;
-}
+/* ============================================================
+   2. TOP-TO-BOTTOM CONTAINER LAYOUT
+   ============================================================ */
 
-.achievements-title {
-  font-family: 'Lato', sans-serif;
-  font-size: 2.75rem;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  background: linear-gradient(135deg, #2c2c2c 0%, #6e6e73 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  position: relative;
-  display: inline-block;
-  margin-bottom: 0.6rem;
-}
-
-.achievements-title::after {
-  content: '';
-  position: absolute;
-  bottom: -8px;
-  left: 0;
-  width: 65px;
-  height: 4px;
-  background: linear-gradient(90deg, #2c2c2c 0%, rgba(110, 110, 115, 0.1) 100%);
-  border-radius: 2px;
-}
-
-.achievements-subtitle {
-  font-size: 1.05rem;
-  line-height: 1.55;
-  color: #7a7a7a;
-  font-weight: 300;
-  margin-top: 0.9rem;
-}
-
-.conveyor-container {
-  margin-top: 3.5rem;
+.ach-container {
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 0 3.5rem;
   display: flex;
   flex-direction: column;
   gap: 2.2rem;
-  width: 100%;
-  overflow: hidden;
-  padding: 2rem 0;
-  position: relative;
-  z-index: 4;
 }
 
-/* Individual Row wrapper */
-.conveyor-row {
-  display: flex;
-  overflow: hidden;
-  width: 100%;
-  position: relative;
-  padding: 0.8rem 0;
-  pointer-events: auto;
-  user-select: none;
-}
+/* ============================================================
+   3. HEADER TOP AREA (Title + Horizontal Filter Pills)
+   ============================================================ */
 
-/* Dynamic moving tracks */
-.conveyor-track {
-  display: flex;
-  gap: 1.8rem;
-  will-change: transform;
-}
-
-.conveyor-card {
-  flex: 0 0 340px;
-  height: 195px;
-  border-radius: 20px;
-  position: relative;
-  cursor: pointer;
-  box-sizing: border-box;
-  padding: 1.1rem 1.2rem;
-  text-align: left;
-  
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(245, 245, 245, 0.35) 100%);
-  backdrop-filter: blur(14px) saturate(120%);
-  -webkit-backdrop-filter: blur(14px) saturate(120%);
-  border: 1.5px solid rgba(255, 255, 255, 0.55);
-  box-shadow: 
-    0 12px 35px rgba(0, 0, 0, 0.025),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
-    
-  transition: 
-    transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    filter 0.4s ease,
-    opacity 0.4s ease,
-    border-color 0.3s ease,
-    box-shadow 0.4s ease;
-  will-change: transform, filter, opacity;
-}
-
-/* Split Columns inside Card */
-.conveyor-card-inner {
-  display: flex;
-  gap: 1.1rem;
-  height: 100%;
-  width: 100%;
-}
-
-.conveyor-card-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  flex: 1;
-  min-width: 0; /* Prevents text overflow */
-}
-
-.conveyor-card-visual {
-  width: 85px;
-  height: 100%;
-  flex-shrink: 0;
-  border-radius: 12px;
-  overflow: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 
-    0 4px 12px rgba(0, 0, 0, 0.03),
-    0 1px 3px rgba(0, 0, 0, 0.02);
-  background: rgba(0, 0, 0, 0.02);
-}
-
-.conveyor-card-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.conveyor-card:hover .conveyor-card-img {
-  transform: scale(1.08);
-}
-
-/* Custom interactive inspection hint inside card */
-.card-inspect-hint {
-  position: absolute;
-  top: 1.4rem;
-  right: 1.6rem;
-  font-family: monospace;
-  font-size: 0.72rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: var(--accent-color, #6f42c1);
-  letter-spacing: 1px;
-  opacity: 0;
-  transform: translateY(5px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.conveyor-card:hover .card-inspect-hint {
-  opacity: 0.85;
-  transform: translateY(0);
-}
-
-/* Card Header Contents */
-.conveyor-card-top {
-  display: flex;
-  flex-direction: column;
-}
-
-.conveyor-card-category {
-  font-size: 0.65rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: #777;
-  margin-bottom: 0.5rem;
-}
-
-.conveyor-card-title {
-  font-family: 'Outfit', sans-serif;
-  font-size: 1.25rem;
-  font-weight: 800;
-  color: #1a1a1a;
-  line-height: 1.25;
-  letter-spacing: -0.3px;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-}
-
-/* Card Footer Contents */
-.conveyor-card-bottom {
+.ach-top-area {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  border-top: 1px solid rgba(0, 0, 0, 0.04);
-  padding-top: 0.75rem;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  padding-bottom: 1.8rem;
 }
 
-.conveyor-card-issuer {
-  font-size: 0.82rem;
+.ach-header {
+  flex: 1;
+  min-width: 280px;
+}
+
+/* 3a. Section Header */
+.ach-eyebrow {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.65rem;
   font-weight: 700;
-  color: #444;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #0ea271;
+  margin-bottom: 0.55rem;
 }
 
-.conveyor-card-date {
-  font-size: 0.78rem;
-  color: #888;
+.ach-title {
+  font-family: 'Lato', sans-serif;
+  font-size: 3rem;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  color: #1a1a1a;
+  line-height: 0.95;
+  margin-bottom: 0.9rem;
+  text-transform: uppercase;
 }
 
-/* Proximity Spotlight & Blur mechanics (via Sibling Selectors in CSS) */
-.conveyor-row.has-hovered .conveyor-card:not(.hovered) {
-  transform: scale(0.92);
-  filter: blur(2.5px) grayscale(0.2);
-  opacity: 0.55;
+.ach-title-em { color: #0ea271; }
+
+.ach-tagline-wrap {
+  position: relative;
+  display: inline-block;
 }
 
-.conveyor-card.hovered {
-  transform: scale(1.08) translate3d(var(--mx, 0), var(--my, 0), 10px);
-  box-shadow: 
-    0 25px 55px rgba(0, 0, 0, 0.08),
-    0 8px 20px rgba(0, 0, 0, 0.02);
-  border-color: var(--accent-color, #6f42c1);
+.ach-tagline {
+  font-size: 0.95rem;
+  color: #777;
+  font-weight: 300;
+  line-height: 1.5;
+  font-style: normal;
+}
+
+.ach-tagline-italic {
+  font-style: italic;
+  color: #1a1a1a;
+  font-weight: 500;
+}
+
+.ach-tagline-underline {
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background: linear-gradient(90deg, #0ea271 0%, rgba(14,162,113,0.08) 100%);
+  border-radius: 2px;
+  animation: ach-underline-grow 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+}
+
+@keyframes ach-underline-grow { to { width: 100%; } }
+
+/* 3b. Horizontal Clean Category Filter Pills */
+.ach-filter-pills {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+.ach-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  background: #FFFFFF;
+  border: 1.5px solid rgba(0, 0, 0, 0.07);
+  border-radius: 30px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #555;
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.ach-pill span {
+  font-size: 0.72rem;
+  color: #aaa;
+  font-weight: 500;
+  transition: color 0.22s ease;
+}
+
+.ach-pill:hover {
+  border-color: rgba(14, 162, 113, 0.35);
+  color: #1a1a1a;
+  background: #FAFFFC;
+  transform: translateY(-2px);
+}
+
+.ach-pill.active {
+  background: #0ea271;
+  border-color: #0ea271;
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px rgba(14, 162, 113, 0.25);
+}
+
+.ach-pill.active span {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+
+/* ============================================================
+   4. GALLERY WRAPPER (Full Width Below Header)
+   ============================================================ */
+
+.ach-gallery-wrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.ach-col-arrows {
+  display: flex;
+  margin-bottom: 0.6rem;
+}
+
+.ach-col-arrow {
+  flex: 1;
+  text-align: center;
+  font-size: 0.7rem;
+  color: #ccc;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* ============================================================
+   5. GALLERY GRID (Three Angled Columns)
+   ============================================================ */
+
+.ach-gallery {
+  display: flex;
+  gap: 28px;
+  height: 75vh;
+  min-height: 420px;
+  max-height: 720px;
+  position: relative;
+}
+
+.ach-col {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  position: relative;
+  border-radius: 6px;
+  opacity: 0;
+}
+
+#ach-col-2 {
+  z-index: 2;
+}
+
+/* Reveal animations */
+.ach-gallery.revealed .ach-col:nth-child(1) {
+  animation: ach-col-rise 0.9s cubic-bezier(0.16,1,0.3,1) 0s forwards;
+}
+.ach-gallery.revealed .ach-col:nth-child(2) {
+  animation: ach-col-fall 0.9s cubic-bezier(0.16,1,0.3,1) 0.08s forwards;
+}
+.ach-gallery.revealed .ach-col:nth-child(3) {
+  animation: ach-col-rise 0.9s cubic-bezier(0.16,1,0.3,1) 0.16s forwards;
+}
+
+@keyframes ach-col-rise {
+  from { opacity: 0; transform: translateY(36px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes ach-col-fall {
+  from { opacity: 0; transform: translateY(-36px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.ach-col-track {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  will-change: transform;
+  padding: 2px;
+}
+
+/* Ambient radial per-column */
+.ach-col::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  background: radial-gradient(
+    280px circle at var(--col-mx, 50%) var(--col-my, 50%),
+    rgba(255,255,255,0.38),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.ach-col.col-hovered::after { opacity: 1; }
+
+/* ============================================================
+   6. ACHIEVEMENT CARDS
+   ============================================================ */
+
+.ach-card {
+  width: 100%;
+  flex-shrink: 0;
+  border-radius: 14px;
+  background: #FFFFFF;
+  border: 1px solid rgba(0,0,0,0.07);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
+  padding: 13px;
+  cursor: pointer;
+  position: relative;
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  --rotation: 0deg;
+  --scale: 1;
+  --mx: 0px;
+  --my: 0px;
+  --lift: 0px;
+  transform: rotate(var(--rotation)) scale(var(--scale))
+             translate(var(--mx), calc(var(--lift) + var(--my)));
+  transform-origin: center center;
+  transition:
+    transform 0.42s cubic-bezier(0.16,1,0.3,1),
+    box-shadow 0.42s ease,
+    border-color 0.3s ease,
+    filter 0.38s ease,
+    opacity 0.38s ease;
+  will-change: transform, filter, opacity;
+}
+
+.ach-card--hero {
+  background: #FAFFFC;
+  border-color: rgba(14,162,113,0.13);
+}
+
+.ach-card-recent-ribbon {
+  position: absolute;
+  top: 11px;
+  right: 11px;
+  background: #0ea271;
+  color: #fff;
+  font-size: 0.52rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 20px;
+  z-index: 3;
+}
+
+.ach-card-meta { display: flex; align-items: center; }
+
+.ach-card-category {
+  font-size: 0.58rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #bbb;
+}
+
+.ach-card--hero .ach-card-category { color: #0ea271; }
+
+.ach-card-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #1a1a1a;
+  line-height: 1.28;
+  letter-spacing: -0.2px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.ach-card--hero .ach-card-title { font-size: 0.95rem; }
+
+.ach-card-visual {
+  flex: 1;
+  min-height: 60px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.05);
+  background: rgba(0,0,0,0.02);
+}
+
+.ach-card--hero .ach-card-visual {
+  min-height: 90px;
+}
+
+.ach-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.16,1,0.3,1);
+}
+
+.ach-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-top: 1px solid rgba(0,0,0,0.05);
+  padding-top: 7px;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.ach-card-issuer {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #555;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ach-card-date {
+  font-size: 0.62rem;
+  color: #bbb;
+  flex-shrink: 0;
+}
+
+.ach-card-inspect {
+  position: absolute;
+  bottom: 11px;
+  right: 11px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--accent, #0ea271);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.22s ease, transform 0.22s ease;
+  pointer-events: none;
+}
+
+/* ============================================================
+   7. HOVER STATES
+   ============================================================ */
+
+.ach-col.col-hovering .ach-card:not(.ach-card--hovered) {
+  --scale: 0.96;
+  filter: blur(1.8px);
+  opacity: 0.48;
+}
+
+.ach-card.ach-card--hovered {
+  --scale: 1.04;
+  --lift: -8px;
+  box-shadow: 0 18px 45px rgba(0,0,0,0.1), 0 6px 16px rgba(0,0,0,0.05);
+  border-color: rgba(0,0,0,0.1);
   z-index: 10;
 }
 
-/* Scroll status indicators under conveyor */
-.conveyor-status-tip {
-  margin-top: 2rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: #a0a0a0;
+.ach-card.ach-card--hovered .ach-card-img { transform: scale(1.07); }
+
+.ach-card.ach-card--hovered .ach-card-inspect {
+  opacity: 0.9;
+  transform: translateY(0);
+}
+
+/* ============================================================
+   8. FILTER STATE
+   ============================================================ */
+
+.ach-card.ach-card--filtered {
+  opacity: 0.1;
+  --scale: 0.92;
+  pointer-events: none;
+  transition: transform 0.38s cubic-bezier(0.16,1,0.3,1), opacity 0.38s ease;
+}
+
+/* ============================================================
+   9. KEYBOARD FOCUS
+   ============================================================ */
+
+.ach-card:focus-visible {
+  outline: 2px solid #0ea271;
+  outline-offset: 3px;
+  border-radius: 16px;
+}
+
+.ach-radial-node:focus-visible,
+.ach-radial-center:focus-visible {
+  outline: 2px solid #0ea271;
+  outline-offset: 3px;
+}
+
+/* ============================================================
+   10. SCROLL HINT
+   ============================================================ */
+
+.ach-scroll-hint {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  animation: floatHorizontal 3s infinite ease-in-out;
+  margin-top: 1.4rem;
+  color: #ccc;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
 }
 
-@keyframes floatHorizontal {
-  0%, 100% { transform: translateX(0); opacity: 0.5; }
-  50% { transform: translateX(5px); opacity: 0.85; }
+.ach-scroll-dot {
+  animation: ach-scroll-bounce 1.9s ease-in-out infinite;
 }
 
-/* ==========================================================================
-   Portal Zoom Overlay (Fullscreen Details Panel)
-   ========================================================================== */
+@keyframes ach-scroll-bounce {
+  0%, 100% { transform: translateY(0); opacity: 0.5; }
+  50% { transform: translateY(5px); opacity: 0.15; }
+}
+
+/* ============================================================
+   11. PORTAL OVERLAY (FLIP-compatible)
+   ============================================================ */
 
 .portal-zoom-overlay {
   position: fixed;
   inset: 0;
   z-index: 1000;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0,0,0,0.58);
   backdrop-filter: blur(22px);
   -webkit-backdrop-filter: blur(22px);
   display: flex;
@@ -276,7 +490,7 @@
   justify-content: center;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.42s cubic-bezier(0.16,1,0.3,1);
 }
 
 .portal-zoom-overlay.active {
@@ -284,31 +498,23 @@
   pointer-events: auto;
 }
 
-/* Fullscreen card content shell */
 .portal-content-wrapper {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.94) 0%, rgba(245, 245, 245, 0.97) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 0 35px 85px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(135deg, rgba(255,255,255,0.97) 0%, rgba(248,248,248,0.98) 100%);
+  border: 1px solid rgba(255,255,255,0.4);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.25);
   width: 90%;
   max-width: 980px;
   height: 550px;
   border-radius: 26px;
   display: flex;
   overflow: hidden;
-  transform: scale(0.92) translateY(20px);
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-  box-sizing: border-box;
+  transform-origin: center center;
 }
 
-.portal-zoom-overlay.active .portal-content-wrapper {
-  transform: scale(1) translateY(0);
-}
-
-/* Left Side: Dynamic Image Viewer */
 .portal-left {
   flex: 1.15;
-  background: rgba(0, 0, 0, 0.02);
-  border-right: 1px solid rgba(0, 0, 0, 0.05);
+  background: rgba(0,0,0,0.02);
+  border-right: 1px solid rgba(0,0,0,0.05);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -322,19 +528,14 @@
   max-height: 100%;
   object-fit: contain;
   border-radius: 12px;
-  box-shadow: 
-    0 15px 40px rgba(0, 0, 0, 0.08),
-    0 0 0 1px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 14px 38px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.04);
   cursor: zoom-in;
-  transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.38s cubic-bezier(0.16,1,0.3,1);
   will-change: transform;
 }
 
-.portal-cert-img:hover {
-  transform: scale(1.035);
-}
+.portal-cert-img:hover { transform: scale(1.035); }
 
-/* Right Side: Editorial text and details */
 .portal-right {
   flex: 0.85;
   padding: 3rem;
@@ -346,85 +547,67 @@
   box-sizing: border-box;
 }
 
-/* Close action */
 .portal-close-btn {
   position: absolute;
-  top: 1.5rem;
-  right: 1.8rem;
-  font-size: 2.2rem;
+  top: 1.4rem;
+  right: 1.7rem;
+  font-size: 2rem;
   background: none;
   border: none;
-  color: #888;
+  color: #999;
   cursor: pointer;
   line-height: 1;
   transition: color 0.2s ease, transform 0.2s ease;
   z-index: 10;
 }
 
-.portal-close-btn:hover {
-  color: #111;
-  transform: scale(1.1);
-}
+.portal-close-btn:hover { color: #111; transform: scale(1.12); }
 
 .portal-category-badge {
   display: inline-flex;
   align-items: center;
   padding: 4px 12px;
-  background: rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(0, 0, 0, 0.03);
-  color: #444;
+  background: rgba(0,0,0,0.04);
+  border: 1px solid rgba(0,0,0,0.04);
+  color: #555;
   border-radius: 20px;
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 1px;
   text-transform: uppercase;
   width: fit-content;
-  margin-bottom: 1rem;
+  margin-bottom: 0.9rem;
 }
 
 .portal-title {
   font-family: 'Outfit', sans-serif;
-  font-size: 1.8rem;
+  font-size: 1.72rem;
   font-weight: 800;
   color: #1a1a1a;
   line-height: 1.18;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.45rem;
 }
 
-.portal-issuer {
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: #444;
-}
-
-.portal-date {
-  font-size: 0.88rem;
-  color: #888;
-  margin-top: 0.2rem;
-}
+.portal-issuer { font-size: 0.9rem; font-weight: 700; color: #444; }
+.portal-date { font-size: 0.82rem; color: #aaa; margin-top: 0.18rem; }
 
 .portal-desc {
-  font-size: 0.9rem;
-  line-height: 1.55;
-  color: #555;
+  font-size: 0.87rem;
+  line-height: 1.58;
+  color: #666;
   font-weight: 300;
-  margin-top: 1.2rem;
-  margin-bottom: 1.2rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
-.portal-tech-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-  margin-bottom: 1.5rem;
-}
+.portal-tech-row { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 1.4rem; }
 
 .portal-tech-pill {
-  font-size: 0.68rem;
+  font-size: 0.64rem;
   font-weight: 600;
-  color: #555;
-  background: rgba(0, 0, 0, 0.04);
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  color: #666;
+  background: rgba(0,0,0,0.04);
+  border: 1px solid rgba(0,0,0,0.05);
   padding: 3px 10px;
   border-radius: 20px;
 }
@@ -434,31 +617,34 @@
   background: #111;
   color: #fff;
   border: 1.5px solid #111;
-  font-size: 0.8rem;
+  font-size: 0.77rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1.2px;
-  padding: 0.8rem 1.8rem;
+  padding: 0.75rem 1.7rem;
   border-radius: 50px;
   text-align: center;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: all 0.3s cubic-bezier(0.25,0.8,0.25,1);
   display: inline-block;
   width: fit-content;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.14);
 }
 
 .btn-portal-verify:hover {
   background: transparent;
   color: #111;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
   transform: translateY(-2px);
 }
 
-/* Lightbox overlay for zooming in on certificate image inside portal */
+/* ============================================================
+   12. LIGHTBOX
+   ============================================================ */
+
 .portal-lightbox {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.85);
+  background: rgba(0,0,0,0.87);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   z-index: 1100;
@@ -470,127 +656,67 @@
   transition: opacity 0.3s ease;
 }
 
-.portal-lightbox.active {
-  opacity: 1;
-  pointer-events: auto;
-}
+.portal-lightbox.active { opacity: 1; pointer-events: auto; }
 
 .portal-lightbox-img {
   max-width: 90%;
   max-height: 85vh;
   object-fit: contain;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-  border-radius: 6px;
-  transform: scale(0.92);
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  border-radius: 8px;
+  transform: scale(0.93);
+  transition: transform 0.32s cubic-bezier(0.16,1,0.3,1);
 }
 
-.portal-lightbox.active .portal-lightbox-img {
-  transform: scale(1);
+.portal-lightbox.active .portal-lightbox-img { transform: scale(1); }
+
+/* ============================================================
+   13. RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 1080px) {
+  .ach-container { padding: 0 2rem; }
+  .ach-top-area { flex-direction: column; align-items: flex-start; gap: 1.2rem; }
 }
 
-/* ==========================================================================
-   Responsive Adaptations
-   ========================================================================== */
-
-@media (max-width: 992px) {
-  .conveyor-container {
-    transform: none; /* Flatten tilt on medium/small viewports */
-    width: 100%;
-    margin-left: 0;
-    padding: 1.5rem 0;
-  }
-  
-  .conveyor-card {
-    transform: none; /* Reset rotation */
-    flex: 0 0 280px;
-    height: 170px;
-    padding: 0.9rem;
-  }
-  
-  .conveyor-card-visual {
-    width: 70px;
-  }
-  
-  .conveyor-card-inner {
-    gap: 0.8rem;
-  }
-  
-  .conveyor-row.has-hovered .conveyor-card:not(.hovered) {
-    transform: scale(0.95);
-    filter: none;
-    opacity: 0.75;
-  }
-  
-  .conveyor-card.hovered {
-    transform: scale(1.05);
-  }
-  
-  .portal-content-wrapper {
-    height: 520px;
-    max-width: 700px;
-  }
-  
-  .portal-right {
-    padding: 2rem;
-  }
+@media (max-width: 900px) {
+  .ach-gallery { height: 72vh; gap: 14px; }
+  #ach-col-3 { display: none; }
+  .ach-col-arrows .ach-col-arrow:last-child { display: none; }
+  .portal-content-wrapper { height: 500px; max-width: 680px; }
+  .portal-right { padding: 2rem; }
 }
 
-@media (max-width: 768px) {
-  .achievements-section {
-    padding: 6rem 0;
-  }
-  
-  .achievements-title {
-    font-size: 2.2rem;
-  }
-  
-  .portal-content-wrapper {
-    flex-direction: column;
-    height: 85vh;
-    width: 95%;
-  }
-  
-  .portal-left {
-    flex: 0.9;
-    padding: 1.2rem;
-    border-right: none;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  }
-  
-  .portal-right {
-    flex: 1.1;
-    padding: 1.5rem;
-    overflow-y: auto;
-  }
-  
-  .portal-title {
-    font-size: 1.35rem;
-  }
-  
-  .portal-desc {
-    font-size: 0.82rem;
-    margin-top: 0.8rem;
-    margin-bottom: 0.8rem;
-  }
+@media (max-width: 600px) {
+  .achievements-section { padding: 5rem 0 4rem; }
+  .ach-container { padding: 0 1.2rem; }
+  .ach-title { font-size: 2.2rem; }
+  .ach-gallery { gap: 10px; height: 65vh; }
+  #ach-col-2 { display: none; }
+  .ach-col-arrows .ach-col-arrow:nth-child(2) { display: none; }
+  .portal-content-wrapper { flex-direction: column; height: 88vh; width: 96%; border-radius: 20px; }
+  .portal-left { flex: 0.8; padding: 1.2rem; border-right: none; border-bottom: 1px solid rgba(0,0,0,0.05); }
+  .portal-right { flex: 1.2; padding: 1.4rem; overflow-y: auto; }
+  .portal-title { font-size: 1.3rem; }
 }
 
 /* ============================================================
-   Achievement Filter — Filtered Out State
+   14. REDUCED MOTION
    ============================================================ */
-.conveyor-card.filtered-out {
-  opacity: 0.18;
-  transform: scale(0.94);
-  pointer-events: none;
-  transition: opacity 0.35s ease, transform 0.35s ease;
-}
 
-.conveyor-card {
-  transition: opacity 0.35s ease, transform 0.35s ease;
+@media (prefers-reduced-motion: reduce) {
+  .ach-tagline-underline,
+  .ach-card,
+  .ach-col,
+  .portal-content-wrapper,
+  .portal-cert-img,
+  .ach-recent-dot,
+  .ach-scroll-dot {
+    animation: none !important;
+    transition: none !important;
+  }
+  .ach-col { opacity: 1 !important; transform: none !important; }
+  .ach-gallery.revealed .ach-col { animation: none !important; opacity: 1 !important; }
+  .ach-tagline-underline { width: 100%; }
+  .portal-zoom-overlay { backdrop-filter: none; }
 }
-
-/* Accent override for the achievements title underline */
-.achievements-title::after {
-  background: linear-gradient(90deg, var(--accent-primary, #0ea271) 0%, rgba(14, 162, 113, 0.05) 100%) !important;
-}
-
