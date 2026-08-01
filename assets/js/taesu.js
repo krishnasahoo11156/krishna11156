@@ -168,10 +168,10 @@ class TaesuController {
         this.eyeCurrentY += (this.eyeTargetY - this.eyeCurrentY) * 0.22;
 
         if (this.faceEl) {
-          this.faceEl.style.transform = `translate(calc(-50% + ${this.eyeCurrentX.toFixed(2)}px), calc(-46% + ${this.eyeCurrentY.toFixed(2)}px))`;
+          this.faceEl.style.transform = `translate(calc(-50% + ${this.eyeCurrentX.toFixed(2)}px), calc(-46% + ${this.eyeCurrentY.toFixed(2)}px)) translateZ(26px)`;
         }
 
-        // Frame +1: Head tilt follows (lerp 0.14)
+        // Frame +1: Head tilt follows in 3D perspective space (lerp 0.14)
         this.headCurrentX += (this.headTiltX - this.headCurrentX) * 0.14;
         this.headCurrentY += (this.headTiltY - this.headCurrentY) * 0.14;
 
@@ -186,7 +186,7 @@ class TaesuController {
         // Frame +3: Anti-gravity ring inertia (lerp 0.06)
         this.ringCurrentX += (this.eyeCurrentX * 0.5 - this.ringCurrentX) * 0.06;
         if (this.ringEl) {
-          this.ringEl.style.transform = `translateX(calc(-50% + ${this.ringCurrentX.toFixed(2)}px))`;
+          this.ringEl.style.transform = `translateX(calc(-50% + ${this.ringCurrentX.toFixed(2)}px)) translateZ(12px)`;
         }
 
         // Frame +4: Ground shadow settles last (lerp 0.04)
@@ -208,9 +208,27 @@ class TaesuController {
     requestAnimationFrame(loop);
   }
 
-  /* ── Cursor Tracking with 250px Specular Radius Rule ─────── */
+  /* ── Cursor Tracking (Expanded Section-Wide Tracking) ─────── */
   _onMouseMove(e) {
     if (this.isSleeping || this.isFlying) return;
+
+    // Check if cursor is within the Works section bounds
+    const section = document.getElementById('works');
+    if (section) {
+      const sRect = section.getBoundingClientRect();
+      if (e.clientY < sRect.top - 120 || e.clientY > sRect.bottom + 120) {
+        if (this.currentState === TaesuState.TRACKING) {
+          this.eyeTargetX = 0;
+          this.eyeTargetY = 0;
+          this.headTiltX = 0;
+          this.headTiltY = 0;
+          this.specTargetX = 32;
+          this.specTargetY = 24;
+          this.setState(TaesuState.IDLE);
+        }
+        return;
+      }
+    }
 
     const rect = this.el.getBoundingClientRect();
     const cx = rect.left + rect.width / 2;
@@ -218,37 +236,24 @@ class TaesuController {
 
     const dx = e.clientX - cx;
     const dy = e.clientY - cy;
-    const dist = Math.sqrt(dx * dx + dy * dy);
+    const dist = Math.sqrt(dx * dx + dy * dy) || 1;
 
-    // Interaction Radius Limit (250px)
-    const interactionRadius = 250;
-    if (dist < interactionRadius) {
-      const factor = dist / interactionRadius;
-      this.eyeTargetX = (dx / interactionRadius) * 12 * factor;
-      this.eyeTargetY = (dy / interactionRadius) * 9 * factor;
+    // Expanded tracking radius across section (maxDist: 800px)
+    const maxDist = 800;
+    const factor = Math.min(1, dist / maxDist);
 
-      this.headTiltX = (dy / interactionRadius) * -7 * factor;
-      this.headTiltY = (dx / interactionRadius) * 7 * factor;
+    this.eyeTargetX = (dx / dist) * 12 * factor;
+    this.eyeTargetY = (dy / dist) * 9 * factor;
 
-      // Specular highlight responds inside interaction radius
-      this.specTargetX = 32 + (dx / interactionRadius) * 16;
-      this.specTargetY = 24 + (dy / interactionRadius) * 12;
+    // Enhanced 3D pitch/yaw tilt response (-16deg to +16deg)
+    this.headTiltX = (dy / dist) * -16 * factor;
+    this.headTiltY = (dx / dist) * 16 * factor;
 
-      this.setState(TaesuState.TRACKING);
-    } else {
-      // Outside radius: return to neutral resting center
-      this.eyeTargetX = 0;
-      this.eyeTargetY = 0;
-      this.headTiltX = 0;
-      this.headTiltY = 0;
+    // Dynamic specular highlight tracking across expanded section
+    this.specTargetX = 32 + (dx / dist) * 18 * factor;
+    this.specTargetY = 24 + (dy / dist) * 14 * factor;
 
-      this.specTargetX = 32;
-      this.specTargetY = 24;
-
-      if (this.currentState === TaesuState.TRACKING) {
-        this.setState(TaesuState.IDLE);
-      }
-    }
+    this.setState(TaesuState.TRACKING);
   }
 
   /* ── Natural Blinking ────────────────────────────────────── */

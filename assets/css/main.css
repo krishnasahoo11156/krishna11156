@@ -1865,12 +1865,17 @@ main {
 /* ============================================================
    Navbar — Scrolled Glassmorphic State & Active Link
    ============================================================ */
+.navbar-header {
+  transition: background 0.3s ease, padding 0.3s ease, box-shadow 0.3s ease;
+}
+
 .navbar-header.scrolled {
-  background: transparent !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  border-bottom: none !important;
-  box-shadow: none !important;
+  background: rgba(255, 255, 255, 0.88) !important;
+  backdrop-filter: blur(14px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(180%) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
+  padding: 0.95rem 1.5vw !important;
 }
 
 /* Darker links over light-background sections */
