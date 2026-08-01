@@ -116,14 +116,16 @@ main {
   letter-spacing: -4px;
   position: absolute;
   top: -2vh;
-  /* Shifted rightwards so letters overlap Krishna's head, ear, face, and torso */
-  left: calc(25vw - var(--image-center-x) + 9vw);
+  /* Lifted above the top level of the image */
+  left: calc(25vw - var(--image-center-x) + 1.5vw);
+  /* Aligns text start exactly with 1.5vw padding from viewport left edge */
   width: 100vw;
   white-space: nowrap;
   pointer-events: none;
   text-transform: uppercase;
   transform: scale(0.72, 2.1) translateX(calc(var(--scroll-percent) * -25vw));
   transform-origin: top left;
+  /* Keep top and left edges fixed */
   will-change: transform;
 }
 
