@@ -187,10 +187,11 @@ main {
 
 .profile-glass-overlay {
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  max-height: 85vh;
   background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(12px) saturate(130%);
   -webkit-backdrop-filter: blur(12px) saturate(130%);
@@ -208,10 +209,11 @@ main {
 
 .foreground-text-mask-wrapper {
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  max-height: 85vh;
   z-index: 3;
   /* Sits above profile image */
   pointer-events: none;
