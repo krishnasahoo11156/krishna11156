@@ -5473,7 +5473,7 @@ main {
   transition: transform 200ms ease;
 }
 
-.node-badge {
+.journey-node .node-badge {
   position: absolute;
   top: -8px;
   right: -2px;
