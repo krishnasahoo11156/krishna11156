@@ -699,98 +699,552 @@ function buildCompactCard(item, index) {
   return card;
 }
 
+
+
 // ============================================================
-//  RENDER LOGIC
+//  CONSTELLATION ENGINE — Refined
 // ============================================================
 
-let _activeCategory = 'projects';
-let _isAnimating = false;
+const CATEGORY_META = {
+  projects:   { label: 'Products',      icon: '📦' },
+  hackathons: { label: 'Competitions',  icon: '🏆' },
+  opensource: { label: 'Contributions', icon: '🌱' }
+};
 
 /**
- * Renders the bento grid for a category.
- * Sizing layout is governed by item.size properties mapped to 12-column grid spans in CSS.
+ * Tech-stack → color token map.
+ * Returns { bg, color, border } for a given tech string.
  */
-function renderBento(bentoEl, category) {
-  const items = WORKS_DATA[category] || [];
-  bentoEl.innerHTML = '';
+function getTechColor(tech) {
+  const t = (tech || '').toLowerCase();
+  if (t.includes('next.js') || t.includes('nextjs'))
+    return { bg: 'rgba(0,0,0,0.06)',      color: '#111111', border: 'rgba(0,0,0,0.12)' };
+  if (t.includes('react'))
+    return { bg: 'rgba(6,182,212,0.10)',  color: '#0891b2', border: 'rgba(6,182,212,0.22)' };
+  if (t.includes('flutter'))
+    return { bg: 'rgba(2,132,199,0.10)',  color: '#0284c7', border: 'rgba(2,132,199,0.22)' };
+  if (t.includes('python'))
+    return { bg: 'rgba(14,162,113,0.10)', color: '#0ea271', border: 'rgba(14,162,113,0.22)' };
+  if (t.includes('java') && !t.includes('javascript'))
+    return { bg: 'rgba(249,115,22,0.10)', color: '#ea6c0a', border: 'rgba(249,115,22,0.22)' };
+  if (t.includes('node') || t.includes('node.js'))
+    return { bg: 'rgba(34,197,94,0.10)',  color: '#16a34a', border: 'rgba(34,197,94,0.22)' };
+  if (t.includes('javascript') || t.includes('js'))
+    return { bg: 'rgba(234,179,8,0.10)',  color: '#a16207', border: 'rgba(234,179,8,0.22)' };
+  if (t.includes('mern') || t.includes('mongo'))
+    return { bg: 'rgba(59,130,246,0.10)', color: '#3b82f6', border: 'rgba(59,130,246,0.22)' };
+  if (t.includes('git') && !t.includes('github'))
+    return { bg: 'rgba(75,85,99,0.10)',   color: '#4b5563', border: 'rgba(75,85,99,0.20)' };
+  if (t.includes('github'))
+    return { bg: 'rgba(15,15,15,0.08)',   color: '#111111', border: 'rgba(0,0,0,0.15)' };
+  if (t.includes('typescript'))
+    return { bg: 'rgba(59,130,246,0.10)', color: '#2563eb', border: 'rgba(59,130,246,0.22)' };
+  // default: emerald
+  return { bg: 'rgba(14,162,113,0.10)',   color: '#0ea271', border: 'rgba(14,162,113,0.22)' };
+}
 
-  if (items.length === 0) {
-    bentoEl.innerHTML = `<p style="color:rgba(255,255,255,0.3);padding:2rem;">No items in this category yet.</p>`;
-    return;
+/**
+ * Picks the primary badge text for a node card.
+ */
+function getNodeBadge(item, category) {
+  if (item.status && item.status.toLowerCase().includes('winner'))
+    return { text: 'Winner 🏆', color: '#b45309', bg: 'rgba(245,158,11,0.12)', border: 'rgba(245,158,11,0.28)' };
+  if (item.status && item.status.toLowerCase().includes('shortlist'))
+    return { text: 'Shortlisted Top 6', color: '#6366f1', bg: 'rgba(99,102,241,0.10)', border: 'rgba(99,102,241,0.22)' };
+  return { text: '', color: '', bg: '', border: '' };
+}
+
+/* ── Master Constellation RAF Loop Controller ───────────── */
+class WorkshopMasterLoop {
+  constructor(constellation) {
+    this.constellation = constellation;
+    this.rafId = null;
+    this.isRunning = false;
+    this.startTime = Date.now();
+
+    this._initObserver();
   }
 
-  items.forEach((item, idx) => {
-    let card;
-    if (item.size === 'large') {
-      card = buildLargeCard(item, idx);
-    } else if (item.size === 'tall') {
-      card = buildTallCard(item, idx);
-    } else if (item.size === 'wide') {
-      card = buildWideCard(item, idx);
-    } else {
-      card = buildCompactCard(item, idx);
+  _initObserver() {
+    const section = document.getElementById('works');
+    if (!section) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          this.start();
+        } else {
+          this.stop();
+        }
+      });
+    }, { threshold: 0.05 });
+
+    observer.observe(section);
+  }
+
+  start() {
+    if (this.isRunning) return;
+    this.isRunning = true;
+    const loop = () => {
+      if (!this.isRunning) return;
+      this.constellation.updateFrame(Date.now() - this.startTime);
+      this.rafId = requestAnimationFrame(loop);
+    };
+    this.rafId = requestAnimationFrame(loop);
+  }
+
+  stop() {
+    this.isRunning = false;
+    if (this.rafId) {
+      cancelAnimationFrame(this.rafId);
+      this.rafId = null;
     }
-    bentoEl.appendChild(card);
-  });
+  }
 }
 
 /**
- * Switches to a new category with animated card exit → height lock → render new → transition height → card enter.
+ * WorkshopConstellation
+ * Positions project card nodes in an elliptical orbit around Taesu,
+ * draws SVG arcs with correct pixel coordinates, and handles category switching.
  */
-async function switchCategory(bentoEl, category) {
-  if (_isAnimating || category === _activeCategory) return;
-  _isAnimating = true;
-  _activeCategory = category;
+class WorkshopConstellation {
+  constructor(stageEl, svgEl, taesuWrapEl, taesuCtrl) {
+    this.stage     = stageEl;
+    this.svg       = svgEl;
+    this.taesuWrap = taesuWrapEl;
+    this.taesu     = taesuCtrl;
+    this.activeCategory = 'projects';
+    this.nodes = [];
+    this.nodeData = [];
+    this.isAnimating = false;
 
-  const currentCards = bentoEl.querySelectorAll(
-    '.work-card-large, .work-card-tall, .work-card-wide, .work-card-compact'
-  );
-
-  // 1. Get current container height and lock it
-  const currentHeight = bentoEl.offsetHeight;
-  bentoEl.style.height = `${currentHeight}px`;
-  bentoEl.style.overflow = 'hidden';
-
-  // 2. Animate existing cards OUT
-  if (currentCards.length > 0) {
-    currentCards.forEach((card, i) => {
-      card.classList.remove('card-entering');
-      card.classList.add('card-exiting');
-      card.style.animationDelay = `${i * 30}ms`;
-    });
-    // Wait for exit animations to complete
-    await new Promise(resolve =>
-      setTimeout(resolve, 220 + currentCards.length * 30)
-    );
+    this.masterLoop = new WorkshopMasterLoop(this);
   }
 
-  // 3. Render new cards
-  renderBento(bentoEl, category);
+  /* ── Stage geometry ──────────────────────────────────── */
+  _geo() {
+    const rect = this.stage.getBoundingClientRect();
+    const W = this.stage.offsetWidth || rect.width || 850;
+    const H = this.stage.offsetHeight || rect.height || 600;
+    const cx = W / 2;
+    const cy = H / 2;
+    return { W, H, cx, cy };
+  }
 
-  // 4. Measure new height
-  bentoEl.style.height = 'auto';
-  const newHeight = bentoEl.offsetHeight;
+  /* ── Elliptical orbit positions ──────────────────────── */
+  _positions(count) {
+    const startAngles = {
+      projects:   -Math.PI / 2,
+      hackathons: -Math.PI / 3,
+      opensource: -Math.PI / 2
+    };
+    const start = startAngles[this.activeCategory] || -Math.PI / 2;
 
-  // Set back to old height temporarily for transition
-  bentoEl.style.height = `${currentHeight}px`;
-  bentoEl.offsetHeight; // Force reflow
+    return Array.from({ length: count }, (_, i) => {
+      const angle = start + (2 * Math.PI * i) / count;
+      return {
+        angle,
+        phase: i * 0.85
+      };
+    });
+  }
 
-  // 5. Transition container height
-  bentoEl.style.transition = 'height 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
-  bentoEl.style.height = `${newHeight}px`;
+  /* ── SVG arcs — orbital ring + spoke lines ────────────── */
+  _drawArcs(positions) {
+    const { W, H, cx, cy } = this._geo();
 
-  // 6. Reset styles after animation completes
-  setTimeout(() => {
-    bentoEl.style.height = '';
-    bentoEl.style.overflow = '';
-    bentoEl.style.transition = '';
-    _isAnimating = false;
-  }, 450);
+    this.svg.setAttribute('width',   W);
+    this.svg.setAttribute('height',  H);
+    this.svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+
+    while (this.svg.firstChild) this.svg.removeChild(this.svg.firstChild);
+
+    if (positions.length === 0) return;
+    const { rx, ry } = positions[0];
+
+    // ── Orbital ellipse ring ──
+    const ellipse = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+    ellipse.setAttribute('cx', cx);
+    ellipse.setAttribute('cy', cy);
+    ellipse.setAttribute('rx', rx);
+    ellipse.setAttribute('ry', ry);
+    ellipse.setAttribute('fill', 'none');
+    ellipse.setAttribute('stroke', '#0ea271');
+    ellipse.setAttribute('stroke-width', '1');
+    ellipse.setAttribute('stroke-dasharray', '3 9');
+    ellipse.setAttribute('opacity', '0.20');
+    ellipse.id = 'constellation-orbit-ring';
+    this.svg.appendChild(ellipse);
+
+    // ── Spoke lines: center → each node ──
+    positions.forEach((pos, i) => {
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('x1', cx);
+      line.setAttribute('y1', cy);
+      line.setAttribute('x2', pos.baseX);
+      line.setAttribute('y2', pos.baseY);
+      line.setAttribute('stroke', '#0ea271');
+      line.setAttribute('stroke-width', '0.9');
+      line.setAttribute('stroke-dasharray', '3 7');
+      line.setAttribute('opacity', '0.14');
+      line.id = `spoke-line-${i}`;
+      this.svg.appendChild(line);
+    });
+  }
+
+  /* ── Position Taesu at stage center ──────────────────── */
+  _placeTaesu() {
+    const { cx, cy } = this._geo();
+    // TaesuWrap is 174px wide. Ceramic sphere (152px) center is at (87px, 76px) relative to wrap top-left.
+    this.taesuWrap.style.left = (cx - 87) + 'px';
+    this.taesuWrap.style.top  = (cy - 76) + 'px';
+    this.taesuWrap.style.pointerEvents = 'auto';
+  }
+
+  /* ── Launch Traveling Energy Particle (●) ───────────────── */
+  _launchEnergyParticle(startX, startY) {
+    const { cx, cy } = this._geo();
+    const particle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    particle.setAttribute('r', '3.5');
+    particle.setAttribute('fill', '#0ea271');
+    particle.setAttribute('opacity', '0.9');
+    particle.style.filter = 'drop-shadow(0 0 4px #0ea271)';
+    this.svg.appendChild(particle);
+
+    const startTime = Date.now();
+    const duration = 450;
+
+    const anim = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(1, elapsed / duration);
+      const ease = 1 - Math.pow(1 - progress, 3);
+
+      const px = startX + (cx - startX) * ease;
+      const py = startY + (cy - startY) * ease;
+
+      particle.setAttribute('cx', px);
+      particle.setAttribute('cy', py);
+
+      if (progress < 1) {
+        requestAnimationFrame(anim);
+      } else {
+        particle.remove();
+      }
+    };
+    requestAnimationFrame(anim);
+  }
+
+  /* ── Build a single node card element ────────────────── */
+  _buildNode(item, category, i, pos) {
+    const badge     = getNodeBadge(item, category);
+    const techColor = getTechColor(item.tech[0] || '');
+    const imgSrc    = item.images && item.images[0] ? encodeAssetPath(item.images[0]) : '';
+    const delay     = i * 60;
+
+    const node = document.createElement('div');
+    node.className = 'project-node';
+    node.setAttribute('data-id', item.id);
+    node.style.left           = pos.baseX + 'px';
+    node.style.top            = pos.baseY + 'px';
+    node.style.animationDelay = delay + 'ms';
+
+    if (this.taesu && this.taesu.visitedProjects.has(item.id)) {
+      node.classList.add('visited');
+    }
+
+    const floatLabel = item.tech[0] ? `
+      <span class="node-tech-float" style="
+        background:${techColor.bg};
+        color:${techColor.color};
+        border:1px solid ${techColor.border};
+      ">${item.tech[0]}</span>` : '';
+
+    const accentBg = item.accent
+      ? `rgba(${item.accentRgb || '14,162,113'},0.12)`
+      : 'rgba(14,162,113,0.10)';
+
+    const iconHtml = imgSrc
+      ? `<div class="node-icon" style="background:${accentBg};">
+           <img src="${imgSrc}" alt="${item.title}" loading="lazy">
+         </div>`
+      : `<div class="node-icon" style="background:${accentBg}; font-size:1.3rem; display:flex; align-items:center; justify-content:center;">
+           ${category === 'hackathons' ? '🏆' : category === 'opensource' ? '🌱' : '📦'}
+         </div>`;
+
+    const badgeHtml = badge.text ? `
+      <span class="node-badge" style="
+        color:${badge.color};
+        background:${badge.bg};
+        border-color:${badge.border};
+      ">${badge.text}</span>` : '';
+
+    node.innerHTML = `
+      ${floatLabel}
+      ${iconHtml}
+      <div class="node-title">${item.title}</div>
+      <div class="node-subtitle">${item.subtitle}</div>
+      ${badgeHtml}
+    `;
+
+    node.addEventListener('mouseenter', () => {
+      const nodeX = parseFloat(node.style.left) || pos.baseX;
+      const nodeY = parseFloat(node.style.top) || pos.baseY;
+
+      this._launchEnergyParticle(nodeX, nodeY);
+
+      const visitedEls = this.stage.querySelectorAll('.project-node.visited');
+      if (visitedEls.length > 0 && this.taesu) {
+        const randomVisited = visitedEls[Math.floor(Math.random() * visitedEls.length)];
+        if (randomVisited !== node) {
+          this.taesu.performRecall(randomVisited);
+        }
+      }
+    });
+
+    node.addEventListener('click', () => {
+      node.classList.add('visited');
+      if (this.taesu) {
+        this.taesu.visitedProjects.add(item.id);
+        const rect = node.getBoundingClientRect();
+        this.taesu.flyAlongside(rect, () => openProjectSheet(item));
+      } else {
+        openProjectSheet(item);
+      }
+    });
+
+    return node;
+  }
+
+  /* ── Render all nodes for a category ─────────────────── */
+  renderCategory(category) {
+    this.activeCategory = category;
+    const items = WORKS_DATA[category] || [];
+
+    this.nodes.forEach(n => n.remove());
+    this.nodes = [];
+    this.nodeData = [];
+
+    this._placeTaesu();
+
+    const positions = this._positions(items.length);
+    const { W, H, cx, cy } = this._geo();
+    const maxRx = Math.max(220, W / 2 - 110);
+    const maxRy = Math.max(160, H / 2 - 85);
+    const rx = Math.min(maxRx, W * 0.38);
+    const ry = Math.min(maxRy, H * 0.36);
+
+    const fullPositions = positions.map(p => ({
+      ...p,
+      rx, ry,
+      baseX: cx + rx * Math.cos(p.angle),
+      baseY: cy + ry * Math.sin(p.angle)
+    }));
+
+    this._drawArcs(fullPositions);
+
+    items.forEach((item, i) => {
+      const pos = fullPositions[i];
+      const node = this._buildNode(item, category, i, pos);
+      this.stage.appendChild(node);
+      this.nodes.push(node);
+      this.nodeData.push({ el: node, pos, item });
+    });
+  }
+
+  /* ── Single Master RAF Frame Update Loop ─────────────── */
+  updateFrame(elapsedMs) {
+    if (this.isAnimating || this.nodeData.length === 0) return;
+
+    const { W, H, cx, cy } = this._geo();
+
+    // Dynamically keep Taesu centered
+    this.taesuWrap.style.left = (cx - 87) + 'px';
+    this.taesuWrap.style.top  = (cy - 76) + 'px';
+
+    const maxRx = Math.max(220, W / 2 - 110);
+    const maxRy = Math.max(160, H / 2 - 85);
+    const rx = Math.min(maxRx, W * 0.38);
+    const ry = Math.min(maxRy, H * 0.36);
+
+    // Solar system constellation breathing scaling (±0.8%)
+    const breathScale = 1.0 + 0.008 * Math.sin(elapsedMs / 1200);
+
+    const ringEl = this.svg.querySelector('#constellation-orbit-ring');
+    if (ringEl) {
+      ringEl.setAttribute('cx', cx);
+      ringEl.setAttribute('cy', cy);
+      ringEl.setAttribute('rx', rx * breathScale);
+      ringEl.setAttribute('ry', ry * breathScale);
+    }
+
+    // Weightless floating drift per node (±4px sinusoidal offset)
+    this.nodeData.forEach((nd, i) => {
+      const driftX = Math.sin(elapsedMs / 1000 + nd.pos.phase) * 4;
+      const driftY = Math.cos(elapsedMs / 1150 + nd.pos.phase) * 4;
+
+      const currX = cx + (rx * breathScale) * Math.cos(nd.pos.angle) + driftX;
+      const currY = cy + (ry * breathScale) * Math.sin(nd.pos.angle) + driftY;
+
+      nd.el.style.left = currX.toFixed(2) + 'px';
+      nd.el.style.top  = currY.toFixed(2) + 'px';
+
+      const line = this.svg.querySelector(`#spoke-line-${i}`);
+      if (line) {
+        line.setAttribute('x1', cx);
+        line.setAttribute('y1', cy);
+        line.setAttribute('x2', currX.toFixed(2));
+        line.setAttribute('y2', currY.toFixed(2));
+      }
+    });
+  }
+
+  /* ── Graceful Category Switch Sequence ─────────────────── */
+  async switchCategory(category) {
+    if (this.isAnimating || category === this.activeCategory) return;
+    this.isAnimating = true;
+
+    // 0ms: Update Taesu personality & status
+    if (this.taesu && typeof this.taesu.setCategoryPersonality === 'function') {
+      this.taesu.setCategoryPersonality(category);
+    }
+
+    // 150ms: Current constellation nodes gracefully emerge/fade
+    this.nodes.forEach(n => n.classList.add('exiting'));
+    while (this.svg.firstChild) this.svg.removeChild(this.svg.firstChild);
+
+    await new Promise(r => setTimeout(r, 280));
+
+    this.nodes.forEach(n => n.remove());
+    this.nodes = [];
+    this.nodeData = [];
+
+    // 400ms: Gracefully render & emerge new nodes
+    this.renderCategory(category);
+    this.isAnimating = false;
+  }
 }
+
+// ============================================================
+//  INIT — WORKSHOP
+// ============================================================
+
+function initWorkshop() {
+  const section    = document.getElementById('works');
+  if (!section) return;
+
+  const stage      = document.getElementById('workshop-stage');
+  const svgEl      = document.getElementById('constellation-arcs');
+  const taesuEl    = document.getElementById('taesu-mascot');
+  const taesuWrap  = document.querySelector('.taesu-center-wrap');
+  const catBtns    = document.querySelectorAll('.category-btn');
+  const activeIconWrap  = document.getElementById('category-active-icon') || document.getElementById('category-active-icon-wrap');
+  const activeLabelEl   = document.getElementById('category-active-label');
+
+  if (!stage || !svgEl) return;
+
+  // Boot Taesu behavior controller
+  let taesuCtrl = null;
+  if (taesuEl && window.TaesuController) {
+    taesuCtrl = new window.TaesuController(taesuEl);
+  }
+
+  // Build constellation
+  const constellation = new WorkshopConstellation(stage, svgEl, taesuWrap, taesuCtrl);
+  constellation.renderCategory('projects');
+
+  requestAnimationFrame(() => {
+    constellation.renderCategory(constellation.activeCategory);
+  });
+  window.addEventListener('load', () => {
+    constellation.renderCategory(constellation.activeCategory);
+  });
+
+  // Resize → redraw
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      constellation.renderCategory(constellation.activeCategory);
+    }, 120);
+  });
+
+  // Category button clicks
+  catBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const cat = btn.getAttribute('data-category');
+      if (!cat) return;
+
+      catBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const meta = CATEGORY_META[cat];
+      if (activeIconWrap && meta) activeIconWrap.textContent = meta.icon;
+      if (activeLabelEl  && meta) activeLabelEl.textContent  = meta.label;
+
+      constellation.switchCategory(cat);
+    });
+  });
+
+  // Stats counter animation
+  const statEls = document.querySelectorAll('.stat-number[data-target]');
+  if (statEls.length) {
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { animateCounter(e.target); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.6 });
+    statEls.forEach(el => io.observe(el));
+  }
+
+  // Scroll chevron
+  const scrollBtn = document.querySelector('.workshop-scroll-btn');
+  if (scrollBtn) {
+    scrollBtn.addEventListener('click', () => {
+      const next = section.nextElementSibling;
+      if (next) next.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+}
+
+/** Animated counter for stats bar numbers */
+function animateCounter(el) {
+  const raw   = el.getAttribute('data-target') || '';
+  const match = raw.match(/([\d.]+)/);
+  if (!match) { el.textContent = raw; return; }
+  const end    = parseFloat(match[1]);
+  const prefix = raw.slice(0, match.index);
+  const suffix = raw.slice(match.index + match[1].length);
+  const dur    = 1100;
+  const t0     = performance.now();
+  const isInt  = Number.isInteger(end);
+
+  function tick(now) {
+    const p = Math.min((now - t0) / dur, 1);
+    const e = 1 - Math.pow(1 - p, 3);
+    el.textContent = prefix + (isInt ? Math.floor(end * e) : (end * e).toFixed(1)) + suffix;
+    if (p < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+document.addEventListener('DOMContentLoaded', () => { initWorkshop(); });
+
+window.openProjectSheet = openProjectSheet;
+window.WORKS_DATA       = WORKS_DATA;
 
 // ============================================================
 //  PROJECT SHEET MODAL
 // ============================================================
+
+/** Applies custom accent CSS variables to the project detail sheet */
+function applyAccent(sheet, project) {
+  if (project.accent) {
+    sheet.style.setProperty('--project-accent', project.accent);
+  }
+  if (project.accentRgb) {
+    sheet.style.setProperty('--project-accent-rgb', project.accentRgb);
+  }
+}
 
 let _sheetOpen = false;
 let _escHandler = null;
@@ -1085,84 +1539,4 @@ function openProjectSheet(project) {
   document.addEventListener('keydown', _escHandler);
 }
 
-// ============================================================
-//  INIT
-// ============================================================
 
-/** Positions the absolute-positioned sliding pill indicator behind the active tab button */
-function updateTabIndicator() {
-  const activeBtn = document.querySelector('.works-tab-btn.active');
-  const indicator = document.getElementById('works-tab-indicator');
-  if (!activeBtn || !indicator) return;
-
-  indicator.style.left = `${activeBtn.offsetLeft}px`;
-  indicator.style.top = `${activeBtn.offsetTop}px`;
-  indicator.style.width = `${activeBtn.offsetWidth}px`;
-  indicator.style.height = `${activeBtn.offsetHeight}px`;
-}
-
-function initWorksSection() {
-  const worksSection = document.getElementById('works');
-  if (!worksSection) return;
-
-  const tabBtns = document.querySelectorAll('.works-tab-btn');
-  const bentoEl = document.getElementById('works-bento');
-  const tabsContainer = document.querySelector('.works-tabs');
-  if (!bentoEl) return;
-
-  // Render initial category
-  renderBento(bentoEl, 'projects');
-  _activeCategory = 'projects';
-
-  // Inject tab indicator capsule dynamically
-  if (tabsContainer && !document.getElementById('works-tab-indicator')) {
-    const indicator = document.createElement('span');
-    indicator.className = 'works-tab-indicator';
-    indicator.id = 'works-tab-indicator';
-    tabsContainer.appendChild(indicator);
-  }
-
-  // Position indicator initially after a slight layout delay
-  setTimeout(updateTabIndicator, 80);
-
-  // Tab click handlers — smooth crossfade transition
-  tabBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const category = btn.getAttribute('data-tab');
-      if (category === _activeCategory || _isAnimating) return;
-
-      // Update active state on buttons
-      tabBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      // Slide the background capsule indicator
-      updateTabIndicator();
-
-      // Animate switch
-      switchCategory(bentoEl, category);
-    });
-  });
-
-  // Add count badges to tab buttons
-  tabBtns.forEach(btn => {
-    const cat = btn.getAttribute('data-tab');
-    const count = (WORKS_DATA[cat] || []).length;
-    if (count > 0 && !btn.querySelector('.tab-count-badge')) {
-      const badge = document.createElement('span');
-      badge.className = 'tab-count-badge';
-      badge.textContent = count;
-      btn.appendChild(badge);
-    }
-  });
-
-  // Re-align indicator on window resize
-  window.addEventListener('resize', updateTabIndicator);
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  initWorksSection();
-});
-
-// Expose globally for cross-section modal opening
-window.openProjectSheet = openProjectSheet;
-window.WORKS_DATA = WORKS_DATA;

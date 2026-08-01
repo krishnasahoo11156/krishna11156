@@ -40,6 +40,7 @@
   <link rel="stylesheet" href="assets/css/variables.css">
   <link rel="stylesheet" href="assets/css/main.css">
   <link rel="stylesheet" href="assets/css/works.css">
+  <link rel="stylesheet" href="assets/css/taesu.css">
   <link rel="stylesheet" href="assets/css/achievements.css">
   <link rel="stylesheet" href="assets/css/journal.css">
 </head>
@@ -560,25 +561,219 @@
         </div>
       </section>
 
-      <!-- Works Section — Bento Grid + Immersive Sheet -->
-      <section class="works-section" id="works">
-        <div class="works-container">
-          <div class="works-header">
-            <h2 class="works-title">PROJECTS <span class="works-highlight">&amp; FOOTPRINTS</span></h2>
-            <p class="works-subtitle">Selected engineering work — software applications, hackathon sprints, and
-              open-source
-              systems.
-            </p>
-            <div class="works-tabs">
-              <button class="works-tab-btn active" data-tab="projects">Projects</button>
-              <button class="works-tab-btn" data-tab="hackathons">Hackathons</button>
-              <button class="works-tab-btn" data-tab="opensource">Open-Source</button>
+      <!-- ============================================================
+           Taesu's Workshop — Interactive Constellation Projects Section
+           ============================================================ -->
+      <section class="workshop-section" id="works" aria-labelledby="workshop-heading">
+
+        <!-- Floating Emerald Dot Particles -->
+        <div class="workshop-particle" style="top:12%;left:22%;animation-delay:0s;"></div>
+        <div class="workshop-particle" style="top:28%;left:48%;animation-delay:0.8s;"></div>
+        <div class="workshop-particle" style="top:18%;left:72%;animation-delay:1.5s;"></div>
+        <div class="workshop-particle" style="top:65%;left:35%;animation-delay:0.4s;"></div>
+        <div class="workshop-particle" style="top:72%;left:62%;animation-delay:1.1s;"></div>
+        <div class="workshop-particle" style="top:45%;left:88%;animation-delay:0.6s;"></div>
+        <div class="workshop-particle" style="top:55%;left:12%;animation-delay:2s;"></div>
+
+        <!-- TOP HEADER BLOCK -->
+        <div class="workshop-top-header">
+          <div class="workshop-eyebrow" aria-label="Section label">
+            <span class="workshop-eyebrow-star">✦</span> TAESU'S WORKSHOP
+          </div>
+
+          <h2 class="workshop-heading" id="workshop-heading">
+            Where <em>curiosity</em> becomes software.
+          </h2>
+
+          <p class="workshop-body-top">
+            Built with engineering rigor. Refined with curiosity. Explore products, open-source contributions, and hackathon projects.
+            <span class="workshop-signature">— Krishna Sahoo</span>
+          </p>
+        </div>
+
+        <!-- MAIN 2-COLUMN CONTAINER: Constellation (Left/Main) + Right Panel -->
+        <div class="workshop-container">
+
+          <!-- ══ CENTER/LEFT: Constellation Stage ══ -->
+          <div class="workshop-stage" id="workshop-stage" role="region" aria-label="Project constellation">
+
+            <!-- SVG arc lines -->
+            <svg class="constellation-arcs" id="constellation-arcs" aria-hidden="true"
+              viewBox="0 0 100 100" preserveAspectRatio="none">
+            </svg>
+
+            <!-- Taesu Mascot (centered) -->
+            <div class="taesu-center-wrap">
+              <div class="taesu-mascot" id="taesu-mascot" role="img" aria-label="Taesu — your workshop companion">
+                <div class="taesu-body">
+                  <div class="taesu-face">
+                    <div class="taesu-eye left"></div>
+                    <div class="taesu-eye right"></div>
+                  </div>
+                  <div class="taesu-ring"></div>
+                </div>
+                <div class="taesu-shadow"></div>
+                <div class="taesu-zzz" aria-hidden="true">💤</div>
+              </div>
+              <div class="taesu-label">
+                Taesu <span class="taesu-heart">♥</span>
+              </div>
+            </div>
+
+            <!-- Project nodes injected here by works.js -->
+
+            <!-- Drag hint -->
+            <div class="drag-hint" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 9s0-4 4-4 4 4 4 4v3m0 0v2m0-2h3a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h1"/>
+              </svg>
+              Drag to explore
             </div>
           </div>
 
-          <!-- Bento grid: featured card + compact grid, populated by works.js -->
-          <div class="works-bento" id="works-bento"></div>
+          <!-- ══ RIGHT PANEL: Category Selector + Living Taesu Status + Tips ══ -->
+          <div class="workshop-right">
+
+            <!-- Eyebrow -->
+            <div class="workshop-right-eyebrow">
+              <span>✦</span> EXPLORE BY CATEGORY
+            </div>
+
+            <!-- Category Panel -->
+            <div class="category-panel">
+              <!-- Active category display (top) -->
+              <div class="category-top-row">
+                <div class="category-active-icon" id="category-active-icon">📦</div>
+                <div class="category-active-label" id="category-active-label">Products</div>
+              </div>
+
+              <!-- Three category selectors -->
+              <div class="category-bottom-row">
+                <!-- Competitions -->
+                <button class="category-btn" data-category="hackathons"
+                  id="cat-btn-hackathons" aria-label="View competitions">
+                  <span class="category-btn-icon">🏆</span>
+                  Competitions
+                </button>
+
+                <!-- Taesu mini face center -->
+                <div class="category-taesu-center">
+                  <div class="taesu-intro-mascot">
+                    <div class="taesu-intro-body">
+                      <div class="taesu-intro-eyes">
+                        <div class="taesu-intro-eye"></div>
+                        <div class="taesu-intro-eye"></div>
+                      </div>
+                    </div>
+                    <div class="taesu-intro-ring"></div>
+                  </div>
+                </div>
+
+                <!-- Contributions -->
+                <button class="category-btn" data-category="opensource"
+                  id="cat-btn-opensource" aria-label="View contributions">
+                  <span class="category-btn-icon">🌱</span>
+                  Contributions
+                </button>
+              </div>
+            </div>
+
+            <!-- Living Taesu Status Card -->
+            <div class="taesu-status-card" id="taesu-status-card">
+              <div class="taesu-status-header">
+                <span class="taesu-status-title">TAESU STATUS</span>
+                <span class="taesu-status-pill" id="taesu-status-mood">Status: Curious</span>
+              </div>
+              <div class="taesu-status-body">
+                <div class="status-metric">
+                  <span class="metric-label">Watching</span>
+                  <span class="metric-value" id="taesu-watching-val">Constellation</span>
+                </div>
+                <div class="status-metric">
+                  <span class="metric-label">Explored</span>
+                  <span class="metric-value" id="taesu-explored-val">0 / 6</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tips Card -->
+            <div class="tips-card">
+              <div class="tips-header">
+                <span>💡</span> Tips
+              </div>
+              <p class="tips-text">
+                Hover over a project to see quick preview.<br>
+                Click to explore the full story.
+              </p>
+            </div>
+
+          </div><!-- /.workshop-right -->
+
+        </div><!-- /.workshop-container -->
+
+        <!-- ══ STATS BAR ══ -->
+        <div class="workshop-stats-bar">
+          <div class="workshop-stats-inner">
+
+            <div class="stat-item">
+              <span class="stat-icon">📁</span>
+              <div class="stat-text-group">
+                <span class="stat-number" data-target="8+">8+</span>
+                <span class="stat-label">Projects Built</span>
+              </div>
+            </div>
+
+            <div class="stat-item">
+              <span class="stat-icon">🏆</span>
+              <div class="stat-text-group">
+                <span class="stat-number" data-target="3">3</span>
+                <span class="stat-label">Hackathons</span>
+              </div>
+            </div>
+
+            <div class="stat-item">
+              <span class="stat-icon">&lt;/&gt;</span>
+              <div class="stat-text-group">
+                <span class="stat-number" data-target="2">2</span>
+                <span class="stat-label">Open Source</span>
+              </div>
+            </div>
+
+            <div class="stat-item">
+              <span class="stat-icon">🔧</span>
+              <div class="stat-text-group">
+                <span class="stat-number" data-target="10+">10+</span>
+                <span class="stat-label">Technologies</span>
+              </div>
+            </div>
+
+            <div class="stat-item">
+              <span class="stat-icon">📈</span>
+              <div class="stat-text-group">
+                <span class="stat-number" data-target="2+">2+</span>
+                <span class="stat-label">Journey (yrs)</span>
+              </div>
+            </div>
+
+            <div class="stat-quote">
+              Building is my way of learning,<br>
+              Solving is my way of growing.
+            </div>
+
+          </div>
+        </div><!-- /.workshop-stats-bar -->
+
+        <!-- Scroll chevron -->
+        <div class="workshop-scroll-hint">
+          <button class="workshop-scroll-btn" aria-label="Scroll to next section">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
         </div>
+
       </section>
 
 
@@ -2213,6 +2408,7 @@
 
   <script src="assets/js/doodles.js" defer></script>
   <script src="assets/js/skills.js" defer></script>
+  <script src="assets/js/taesu.js" defer></script>
   <script src="assets/js/works.js" defer></script>
   <script src="assets/js/achievements.js" defer></script>
   <script src="assets/js/journal.js" defer></script>
