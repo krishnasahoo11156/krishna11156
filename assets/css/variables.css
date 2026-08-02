@@ -37,6 +37,7 @@
   /* ── Layout ─────────────────────────────────────────────── */
   --max-width:          1280px;
   --header-height:      80px;
+  --nav-padding-x:      clamp(0.75rem, 1.8vw, 2.2rem);
   --section-padding-y:  7rem;
   --border-radius-card: 20px;
   --border-radius-pill: 50px;

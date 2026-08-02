@@ -110,15 +110,15 @@ main {
 /* Overlapping Stencil Typography */
 .overlapping-text {
   font-family: 'Lato', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: clamp(3.5rem, 11vw, 8.5rem);
+  font-size: clamp(3.5rem, 11vw, 15rem);
   font-weight: 900;
   line-height: 0.85;
   letter-spacing: -4px;
   position: absolute;
   top: -2vh;
   /* Lifted above the top level of the image */
-  left: calc(25vw - var(--image-center-x) + 1.5vw);
-  /* Aligns text start exactly with 1.5vw padding from viewport left edge */
+  left: calc(25vw - var(--image-center-x) + var(--nav-padding-x, clamp(0.75rem, 1.8vw, 2.2rem)));
+  /* Aligns text start exactly with padding from viewport left edge */
   width: 100vw;
   white-space: nowrap;
   pointer-events: none;
@@ -214,8 +214,12 @@ main {
   left: 0;
   width: 100%;
   z-index: 100;
-  padding: 1.75rem 1.5vw;
-  background: transparent;
+  padding: 1.75rem var(--nav-padding-x, clamp(0.75rem, 1.8vw, 2.2rem));
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
+  box-shadow: none !important;
   pointer-events: none;
 }
 
@@ -359,9 +363,9 @@ main {
   justify-content: flex-end;
   align-items: flex-end;
   padding-left: 2vw;
-  padding-right: 1.5vw;
+  padding-right: var(--nav-padding-x, clamp(0.75rem, 1.8vw, 2.2rem));
   /* Aligned flush with tagline right edge */
-  margin-bottom: 13vh;
+  margin-bottom: clamp(5rem, 11vh, 9rem);
   /* Balanced vertical level below tagline */
   z-index: 2;
   /* Sits BEHIND the center profile image (z-index: 10) for sliding layer depth */
@@ -1840,12 +1844,12 @@ main {
 }
 
 .navbar-header.scrolled {
-  background: rgba(255, 255, 255, 0.88) !important;
-  backdrop-filter: blur(14px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(14px) saturate(180%) !important;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
-  padding: 0.95rem 1.5vw !important;
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  padding: 0.95rem var(--nav-padding-x, clamp(0.75rem, 1.8vw, 2.2rem)) !important;
 }
 
 /* Darker links over light-background sections */
