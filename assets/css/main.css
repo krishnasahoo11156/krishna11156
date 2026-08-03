@@ -365,9 +365,8 @@ main {
   align-items: flex-end;
   padding-left: 2vw;
   padding-right: var(--nav-padding-x, clamp(0.75rem, 1.8vw, 2.2rem));
-  /* Aligned flush with tagline right edge */
-  margin-bottom: clamp(5rem, 11vh, 9rem);
-  /* Balanced vertical level below tagline */
+  /* Shifted higher up on the right side */
+  margin-bottom: clamp(9rem, 17vh, 15rem);
   z-index: 2;
   /* Sits BEHIND the center profile image (z-index: 10) for sliding layer depth */
   position: relative;
