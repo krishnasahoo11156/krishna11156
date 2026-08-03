@@ -484,46 +484,77 @@ function initSectionObserver() {
 }
 
 /**
- * Typewriter effect for the tagline (if .typewriter-text element exists)
+ * Typewriter effect for the right-aligned hero tagline
  */
 function initTypewriter() {
-  const target = document.querySelector('.typewriter-text');
-  if (!target) return;
+  const line1Elem = document.getElementById('tagline-line-1');
+  const line2Elem = document.getElementById('tagline-line-2');
 
-  const words = JSON.parse(target.getAttribute('data-words') || '[]');
-  if (!words.length) return;
+  if (!line1Elem || !line2Elem) return;
 
-  let wordIndex = 0;
-  let charIndex = 0;
-  let isDeleting = false;
-  let delay = 150;
+  const fullText1 = "I draw what I can't say";
+  const fullText2 = "I code what I can't draw";
 
-  function type() {
-    const currentWord = words[wordIndex];
+  let charIndex1 = 0;
+  let charIndex2 = 0;
+  let phase = 'type1'; // 'type1' | 'type2' | 'pause2' | 'delete2' | 'delete1'
 
-    if (isDeleting) {
-      target.textContent = currentWord.substring(0, charIndex - 1);
-      charIndex--;
-      delay = 75;
-    } else {
-      target.textContent = currentWord.substring(0, charIndex + 1);
-      charIndex++;
-      delay = 150;
+  // Clear text on init
+  line1Elem.textContent = '';
+  line2Elem.textContent = '';
+
+  function typeStep() {
+    let speed = 75;
+
+    if (phase === 'type1') {
+      if (charIndex1 < fullText1.length) {
+        charIndex1++;
+        line1Elem.textContent = fullText1.substring(0, charIndex1) + '|';
+        speed = 55 + Math.random() * 25;
+      } else {
+        line1Elem.textContent = fullText1;
+        phase = 'type2';
+        speed = 250;
+      }
+    } else if (phase === 'type2') {
+      if (charIndex2 < fullText2.length) {
+        charIndex2++;
+        line2Elem.textContent = fullText2.substring(0, charIndex2) + '|';
+        speed = 55 + Math.random() * 25;
+      } else {
+        line2Elem.textContent = fullText2;
+        phase = 'pause2';
+        speed = 4000;
+      }
+    } else if (phase === 'pause2') {
+      phase = 'delete2';
+      speed = 35;
+    } else if (phase === 'delete2') {
+      if (charIndex2 > 0) {
+        charIndex2--;
+        line2Elem.textContent = charIndex2 > 0 ? fullText2.substring(0, charIndex2) + '|' : '';
+        speed = 30;
+      } else {
+        line2Elem.textContent = '';
+        phase = 'delete1';
+        speed = 120;
+      }
+    } else if (phase === 'delete1') {
+      if (charIndex1 > 0) {
+        charIndex1--;
+        line1Elem.textContent = charIndex1 > 0 ? fullText1.substring(0, charIndex1) + '|' : '';
+        speed = 30;
+      } else {
+        line1Elem.textContent = '';
+        phase = 'type1';
+        speed = 500;
+      }
     }
 
-    if (!isDeleting && charIndex === currentWord.length) {
-      delay = 2000;
-      isDeleting = true;
-    } else if (isDeleting && charIndex === 0) {
-      isDeleting = false;
-      wordIndex = (wordIndex + 1) % words.length;
-      delay = 500;
-    }
-
-    setTimeout(type, delay);
+    setTimeout(typeStep, speed);
   }
 
-  setTimeout(type, 1000);
+  setTimeout(typeStep, 600);
 }
 
 /**

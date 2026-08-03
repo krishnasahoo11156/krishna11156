@@ -490,9 +490,9 @@ main {
 
 .btn-hero-primary:hover {
   color: #111111 !important;
-  border-color: #FFFFFF;
+  border-color: rgba(255, 255, 255, 0.25);
   transform: translateY(-2px);
-  box-shadow: 0 4px 14px rgba(255, 255, 255, 0.14);
+  box-shadow: none;
 }
 
 /* Socials Button - Outlined */
@@ -508,9 +508,9 @@ main {
 
 .btn-hero-secondary:hover {
   color: #FFFFFF !important;
-  border-color: rgba(255, 255, 255, 0.85);
+  border-color: rgba(255, 255, 255, 0.25);
   transform: translateY(-2px);
-  box-shadow: 0 4px 14px rgba(255, 255, 255, 0.1);
+  box-shadow: none;
 }
 
 /* Hero Panel Headers & Controls */
@@ -839,6 +839,10 @@ main {
   z-index: 1;
   /* sits behind image, above background-text */
   opacity: 0.80;
+}
+
+.overlapping-text-right div {
+  min-height: 0.95em;
 }
 
 
