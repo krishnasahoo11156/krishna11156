@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSectionTransitions();
   initBlogReader();
   initHeroPanels();
+  initHeroButtons();
   initContactAndAppointmentSystem();
   initFooterTypewriter();
 });
@@ -942,6 +943,19 @@ function initCurrentlyBuildingPreviews() {
 
 function initHeroPanels() {
   // Obsolete full-screen modal overlays removed in favor of Engineering Desk Journal popup
+}
+
+function initHeroButtons() {
+  const btnOpenSocials = document.getElementById('btn-open-socials');
+  if (btnOpenSocials) {
+    btnOpenSocials.addEventListener('click', (e) => {
+      e.preventDefault();
+      const connectSec = document.getElementById('connect') || document.querySelector('.connect-section');
+      if (connectSec) {
+        connectSec.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  }
 }
 
 /**

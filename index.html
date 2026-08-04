@@ -136,32 +136,74 @@
             </div>
           </div>
 
-          <!-- Right Side: Action Buttons -->
+          <!-- Right Side: Tech Ticker -->
           <div class="hero-content-right" id="hero-content-right">
-            <div class="hero-buttons">
-              <button class="btn-hero btn-hero-primary journal-trigger-btn" id="btn-open-blogs" type="button"
-                aria-label="Open Blogs Modal">
-                <span>Blogs</span>
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2"
-                  stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-              </button>
-              <button class="btn-hero btn-hero-secondary" id="btn-open-socials" type="button"
-                aria-label="Open Socials Modal">
-                <span>Socials</span>
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2"
-                  stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="18" cy="5" r="3"></circle>
-                  <circle cx="6" cy="12" r="3"></circle>
-                  <circle cx="18" cy="19" r="3"></circle>
-                  <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-                  <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-                </svg>
-              </button>
+
+            <!-- Infinite Greenish Tech Icon Rolling Marquee -->
+            <div class="hero-tech-ticker" aria-label="Tech Stack Icons">
+              <div class="hero-tech-track">
+                <div class="hero-tech-group">
+                  <img src="assets/images/icons/java.svg" class="hero-tech-icon" title="Java" alt="Java">
+                  <img src="assets/images/icons/spring%20(1).svg" class="hero-tech-icon" title="Spring" alt="Spring">
+                  <img src="assets/images/icons/html-5.svg" class="hero-tech-icon" title="HTML5" alt="HTML5">
+                  <img src="assets/images/icons/css-3.svg" class="hero-tech-icon" title="CSS3" alt="CSS3">
+                  <img src="assets/images/icons/javascript%20(2).svg" class="hero-tech-icon" title="JavaScript" alt="JavaScript">
+                  <img src="assets/images/icons/postgresql.svg" class="hero-tech-icon" title="PostgreSQL" alt="PostgreSQL">
+                  <img src="assets/images/tools%20icon/visual-studio-code.svg" class="hero-tech-icon" title="VS Code" alt="VS Code">
+                  <img src="assets/images/tools%20icon/git-icon%20(1).svg" class="hero-tech-icon" title="Git" alt="Git">
+                  <img src="assets/images/tools%20icon/github-icon.svg" class="hero-tech-icon" title="GitHub" alt="GitHub">
+                  <img src="assets/images/tools%20icon/claude-icon%20(1).svg" class="hero-tech-icon" title="Claude" alt="Claude">
+                  <img src="assets/images/tools%20icon/antigravity-color.svg" class="hero-tech-icon" title="Antigravity" alt="Antigravity">
+                  <img src="assets/images/tools%20icon/openai-icon.svg" class="hero-tech-icon" title="OpenAI" alt="OpenAI">
+                  <img src="assets/images/tools%20icon/firebase-icon.svg" class="hero-tech-icon" title="Firebase" alt="Firebase">
+                  <img src="assets/images/tools%20icon/supabase-icon.svg" class="hero-tech-icon" title="Supabase" alt="Supabase">
+                  <img src="assets/images/tools%20icon/google-cloud.svg" class="hero-tech-icon" title="Google Cloud" alt="Google Cloud">
+                </div>
+                <div class="hero-tech-group" aria-hidden="true">
+                  <img src="assets/images/icons/java.svg" class="hero-tech-icon" alt="">
+                  <img src="assets/images/icons/spring%20(1).svg" class="hero-tech-icon" alt="">
+                  <img src="assets/images/icons/html-5.svg" class="hero-tech-icon" alt="">
+                  <img src="assets/images/icons/css-3.svg" class="hero-tech-icon" alt="">
+                  <img src="assets/images/icons/javascript%20(2).svg" class="hero-tech-icon" alt="">
+                  <img src="assets/images/icons/postgresql.svg" class="hero-tech-icon" alt="">
+                  <img src="assets/images/tools%20icon/visual-studio-code.svg" class="hero-tech-icon" alt="">
+                  <img src="assets/images/tools%20icon/git-icon%20(1).svg" class="hero-tech-icon" alt="">
+                  <img src="assets/images/tools%20icon/github-icon.svg" class="hero-tech-icon" alt="">
+                  <img src="assets/images/tools%20icon/claude-icon%20(1).svg" class="hero-tech-icon" alt="">
+                  <img src="assets/images/tools%20icon/antigravity-color.svg" class="hero-tech-icon" alt="">
+                  <img src="assets/images/tools%20icon/openai-icon.svg" class="hero-tech-icon" alt="">
+                  <img src="assets/images/tools%20icon/firebase-icon.svg" class="hero-tech-icon" alt="">
+                  <img src="assets/images/tools%20icon/supabase-icon.svg" class="hero-tech-icon" alt="">
+                  <img src="assets/images/tools%20icon/google-cloud.svg" class="hero-tech-icon" alt="">
+                </div>
+              </div>
             </div>
           </div>
+        </div>
+
+        <!-- Hero Action Buttons: Blogs & Socials (absolutely positioned to always be visible) -->
+        <div class="hero-action-buttons" id="hero-action-buttons">
+          <button class="btn-hero btn-hero-primary journal-trigger-btn" id="btn-open-blogs" type="button"
+            aria-label="Open Blogs Modal">
+            <span>Blogs</span>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+          <button class="btn-hero btn-hero-secondary" id="btn-open-socials" type="button"
+            aria-label="Open Socials Modal">
+            <span>Socials</span>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="18" cy="5" r="3"></circle>
+              <circle cx="6" cy="12" r="3"></circle>
+              <circle cx="18" cy="19" r="3"></circle>
+              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+              <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+            </svg>
+          </button>
         </div>
 
         <!-- Scroll Hint Chevron -->
