@@ -444,8 +444,8 @@ main {
 
 .hero-tech-icon:hover {
   opacity: 1;
-  transform: translateY(-2px) scale(1.2);
-  filter: invert(65%) sepia(85%) saturate(480%) hue-rotate(113deg) brightness(105%) contrast(95%) drop-shadow(0 0 8px rgba(16, 185, 129, 0.8));
+  transform: translateY(-2px) scale(1.15);
+  filter: invert(52%) sepia(76%) saturate(464%) hue-rotate(113deg) brightness(97%) contrast(92%);
 }
 
 @keyframes heroTechScroll {
@@ -568,7 +568,6 @@ main {
   border: 1.5px solid rgba(16, 185, 129, 0.55);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 0 16px rgba(16, 185, 129, 0.22);
 }
 
 .btn-hero-primary::before {
@@ -579,7 +578,7 @@ main {
   color: #ffffff !important;
   border-color: #10B981;
   transform: translateY(-3px);
-  box-shadow: 0 0 25px rgba(16, 185, 129, 0.6);
+  box-shadow: none;
 }
 
 /* Socials Button - Outlined Glassmorphic White */
@@ -599,7 +598,7 @@ main {
   color: #111111 !important;
   border-color: #ffffff;
   transform: translateY(-3px);
-  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
+  box-shadow: none;
 }
 
 /* Hero Panel Headers & Controls */
