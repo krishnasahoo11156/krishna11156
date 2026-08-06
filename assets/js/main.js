@@ -490,63 +490,78 @@ function initSectionObserver() {
 function initTypewriter() {
   const line1Elem = document.getElementById('tagline-line-1');
   const line2Elem = document.getElementById('tagline-line-2');
-
   if (!line1Elem || !line2Elem) return;
 
-  const fullText1 = "I draw what I can't say";
-  const fullText2 = "I code what I can't draw";
+  // ── 3 cycling phrases (line2 is optional; leave blank for single-line phrases) ──
+  const phrases = [
+    { line1: "AI & Full Stack Developer",      line2: "" },
+    { line1: "I draw what I can't say",        line2: "I code what I can't draw" },
+    { line1: "Where creativity",               line2: "meets clean code" }
+  ];
 
-  let charIndex1 = 0;
-  let charIndex2 = 0;
-  let phase = 'type1'; // 'type1' | 'type2' | 'pause2' | 'delete2' | 'delete1'
+  let phraseIdx = 0;
+  let charIdx1   = 0;
+  let charIdx2   = 0;
+  // phases: 'type1' → 'type2' (if line2) → 'pause' → 'delete2' (if line2) → 'delete1' → loops
+  let phase = 'type1';
 
-  // Clear text on init
   line1Elem.textContent = '';
   line2Elem.textContent = '';
 
   function typeStep() {
     let speed = 75;
+    const p = phrases[phraseIdx];
 
     if (phase === 'type1') {
-      if (charIndex1 < fullText1.length) {
-        charIndex1++;
-        line1Elem.textContent = fullText1.substring(0, charIndex1) + '|';
+      if (charIdx1 < p.line1.length) {
+        charIdx1++;
+        line1Elem.textContent = p.line1.substring(0, charIdx1) + '|';
         speed = 55 + Math.random() * 25;
       } else {
-        line1Elem.textContent = fullText1;
-        phase = 'type2';
-        speed = 250;
+        // Line 1 fully typed
+        line1Elem.textContent = p.line2 ? p.line1 : p.line1 + '|';
+        phase = p.line2 ? 'type2' : 'pause';
+        speed = p.line2 ? 250 : 3000;
       }
+
     } else if (phase === 'type2') {
-      if (charIndex2 < fullText2.length) {
-        charIndex2++;
-        line2Elem.textContent = fullText2.substring(0, charIndex2) + '|';
+      if (charIdx2 < p.line2.length) {
+        charIdx2++;
+        line2Elem.textContent = p.line2.substring(0, charIdx2) + '|';
         speed = 55 + Math.random() * 25;
       } else {
-        line2Elem.textContent = fullText2;
-        phase = 'pause2';
-        speed = 4000;
+        line2Elem.textContent = p.line2;
+        phase = 'pause';
+        speed = 3500;
       }
-    } else if (phase === 'pause2') {
-      phase = 'delete2';
+
+    } else if (phase === 'pause') {
+      phase = p.line2 ? 'delete2' : 'delete1';
       speed = 35;
+
     } else if (phase === 'delete2') {
-      if (charIndex2 > 0) {
-        charIndex2--;
-        line2Elem.textContent = charIndex2 > 0 ? fullText2.substring(0, charIndex2) + '|' : '';
-        speed = 30;
+      if (charIdx2 > 0) {
+        charIdx2--;
+        line2Elem.textContent = charIdx2 > 0 ? p.line2.substring(0, charIdx2) + '|' : '';
+        speed = 28;
       } else {
         line2Elem.textContent = '';
         phase = 'delete1';
         speed = 120;
       }
+
     } else if (phase === 'delete1') {
-      if (charIndex1 > 0) {
-        charIndex1--;
-        line1Elem.textContent = charIndex1 > 0 ? fullText1.substring(0, charIndex1) + '|' : '';
-        speed = 30;
+      if (charIdx1 > 0) {
+        charIdx1--;
+        line1Elem.textContent = charIdx1 > 0 ? p.line1.substring(0, charIdx1) + '|' : '';
+        speed = 28;
       } else {
+        // Phrase fully deleted — move to next
         line1Elem.textContent = '';
+        line2Elem.textContent = '';
+        phraseIdx = (phraseIdx + 1) % phrases.length;
+        charIdx1 = 0;
+        charIdx2 = 0;
         phase = 'type1';
         speed = 500;
       }
@@ -1600,29 +1615,107 @@ function initContactAndAppointmentSystem() {
     });
   }
 
-  // ⭐ 5. REACTIVE HANDWRITTEN CORNER NOTE (Updates Text State when User Types in Textarea)
+  // ⭐ 5. REACTIVE HANDWRITTEN CORNER NOTE (Updates dynamically based on focused input/textarea/select)
+  const cornerNoteBlock = document.getElementById('corner-note-text-block');
+  const cornerNoteLine1 = document.getElementById('corner-note-line1');
+  const cornerNoteText = document.getElementById('corner-note-text'); // line 2
+
+  const nameInput = document.getElementById('contact-name');
+  const emailInput = document.getElementById('contact-email');
+  const subjectInput = document.getElementById('contact-subject');
+  const phoneInput = document.getElementById('contact-phone');
   const msgArea = document.getElementById('contact-message');
-  const cornerNoteText = document.getElementById('corner-note-text');
-  let typingDebounceTimer = null;
+  const allContactInputs = [nameInput, emailInput, subjectInput, phoneInput, msgArea].filter(Boolean);
 
-  if (msgArea && cornerNoteText) {
-    msgArea.addEventListener('input', () => {
-      const val = msgArea.value.trim();
-      if (!val) {
-        cornerNoteText.textContent = 'No bots. Just me.';
-        return;
-      }
+  let currentNoteState = { l1: 'No bots.', l2: 'Just me.' };
+  let msgDebounceTimer = null;
+  let transitionTimer = null;
 
-      cornerNoteText.textContent = 'Reading...';
-      clearTimeout(typingDebounceTimer);
+  function updateCornerNote(line1, line2) {
+    if (!cornerNoteText && !cornerNoteLine1) return;
+    if (currentNoteState.l1 === line1 && currentNoteState.l2 === line2) return;
 
-      typingDebounceTimer = setTimeout(() => {
-        if (msgArea.value.trim().length > 0) {
-          cornerNoteText.textContent = "I'll reply soon :)";
-        }
-      }, 800);
-    });
+    currentNoteState = { l1: line1, l2: line2 };
+
+    if (cornerNoteBlock) {
+      cornerNoteBlock.classList.add('note-updating');
+      clearTimeout(transitionTimer);
+      transitionTimer = setTimeout(() => {
+        if (cornerNoteLine1) cornerNoteLine1.textContent = line1;
+        if (cornerNoteText) cornerNoteText.textContent = line2;
+        cornerNoteBlock.classList.remove('note-updating');
+      }, 90);
+    } else {
+      if (cornerNoteLine1) cornerNoteLine1.textContent = line1;
+      if (cornerNoteText) cornerNoteText.textContent = line2;
+    }
   }
+
+  function handleInputState() {
+    const activeEl = document.activeElement;
+
+    if (activeEl === nameInput) {
+      const val = nameInput.value.trim();
+      if (val.length > 0) {
+        const firstName = val.split(' ')[0];
+        const displayName = firstName.length > 12 ? firstName.slice(0, 10) + '...' : firstName;
+        updateCornerNote('Writing name...', `Hey ${displayName}! 👋`);
+      } else {
+        updateCornerNote('Writing name...', 'Who are you? ✍️');
+      }
+    } else if (activeEl === emailInput) {
+      const val = emailInput.value.trim();
+      if (val.includes('@') && val.includes('.')) {
+        updateCornerNote('Writing email...', 'Looks valid! 📬');
+      } else if (val.length > 0) {
+        updateCornerNote('Writing email...', "I'll reply here! ✉️");
+      } else {
+        updateCornerNote('Writing email...', 'Where to reply? ✉️');
+      }
+    } else if (activeEl === subjectInput) {
+      const val = subjectInput.value;
+      if (val) {
+        updateCornerNote('Selected topic!', 'Great topic! 🚀');
+      } else {
+        updateCornerNote('Choosing topic...', "What's on mind? 📌");
+      }
+    } else if (activeEl === phoneInput) {
+      const val = phoneInput.value.trim();
+      if (val.length > 0) {
+        updateCornerNote('Writing phone...', 'Got your line! 📞');
+      } else {
+        updateCornerNote('Writing phone...', 'Optional line 📱');
+      }
+    } else if (activeEl === msgArea) {
+      const val = msgArea.value.trim();
+      if (val.length > 0) {
+        updateCornerNote('Writing message...', "I'm listening! 💬");
+        clearTimeout(msgDebounceTimer);
+        msgDebounceTimer = setTimeout(() => {
+          if (document.activeElement === msgArea && msgArea.value.trim().length > 0) {
+            updateCornerNote('Writing message...', "Can't wait to read! ✨");
+          }
+        }, 900);
+      } else {
+        updateCornerNote('Writing message...', 'Spill the tea! ☕');
+      }
+    } else {
+      updateCornerNote('No bots.', 'Just me.');
+    }
+  }
+
+  // Expose helper globally so submit handlers can trigger note states if needed
+  window.updateContactCornerNote = updateCornerNote;
+
+  // Attach event listeners to all contact inputs
+  allContactInputs.forEach(input => {
+    input.addEventListener('focus', handleInputState);
+    input.addEventListener('input', handleInputState);
+    input.addEventListener('change', handleInputState);
+    input.addEventListener('blur', () => {
+      setTimeout(handleInputState, 50);
+    });
+  });
 
   // 6. NICER CHARACTER COUNTER (0 characters -> 412 / 500 near limit)
   const charCounter = document.getElementById('char-counter');
@@ -1748,7 +1841,7 @@ function initContactAndAppointmentSystem() {
             if (wrp) wrp.classList.remove('valid', 'error');
           });
           if (charCounter) charCounter.textContent = '0 / 500';
-          if (cornerNoteText) cornerNoteText.textContent = 'Just me.';
+          if (window.updateContactCornerNote) window.updateContactCornerNote('No bots.', 'Just me.');
         } else {
           throw new Error(data.message || 'Submission failed');
         }

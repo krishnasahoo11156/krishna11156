@@ -400,7 +400,7 @@ main {
   margin-top: 1.2rem;
   padding: 0.5rem 0;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   /* Subtle edge fade gradient mask */
   -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%);
   mask-image: linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%);
@@ -561,9 +561,9 @@ main {
   width: 100%;
 }
 
-/* Blogs Button - High-Contrast Glassmorphic Emerald */
+/* Blogs Button - Transparent with Emerald Border */
 .btn-hero-primary {
-  background: rgba(16, 185, 129, 0.18);
+  background: transparent;
   color: #ffffff !important;
   border: 1.5px solid rgba(16, 185, 129, 0.55);
   backdrop-filter: blur(12px);
@@ -5066,6 +5066,13 @@ main {
   color: #059669;
   line-height: 1.15;
   text-align: right;
+  transition: opacity 0.15s cubic-bezier(0.4, 0, 0.2, 1), transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: right center;
+}
+
+.corner-note-text-block.note-updating {
+  opacity: 0.15;
+  transform: translateY(-2px) scale(0.96);
 }
 
 .corner-arrow-svg {
