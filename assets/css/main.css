@@ -47,6 +47,7 @@ body::after {
 }
 
 #doodle-canvas {
+  display: none !important;
   position: fixed;
   top: 0;
   left: 0;
@@ -73,6 +74,7 @@ main {
   min-height: 100vh;
   display: flex;
   align-items: flex-end;
+  position: relative; /* Required so .hero-action-buttons absolute positioning is relative to the hero */
 }
 
 .hero-container {
@@ -355,7 +357,7 @@ main {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-/* Hero Content Right (Action Buttons & Sliding Panels) */
+/* Hero Content Right (Tech Ticker only) */
 .hero-content-right {
   flex: 1;
   display: flex;
@@ -364,16 +366,95 @@ main {
   align-items: flex-end;
   padding-left: 2vw;
   padding-right: var(--nav-padding-x, clamp(0.75rem, 1.8vw, 2.2rem));
-  /* Aligned flush with tagline right edge */
-  margin-bottom: clamp(5rem, 11vh, 9rem);
-  /* Balanced vertical level below tagline */
-  z-index: 2;
-  /* Sits BEHIND the center profile image (z-index: 10) for sliding layer depth */
+  margin-bottom: clamp(2.5rem, 5vh, 4.5rem);
+  z-index: 10;
   position: relative;
   transform: translateX(calc(var(--scroll-percent) * 15vw));
   opacity: calc(1 - var(--scroll-percent) * 2);
   will-change: transform, opacity;
   width: 100%;
+}
+
+/* ── HERO ACTION BUTTONS — Blogs & Socials ──
+   Absolutely pinned to the hero section, independent of the image-wrapper transform.
+   Vertically centered between the tagline and the rolling tech ticker. */
+.hero-action-buttons {
+  position: absolute;
+  right: var(--nav-padding-x, clamp(0.75rem, 1.8vw, 2.2rem));
+  bottom: clamp(10rem, 20vh, 17rem); /* half-way back down from the over-raised 28vh */
+  display: flex;
+  flex-direction: row;
+  gap: 1.2rem;
+  z-index: 50;
+  opacity: calc(1 - var(--scroll-percent) * 2);
+  transform: translateX(calc(var(--scroll-percent) * 15vw));
+  will-change: transform, opacity;
+  pointer-events: auto;
+}
+
+/* Infinite Greenish Tech Stack Icon Rolling Marquee */
+.hero-tech-ticker {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  margin-top: 1.2rem;
+  padding: 0.5rem 0;
+  display: flex;
+  justify-content: flex-start;
+  /* Subtle edge fade gradient mask */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%);
+  pointer-events: auto;
+}
+
+.hero-tech-track {
+  display: flex;
+  width: max-content;
+  gap: 0;
+  animation: heroTechScroll 25s linear infinite;
+  will-change: transform;
+}
+
+.hero-tech-track:hover {
+  animation-play-state: paused;
+}
+
+.hero-tech-group {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.5rem, 2.8vw, 2.4rem);
+  padding-right: clamp(1.5rem, 2.8vw, 2.4rem);
+  flex-shrink: 0;
+}
+
+.hero-tech-icon {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  min-height: 32px;
+  object-fit: contain;
+  flex-shrink: 0;
+  display: inline-block;
+  /* Emerald Green Tech Filter (#10B981) */
+  filter: invert(52%) sepia(76%) saturate(464%) hue-rotate(113deg) brightness(97%) contrast(92%);
+  opacity: 0.85;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, filter 0.25s ease;
+  cursor: pointer;
+}
+
+.hero-tech-icon:hover {
+  opacity: 1;
+  transform: translateY(-2px) scale(1.15);
+  filter: invert(52%) sepia(76%) saturate(464%) hue-rotate(113deg) brightness(97%) contrast(92%);
+}
+
+@keyframes heroTechScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 .hero-panels-wrapper {
@@ -431,9 +512,14 @@ main {
 .hero-buttons {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   width: 100%;
   gap: 1.2rem;
-  margin-top: 1rem;
+  margin-top: clamp(1rem, 2.5vh, 2.5rem);
+  margin-bottom: clamp(1.2rem, 2.5vh, 2.2rem);
+  position: relative;
+  z-index: 35;
+  pointer-events: auto;
 }
 
 .btn-hero {
@@ -441,7 +527,7 @@ main {
   align-items: center;
   justify-content: center;
   gap: 0.6rem;
-  padding: 0.8rem 2.2rem;
+  padding: 0.85rem 2.2rem;
   border-radius: 50px;
   font-family: 'Lato', sans-serif;
   font-size: 0.85rem;
@@ -452,12 +538,13 @@ main {
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  z-index: 1;
-  transition: color 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  mix-blend-mode: difference;
+  z-index: 35;
+  pointer-events: auto;
+  transition: color 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
 }
 
-/* Base ::before layer for 0.5s Left-to-Right Fill */
+/* Base ::before layer for 0.4s Left-to-Right Fill */
 .btn-hero::before {
   content: '';
   position: absolute;
@@ -467,49 +554,51 @@ main {
   height: 100%;
   border-radius: 50px;
   z-index: -1;
-  transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .btn-hero:hover::before {
   width: 100%;
 }
 
-/* Blogs Button - Glassmorphic */
+/* Blogs Button - Transparent with Emerald Border */
 .btn-hero-primary {
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
-  border: 1.5px solid rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: transparent;
+  color: #ffffff !important;
+  border: 1.5px solid rgba(16, 185, 129, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .btn-hero-primary::before {
-  background-color: #FFFFFF;
+  background-color: #10B981;
 }
 
 .btn-hero-primary:hover {
-  color: #111111 !important;
-  border-color: #FFFFFF;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 14px rgba(255, 255, 255, 0.14);
+  color: #ffffff !important;
+  border-color: #10B981;
+  transform: translateY(-3px);
+  box-shadow: none;
 }
 
-/* Socials Button - Outlined */
+/* Socials Button - Outlined Glassmorphic White */
 .btn-hero-secondary {
-  background: transparent;
-  color: rgba(255, 255, 255, 0.85);
-  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .btn-hero-secondary::before {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.95);
 }
 
 .btn-hero-secondary:hover {
-  color: #FFFFFF !important;
-  border-color: rgba(255, 255, 255, 0.85);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 14px rgba(255, 255, 255, 0.1);
+  color: #111111 !important;
+  border-color: #ffffff;
+  transform: translateY(-3px);
+  box-shadow: none;
 }
 
 /* Hero Panel Headers & Controls */
@@ -840,6 +929,10 @@ main {
   opacity: 0.80;
 }
 
+.overlapping-text-right div {
+  min-height: 0.95em;
+}
+
 
 
 /* Responsive Media Queries */
@@ -870,10 +963,12 @@ main {
     margin-bottom: 2rem;
   }
 
-  .hero-buttons {
-    justify-content: center;
-    width: 100%;
-    gap: 1rem;
+  .hero-action-buttons {
+    right: 50%;
+    transform: translateX(50%);
+    bottom: clamp(10rem, 20vh, 16rem); /* midpoint on mobile */
+    gap: 0.9rem;
+    opacity: 1 !important;
   }
 
   .btn-hero {
@@ -4971,6 +5066,13 @@ main {
   color: #059669;
   line-height: 1.15;
   text-align: right;
+  transition: opacity 0.15s cubic-bezier(0.4, 0, 0.2, 1), transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: right center;
+}
+
+.corner-note-text-block.note-updating {
+  opacity: 0.15;
+  transform: translateY(-2px) scale(0.96);
 }
 
 .corner-arrow-svg {

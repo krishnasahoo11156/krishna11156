@@ -1,7 +1,8 @@
 // Interactive Coding Doodles Canvas Background
 
 const canvas = document.getElementById('doodle-canvas');
-const ctx = canvas.getContext('2d');
+const ctx = canvas ? canvas.getContext('2d') : null;
+const isCanvasEnabled = canvas && getComputedStyle(canvas).display !== 'none';
 
 let particles = [];
 const particleCount = window.innerWidth < 768 ? 20 : 45; // Fewer particles on mobile for performance
@@ -48,8 +49,10 @@ function updateImageCenter() {
 }
 
 function resizeCanvas() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  if (canvas) {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
   updateImageCenter();
 }
 window.addEventListener('resize', resizeCanvas);
@@ -306,20 +309,22 @@ function animate() {
   rafId = requestAnimationFrame(animate);
 }
 
-init();
-rafId = requestAnimationFrame(animate);
+if (isCanvasEnabled && ctx) {
+  init();
+  rafId = requestAnimationFrame(animate);
 
-// Pause animation when tab is not visible (saves CPU/battery)
-document.addEventListener('visibilitychange', () => {
-  if (document.hidden) {
-    if (rafId) {
-      cancelAnimationFrame(rafId);
-      rafId = null;
+  // Pause animation when tab is not visible (saves CPU/battery)
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      }
+    } else if (!rafId) {
+      rafId = requestAnimationFrame(animate);
     }
-  } else if (!rafId) {
-    rafId = requestAnimationFrame(animate);
-  }
-});
+  });
+}
 
 // Handle scroll percentage for creative animations
 window.addEventListener('scroll', () => {
