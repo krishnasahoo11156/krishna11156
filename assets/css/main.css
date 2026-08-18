@@ -3574,11 +3574,11 @@ main {
   gap: 1.8rem;
   width: max-content;
   will-change: transform;
-  animation: testimConveyorScroll 32s linear infinite;
+  animation: testimConveyorScroll 22s linear infinite;
 }
 
-.testim-conveyor-wrapper:hover .testim-conveyor-track,
-.testim-conveyor-track:hover {
+.testim-conveyor-track:has(.testim-card-editorial:hover),
+.testim-conveyor-track.is-paused {
   animation-play-state: paused;
 }
 

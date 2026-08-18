@@ -53,7 +53,7 @@ const GS = {
   activeFilter:'all', countersAnimated:false, revealDone:false, rafId:null,
   reducedMotion:typeof window!=='undefined'&&window.matchMedia('(prefers-reduced-motion: reduce)').matches,
 };
-const COL_SPEEDS=[0.52,0.42,0.58];
+const COL_SPEEDS=[0.85,0.70,0.95];
 const COL_DIRS=['up','down','up'];
 const COL_STAGGER=[24,0,40];
 const MAX_SCROLL_MULT=1.6;
