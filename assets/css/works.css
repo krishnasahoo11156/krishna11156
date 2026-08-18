@@ -1630,3 +1630,102 @@
   justify-content: center;
   transition: border-color 0.3s ease;
 }
+
+/* ============================================================
+   SANDBOX ACTIVE STYLES FOR WORKSHOP STAGE
+   ============================================================ */
+.workshop-stage.sandbox-active .project-node {
+  opacity: 0 !important;
+  transform: scale(0.4) !important;
+  pointer-events: none !important;
+  transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.workshop-stage.sandbox-active .constellation-arcs {
+  opacity: 0 !important;
+  transition: opacity 0.4s ease !important;
+}
+
+.workshop-stage.sandbox-active .drag-hint {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.workshop-stage.sandbox-active {
+  background: radial-gradient(circle at center, rgba(251, 113, 133, 0.04) 0%, rgba(255, 255, 255, 0.3) 70%, transparent 100%);
+  border-color: rgba(244, 114, 182, 0.35);
+  box-shadow: 0 20px 60px rgba(244, 114, 182, 0.15);
+}
+
+.sandbox-return-btn {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(244, 114, 182, 0.45);
+  color: #db2777;
+  font-family: var(--font-display, sans-serif);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  z-index: 120;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 8px 24px rgba(244, 114, 182, 0.20);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0;
+  transform: translateY(-8px);
+  animation: sandbox-btn-in 0.4s ease forwards 0.2s;
+}
+
+.sandbox-return-btn:hover {
+  background: #db2777;
+  color: #ffffff;
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 12px 30px rgba(219, 39, 119, 0.35);
+}
+
+@keyframes sandbox-btn-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sandbox-hint-bar {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(244, 114, 182, 0.25);
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #64748b;
+  pointer-events: none;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+  opacity: 0;
+  animation: sandbox-btn-in 0.5s ease forwards 0.3s;
+}
+
+.sandbox-hint-bar .hint-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ec4899;
+  animation: taesu-heartbeat 1.5s infinite;
+}
+

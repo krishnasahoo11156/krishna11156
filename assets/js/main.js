@@ -406,6 +406,17 @@ class TestimonialsManager {
   bindCardInteractions() {
     if (!this.track) return;
 
+    // Pause conveyor track only when directly hovering over an individual card
+    const cards = this.track.querySelectorAll('.testim-card-editorial');
+    cards.forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        this.track.classList.add('is-paused');
+      });
+      card.addEventListener('mouseleave', () => {
+        this.track.classList.remove('is-paused');
+      });
+    });
+
     // Linked project smooth scroll deduction for navbar
     const projectLinks = this.track.querySelectorAll('.testim-project-link');
     projectLinks.forEach(link => {

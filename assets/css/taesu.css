@@ -499,3 +499,305 @@
   color: #0f172a;
   transition: color 0.3s ease;
 }
+
+/* ============================================================
+   EASTER EGG & SANDBOX MODE — Light-Pink Porcelain & Physics
+   ============================================================ */
+
+/* ── Light-Pink Radiant Porcelain Shading ──────────────────── */
+.taesu-mascot.easter-egg-mode .taesu-body {
+  background:
+    /* Bright Rosy Specular Glare Point */
+    radial-gradient(
+      circle 42px at var(--spec-x, 32%) var(--spec-y, 24%),
+      #ffffff 0%,
+      rgba(255, 245, 248, 0.98) 35%,
+      rgba(255, 230, 238, 0) 70%
+    ),
+    /* Soft Pink Secondary Ambient Halo */
+    radial-gradient(
+      ellipse 54% 44% at 30% 25%,
+      rgba(255, 255, 255, 0.90) 0%,
+      transparent 75%
+    ),
+    /* Bottom-Left Rosy Ambient Fresnel Bounce Light */
+    radial-gradient(
+      ellipse 38% 28% at 24% 84%,
+      rgba(244, 114, 182, 0.45) 0%,
+      rgba(251, 113, 133, 0.20) 50%,
+      transparent 80%
+    ),
+    /* Core Light-Pink Volumetric Sphere Shading */
+    radial-gradient(
+      circle at 35% 30%,
+      #ffffff 0%,
+      #fff1f5 20%,
+      #fce7f3 42%,
+      #fbcfe8 65%,
+      #f472b6 88%,
+      #db2777 100%
+    );
+  box-shadow:
+    0 28px 64px rgba(219, 39, 119, 0.25),
+    0 12px 28px rgba(244, 114, 182, 0.18),
+    inset 0 -22px 42px rgba(190, 24, 93, 0.30),
+    inset -12px 0 28px rgba(219, 39, 119, 0.18),
+    inset 0 4px 10px rgba(255, 255, 255, 0.98),
+    inset 6px 8px 24px rgba(255, 255, 255, 0.92);
+  transition: background 0.8s ease, box-shadow 0.8s ease;
+}
+
+/* ── Rose-Gold / Romantic Glowing Anti-Gravity Ring ────────── */
+.taesu-mascot.easter-egg-mode .taesu-ring {
+  background: linear-gradient(
+    90deg,
+    #831843 0%,
+    #be185d 18%,
+    #ec4899 40%,
+    #f472b6 58%,
+    #ec4899 76%,
+    #be185d 88%,
+    #831843 100%
+  );
+  box-shadow:
+    0 8px 28px rgba(236, 72, 153, 0.55),
+    0 2px 10px rgba(190, 24, 93, 0.35),
+    inset 0 3px 6px rgba(255, 255, 255, 0.85),
+    inset 0 -6px 12px rgba(131, 24, 67, 0.80);
+  transition: all 0.5s ease;
+}
+
+.taesu-mascot.easter-egg-mode .taesu-ring.pulse {
+  box-shadow:
+    0 4px 34px rgba(244, 114, 182, 0.95),
+    0 0 60px rgba(251, 113, 133, 0.75),
+    inset 0 1px 6px rgba(255, 255, 255, 0.80);
+}
+
+.taesu-mascot.easter-egg-mode .taesu-label .taesu-heart {
+  color: #ec4899;
+  animation: taesu-heartbeat 1.2s ease infinite;
+}
+
+@keyframes taesu-heartbeat {
+  0%, 100% { transform: scale(1); }
+  25%      { transform: scale(1.4); }
+  50%      { transform: scale(1.15); }
+  75%      { transform: scale(1.35); }
+}
+
+/* ── Tactile Edge & Boundary Wiggle Animation ─────────────── */
+.taesu-mascot.edge-wiggling {
+  animation: taesu-edge-wiggle 0.35s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite alternate;
+}
+
+@keyframes taesu-edge-wiggle {
+  0%   { transform: scaleX(0.86) scaleY(1.12) rotate(-4deg); }
+  50%  { transform: scaleX(1.10) scaleY(0.92) rotate(4deg); }
+  100% { transform: scaleX(0.90) scaleY(1.08) rotate(-3deg); }
+}
+
+.taesu-mascot.edge-wiggling-left {
+  animation: taesu-edge-wiggle-left 0.30s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite alternate;
+}
+
+@keyframes taesu-edge-wiggle-left {
+  0%   { transform: translateX(6px) scaleX(0.80) scaleY(1.14) rotate(-6deg); }
+  100% { transform: translateX(0px) scaleX(1.05) scaleY(0.95) rotate(3deg); }
+}
+
+.taesu-mascot.edge-wiggling-right {
+  animation: taesu-edge-wiggle-right 0.30s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite alternate;
+}
+
+@keyframes taesu-edge-wiggle-right {
+  0%   { transform: translateX(-6px) scaleX(0.80) scaleY(1.14) rotate(6deg); }
+  100% { transform: translateX(0px) scaleX(1.05) scaleY(0.95) rotate(-3deg); }
+}
+
+.taesu-mascot.edge-wiggling-top {
+  animation: taesu-edge-wiggle-top 0.30s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite alternate;
+}
+
+@keyframes taesu-edge-wiggle-top {
+  0%   { transform: translateY(6px) scaleY(0.78) scaleX(1.16); }
+  100% { transform: translateY(0px) scaleY(1.05) scaleX(0.95); }
+}
+
+.taesu-mascot.edge-wiggling-bottom {
+  animation: taesu-edge-wiggle-bottom 0.30s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite alternate;
+}
+
+@keyframes taesu-edge-wiggle-bottom {
+  0%   { transform: translateY(-6px) scaleY(0.78) scaleX(1.16); }
+  100% { transform: translateY(0px) scaleY(1.05) scaleX(0.95); }
+}
+
+@keyframes bubble-float {
+  0%, 100% { transform: translateX(-50%) translateY(-10px); }
+  50%      { transform: translateX(-50%) translateY(-15px); }
+}
+
+/* ── Dynamic Facial & Physics Emotions ──────────────────────── */
+
+/* 1. Excited Wobble on Activation */
+.taesu-mascot.activating-wobble {
+  animation: taesu-excited-wobble 0.65s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes taesu-excited-wobble {
+  0%   { transform: scale(1) rotate(0deg); }
+  15%  { transform: scale(1.12) rotate(-8deg) translateY(-8px); }
+  30%  { transform: scale(1.15) rotate(8deg) translateY(-14px); }
+  45%  { transform: scale(1.08) rotate(-6deg) translateY(-6px); }
+  60%  { transform: scale(1.12) rotate(5deg) translateY(-10px); }
+  75%  { transform: scale(1.04) rotate(-2deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+/* 2. Dizzy Expression (Spinning, Crossed/Spiral Eyes) */
+.taesu-mascot.emotion-dizzy .taesu-face {
+  animation: taesu-dizzy-face 0.8s ease-in-out infinite alternate;
+}
+
+.taesu-mascot.emotion-dizzy .taesu-eye.left {
+  border-radius: 4px;
+  transform: rotate(45deg) scale(0.85);
+  background: #090909;
+}
+
+.taesu-mascot.emotion-dizzy .taesu-eye.right {
+  border-radius: 4px;
+  transform: rotate(-45deg) scale(0.85);
+  background: #090909;
+}
+
+@keyframes taesu-dizzy-face {
+  0%   { transform: translate(-50%, -46%) rotate(-12deg); }
+  100% { transform: translate(-50%, -46%) rotate(12deg); }
+}
+
+.taesu-mascot.dizzy-spin {
+  animation: taesu-dizzy-spin 0.9s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@keyframes taesu-dizzy-spin {
+  0%   { transform: rotate(0deg) scale(1); }
+  50%  { transform: rotate(180deg) scale(1.08) translateY(-10px); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+/* 3. High-Speed Jerk & Rebound Snap */
+.taesu-mascot.emotion-jerk {
+  animation: taesu-jerk-rebound 0.55s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes taesu-jerk-rebound {
+  0%   { transform: rotate(-18deg) scaleX(0.85) scaleY(1.15); }
+  45%  { transform: rotate(12deg) scaleX(1.12) scaleY(0.9); }
+  75%  { transform: rotate(-4deg) scale(1.03); }
+  100% { transform: rotate(0deg) scale(1); }
+}
+
+/* 4. Purr & Petting Bliss (Happy Crescent Eyes) */
+.taesu-mascot.emotion-purr .taesu-eye {
+  height: 6px !important;
+  border-radius: 0 0 12px 12px !important;
+  background: #090909 !important;
+  transform: scaleY(1.2);
+}
+
+.taesu-mascot.emotion-purr .taesu-body {
+  animation: taesu-purr-breath 1.6s ease-in-out infinite;
+}
+
+@keyframes taesu-purr-breath {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50%      { transform: translateY(-5px) scale(1.025); }
+}
+
+/* 5. Sad & Melancholy Inactivity State */
+.taesu-mascot.emotion-sad .taesu-face {
+  transform: translate(-50%, -36%) rotate(-4deg);
+}
+
+.taesu-mascot.emotion-sad .taesu-eye {
+  height: 12px;
+  border-radius: 50% 50% 30% 30%;
+  transform: scaleY(0.75) rotate(6deg);
+  opacity: 0.85;
+}
+
+.taesu-mascot.emotion-sad .taesu-body {
+  filter: brightness(0.94) saturate(0.85);
+}
+
+.taesu-mascot.emotion-sad .taesu-ring {
+  opacity: 0.45;
+  box-shadow: 0 4px 12px rgba(244, 114, 182, 0.25);
+}
+
+/* 6. Star Glint & Ecstatic Flight (✦ ✦ Eyes) */
+.taesu-mascot.emotion-fling .taesu-eye {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  transform: rotate(45deg);
+  background: #090909;
+}
+
+/* 7. Startled Wall Collision */
+.taesu-mascot.emotion-shocked {
+  animation: taesu-bounce-edge 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+
+@keyframes taesu-bounce-edge {
+  0%   { transform: scaleX(0.75) scaleY(1.2); }
+  40%  { transform: scaleX(1.2) scaleY(0.8); }
+  75%  { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* 8. Dangling Mid-Air Suspense Hold */
+.taesu-mascot.is-dragging {
+  cursor: grabbing !important;
+  transition: transform 0.05s linear;
+  filter: drop-shadow(0 20px 30px rgba(0,0,0,0.18));
+}
+
+.taesu-mascot.is-suspended {
+  animation: taesu-pendulum-dangle 2s ease-in-out infinite;
+}
+
+@keyframes taesu-pendulum-dangle {
+  0%, 100% { transform: rotate(-4deg); }
+  50%      { transform: rotate(4deg); }
+}
+
+/* ── Floating Emotion Emoji Particles for Motion & Gestures (Tight Head Proximity) ── */
+.taesu-floating-emoji,
+.taesu-floating-heart {
+  position: absolute;
+  font-size: 1.18rem;
+  line-height: 1;
+  pointer-events: none;
+  z-index: 120;
+  user-select: none;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.14));
+  animation: taesu-emoji-ascend 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes taesu-emoji-ascend {
+  0% {
+    transform: translate(0, 0) scale(0.6) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(calc(-10px + 20px * var(--rand, 0.5)), -14px) scale(1.15) rotate(calc(-8deg + 16deg * var(--rand, 0.5)));
+    opacity: 0.95;
+  }
+  100% {
+    transform: translate(calc(-16px + 32px * var(--rand, 0.5)), -28px) scale(0.85) rotate(calc(-14deg + 28deg * var(--rand, 0.5)));
+    opacity: 0;
+  }
+}

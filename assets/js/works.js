@@ -1053,7 +1053,7 @@ class WorkshopConstellation {
 
   /* ── Single Master RAF Frame Update Loop ─────────────── */
   updateFrame(elapsedMs) {
-    if (this.isAnimating || this.nodeData.length === 0) return;
+    if (this.isAnimating || this.isSandbox || this.nodeData.length === 0) return;
 
     const { W, H, cx, cy } = this._geo();
 
@@ -1122,6 +1122,24 @@ class WorkshopConstellation {
     this.renderCategory(category);
     this.isAnimating = false;
   }
+
+  /* ── Sandbox Mode Isolation ───────────────────────────── */
+  enterSandboxMode() {
+    this.isSandbox = true;
+    if (this.stage) this.stage.classList.add('sandbox-active');
+    this.nodes.forEach(n => {
+      n.style.opacity = '0';
+      n.style.pointerEvents = 'none';
+    });
+    while (this.svg.firstChild) this.svg.removeChild(this.svg.firstChild);
+  }
+
+  exitSandboxMode() {
+    this.isSandbox = false;
+    if (this.stage) this.stage.classList.remove('sandbox-active');
+    this._placeTaesu();
+    this.renderCategory(this.activeCategory);
+  }
 }
 
 // ============================================================
@@ -1150,6 +1168,7 @@ function initWorkshop() {
 
   // Build constellation
   const constellation = new WorkshopConstellation(stage, svgEl, taesuWrap, taesuCtrl);
+  window.worksConstellation = constellation;
   constellation.renderCategory('projects');
 
   requestAnimationFrame(() => {
