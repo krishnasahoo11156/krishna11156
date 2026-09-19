@@ -831,7 +831,7 @@ class WorkshopConstellation {
     return { W, H, cx, cy };
   }
 
-  /* ── Elliptical orbit positions ──────────────────────── */
+  /* ── Elliptical orbit positions & responsive radii ───── */
   _positions(count) {
     const startAngles = {
       projects:   -Math.PI / 2,
@@ -847,6 +847,17 @@ class WorkshopConstellation {
         phase: i * 0.85
       };
     });
+  }
+
+  /* ── Calculate responsive orbit radii ───────────────── */
+  _getRadii(W, H, count) {
+    const halfW = W < 480 ? 60 : W < 768 ? 68 : 82;
+    const halfH = W < 480 ? 40 : W < 768 ? 48 : 55;
+    const maxRx = Math.max(70, (W / 2) - halfW - 8);
+    const maxRy = Math.max(65, (H / 2) - halfH - 12);
+    const rx = Math.min(maxRx, W * (W < 480 ? 0.35 : W < 768 ? 0.37 : 0.38));
+    const ry = Math.min(maxRy, H * (H < 480 ? 0.33 : H < 768 ? 0.35 : 0.36));
+    return { rx, ry };
   }
 
   /* ── SVG arcs — orbital ring + spoke lines ────────────── */
@@ -895,9 +906,10 @@ class WorkshopConstellation {
   /* ── Position Taesu at stage center ──────────────────── */
   _placeTaesu() {
     const { cx, cy } = this._geo();
-    // TaesuWrap is 174px wide. Ceramic sphere (152px) center is at (87px, 76px) relative to wrap top-left.
-    this.taesuWrap.style.left = (cx - 87) + 'px';
-    this.taesuWrap.style.top  = (cy - 76) + 'px';
+    const tw = this.taesuWrap.offsetWidth || 174;
+    const th = this.taesuWrap.offsetHeight || 208;
+    this.taesuWrap.style.left = (cx - tw / 2) + 'px';
+    this.taesuWrap.style.top  = (cy - th / 2) + 'px';
     this.taesuWrap.style.pointerEvents = 'auto';
   }
 
@@ -1001,7 +1013,8 @@ class WorkshopConstellation {
       }
     });
 
-    node.addEventListener('click', () => {
+    const handleNodeOpen = (e) => {
+      e.stopPropagation();
       node.classList.add('visited');
       if (this.taesu) {
         this.taesu.visitedProjects.add(item.id);
@@ -1010,7 +1023,9 @@ class WorkshopConstellation {
       } else {
         openProjectSheet(item);
       }
-    });
+    };
+
+    node.addEventListener('click', handleNodeOpen);
 
     return node;
   }
@@ -1028,17 +1043,23 @@ class WorkshopConstellation {
 
     const positions = this._positions(items.length);
     const { W, H, cx, cy } = this._geo();
-    const maxRx = Math.max(220, W / 2 - 110);
-    const maxRy = Math.max(160, H / 2 - 85);
-    const rx = Math.min(maxRx, W * 0.38);
-    const ry = Math.min(maxRy, H * 0.36);
+    const { rx, ry } = this._getRadii(W, H, items.length);
 
-    const fullPositions = positions.map(p => ({
-      ...p,
-      rx, ry,
-      baseX: cx + rx * Math.cos(p.angle),
-      baseY: cy + ry * Math.sin(p.angle)
-    }));
+    const isSmall = W <= 768;
+    const fullPositions = positions.map((p, i) => {
+      // Stagger radius on small screens for >3 items to eliminate card overlap
+      const stagger = (isSmall && items.length > 3) ? (i % 2 === 0 ? 1.08 : 0.85) : 1.0;
+      const nodeRx = rx * stagger;
+      const nodeRy = ry * stagger;
+
+      return {
+        ...p,
+        rx, ry,
+        nodeRx, nodeRy,
+        baseX: cx + nodeRx * Math.cos(p.angle),
+        baseY: cy + nodeRy * Math.sin(p.angle)
+      };
+    });
 
     this._drawArcs(fullPositions);
 
@@ -1057,14 +1078,13 @@ class WorkshopConstellation {
 
     const { W, H, cx, cy } = this._geo();
 
-    // Dynamically keep Taesu centered
-    this.taesuWrap.style.left = (cx - 87) + 'px';
-    this.taesuWrap.style.top  = (cy - 76) + 'px';
+    // Dynamically keep Taesu centered based on element dimensions
+    const tw = this.taesuWrap.offsetWidth || 174;
+    const th = this.taesuWrap.offsetHeight || 208;
+    this.taesuWrap.style.left = (cx - tw / 2) + 'px';
+    this.taesuWrap.style.top  = (cy - th / 2) + 'px';
 
-    const maxRx = Math.max(220, W / 2 - 110);
-    const maxRy = Math.max(160, H / 2 - 85);
-    const rx = Math.min(maxRx, W * 0.38);
-    const ry = Math.min(maxRy, H * 0.36);
+    const { rx, ry } = this._getRadii(W, H, this.nodeData.length);
 
     // Solar system constellation breathing scaling (±0.8%)
     const breathScale = 1.0 + 0.008 * Math.sin(elapsedMs / 1200);
@@ -1078,12 +1098,16 @@ class WorkshopConstellation {
     }
 
     // Weightless floating drift per node (±4px sinusoidal offset)
+    const isSmall = W <= 768;
     this.nodeData.forEach((nd, i) => {
-      const driftX = Math.sin(elapsedMs / 1000 + nd.pos.phase) * 4;
-      const driftY = Math.cos(elapsedMs / 1150 + nd.pos.phase) * 4;
+      const driftX = Math.sin(elapsedMs / 1000 + nd.pos.phase) * (isSmall ? 2.5 : 4);
+      const driftY = Math.cos(elapsedMs / 1150 + nd.pos.phase) * (isSmall ? 2.5 : 4);
 
-      const currX = cx + (rx * breathScale) * Math.cos(nd.pos.angle) + driftX;
-      const currY = cy + (ry * breathScale) * Math.sin(nd.pos.angle) + driftY;
+      const nodeRx = nd.pos.nodeRx || rx;
+      const nodeRy = nd.pos.nodeRy || ry;
+
+      const currX = cx + (nodeRx * breathScale) * Math.cos(nd.pos.angle) + driftX;
+      const currY = cy + (nodeRy * breathScale) * Math.sin(nd.pos.angle) + driftY;
 
       nd.el.style.left = currX.toFixed(2) + 'px';
       nd.el.style.top  = currY.toFixed(2) + 'px';
