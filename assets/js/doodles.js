@@ -327,7 +327,34 @@ if (isCanvasEnabled && ctx) {
 }
 
 // Handle scroll percentage for creative animations
+// On mobile (≤768px) these transforms break the layout, so we freeze the vars.
+function isMobile() {
+  return window.innerWidth <= 768;
+}
+
+function resetScrollVarsForMobile() {
+  document.documentElement.style.setProperty('--scroll-percent', '0');
+  document.documentElement.style.setProperty('--scroll-percent-skills', '0');
+  document.documentElement.style.setProperty('--scroll-percent-works', '0');
+}
+
+if (isMobile()) {
+  resetScrollVarsForMobile();
+}
+
+window.addEventListener('resize', () => {
+  if (isMobile()) {
+    resetScrollVarsForMobile();
+  }
+});
+
 window.addEventListener('scroll', () => {
+  // On mobile: keep all scroll vars at 0 so transforms stay neutral
+  if (isMobile()) {
+    resetScrollVarsForMobile();
+    return;
+  }
+
   const scrollHeight = window.innerHeight; // Height of one viewport
   
   // Hero to About scroll percentage (0 to 1 viewport)
@@ -375,6 +402,13 @@ window.addEventListener('scroll', () => {
   // Update canvas boundaries to track moving split line
   updateImageCenter();
 });
+
+// On resize: if switching to mobile, reset vars immediately
+window.addEventListener('resize', () => {
+  if (isMobile()) {
+    resetScrollVarsForMobile();
+  }
+}, { passive: true });
 
 // Custom smooth scroll with ease-in-out-cubic easing (starts slow, accelerates, tapers off)
 function smoothScrollTo(targetPosition, duration) {

@@ -935,56 +935,14 @@ main {
 
 
 
-/* Responsive Media Queries */
+/* Responsive Media Queries — Hero section base mobile handling */
 @media (max-width: 768px) {
   .hero-container {
     flex-direction: column;
     align-items: center;
-    justify-content: flex-end;
-    padding-top: 100px;
-    /* Space for navbar */
-    padding-bottom: 2rem;
-    min-height: 100vh;
-  }
-
-  .hero-image-wrapper {
-    width: 90%;
-    max-width: 420px;
-    margin-left: 0;
-    transform: none;
-    flex: 0 0 auto;
-  }
-
-  .hero-content-right {
-    width: 100%;
-    align-items: center;
-    text-align: center;
-    padding: 2rem 1.5rem 0;
-    margin-bottom: 2rem;
-  }
-
-  .hero-action-buttons {
-    right: 50%;
-    transform: translateX(50%);
-    bottom: clamp(10rem, 20vh, 16rem); /* midpoint on mobile */
-    gap: 0.9rem;
-    opacity: 1 !important;
-  }
-
-  .btn-hero {
-    padding: 0.75rem 1.8rem;
-    font-size: 0.8rem;
-  }
-
-  .overlapping-text-right {
-    left: 0;
-    right: auto;
-    width: 100vw;
-    text-align: center;
-    font-size: clamp(1.1rem, 5vw, 2.2rem);
-    letter-spacing: -1px;
-    transform: scale(0.85, 1.4);
-    transform-origin: top center;
+    justify-content: flex-start;
+    padding-top: 72px;
+    padding-bottom: 1.5rem;
   }
 }
 
@@ -1087,7 +1045,7 @@ main {
 /* Adjustments for Mobile Screens */
 @media (max-width: 768px) {
   .about-section {
-    padding: 4rem 1.25rem;
+    padding: 4rem 1rem;
   }
 
   .about-card {
@@ -1095,6 +1053,28 @@ main {
     transform: none !important;
     /* Disable scroll-driven animations on mobile for smoother scroll */
     opacity: 1 !important;
+  }
+
+  .about-card-container {
+    padding: 2rem 1.25rem;
+    border-radius: 20px;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .about-title {
+    font-size: 2rem;
+    letter-spacing: 1px;
+  }
+
+  .about-text {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .about-chip {
+    padding: 0.35rem 0.75rem;
+    font-size: 0.75rem;
   }
 
 }
@@ -3073,6 +3053,11 @@ main {
   .bento-card-stack-workspace {
     grid-column: span 2;
   }
+
+  .bento-headline {
+    white-space: normal;
+    margin-top: 0;
+  }
 }
 
 @media (max-width: 768px) {
@@ -3089,8 +3074,10 @@ main {
   }
 
   .bento-headline {
-    font-size: 2.5rem;
-    margin-top: -3.6rem;
+    font-size: clamp(1.6rem, 7vw, 2.2rem);
+    margin-top: 0;
+    white-space: normal;
+    word-break: break-word;
   }
 }
 
@@ -3100,12 +3087,14 @@ main {
   }
 
   .stats-bento-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
   }
 
   .bento-headline {
-    font-size: 2.0rem;
-    margin-top: -3.0rem;
+    font-size: clamp(1.4rem, 6.5vw, 1.8rem);
+    margin-top: 0;
+    white-space: normal;
+    word-break: break-word;
   }
 }
 
@@ -7972,5 +7961,739 @@ main {
     transition: none !important;
     transform: none !important;
     opacity: 1 !important;
+  }
+}
+
+/* ==========================================================================
+   COMPREHENSIVE RESPONSIVE OVERHAUL
+   Breakpoints: 1024px (tablet-landscape), 768px (tablet), 480px (mobile)
+   ========================================================================== */
+
+/* ── 1024px: Tablet Landscape ──────────────────────────────── */
+@media (max-width: 1024px) {
+
+  /* Hero: tighten overlapping text sizes */
+  .overlapping-text {
+    font-size: clamp(2.8rem, 9vw, 12rem);
+  }
+
+  .overlapping-text-right {
+    font-size: clamp(1.5rem, 3.5vw, 4.5rem);
+  }
+
+  /* Navbar: compact padding */
+  .navbar-header {
+    padding: 1.2rem var(--nav-padding-x, clamp(0.75rem, 1.8vw, 2.2rem));
+  }
+
+  /* About: reduce section padding */
+  .about-section {
+    padding: 5rem 1.5rem;
+  }
+
+  /* Skills: tighter gap */
+  .skills-container {
+    gap: 2.5rem;
+  }
+}
+
+/* ── 768px: Tablet / Mobile ────────────────────────────────── */
+@media (max-width: 768px) {
+
+  /* ── ROOT: freeze all scroll-driven hero transforms on mobile ── */
+  :root {
+    --scroll-percent: 0 !important;
+    --image-center-x: 50vw !important;
+    --slant-offset: 0vw !important;
+  }
+
+  /* ── BODY: hide diagonal split ── */
+  body::after {
+    display: none !important;
+  }
+
+  /* ── HERO: Full mobile stack layout ── */
+  .hero {
+    min-height: 100svh !important;
+    height: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    padding-top: 64px !important;
+    padding-bottom: 2rem !important;
+    position: relative !important;
+    overflow: hidden !important;
+  }
+
+  .hero-container {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0.5rem 1rem 0 !important;
+    margin: 0 !important;
+    gap: 0 !important;
+    min-height: auto !important;
+  }
+
+  /* Image wrapper: centered container */
+  .hero-image-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 0 0 auto !important;
+    transform: none !important;
+    margin: 0 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  /* Profile container: stacked column layout for title -> image -> tagline */
+  .profile-container {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    position: relative !important;
+    transform: none !important;
+    opacity: 1 !important;
+    margin: 0 auto !important;
+  }
+
+  /* 1. Top Stencil Title: KRISHNA SAHOO */
+  .overlapping-text {
+    order: 1 !important;
+    position: relative !important;
+    top: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: auto !important;
+    width: 100% !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    font-size: clamp(2.2rem, 9.5vw, 4.5rem) !important;
+    line-height: 0.95 !important;
+    letter-spacing: -1.5px !important;
+    transform: none !important;
+    color: #222222 !important;
+    opacity: 1 !important;
+    margin: 0.5rem auto 0.5rem auto !important;
+    pointer-events: none !important;
+    z-index: 5 !important;
+  }
+
+  .overlapping-text > div:last-child {
+    display: block !important;
+    transform: none !important;
+  }
+
+  /* 2. Middle Profile Image */
+  .profile-img,
+  .profile-img-left {
+    order: 2 !important;
+    position: relative !important;
+    width: auto !important;
+    max-width: 270px !important;
+    height: auto !important;
+    max-height: 38vh !important;
+    object-fit: contain !important;
+    margin: 0 auto !important;
+    display: block !important;
+    clip-path: none !important;
+    transform: none !important;
+    z-index: 4 !important;
+  }
+
+  /* Hide glass wrapper side image on mobile */
+  .profile-glass-wrapper {
+    display: none !important;
+  }
+
+  /* 3. Subtitle / Tagline */
+  .overlapping-text-right {
+    order: 3 !important;
+    position: relative !important;
+    top: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: auto !important;
+    width: 100% !important;
+    text-align: center !important;
+    white-space: normal !important;
+    font-size: clamp(0.95rem, 3.8vw, 1.3rem) !important;
+    line-height: 1.4 !important;
+    letter-spacing: 0 !important;
+    transform: none !important;
+    color: #4a4a4a !important;
+    opacity: 1 !important;
+    margin: 0.75rem auto 0 auto !important;
+    padding: 0 0.5rem !important;
+    pointer-events: none !important;
+    z-index: 5 !important;
+  }
+
+  .overlapping-text-right div {
+    min-height: auto !important;
+    display: block !important;
+  }
+
+  /* Hero content right (tech ticker) */
+  .hero-content-right {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 1.2rem auto 0 auto !important;
+    padding: 0 !important;
+    transform: none !important;
+    opacity: 1 !important;
+    order: 2 !important;
+    flex: 0 0 auto !important;
+  }
+
+  /* Identity badge centered */
+  .hero-identity-badge {
+    justify-content: center;
+    text-align: center;
+  }
+
+  /* Action buttons: centered, high-contrast filled pills on mobile */
+  .hero-action-buttons {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    transform: none !important;
+    opacity: 1 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    gap: 0.85rem !important;
+    width: 100% !important;
+    padding: 0 1rem !important;
+    order: 3 !important;
+    margin-top: 1.25rem !important;
+    margin-bottom: 1.5rem !important;
+    z-index: 10 !important;
+  }
+
+  .btn-hero {
+    padding: 0.8rem 1.8rem !important;
+    font-size: 0.82rem !important;
+    font-weight: 800 !important;
+    letter-spacing: 1.2px !important;
+    border-radius: 50px !important;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15) !important;
+  }
+
+  /* Blogs Button - High Contrast Emerald Filled Pill */
+  .btn-hero-primary {
+    background: #10B981 !important;
+    color: #ffffff !important;
+    border: 1.5px solid #10B981 !important;
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35) !important;
+  }
+
+  .btn-hero-primary span,
+  .btn-hero-primary svg {
+    color: #ffffff !important;
+    stroke: #ffffff !important;
+  }
+
+  .btn-hero-primary:hover {
+    background: #0d9668 !important;
+    border-color: #0d9668 !important;
+    color: #ffffff !important;
+  }
+
+  /* Socials Button - High Contrast Dark Charcoal Filled Pill */
+  .btn-hero-secondary {
+    background: #1a1a1a !important;
+    color: #ffffff !important;
+    border: 1.5px solid #1a1a1a !important;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.22) !important;
+  }
+
+  .btn-hero-secondary span,
+  .btn-hero-secondary svg {
+    color: #ffffff !important;
+    stroke: #ffffff !important;
+  }
+
+  .btn-hero-secondary:hover {
+    background: #333333 !important;
+    border-color: #333333 !important;
+    color: #ffffff !important;
+  }
+
+  /* Hero panels wrapper: full width */
+  .hero-panels-wrapper {
+    max-width: 100%;
+    width: 100%;
+    min-height: auto;
+    padding-top: 0;
+  }
+
+  /* Tech ticker: full width */
+  .hero-tech-ticker {
+    width: 100%;
+    margin-top: 0.75rem;
+  }
+
+  /* Scroll hint positioning */
+  #scroll-hint {
+    bottom: 1.5rem;
+  }
+
+  /* Navbar: compact & high-contrast on mobile */
+  .navbar-header {
+    padding: 0.85rem var(--nav-padding-x, 1rem);
+  }
+
+  .navbar-logo {
+    height: 38px;
+  }
+
+  .btn-resume {
+    font-size: 0.78rem !important;
+    padding: 0.55rem 1.3rem !important;
+    color: #1a1a1a !important;
+    border: 1.5px solid #1a1a1a !important;
+    background: rgba(0, 0, 0, 0.04) !important;
+    font-weight: 800 !important;
+  }
+
+  .btn-resume::before {
+    background-color: #1a1a1a !important;
+  }
+
+  .btn-resume:hover {
+    color: #ffffff !important;
+    background-color: #1a1a1a !important;
+  }
+
+  .hamburger-line {
+    background: #1a1a1a !important;
+  }
+
+  /* ── ABOUT SECTION (≤768px) ── */
+  .about-section {
+    padding: 3.5rem 0.75rem 2rem !important;
+    min-height: auto !important;
+    width: 100% !important;
+    overflow: hidden !important;
+  }
+
+  .about-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .about-card-container {
+    padding: 1.25rem 0.85rem !important;
+    border-radius: 20px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .about-bento-grid {
+    gap: 1.25rem !important;
+    width: 100% !important;
+  }
+
+  .bento-top-row,
+  .bento-bottom-row {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
+    width: 100% !important;
+  }
+
+  .bento-bio-card,
+  .bento-stats-card,
+  .bento-card {
+    padding: 1.5rem 1.15rem !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+    border-radius: 18px !important;
+  }
+
+  /* About bento headline - fix right-clipping and negative margin */
+  .bento-headline {
+    font-size: clamp(1.6rem, 7vw, 2.2rem) !important;
+    margin-top: 0 !important;
+    margin-bottom: 0.6rem !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+    line-height: 1.25 !important;
+    display: block !important;
+    width: 100% !important;
+  }
+
+  .bento-cursive-tagline {
+    font-size: clamp(1.05rem, 4.2vw, 1.3rem) !important;
+    margin-bottom: 0.85rem !important;
+    word-break: break-word !important;
+    line-height: 1.35 !important;
+  }
+
+  .bento-bio-text {
+    font-size: clamp(0.88rem, 3.6vw, 0.95rem) !important;
+    line-height: 1.6 !important;
+    margin-bottom: 1.25rem !important;
+    word-break: break-word !important;
+  }
+
+  /* 4 Value Cards Grid */
+  .about-values-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0.65rem !important;
+    width: 100% !important;
+  }
+
+  .value-card {
+    padding: 0.85rem 0.65rem !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .value-card h4 {
+    font-size: 0.82rem !important;
+    margin-bottom: 0.2rem !important;
+  }
+
+  .value-card p {
+    font-size: 0.72rem !important;
+    line-height: 1.35 !important;
+  }
+
+  /* Stats grid */
+  .stats-bento-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0.65rem !important;
+    width: 100% !important;
+  }
+
+  .stat-bento-box {
+    padding: 0.85rem 0.65rem !important;
+    text-align: center !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .stat-num {
+    font-size: clamp(1.4rem, 5vw, 1.8rem) !important;
+  }
+
+  .stat-title {
+    font-size: 0.78rem !important;
+  }
+
+  .stat-sub {
+    font-size: 0.68rem !important;
+  }
+
+  /* ── SKILLS SECTION (≤768px) ── */
+  .skills-section {
+    padding: 3.5rem 0.75rem 2.5rem !important;
+  }
+
+  .skills-title {
+    font-size: clamp(1.8rem, 7vw, 2.3rem) !important;
+    letter-spacing: -0.5px !important;
+  }
+
+  .skills-subtitle {
+    font-size: clamp(0.85rem, 3.5vw, 0.95rem) !important;
+    margin-bottom: 1rem !important;
+  }
+
+  /* 2-Column Grid with 7th item centered spanning 2 columns */
+  .skills-categories-nav {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0.55rem !important;
+    width: 100% !important;
+  }
+
+  .skills-categories-nav .category-btn {
+    padding: 0.72rem 0.65rem !important;
+    border-radius: 12px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .skills-categories-nav .category-btn .btn-num {
+    font-size: 0.7rem !important;
+    margin-right: 0.45rem !important;
+    flex-shrink: 0 !important;
+  }
+
+  .skills-categories-nav .category-btn .btn-text {
+    font-size: 0.82rem !important;
+    font-weight: 700 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    letter-spacing: 0 !important;
+  }
+
+  /* 7th item: Tools — centered in the middle spanning both columns */
+  .skills-categories-nav .category-btn:last-child {
+    grid-column: span 2 !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  .skills-categories-nav .category-btn:last-child .btn-num {
+    margin-right: 0.5rem !important;
+  }
+
+  /* Sketchpad drawing area */
+  .sketchpad-canvas-wrapper {
+    min-height: 220px !important;
+    height: 240px !important;
+    border-radius: 16px !important;
+    margin-top: 1rem !important;
+  }
+
+  /* ── SECTION HEADER STANDARD ── */
+  .section-title-standard {
+    font-size: 2.1rem;
+    letter-spacing: 1.2px;
+  }
+
+  /* ── CONNECT SECTION ── */
+  .connect-section {
+    padding: 80px 1rem 60px;
+  }
+
+  .connect-dotted-matrix {
+    display: none;
+  }
+
+  /* ── FOOTER ── */
+  .footer-cta-title {
+    font-size: 2rem;
+  }
+}
+
+/* ── 480px: Mobile Portrait ────────────────────────────────── */
+@media (max-width: 480px) {
+
+  /* Hero: even smaller text */
+  .overlapping-text {
+    font-size: clamp(2rem, 13vw, 4.5rem);
+    letter-spacing: -1.5px;
+  }
+
+  .overlapping-text-right {
+    font-size: clamp(0.85rem, 4.5vw, 1.3rem);
+  }
+
+  .hero-image-wrapper {
+    max-width: 290px;
+  }
+
+  .profile-container {
+    max-width: 290px;
+  }
+
+  .profile-img,
+  .profile-img-glass-bg {
+    max-height: 60vmax;
+  }
+
+  .btn-hero {
+    padding: 0.72rem 1.4rem !important;
+    font-size: 0.78rem !important;
+    gap: 0.5rem !important;
+  }
+
+  /* About (≤480px) */
+  .about-section {
+    padding: 2.5rem 0.5rem 1.5rem !important;
+  }
+
+  .about-card-container {
+    padding: 1rem 0.65rem !important;
+    border-radius: 16px !important;
+  }
+
+  .bento-bio-card,
+  .bento-stats-card,
+  .bento-card {
+    padding: 1.2rem 0.85rem !important;
+    border-radius: 16px !important;
+  }
+
+  .bento-headline {
+    font-size: clamp(1.45rem, 6.5vw, 1.8rem) !important;
+    white-space: normal !important;
+    margin-top: 0 !important;
+  }
+
+  .about-values-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Stats 2-column compact grid */
+  .stats-bento-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0.5rem !important;
+  }
+
+  /* Skills (≤480px) */
+  .skills-section {
+    padding: 2.5rem 0.5rem 2rem !important;
+  }
+
+  .skills-title {
+    font-size: 1.6rem !important;
+  }
+
+  .skills-categories-nav {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0.45rem !important;
+    width: 100% !important;
+  }
+
+  .skills-categories-nav .category-btn {
+    padding: 0.65rem 0.5rem !important;
+    border-radius: 10px !important;
+  }
+
+  .skills-categories-nav .category-btn .btn-num {
+    font-size: 0.65rem !important;
+    margin-right: 0.35rem !important;
+  }
+
+  .skills-categories-nav .category-btn .btn-text {
+    font-size: 0.78rem !important;
+  }
+
+  .skills-categories-nav .category-btn:last-child {
+    grid-column: span 2 !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  .sketchpad-canvas-wrapper {
+    min-height: 200px !important;
+    height: 220px !important;
+  }
+
+  /* Section titles */
+  .section-title-standard {
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+  }
+
+  .workshop-heading {
+    font-size: 1.8rem !important;
+    letter-spacing: -0.5px;
+  }
+
+  /* Navbar */
+  .navbar-logo {
+    height: 32px;
+  }
+
+  .btn-resume {
+    font-size: 0.72rem;
+    padding: 0.45rem 1rem;
+  }
+
+  /* Connect */
+  .connect-section {
+    padding: 72px 0.75rem 48px;
+  }
+
+  /* Footer */
+  .footer-cta-title {
+    font-size: 1.7rem;
+  }
+
+  .footer-cta-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn-cta-primary,
+  .btn-cta-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Mobile menu drawer: larger touch targets */
+  .mobile-menu-link {
+    padding: 1.1rem 0;
+    font-size: 1.1rem;
+  }
+}
+
+/* ── Hero panel overview: mobile centering ── */
+@media (max-width: 768px) {
+  .hero-panel-overview {
+    align-items: center;
+  }
+
+  .hero-buttons {
+    justify-content: center;
+  }
+
+  .hero-social-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.65rem;
+  }
+
+  .hero-social-card {
+    padding: 0.75rem;
+  }
+
+  .social-name {
+    font-size: 0.85rem;
+  }
+
+  .blogs-vertical-parallax {
+    max-height: 220px;
+  }
+}
+
+/* ── Testimonials mobile override ── */
+@media (max-width: 768px) {
+  .testimonials-section {
+    padding: 5rem 0 4rem;
+  }
+
+  .testimonials-container {
+    padding: 0 1rem;
+  }
+}
+
+/* ── About values grid: 1-column on very small ── */
+@media (max-width: 400px) {
+  .about-values-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .hero-social-grid {
+    grid-template-columns: 1fr;
   }
 }

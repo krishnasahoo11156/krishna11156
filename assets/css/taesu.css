@@ -801,3 +801,90 @@
     opacity: 0;
   }
 }
+
+/* ==========================================================================
+   Taesu — Responsive Scaling for Tablet & Mobile
+   ========================================================================== */
+
+@media (max-width: 900px) {
+  .taesu-mascot {
+    width: 140px;
+    height: 168px;
+  }
+
+  .taesu-body {
+    width: 124px;
+    height: 124px;
+  }
+
+  .taesu-face {
+    width: 104px;
+    height: 104px;
+  }
+}
+
+@media (max-width: 600px) {
+  .taesu-mascot {
+    width: 110px;
+    height: 132px;
+  }
+
+  .taesu-body {
+    width: 96px;
+    height: 96px;
+  }
+
+  .taesu-face {
+    width: 80px;
+    height: 80px;
+  }
+
+  /* Scale eyes and features proportionally */
+  .taesu-eye {
+    width: 20px;
+    height: 24px;
+  }
+
+  .taesu-pupil {
+    width: 9px;
+    height: 9px;
+  }
+
+  .taesu-blush {
+    width: 14px;
+    height: 8px;
+  }
+
+  .taesu-mouth {
+    width: 22px;
+    height: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .taesu-mascot {
+    width: 88px;
+    height: 106px;
+  }
+
+  .taesu-body {
+    width: 78px;
+    height: 78px;
+  }
+
+  .taesu-face {
+    width: 64px;
+    height: 64px;
+  }
+
+  .taesu-eye {
+    width: 16px;
+    height: 20px;
+  }
+
+  .taesu-pupil {
+    width: 7px;
+    height: 7px;
+  }
+}
+
