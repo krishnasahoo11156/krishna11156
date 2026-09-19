@@ -8405,26 +8405,71 @@ main {
     font-size: 0.68rem !important;
   }
 
-  /* ── SKILLS SECTION ── */
+  /* ── SKILLS SECTION (≤768px) ── */
   .skills-section {
-    padding: 5rem 1rem;
+    padding: 3.5rem 0.75rem 2.5rem !important;
   }
 
   .skills-title {
-    font-size: 2rem;
+    font-size: clamp(1.8rem, 7vw, 2.3rem) !important;
+    letter-spacing: -0.5px !important;
   }
 
+  .skills-subtitle {
+    font-size: clamp(0.85rem, 3.5vw, 0.95rem) !important;
+    margin-bottom: 1rem !important;
+  }
+
+  /* 2-Column Grid with 7th item centered spanning 2 columns */
   .skills-categories-nav {
+    display: grid !important;
     grid-template-columns: 1fr 1fr !important;
+    gap: 0.55rem !important;
+    width: 100% !important;
   }
 
+  .skills-categories-nav .category-btn {
+    padding: 0.72rem 0.65rem !important;
+    border-radius: 12px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .skills-categories-nav .category-btn .btn-num {
+    font-size: 0.7rem !important;
+    margin-right: 0.45rem !important;
+    flex-shrink: 0 !important;
+  }
+
+  .skills-categories-nav .category-btn .btn-text {
+    font-size: 0.82rem !important;
+    font-weight: 700 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    letter-spacing: 0 !important;
+  }
+
+  /* 7th item: Tools — centered in the middle spanning both columns */
   .skills-categories-nav .category-btn:last-child {
     grid-column: span 2 !important;
+    justify-content: center !important;
+    text-align: center !important;
   }
 
+  .skills-categories-nav .category-btn:last-child .btn-num {
+    margin-right: 0.5rem !important;
+  }
+
+  /* Sketchpad drawing area */
   .sketchpad-canvas-wrapper {
-    min-height: 180px;
-    height: 200px;
+    min-height: 220px !important;
+    height: 240px !important;
+    border-radius: 16px !important;
+    margin-top: 1rem !important;
   }
 
   /* ── SECTION HEADER STANDARD ── */
@@ -8513,21 +8558,45 @@ main {
     gap: 0.5rem !important;
   }
 
-  /* Skills */
+  /* Skills (≤480px) */
   .skills-section {
-    padding: 4.5rem 0.75rem;
+    padding: 2.5rem 0.5rem 2rem !important;
   }
 
   .skills-title {
-    font-size: 1.8rem;
+    font-size: 1.6rem !important;
   }
 
   .skills-categories-nav {
-    grid-template-columns: 1fr !important;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0.45rem !important;
+    width: 100% !important;
+  }
+
+  .skills-categories-nav .category-btn {
+    padding: 0.65rem 0.5rem !important;
+    border-radius: 10px !important;
+  }
+
+  .skills-categories-nav .category-btn .btn-num {
+    font-size: 0.65rem !important;
+    margin-right: 0.35rem !important;
+  }
+
+  .skills-categories-nav .category-btn .btn-text {
+    font-size: 0.78rem !important;
   }
 
   .skills-categories-nav .category-btn:last-child {
-    grid-column: span 1 !important;
+    grid-column: span 2 !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  .sketchpad-canvas-wrapper {
+    min-height: 200px !important;
+    height: 220px !important;
   }
 
   /* Section titles */
